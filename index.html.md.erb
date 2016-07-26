@@ -4,7 +4,7 @@ title: Installing PCF Metrics
 owner: PCF Metrics
 ---
 
-The Pivotal Cloud Foundry&reg; (PCF) Metrics tile stores metrics data from applications running on PCF and graphically presents that data for operators and developers. PCF Metrics helps operators and developers better understand the health and performance of their apps by providing a near real-time view of the following data:
+The Pivotal Cloud Foundry (PCF) Metrics tile stores metrics data from applications running on PCF and graphically presents that data for operators and developers. PCF Metrics helps operators and developers better understand the health and performance of their apps by providing a near real-time view of the following data:
 
 * Container metrics: CPU, memory, and disk percentages (updated every 30 seconds)
 * Network metrics: requests per second, HTTP errors per second, and request latency (updated every second)
@@ -23,7 +23,7 @@ The Pivotal Cloud Foundry&reg; (PCF) Metrics tile stores metrics data from appli
 <dd><strong>OpenStack support?</strong> Unconfirmed</dd>
 </dl>
 
-## <a id='install'></a>Installing PCF Metrics 
+## <a id='install'></a>Installing PCF Metrics
 
 ### <a id='pre-reqs'></a>Prerequisites
 
@@ -46,10 +46,10 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 #### Assign Availability Zones (AZs) and Networks.
 
 1. Click **Assign AZs and Networks**.
-1. Select an Availability Zone under **Place singleton jobs**. 
+1. Select an Availability Zone under **Place singleton jobs**.
    <br>
    Ops Manager runs Metrics jobs with a single instance in this Availability Zone.
-1. Select one or more Availability Zones under **Balance other jobs**. 
+1. Select one or more Availability Zones under **Balance other jobs**.
    <br>
    Ops Manager balances instances of Metrics jobs with more than one instance
    across the Availability Zones that you specify.
@@ -60,7 +60,7 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 
 1. Click **Resource Config**.
 1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job. If you expect a high level of use, you may need to increase the disk resources available to your instances.
-1. Click **Save**. 
+1. Click **Save**.
 
 #### Stemcell
 
