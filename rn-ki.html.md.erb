@@ -16,6 +16,7 @@ owner: Metrix
     * Because of an earlier CLI bug, we have seen PCF metrics apps missing system org guid during tile upgrade/uninstall process which crashes PCF Metrics UI and makes the apps dropdown inaccessible. This is fixed in 1.1 Metrics tile. A work around for this to remove the user's access to system org using CLI.
 * All v1.0.x tiles - if you don't see some apps in the dropdown even though they are accessible in apps manager
     * If you have apps manager/console admin privilege, you may be able to see apps in apps manager without having space developer role privilege to the spaces in which those apps reside. Metrics however follows permissions directly form cloud controller so if you have cloud.controller.admin privilege, you can see all apps in all spaces in all orgs in PCF Metrics UI. If you have space developer privilege to certain spaces then you can only see the apps in those spaces in PCF Metrics UI.  
+* All v1.0.x tiles - SSO authentication is not supported. This feature is added in the 1.1 Metrics tile.
 
 ## Version 1.0.9
 **Release Date: July 1, 2016**
