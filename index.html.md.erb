@@ -14,22 +14,26 @@ The Pivotal Cloud Foundry (PCF) Metrics tile stores metrics data from applicatio
 
 <dl>
 <dt>Current PCF Metrics Details</dt>
-<dd><strong>Version</strong>: 1.0.10</dd>
-<dd><strong>Release Date</strong>: 7/15/2016</dd>
-<dd><strong>Compatible Ops Manager Version(s)</strong>: >= 1.6.0</dd>
-<dd><strong>Compatible Elastic Runtime Version(s)</strong>: >= 1.6.16</dd>
+<dd><strong>Version</strong>: 1.1.0</dd>
+<dd><strong>Release Date</strong>: 8/1/2016</dd>
+<dd><strong>Compatible Ops Manager Version(s) for Install</strong>: >= 1.7.0</dd>
+<dd><strong>Compatible Ops Manager Version(s) for Upgrade</strong>: >= 1.7.8</dd>
+<dd><strong>Compatible Elastic Runtime Version(s)</strong>: >= 1.7.0</dd>
 <dd><strong>AWS support?</strong> Yes<dd>
 <dd><strong>vSphere support?</strong> Yes</dd>
-<dd><strong>OpenStack support?</strong> Unconfirmed</dd>
+<dd><strong>OpenStack support?</strong> Yes</dd>
 </dl>
 
 ## <a id='install'></a>Installing PCF Metrics
 
 ### <a id='pre-reqs'></a>Prerequisites
 
-Ensure that you have installed the [Elastic Runtime Tile](http://docs.pivotal.io/pivotalcf/installing/index.html).
+1. Ensure that you have installed the [Elastic Runtime Tile](http://docs.pivotal.io/pivotalcf/installing/index.html).
 
+<p class="note"><strong>Note</strong>: The default <strong>Loggregator Port</strong> in Elastic Runtime is 443. In an AWS environment, the port must be changed to 4443.</p> 
+  
 ### <a id='step1'></a> Step 1: Add the PCF Metrics Tile to Ops Manager
+   <p class='note'><strong>Note</strong>: PCF Metrics should be installed on the same network as the Elastic Runtime Tile. </p>
 
 1. Download the PCF Metrics file from
    [Pivotal Network](https://network.pivotal.io/products/pcf-metrics).
@@ -41,7 +45,7 @@ Ensure that you have installed the [Elastic Runtime Tile](http://docs.pivotal.io
 
 From the **Installation Dashboard**, click the **PCF Metrics** tile.
 
-<p class='note'><strong>Note:</strong> The tile is orange because it requires configuration.</p>
+<p class='note'><strong>Note:</strong> The tile appears orange when it requires configuration.</p>
 
 #### Assign Availability Zones (AZs) and Networks.
 
@@ -55,6 +59,20 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
    across the Availability Zones that you specify.
 1. Use the drop-down menu to select a network.
 1. Click **Save**.
+
+#### Ingestor Options
+
+1. Click **Push Ingestor**.
+1. Review the **Instance Count** value. The PCF Metrics tile deploys one instance of the ingestor by default. You can increase this instance count at any time to accomodate higher levels of inbound log traffic. 
+1. Click **Save**.
+
+#### Errands
+
+1. Click **Errands**.
+
+1. Review the **Pre-Delete Errands**. If you deselect the **Cleanup** checkbox, artifacts may remain after the PCF Metrics tile uninstalls.
+
+<p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong>, by default. Do not deselect any of these checkboxes.</p>
 
 #### Resource Config
 
