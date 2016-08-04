@@ -4,7 +4,7 @@ title: Installing PCF Metrics
 owner: PCF Metrics
 ---
 
-The Pivotal Cloud Foundry&reg; (PCF) Metrics tile stores metrics data from applications running on PCF and graphically presents that data for operators and developers. PCF Metrics helps operators and developers better understand the health and performance of their apps by providing a near real-time view of the following data:
+The Pivotal Cloud Foundry (PCF) Metrics tile stores metrics data from applications running on PCF and graphically presents that data for operators and developers. PCF Metrics helps operators and developers better understand the health and performance of their apps by providing a near real-time view of the following data:
 
 * Container metrics: CPU, memory, and disk percentages (updated every 30 seconds)
 * Network metrics: requests per second, HTTP errors per second, and request latency (updated every second)
@@ -14,13 +14,14 @@ The Pivotal Cloud Foundry&reg; (PCF) Metrics tile stores metrics data from appli
 
 <dl>
 <dt>Current PCF Metrics Details</dt>
-<dd><strong>Version</strong>: 1.0.3</dd>
-<dd><strong>Release Date</strong>: 4/18/2016</dd>
-<dd><strong>Compatible Ops Manager Version(s)</strong>: >= 1.6.0</dd>
-<dd><strong>Compatible Elastic Runtime Version(s)</strong>: >= 1.6.16</dd>
+<dd><strong>Version</strong>: 1.1.0</dd>
+<dd><strong>Release Date</strong>: 8/1/2016</dd>
+<dd><strong>Compatible Ops Manager Version(s) for Install</strong>: >= 1.7.0</dd>
+<dd><strong>Compatible Ops Manager Version(s) for Upgrade</strong>: >= 1.7.8</dd>
+<dd><strong>Compatible Elastic Runtime Version(s)</strong>: >= 1.7.0</dd>
 <dd><strong>AWS support?</strong> Yes<dd>
 <dd><strong>vSphere support?</strong> Yes</dd>
-<dd><strong>OpenStack support?</strong> Unconfirmed</dd>
+<dd><strong>OpenStack support?</strong> Yes</dd>
 </dl>
 
 <div class="note"><strong>Note</strong>: The PCF Metrics tile operates in lockstep with Pivotal Elastic Runtime.<br>
@@ -32,7 +33,10 @@ If you are a customer upgrading from PCF 1.7 to PCF 1.8 and you are using PCF Me
 
 Ensure that you have installed the [Elastic Runtime Tile](http://docs.pivotal.io/pivotalcf/installing/index.html).
 
+<p class="note"><strong>Note</strong>: The default <strong>Loggregator Port</strong> in Elastic Runtime is 443. In an AWS environment, the port must be changed to 4443.</p> 
+  
 ### <a id='step1'></a> Step 1: Add the PCF Metrics Tile to Ops Manager
+   <p class='note'><strong>Note</strong>: PCF Metrics should be installed on the same network as the Elastic Runtime Tile. </p>
 
 1. Download the PCF Metrics file from
    [Pivotal Network](https://network.pivotal.io/products/pcf-metrics).
@@ -44,26 +48,40 @@ Ensure that you have installed the [Elastic Runtime Tile](http://docs.pivotal.io
 
 From the **Installation Dashboard**, click the **PCF Metrics** tile.
 
-<p class='note'><strong>Note:</strong> The tile is orange because it requires configuration.</p>
+<p class='note'><strong>Note:</strong> The tile appears orange when it requires configuration.</p>
 
 #### Assign Availability Zones (AZs) and Networks.
 
 1. Click **Assign AZs and Networks**.
-1. Select an Availability Zone under **Place singleton jobs**. 
+1. Select an Availability Zone under **Place singleton jobs**.
    <br>
    Ops Manager runs Metrics jobs with a single instance in this Availability Zone.
-1. Select one or more Availability Zones under **Balance other jobs**. 
+1. Select one or more Availability Zones under **Balance other jobs**.
    <br>
    Ops Manager balances instances of Metrics jobs with more than one instance
    across the Availability Zones that you specify.
 1. Use the drop-down menu to select a network.
 1. Click **Save**.
 
+#### Ingestor Options
+
+1. Click **Push Ingestor**.
+1. Review the **Instance Count** value. The PCF Metrics tile deploys one instance of the ingestor by default. You can increase this instance count at any time to accomodate higher levels of inbound log traffic. 
+1. Click **Save**.
+
+#### Errands
+
+1. Click **Errands**.
+
+1. Review the **Pre-Delete Errands**. If you deselect the **Cleanup** checkbox, artifacts may remain after the PCF Metrics tile uninstalls.
+
+<p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong>, by default. Do not deselect any of these checkboxes.</p>
+
 #### Resource Config
 
 1. Click **Resource Config**.
 1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job. If you expect a high level of use, you may need to increase the disk resources available to your instances.
-1. Click **Save**. 
+1. Click **Save**.
 
 #### Stemcell
 
