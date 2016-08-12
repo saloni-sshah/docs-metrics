@@ -17,19 +17,40 @@ owner: PCF Metrics
 
 This topic describes how to configure Pivotal Cloud Foundry (PCF) Metrics for high availability. Operators can use these procedures to optimize PCF Metrics for high capacity.
 
-For more information about the PCF Metrics components, see [PCF Metrics Product Architecture](architecture.html).
-
-To perform the procedures in this topic, you must navigate to the Ops Manager Installation Dashboard and click the **Metrics** tile.
-
 ##<a id='metrics-datastore'></a> Configuring the Metrics Datastore
 
-To calculate the correct memory allocation for each In-memory Database System (IMDS) component of PCF Metrics, use the following formulas:
+PCF Metrics uses three In-memory Database System (IMDS) components: 
 
-* Network: (40 * 3600 * 24) / numOfShards * numOfReplicas * numOfAppGuids
-* Container: (40 * 3600 * 24) / numOfShards * numOfReplicas * numOfAppGuids
-* AppEvent: ((32 * 3600 * 24) / numOfShards * numOfReplicas * numOfAppGuids) + (12 * numOfTotalAppEvents)
+* The Container Metrics IMDS stores container metrics data. 
+* The Network Metrics IMDS stores network metrics data. 
+* The App Event IMDS stores app event data. 
 
-If you increase your number of app instances (numOfAppGuids), you must allocate additional memory.
+To customize PCF Metrics for high capacity, you can add memory to the VMs that run these components.
+
+###<a id='metrics-considerations'></a> Considerations for Scaling
+
+To calculate the correct memory allocation for each IMDS component of PCF Metrics, use the following formulas:
+
+* **Container Metrics IMDS**: Each app instance produces around 500 kilobytes of metrics over a 24-hour period. To initially size this IMDS, multiply your number of app instances by 600 kilobytes. This should be your minimal setting for RAM on this IMDS. Consider over-allocating RAM to this resource to account for growth in app instances.     
+* **Network Metrics IMDS**: Network traffic can be difficult to assess in advance. Consider allocating 4 megabytes of RAM per app instance as a starting point and then evaluating the memory use on this IMDS.      
+* **App Event IMDS**: This resource depends on how frequently app events occur within an environment. Start by allocating 600 kilobytes per app instances and then multiply the number of expected app events over a 24 hour period by 20 bytes. As a rule of thumb, you can size this resource at 1 megabytes RAM per app instance, and then evaluate IMDS performance.      
+
+Use these results as guidelines. Consider configuring your IMDS components with additional memory if your deployment adds additional app instances. 
+
+###<a id='metrics-procedures'></a> Procedures for Scaling
+
+<p class="note warning">
+<strong>WARNING: </strong> If you modify the memory allocation of IMDS components, they will lose any data currently being stored.</p>
+
+After determining the amount of memory required for each IMDS component, perform the following steps:
+
+1. Navigate to the Ops Manager Installation Dashboard and click the **Metrics** tile.
+1. From the **Settings** tab of the **Metrics** tile, click **Resource Config**.
+1. Perform one or more of the following procedures, depending on which IMDS component you want to add memory to:
+	<%= image_tag('imds.png') %>
+	* To increase the memory limit for your App Event IMDS, locate the **App Event Data Store** job and select the dropdown menu under **VM Type** to select a VM with the desired amount of memory.
+	* To increase the memory limit for your Network Metrics IMDS, locate the **Network Metrics Data Store** job and select the dropdown menu under **VM Type** to select a VM with the desired amount of memory. 
+	* To increase the memory limit for your Container Metrics IMDS, locate the **Container Metrics Data Store** job and select the dropdown menu under **VM Type** to select a VM with the desired amount of memory.
 
 ##<a id='log-datastore'></a> Configuring the Log Datastore
 
@@ -43,67 +64,121 @@ If your average log size is 1 kilobyte, and each node has 1 terabyte of availabl
 
 This example assumes that your apps emit logs at a continuous rate over 24 hours. However, apps typically do not emit logs continuously. If your apps emit 2 billion of the 3 billion logs between 8am and 4pm, you must determine the minimum node-to-shard ratio to accommodate that rate over the 8-hour period. Because your apps emit 1 billion logs over a 4 hour span, you need at least 6 nodes (24 hours/6 nodes = 4 hours worth of shards per node) to hold the data and an additional 6 nodes for high-availability replication.   
 
-###<a id='log-scaling'></a> Procedures for Scaling
+###<a id='log-procedures'></a> Procedures for Scaling
+
+<p class="note warning">
+<strong>WARNING: </strong> If you modify the number of Elasticsearch instances, the Elasticsearch cluster will lose any data currently being stored.</p>
 
 After determining the number of Elasticsearch nodes needed for your deployment, perform the following steps to scale your nodes:
 
+1. Navigate to the Ops Manager Installation Dashboard and click the **Metrics** tile.
 1. From the **Settings** tab of the **Metrics** tile, click **Resource Config**.
 1. Locate the **ElasticSearchData** job and select the dropdown menu under **Instances** to change the number of instances.
+	<br>
+	<%= image_tag('elasticsearch.png') %>
 1. Click **Save**.  
 
 ##<a id='ingestor'></a> Configuring the Ingestor
 
 PCF Metrics deploys the Ingestor as an app within PCF. The Ingestor consumes logs and metrics from the Loggregator Firehose, sending metrics to Kafka and logs to the Logqueue app. To customize PCF Metrics for high capacity, you can scale the number of Ingestor app instances and increase the amount of memory per instance.
 
+###<a id='ingestor-considerations'></a> Considerations for Scaling
+
 Because apps emit logs at different volumes and frequencies, you should not scale the Ingestor by matching the number of Ingestor instances to the number of app instances in your deployment.
 
 Because ingestor performance is affected by Loggregator performance it can be difficult to determine in advance the proper configuration.  Because of the ease in scaling these components we recommend starting with a minimal configuration then evaluating performance over a period of time and scaling 
 
-The Ingestor app can handle relatively large loads. For high availability, you must have at least 2 instances of the Ingestor app running. If your deployment is running fewer than 2000 app instances, use the following procedure to scale your Ingestor:   
+The Ingestor app can handle relatively large loads. For high availability, you must have at least two instances of the Ingestor app running. If your deployment runs fewer than 2000 app instances, two instances of the Ingestor app are sufficient. 
 
-1. Scale your Ingestor app to 2 instances:
-	<pre class="terminal">$ cf scale INGESTOR-APP -i 2</pre>
-1. Evaluate the CPU and memory load on your Ingestor instances:
+###<a id='ingestor-procedures'></a> Procedures for Scaling
+
+<p class="note warning"><strong>WARNING: </strong> If you decrease the number of Ingestor instances, you may lose data currently being processed on the instances you eliminate.</p>
+
+After determining the number of Ingestor app instances needed for your deployment, perform the following steps to scale the Ingestor:
+
+1. Target your Cloud Controller with the cf Command Line Interface (CLI). If you have not installed the cf CLI, see the [Installing the cf Command Line Interface](../pivotalcf/cf-cli/install-go-cli.html) topic.
 	<pre class="terminal">
-	$ cf app INGESTOR-APP
-	Showing health and status for app INGESTOR in org TK / space TK as admin...
+	$ cf api api.YOUR-SYSTEM-DOMAIN
+	Setting api endpoint to api.YOUR-SYSTEM-DOMAIN...
 	OK
-
-	requested state: started
-	instances: 2/2
-	usage: 1G x 2 instances
-	urls: TK
-	last uploaded: Sun Apr 24 16:11:29 UTC 2016
-	stack: cflinuxfs2
-	buildpack: python 1.5.5
-		
-		state     since                    cpu    memory        disk           details
-	<span>#</span>0   running   2016-07-21 03:49:58 PM   0.0%   44.4M of 1G   154.8M of 1G
-	<span>#</span>1   running   2016-07-21 02:44:43 PM   0.1%   45.7M of 1G   154.8M of 1G
+	API endpoint:   <span>https:</span>//api.YOUR-SYSTEM-DOMAIN (API version: 2.54.0)
+	Not logged in. Use 'cf login' to log in.
 	</pre>
 
-	If your average memory usage exceeds 50% or your CPU consistently averages over 85%, add more instances with `cf scale INGESTOR-APP -i INSTANCE-NUMBER`.
+1. Log in with your UAA administrator credentials. To retrieve these credentials, navigate to the **Pivotal Elastic Runtime** tile in the Ops Manager Installation Dashboard and click **Credentials**. Under **UAA**, click **Link to Credential** next to **Admin Credentials** and record the password.
+	<pre class="terminal">
+	$ cf login
+	API endpoint: <span>https:</span>//api.YOUR-SYSTEM-DOMAIN
 
+	Email> admin
+	Password>
+	Authenticating...
+	OK
+
+1. When prompted, target the `metrics` space.
+	<pre class="terminal">
+	Targeted org system
+
+	Select a space (or press enter to skip):
+	<span>1</span>. system
+	<span>2</span>. notifications-with-ui
+	<span>3</span>. autoscaling
+	<span>4</span>. metrics
+
+	Space> 4
+	Targeted space metrics
+
+	API endpoint:   <span>https:</span>//api.YOUR-SYSTEM-DOMAIN (API version: 2.54.0)
+	User:           admin
+	Org:            system
+	Space:          metrics
+	</pre>
+
+1. Scale your Ingestor app to the desired number of instances:
+	<pre class="terminal">$ cf scale metrics-ingestor -i INSTANCE-NUMBER</pre>
+1. Evaluate the CPU and memory load on your Ingestor instances:
+	<pre class="terminal">
+	$ cf app metrics-ingestor
+	Showing health and status for app metrics-ingestor in org system / space metrics as admin...
+	OK
+	<br>
+	requested state: started
+	instances: 1/1
+	usage: 1G x 1 instances
+	urls: 
+	last uploaded: Sat Apr 23 16:11:29 UTC 2016
+	stack: cflinuxfs2
+	buildpack: binary_buildpack 
+	<br>	
+	     state     since                    cpu    memory        disk           details
+	<span>#</span>0   running   2016-07-21 03:49:58 PM   2.9%   13.5M of 1G   12.9M of 1G
+	</pre>
+
+	If your average memory usage exceeds 50% or your CPU consistently averages over 85%, add more instances with `cf scale metrics-ingestor -i INSTANCE-NUMBER`.
+	<br><br>
 	In general, you should scale the Ingestor app by adding additional instances. However, you can also scale the Ingestor app by increasing the amount of memory per instance:
 
-	<pre class="terminal">$ cf scale INGESTOR-APP -m NEW-MEMORY-LIMIT</pre>
+	<pre class="terminal">$ cf scale metrics-ingestor -m NEW-MEMORY-LIMIT</pre>
 
-	For more information on scaling app instances, see [Scaling an Application Using cf scale](../pivotalcf/devguide/deploy-apps/cf-scale.html).
-
-	<p class="note warning">
-	<strong>WARNING: </strong> If you decrease the number of Ingestor instances, you may lose data currently being processed on the instances you eliminate.</p>
+	For more information on scaling app instances, see the [Scaling an Application Using cf scale](../pivotalcf/devguide/deploy-apps/cf-scale.html) topic.
 
 ##<a id='logqueue'></a> Configuring the Logqueue
 
 PCF Metrics deploys the Logqueue as an app within PCF. The Logqueue consumes logs from the Ingestor and forwards them to the Elasticsearch nodes. To customize PCF Metrics for high capacity, you can scale the number of Logqueue app instances and increase the amount of memory per instance.
 
+###<a id='logqueue-considerations'></a> 
+
 To determine the number of Logqueue instances required for your deployment, multiply your number of Elasticsearch nodes by 1.5. This is a general estimate and you may need fewer instances depending on your deployment. To optimize resource allocation, provision fewer instances initially and increase instances until you achieve desired performance.
 
+###<a id='logqueue-procedures'></a>
+
+To modify your Logqueue app instances, you must first target your Cloud Controller, log in with your UAA administrator credentials, and target the `metrics` space by following steps 1-3 in the [previous section](#ingestor-procedures).
+
 To scale your Logqueue app instances, perform the following command:
-<pre class="terminal">$ cf scale LOGQUEUE-APP -i INSTANCE-NUMBER</pre>
+<pre class="terminal">$ cf scale metrics-logqueue -i INSTANCE-NUMBER</pre>
 
 To scale the memory limit per Logqueue app instance, perform the following command:
-<pre class="terminal">$ cf scale LOGQUEUE-APP -m NEW-MEMORY-LIMIT</pre>
+<pre class="terminal">$ cf scale metrics-logqueue -m NEW-MEMORY-LIMIT</pre>
 
 <p class="note warning">
 <strong>WARNING: </strong> If you decrease the number of Logqueue instances, you may lose data currently being processed on the instances you eliminate.</p>
@@ -124,17 +199,8 @@ The following list includes common issues and their solutions:
 To check the health of your Elasticsearch cluster, perform the following steps:
 
 1. Retrieve the IP address of your Elasticsearch master node by navigating to the **Metrics** tile in the Ops Manager Installation Dashboard, clicking the **Status** tab, and recording the IP address next to **ElasticSearchMaster**.
+	<%= image_tag('elasticsearch-ip.png') %>
 1. SSH into the Ops Manager VM by following the instructions in [SSH into Ops Manager](../pivotalcf/customizing/trouble-advanced.html#ssh).
 1. From the Ops Manager VM, use `curl` to target the IP address of your Elasticsearch master node. Follow the instructions in the [Cluster Health](https://www.elastic.co/guide/en/elasticsearch/reference/2.2/_cluster_health.html) topic of the Elasticsearch documentation.
 
 
--------------
-QUESTIONS
-
-1) What does this mean? "In PCF Metrics 1.1 you are able to increase instances of ingestor and log queue components, to accommodate higher volumes.  However altering the IMDS and Elasticsearch configurations are not supported.  If you alter these configurations you will lose any data saved to that point."
-
-2) Where do we find the IP address of the Elasticsearch master node? Through the Status tab? 
-
-3) Do we scale the IMDS component through the Resource Config and scaling Networks Metrics Data Store and Container Metrics Data Store? Do we scale both?
-
-4) Are the IMDS formulas still correct?
