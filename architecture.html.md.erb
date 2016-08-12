@@ -1,0 +1,13 @@
+---
+breadcrumb: PCF Metrics Documentation
+title: PCF Metrics Product Architecture
+owner: PCF Metrics
+---
+
+This topic describes the product architecture of PCF Metrics.
+
+<%= image_tag('architecture.png') %>
+
+
+The PCF Metrics product architecture essential starts at the PCF Metrics Ingestor component. This custom nozzle reads application metrics, events, and logs data off of the CF Firehose. Metrics and events data is forwarded by the Ingestor into a metrics queue system (Kafka), and then flows into the provided IMDS (in-memory data stores), where that data is then exposed via product-specific APIs to the product user-interface. Application logs provided by the firehose are forwarded by the PCF Metrics Ingestor into a custom logs queue system, and then on to Elastic Search, where that data is then exposed via product-specific APIs to the product user-interface.
+
