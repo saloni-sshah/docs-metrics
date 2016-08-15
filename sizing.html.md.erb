@@ -32,7 +32,7 @@ To customize PCF Metrics for high capacity, you can add memory to the VMs that r
 To calculate the correct memory allocation for each IMDS component of PCF Metrics, use the following formulas:
 
 * **Container Metrics IMDS**: Each app instance produces around 500 kilobytes of metrics over a 24-hour period. To initially size this IMDS, multiply your number of app instances by 600 kilobytes. This should be your minimal setting for RAM on this IMDS. Consider over-allocating RAM to this resource to account for growth in app instances.     
-* **Network Metrics IMDS**: Network traffic can be difficult to assess in advance. Consider allocating 4 megabytes of RAM per app instance as a starting point and then evaluating the memory use on this IMDS.      
+* **Network Metrics IMDS**: Network traffic can be difficult to assess in advance. Consider allocating 4 megabytes of RAM per app as a starting point and then evaluating the memory use on this IMDS.      
 * **App Event IMDS**: This resource depends on how frequently app events occur within an environment. Start by allocating 600 kilobytes per app instances and then multiply the number of expected app events over a 24 hour period by 20 bytes. As a rule of thumb, you can size this resource at 1 megabytes RAM per app instance, and then evaluate IMDS performance.      
 
 Use these results as guidelines. Consider configuring your IMDS components with additional memory if your deployment adds additional app instances. 
