@@ -1,6 +1,6 @@
 ---
 breadcrumb: PCF Metrics Documentation
-title: Installing PCF Metrics
+title: PCF Metrics
 owner: PCF Metrics
 ---
 
@@ -24,71 +24,12 @@ The Pivotal Cloud Foundry (PCF) Metrics tile stores metrics data from applicatio
 <dd><strong>OpenStack support?</strong> Yes</dd>
 </dl>
 
-## <a id='install'></a>Installing PCF Metrics
+## PCF Metrics User Guide
 
-### <a id='pre-reqs'></a>Prerequisites
+See the following topics for details about PCF Metrics:
 
-Ensure that you have installed the [Elastic Runtime Tile](http://docs.pivotal.io/pivotalcf/installing/index.html).
-
-<p class="note"><strong>Note</strong>: The default <strong>Loggregator Port</strong> in Elastic Runtime is 443. In an AWS environment, the port must be changed to 4443.</p> 
-  
-### <a id='step1'></a> Step 1: Add the PCF Metrics Tile to Ops Manager
-   <p class='note'><strong>Note</strong>: PCF Metrics should be installed on the same network as the Elastic Runtime Tile. </p>
-
-1. Download the PCF Metrics file from
-   [Pivotal Network](https://network.pivotal.io/products/pcf-metrics).
-1. Upload the PCF Metrics file to your Ops Manager installation.
-1. Click **Add** next to the uploaded product description in the **Available Products**
-   view to add PCF Metrics to your **Installation Dashboard**.
-
-### <a id='step2'></a>Step 2: Configure the PCF Metrics Tile
-
-<p class="note"><strong>Note</strong>: The following procedures offer a standard configuration. To customize PCF Metrics for high capacity, see the <a href="sizing.html">Sizing PCF Metrics For Your System</a> topic.</p>
-
-From the **Installation Dashboard**, click the **PCF Metrics** tile.
-
-<p class='note'><strong>Note:</strong> The tile appears orange when it requires configuration.</p>
-
-#### Assign Availability Zones (AZs) and Networks.
-
-1. Click **Assign AZs and Networks**.
-1. Select an Availability Zone under **Place singleton jobs**.
-   <br>
-   Ops Manager runs Metrics jobs with a single instance in this Availability Zone.
-1. Select one or more Availability Zones under **Balance other jobs**.
-   <br>
-   Ops Manager balances instances of Metrics jobs with more than one instance
-   across the Availability Zones that you specify.
-1. Use the drop-down menu to select a network.
-1. Click **Save**.
-
-#### Ingestor Options
-
-1. Click **Push Ingestor**.
-1. Review the **Instance Count** value. The PCF Metrics tile deploys one instance of the ingestor by default. You can increase this instance count at any time to accommodate higher levels of inbound log traffic. 
-1. Click **Save**.
-
-#### Errands
-
-1. Click **Errands**.
-
-1. Review the **Pre-Delete Errands**. If you deselect the **Cleanup** checkbox, artifacts may remain after the PCF Metrics tile uninstalls.
-
-<p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong>, by default. Do not deselect any of these checkboxes.</p>
-
-#### Resource Config
-
-1. Click **Resource Config**.
-1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job. If you expect a high level of use, you may need to increase the disk resources available to your instances.
-1. Click **Save**.
-
-#### Stemcell
-
-1. Navigate to [Pivotal Network](https://network.pivotal.io) and click **Stemcells**.
-1. Download the appropriate stemcell version for your IaaS.
-   <p class='note'><strong>Note:</strong> On AWS make sure to use a HVM stemcell if you are using the default instance sizes.</p>
-1. Click **Import Stemcell** and select the stemcell file you downloaded.
-
-### <a id='step3'></a>Step 3: Deploy PCF Metrics
-
-Click **Apply Changes** to install the service. Review the [Using PCF Metrics](using.html) topic for more information on how to log in, use, and interpret data from PCF Metrics.
+* [Installing PCF Metrics](./installing.html)
+* [Sizing PCF Metrics For Your System](./sizing.html)
+* [Using PCF Metrics](./using.html)
+* [PCF Metrics Product Architecture](./architecture.html)
+* [Release Notes and Known Issues](./rn-ki.html)
