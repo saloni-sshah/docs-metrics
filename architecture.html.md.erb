@@ -1,0 +1,17 @@
+---
+breadcrumb: PCF Metrics Documentation
+title: PCF Metrics Product Architecture
+owner: PCF Metrics
+---
+
+This topic describes the product architecture of Pivotal Cloud Foundry (PCF) Metrics.
+
+<%= image_tag('architecture.png') %>
+
+1. The Ingestor consumes application metrics, events, and logs from the PCF deployment through the Loggregator Firehose. For more information about the Loggregator system, see the [Overview of the Loggregator System](../pivotalcf/loggregator/architecture.html) topic.
+1. The Ingestor forwards data to different components based on the type of data:
+	* Metrics and events data go to the [Apache Kafka](http://kafka.apache.org/documentation.html) component. 
+	* Logs go to the Logqueue application deployed in PCF. 
+1. Kafka stores metrics and events data in one of three In-memory Database System (IMDS) components: Container Metrics IMDS, Network Metrics IMDS, and App Event IMDS. The Container Metrics IMDS fetches current quota data from the Cloud Controller. Logqueue stores log data in the [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html) cluster.
+1. Product-specific APIs expose data from the IMDS components and the Elasticsearch cluster.
+1. The Metrics UI uses the product-specific APIs to display data to users. The Metrics UI also displays application names, spaces, orgs, and other metadata that it receives from the Cloud Controller.
