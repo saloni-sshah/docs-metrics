@@ -98,7 +98,7 @@ The Ingestor app can handle relatively large loads. For high availability, you m
 
 After determining the number of Ingestor app instances needed for your deployment, perform the following steps to scale the Ingestor:
 
-1. Target your Cloud Controller with the cf Command Line Interface (CLI). If you have not installed the cf CLI, see the [Installing the cf Command Line Interface](../pivotalcf/1-7/cf-cli/install-go-cli.html) topic.
+1. Target your Cloud Controller with the cf Command Line Interface (CLI). If you have not installed the cf CLI, see the [Installing the cf Command Line Interface](http://docs.pivotal.io/pivotalcf/1-7/cf-cli/install-go-cli.html) topic.
 	<pre class="terminal">
 	$ cf api api.YOUR-SYSTEM-DOMAIN
 	Setting api endpoint to api.YOUR-SYSTEM-DOMAIN...
@@ -162,7 +162,7 @@ After determining the number of Ingestor app instances needed for your deploymen
 
 	<pre class="terminal">$ cf scale metrics-ingestor -m NEW-MEMORY-LIMIT</pre>
 
-	For more information about scaling app instances, see the [Scaling an Application Using cf scale](../pivotalcf/1-7/devguide/deploy-apps/cf-scale.html) topic.
+	For more information about scaling app instances, see the [Scaling an Application Using cf scale](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/cf-scale.html) topic.
 
 ##<a id='logqueue'></a> Configuring the Logqueue
 
@@ -202,7 +202,7 @@ To check the health of your Elasticsearch cluster, perform the following steps:
 
 1. Retrieve the IP address of your Elasticsearch master node by navigating to the **Metrics** tile in the Ops Manager Installation Dashboard, clicking the **Status** tab, and recording the IP address next to **ElasticSearchMaster**.
 	<%= image_tag('elasticsearch-ip.png') %>
-1. SSH into the Ops Manager VM by following the instructions in [SSH into Ops Manager](../pivotalcf/1-7/customizing/trouble-advanced.html#ssh).
+1. SSH into the Ops Manager VM by following the instructions in [SSH into Ops Manager](http://docs.pivotal.io/pivotalcf/1-7/customizing/trouble-advanced.html#ssh).
 1. From the Ops Manager VM, use `curl` to target the IP address of your Elasticsearch master node. Follow the instructions in the [Cluster Health](https://www.elastic.co/guide/en/elasticsearch/reference/2.2/_cluster_health.html) topic of the Elasticsearch documentation.
 
 
