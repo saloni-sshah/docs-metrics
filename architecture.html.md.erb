@@ -8,7 +8,11 @@ This topic describes the product architecture of Pivotal Cloud Foundry (PCF) Met
 
 <%= image_tag('architecture.png') %>
 
+<<<<<<< HEAD
 1. The Ingestor consumes application metrics, events, and logs from the PCF deployment through the Loggregator Firehose. For more information about the Loggregator system, see the [Overview of the Loggregator System](http://docs.pivotal.io//pivotalcf/loggregator/architecture.html) topic.
+=======
+1. The Ingestor consumes application metrics, events, and logs from the PCF deployment through the Loggregator Firehose. For more information about the Loggregator system, see the [Overview of the Loggregator System](../pivotalcf/loggregator/architecture.html) topic.
+>>>>>>> 1.8
 1. The Ingestor forwards data to different components based on the type of data:
 	* Metrics and events data go to the [Apache Kafka](http://kafka.apache.org/documentation.html) component. 
 	* Logs go to the Logqueue application deployed in PCF. 
