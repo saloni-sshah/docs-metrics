@@ -11,6 +11,9 @@ owner: PCF Metrics
 
 ### Known Issues
 * Due to a stemcell upgrade issue in earlier versions of Ops Manager, you must be on Ops Manager 1.7.8 or later to upgrade to PCF Metrics 1.1
+* If you have access to more than 50 apps, it is possible that you may not be able to see or search for a particular app in apps dropdown. We will fix this issue in the v1.2 release. In the meantime, the following are available workarounds:
+    * Click on PCF Metrics link directly from Apps Manager
+    * Copy the appGuid from Apps Manager or from CLI and paste it into the metrics URL 
 * Due to a known limitation with deep pagination in Elastic Search, if the results of your log query exceed 10k, we are capping the result set that returns to the UI at 10k and disabling the needle navigation interaction. We are working to overcome this issue in the next version of the product. In the meantime, if you are impacted by the 10k result cap on your logs data, you can do the following to ensure more targeted queries:
 	* reduce your viewed timeslice to an hour or a minute
 	* use the available search filters
@@ -29,6 +32,9 @@ owner: PCF Metrics
 
 ### Known Issues
 * Due to a stemcell upgrade issue in earlier versions of Ops Manager, you must be on Ops Manager 1.7.8 or later to upgrade to PCF Metrics 1.1
+* If you have access to more than 50 apps, it is possible that you may not be able to see or search for a particular app in apps dropdown. We will fix this issue in the v1.2 release. In the meantime, the following are available workarounds:
+    * Click on PCF Metrics link directly from Apps Manager
+    * Copy the appGuid from Apps Manager or from CLI and paste it into the metrics URL 
 * Due to a known limitation with deep pagination in Elastic Search, if the results of your log query exceed 10k, we are capping the result set that returns to the UI at 10k and disabling the needle navigation interaction. We are working to overcome this issue in the next version of the product. In the meantime, if you are impacted by the 10k result cap on your logs data, you can do the following to ensure more targeted queries:
 	* reduce your viewed timeslice to an hour or a minute
 	* use the available search filters
