@@ -56,7 +56,7 @@ After determining the amount of memory required for each IMDS component, perform
 
 ##<a id='log-datastore'></a> Configuring the Log Datastore
 
-PCF Metrics uses Elasticsearch to store logs. Each Elasticsearch node contains multiple shards of log data, divided by time slice. To customize PCF Metrics for high capacity, you can scale the number of Elasticsearch nodes.
+PCF Metrics uses the [Elasticsearch](https://www.elastic.co/) search engine to store logs. Each Elasticsearch node contains multiple shards of log data, divided by time slice. To customize PCF Metrics for high capacity, you can scale the number of Elasticsearch nodes.
 
 ###<a id='log-considerations'></a> Considerations for Scaling
 
