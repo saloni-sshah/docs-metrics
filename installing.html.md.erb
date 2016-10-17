@@ -45,18 +45,27 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 1. Use the drop-down menu to select a network.
 1. Click **Save**.
 
-### Ingestor Options
 
-1. Click **Push Ingestor**.
+### Alerts
+
+### Data Store
+
+1. Click **Data Store**.
 	![Ingestor](push-ingestor.png)
-1. Review the **Instance Count** value. The PCF Metrics tile deploys one instance of the ingestor by default. You can increase this instance count at any time to accommodate higher levels of inbound log traffic. 
+1. Review the **Elastic Search Heap Size** value. Elastic Search memory allocation for Heap use. Set to 50% of the memory allocated to the Elasticsearch instances in Resource Config or 31GB, whichever is smaller. Use a unit of M for megabytes or G for gigabytes.
+1. Review the **MySQL InnoDB Buffer Size** value. Number of bytes for MySQL to use with memory allocation of InnoDB buffer. Set to 80% of the memory allocated to the MySQL instances in Resource Config. This does not take a unit, please provide the value in bytes.
+1. Review the **MySQL Logqueue Count** value. You can increase this instance count at any time to accommodate higher levels of inbound metrics traffic. 
+1. Review the **Elasticsearch Logqueue Count** value. You can increase this instance count at any time to accommodate higher levels of inbound log traffic. 
+1. Review the **Ingestor Count** value. You can increase this instance count at any time to accommodate higher levels of Loggregator Firehose traffic. 
 1. Click **Save**.
 
 ### Errands
 
 1. Click **Errands**.
+1. Review the **Post-Deploy Errands** and **Pre-Delete Errands**:
+  * If this is the first deployment of the tile, all **Post-Deploy Errands** must be selected.
+  * If you deselect the **Remove PCF Metrics 1.2 CF Resources** checkbox, artifacts may remain after the PCF Metrics tile uninstalls.
 
-1. Review the **Pre-Delete Errands**. If you deselect the **Cleanup** checkbox, artifacts may remain after the PCF Metrics tile uninstalls.
 
 <p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong>, by default. Do not deselect any of these checkboxes.</p>
 
@@ -66,6 +75,8 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 	![Resource Config](resource-config.png)
 1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job. If you expect a high level of use, you may need to increase the disk resources available to your instances.
 1. Click **Save**.
+
+<p class="note"><strong>Note:</strong> There have been issues with the Ops Manager Bosh Director using persistent disks larger than 2TB.</p>
 
 ### Stemcell
 
@@ -203,7 +214,7 @@ If errors occur while the smoke tests run, they will be summarized at the end of
   <th>Solution</th>
   <td>The front end API is not receiving metrics from MySQL.  
   Investigate the cause by checking the logs for the <code>metrics</code> application located in the 
-  <code>metrics</code> space of the <code>system</code> organization.
+  <code>metrics-v1-2</code> space of the <code>system</code> organization.
   </td>
 </tr>
 </table>
@@ -224,7 +235,7 @@ If errors occur while the smoke tests run, they will be summarized at the end of
   <th>Solution</th>
   <td>The front end API is not receiving logs from ElasticSearch.  
   Investigate the cause by checking the logs for the <code>metrics</code> application located in the 
-  <code>metrics</code> space of the <code>system</code> organization.  
+  <code>metrics-v1-2</code> space of the <code>system</code> organization.  
   </td>
 </tr>
 </table>
