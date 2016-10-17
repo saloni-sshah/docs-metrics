@@ -195,6 +195,7 @@ The following list includes common issues and their solutions:
 
 * **WebSocket Disconnects**: If you see Websocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances. The Firehose may be dropping the Ingestor connection to avoid back pressure.
 * **"503" Error**: If you encounter "503" errors when accessing the PCF Metrics UI in your browser, your Elasticsearch nodes may have become unresponsive. Check the Elasticsearch index health by following the procedure below, and consider adding additional Elasticsearch nodes.
+* **Metrics/Logs Failing to Surface in UI**: If you use a load balancer, the event-stream mechanism used by the Metrics UI could be being blocked. With one customer of PCF Metrics 1.1 using a F5 load balancer, metrics and logs were not visible in the UI despite successful ingestion and no UI errors reported. The root of the issue was the traffic of type text/event-stream was blocked by the F5 load balancer. Once F5 was configured to allow event-stream traffic, the issue was resolved. 
 
 ###<a id='check-cluster-health'></a> Check Elasticsearch Cluster Health 
 
