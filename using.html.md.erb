@@ -4,61 +4,92 @@ title: Using PCF Metrics
 owner: PCF Metrics
 ---
 
-This topic describes how to log into, use, and interpret data from Pivotal Cloud Foundry (PCF) Metrics. <%= vars.pws_metrics %>
+This topic describes how to log in to, use, and interpret data from Pivotal Cloud Foundry (PCF) Metrics. 
+
+Pivotal Web Services (PWS) uses Pivotal Cloud Foundry (PCF) Metrics to store logs and metrics data from applications running on PWS and graphically present that data for developers. PCF Metrics helps developers better understand the health and performance of their apps by providing a near real-time view of the following data:
+
+* **Container metrics**: CPU, memory, and disk usage percentages 
+* **Network metrics**: requests per second, HTTP errors per second, and request latency 
+* **App events**: create, update, start, stop, and crash
+* **Logs**: searchable application logs from the past two weeks
+
+For example, if you see a crash in the events view, you can zoom in on that time and view the corresponding container and network metrics. To help you troubleshoot, you can also see log output for that same time period. 
+
 
 ##<a id='get-started'></a> View an App in PCF Metrics
 
-1. <%= vars.metrics_login %>
-1. <%= vars.metrics_viewapps %> 
-    <%= image_tag("search-bar.png") %>
+<%= vars.metrics_login %>
 
-From here, you can explore your app metrics by doing the following:
+![Search for an app](search.png)
 
-* [Toggle the data views](#toggle)
-* [Set the time frame](#time)
-* [Filter logs](#logs)
+PCF Metrics provides you with a graphical representation of application data for a given time frame, along with the corresponding application logs. See the sections below to [Toggle the Data Views](#toggle) and [Change the Time Frame](#time). See the [Interpret Metrics](#metrics) section for more information on each data view.
 
-## <a id="toggle"></a>Set the Data Views and Time Scale
+![Metrics UI](full.png)
 
 ### <a id="toggle"></a>Toggle the Data Views
 
-There are four data views: **Events**, **Container**, **Requests &amp; Errors**, and **Latency**. You can select which of these time plots you want to see using the toggles at upper left. Sections below describe each of these views.
+There are four data views: **Container Metrics**, **Network Metrics**, **Logs**, and **Events**. Select which views you want to see using the toggles in the upper left. 
+
+![Toggle](images/toggle.png)
 
 ### <a id="time"></a>Change the Time Frame
 
-The data views show time along the horizontal axis. The dropdown at upper left sets the time frame shown, for all data views. Choices range from the past two weeks to the past hour. 
+The data views show time along the horizontal axis. You can change the time frame for all the data views by using the dropdown at the top of the page. Use the refresh button to update all views with the most current data. 
 
 ![time](images/metrics-time.png)
 
-From within any data view, you can zoom in on areas of interest by clicking and dragging along the horizontal axis.
+**Zoom**: From within any data view, you can also zoom in on areas of interest by clicking and dragging within the graph. This adjusts all of the views, including **Logs**, to show data from that time period.
 
 <%= image_tag("metric-zoom.png") %>
 
-##<a id='metrics'></a> Interpret the Metrics
+**Drag**: From underneath the x-axis of any data view, you can drag left or right to view data for an earlier or later time. 
 
-Each data view provides a near real-time view of the following data:
 
-### Events 
 
-App events create, update, start, stop, and crash. 
+##<a id='metrics'></a> Interpret Metrics
 
-### Container Metrics
+PCF Metrics provides a near real-time display of the following data. You can hover over each view to see data for a specific time. 
 
-Container Metrics displays CPU, memory, and disk usage:
+### <a id='container'></a> Container Metrics
+
+The **Container Metrics** view displays **CPU**, **Memory**, and **Disk** usage:
+
+![Container View](container.png)
 
 * A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but investigate the app to better understand and fix the root cause. 
 * A spike in memory might mean a resource leak in the code. Scaling app memory can also relieve the immediate pressure, but look for and resolve the underlying issue so that it does not occur again. 
 * A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing huge sessions to disk. 
 
-### Network Metrics
+### <a id='network'></a> Network Metrics
 
-Network Metric displays HTTP requests, errors, and latency:
+The **Network Metric** view displays HTTP **Requests and Errors** and **Latency**:
+
+![Network View](network.png)
 
 * A spike in latency means your users are waiting longer to use your app. Scaling app instances can spread that workload over more resources and result in faster response times. 
 * A spike in HTTP errors means one or more 4xx or 5xx errors have occurred. Check your app logs for more information. 
 * A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the higher latency that may result.
 
-## <a id="logs"></a>View and Filter the Log Source
+### <a id='events'></a> Events 
 
-Logs displays application log data ingested from the [firehose](http://docs.pivotal.io/pivotalcf/1-7/loggregator/architecture.html#firehose). PCF Metrics stores application log data for 2 weeks. 
+The **Events** view shows the following app events: **Create**, **Update**, **Start**, **Stop**, and **Crash**. You can change which events you see using the checkboxes in the upper right. 
+
+![Events](events.png)
+
+### <a id="logs"></a>Logs
+
+Logs displays application log data ingested from the [firehose](http://docs.pivotal.io/pivotalcf/1-7/loggregator/architecture.html#firehose). PCF Metrics stores application log data for two weeks. See the [Application Logging in Cloud Foundry](../devguide/deploy-apps/streaming-logs.html) topic for more information.
+
+![Logs](logs.png)
+
+PCF Metrics lists all logs by default, and the histogram displays log frequency for the current time frame. You can refine the list and histogram with the following: 
+
+* **Filter**: Perform a keyword search. The histogram updates with blue bars based on the filter. Hover over a histogram bar to view the amount of logs for a specific time based on your filter. 
+* **Highlight**: Enter a term to highlight within your search. The histogram updates with yellow bars based on the results. Hover over a histogram bar to view the amount of logs for a specific time that contain the highlighted term. 
+* **Sources**: Choose which sources to display logs from. 
+* **Order**: Modify the order in which logs appear. 
+
+You can also click the **Download** button to download a file containing logs for the current search. 
+
+
 
