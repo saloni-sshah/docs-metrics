@@ -7,7 +7,7 @@ list_style_none: true
 
 This document describes how to install and configure Pivotal Cloud Foundry (PCF) Metrics.
 
-<p class="note"><strong>Note</strong>: With the addition of application logs in PCF Metrics 1.1.X, the product has introduced new Elastic Search Master and Data nodes for logs storage. The additional storage required to support application logs increases the default tile size on install to approximately 250GB.</p> 
+<p class="note"><strong>Note</strong>: With the increase of logs retention from 24 hours to 2 weeks in PCF Metrics 1.2.X, the product has increased the default size of the Elasticsearch cluster. The default number of VMs provisioned for Elasticsearch has gone from 3 to 9 VMs with respect to PCF Metrics 1.1.X. Also in PCF Metrics 1.2.X, storage of metrics have moved from IMDS to MySQL. To enable retention of 2 weeks of metrics and introduce high availability in MySQL, the number of VMs dedicated to metrics storage has gone from 5 to 7 VMs with respect to PCF Metrics 1.1.X. The increased retention period for both logs and metrics has also increased the default storage requirement in PCF Metrics 1.2.X by a factor of 10 over PCF Metrics 1.1.X</p> 
 
 ## <a id='pre-reqs'></a>Prerequisites
 
