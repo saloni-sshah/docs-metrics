@@ -11,10 +11,10 @@ owner: PCF Metrics
 
 PCF Metrics 1.2.0 introduces the following features:
 
-* **Increased log retention period**: PCF Metrics 1.2.0 increases the log retention period to 2 weeks, as opposed to 24 hours in 1.1.X versions of the tile.
-    * To handle the increase, version 1.2 increases the default size of the Elasticsearch cluster from 3 to 9 VMs. 
-    * Version 1.2 moves the storage of metrics from IMDS to MySQL. * To enable retention of 2 weeks of metrics and introduce high availability in MySQL, the number of VMs dedicated to metrics storage has gone from 5 to 7 VMs with respect to PCF Metrics 1.1.X. 
-    * The increased retention period for both logs and metrics has also increased the default storage requirement in PCF Metrics 1.2.X by a factor of 10 over PCF Metrics 1.1.X
+* **Increased log retention period**: Retains logs for 2 weeks (previously 24 hours). To support a higher retention period, this release includes the following component updates:
+    * **Log datastore**: The default size of the Elasticsearch cluster is now 9 VMs instead of 3. 
+    * **Metrics datastore**: The tile stores metrics in MySQL instead of IMDS and increases the number of metrics VMs to 7 instead of 5 to support higher capacity and introduce high availability.
+    * **Storage requirements**: The default storage requirement for version 1.2 increases by a factor of 10 over PCF Metrics 1.1.X.
 
 ### Known Issues
 * Due to a stemcell upgrade issue in earlier versions of Ops Manager, you must be on Ops Manager 1.7.8 or later to upgrade to PCF Metrics 1.1
