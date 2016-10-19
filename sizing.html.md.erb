@@ -28,9 +28,6 @@ To customize PCF Metrics for high capacity, you can add memory and persistent di
 ###<a id='metrics-considerations'></a> Considerations for Scaling
 Because apps emit logs at different volumes and frequencies, you should not scale the MySQL server nodes in accordance to the number of app instances in your deployment. Because of the ease in scaling these components, we recommend starting with a minimal configuration then evaluating performance over a period of time and scaling. As long as persistent disk is being scaled up, there should not be any fear of losing data. 
 
-<p class="note warning"><strong>WARNING:</strong> There have been issues with the Ops Manager Bosh Director using persistent disks larger than 2TB.</p>
-
-
 To calculate approximate starting memory and disk allocation for each MySQL server node, use the following formulas:
 
 * **Memory**: As a general rule, each MySQL server node should have a minimum of 35 GB of memory. Increase from here if read performance starts to decrease.
@@ -45,6 +42,8 @@ After determining the amount of memory and persistent disk required for each MyS
 1. Navigate to the Ops Manager Installation Dashboard and click the **Metrics** tile.
 1. From the **Settings** tab of the **Metrics** tile, click **Resource Config**.
 1. Modify the memory limit or persistent disk allocation as needed for your environment.
+
+	<p class="note warning"><strong>WARNING:</strong> There have been issues with the Ops Manager Bosh Director using persistent disks larger than 2TB.</p>
 
 <p class="note warning">
 <strong>NOTE: </strong> If you modify the memory allocation for the MySQL server nodes, be sure to also update the MySQL InnoDB Buffer Size setting. The recommendation is that the buffer size be set to 80% of the memory allocated to that VM.
@@ -68,7 +67,7 @@ If your average log size is 1 kilobyte, and each node has 1 terabyte of availabl
 
 This example assumes that your apps emit logs at a continuous rate over 24 hours. However, apps typically do not emit logs continuously. If your apps emit 2 billion of the 3 billion logs between 8 AM and 4 PM, you must determine the minimum node-to-shard ratio to accommodate that rate over the 8-hour period. Because your apps emit 1 billion logs over a 4 hour span, you need at least 6 nodes (24 hours/6 nodes = 4 hours worth of shards per node) to hold the data and an additional 6 nodes for high-availability replication.   
 
-The throughput of logs per minute should also indicate how many Elasticsearch data nodes are provisioned. The general rule is that one data node should be provisioned per every 5000 logs received in a minute.
+You can also use the throughput of logs per minute to help determine how many Elasticsearch data nodes to provision. As a general rule, provision one data node for every 5000 logs received in one minute.
 
 ###<a id='log-procedures'></a> Procedures for Scaling
 
