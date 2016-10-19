@@ -43,16 +43,18 @@ After determining the amount of memory and persistent disk required for each MyS
 1. From the **Settings** tab of the **Metrics** tile, click **Resource Config**.
 1. Modify the memory limit or persistent disk allocation as needed for your environment.
 
-	<p class="note warning"><strong>WARNING:</strong> There have been issues with the Ops Manager Bosh Director using persistent disks larger than 2TB.</p>
+	<p class="note warning"><strong>WARNING:</strong> There have been issues with Ops Manager BOSH Director using persistent disks larger than 2TB.</p>
 
 <p class="note warning">
-<strong>NOTE: </strong> If you modify the memory allocation for the MySQL server nodes, be sure to also update the MySQL InnoDB Buffer Size setting. The recommendation is that the buffer size be set to 80% of the memory allocated to that VM.
-
-To update that setting:
-
-1. Navigate to the Ops Manager Installation Dashboard and click the **Metrics** tile.
-1. From the **Settings** tab of the **Metrics** tile, click **Data Store**.
-1. Update the **MySQL InnoDB Buffer Size** input field.
+<strong>NOTE: </strong> If you modify the memory allocation for the MySQL server nodes, you must also update the MySQL InnoDB Buffer Size setting. We recommend you set the buffer size to 80% of the memory allocated to that VM.
+<br>
+To change the MySQL InnoDB Buffer Size:
+<br></br>
+1. Navigate to the Ops Manager Installation Dashboard and click the <strong>Metrics</strong> tile.
+<br>
+2. From the <strong>Settings</strong> tab of the <strong>Metrics</strong> tile, click <strong>Data Store</strong>.
+<br>
+3. Update the <strong>MySQL InnoDB Buffer Size</strong> input field.
 </p>
 
 ##<a id='log-datastore'></a> Configuring the Log Datastore
