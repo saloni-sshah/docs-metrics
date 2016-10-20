@@ -3,7 +3,7 @@ title: PCF Metrics Release Notes and Known Issues
 owner: PCF Metrics
 ---
 
-##<a id='v1.2.0'></a>Version 1.2.0
+## <a id='v1.2.0'></a>Version 1.2.0
 
 **Release Date: TBD, 2016**
 
@@ -11,7 +11,7 @@ owner: PCF Metrics
 
 PCF Metrics 1.2.0 introduces the following features:
 
-* **Increased log retention period**: Retains logs for 2 weeks (previously 24 hours). To support a higher retention period, this release includes the following component updates:
+* **Increased log and metric retention period**: Now 2 weeks instead of 24 hours. To support this increase, 1.2 includes the following component updates:
     * **Log datastore**: The default size of the Elasticsearch cluster is now 9 VMs instead of 3. 
     * **Metrics datastore**: The tile stores metrics in MySQL instead of IMDS and increases the number of metrics VMs to 7 instead of 5 to support higher capacity and introduce high availability.
     * **Storage requirements**: The default storage requirement for version 1.2 increases by a factor of 10 over PCF Metrics 1.1.X.
@@ -31,7 +31,9 @@ PCF Metrics 1.2.0 introduces the following features:
 
 
 ## Past Minor Version 1.1.X
+
 Release Notes for 1.1.X releases can be found [here](http://docs.pivotal.io/pcf-metrics/1-1/rn-ki.html)
 
 ## Past Minor Version 1.0.X
+
 Release Notes for 1.0.X releases can be found [here](http://docs.pivotal.io/pcf-metrics/1-0/rn-ki.html)
