@@ -6,7 +6,7 @@ owner: PCF Metrics
 
 This topic describes how to log in to, use, and interpret data from Pivotal Cloud Foundry (PCF) Metrics. 
 
-Pivotal Web Services (PWS) uses PCF Metrics to store logs and metrics data from applications running on PWS and graphically present that data for developers. PCF Metrics helps developers better understand the health and performance of their apps by providing a near real-time view of the following data:
+PCF Metrics stores logs, metrics data, and event data from applications running on PWS for the past two weeks. It graphically presents this data to help developers better understand the health and performance of their apps. PCF Metrics includes the following data views:
 
 * **Container metrics**: CPU, memory, and disk usage percentages 
 * **Network metrics**: requests per second, HTTP errors per second, and request latency 
@@ -18,7 +18,7 @@ For example, if you see a crash in the events view, you can zoom in on that time
 
 ##<a id='get-started'></a> View an App in PCF Metrics
 
-<%= vars.metrics_login %>
+In your browser, navigate to [PCF Metrics](https://metrics.run.pivotal.io) and choose an app for which you want to view metrics. You can view any app for which you are a Space Developer.
 
 ![Search for an app](search.png)
 
@@ -48,7 +48,7 @@ The data views show time along the horizontal axis. You can change the time fram
 
 ##<a id='metrics'></a> Interpret Metrics
 
-PCF Metrics provides a near real-time display of the following data. You can hover over each view to see data for a specific time. 
+PCF Metrics displays the following data. You can hover over each view to see data for a specific time. 
 
 ### <a id='container'></a> Container Metrics
 
@@ -67,7 +67,7 @@ The **Network Metric** view displays HTTP **Requests and Errors** and **Latency*
 ![Network View](network.png)
 
 * A spike in latency means your users are waiting longer to use your app. Scaling app instances can spread that workload over more resources and result in faster response times. 
-* A spike in HTTP errors means one or more 4xx or 5xx errors have occurred. Check your app logs for more information. 
+* A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information. 
 * A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the higher latency that may result.
 
 ### <a id='events'></a> Events 
@@ -78,7 +78,7 @@ The **Events** view shows the following app events: **Create**, **Update**, **St
 
 ### <a id="logs"></a>Logs
 
-Logs displays application log data ingested from the [firehose](http://docs.pivotal.io/pivotalcf/1-7/loggregator/architecture.html#firehose). PCF Metrics stores application log data for two weeks. See the [Application Logging in Cloud Foundry](../devguide/deploy-apps/streaming-logs.html) topic for more information.
+Logs displays application log data ingested from the [firehose](http://docs.pivotal.io/pivotalcf/1-7/loggregator/architecture.html#firehose).  See the [Application Logging in Cloud Foundry](../devguide/deploy-apps/streaming-logs.html) topic for more information.
 
 ![Logs](logs.png)
 
