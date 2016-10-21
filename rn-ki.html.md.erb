@@ -3,19 +3,19 @@ title: PCF Metrics Release Notes and Known Issues
 owner: PCF Metrics
 ---
 
-## <a id='v1.2.0'></a>Version 1.2.0
+## <a id='v1.2.1'></a>Version 1.2.1
 
 **Release Date: TBD, 2016**
 
 ### Notes
 
-The following sections describe what's new in PCF Metrics 1.2.0. 
+The following sections describe what's new in PCF Metrics 1.2.1. 
 
 #### New Requirements and Configurations
 
-PCF Metrics 1.2.0 requires the Redis tile version 1.6 or later. 
+PCF Metrics 1.2.1 requires the Redis tile version 1.6 or later. 
 
-Consider the following updates when configuring and deploying PCF Metrics 1.2.0:
+Consider the following updates when configuring and deploying PCF Metrics 1.2.1:
 
 * **MySQL Alerts**: You can now specify an email address that receives alerts from PCF Metrics about MySQL storage issues. See the [MySQL Alerts](./installing.html#alerts) section of the _Installing PCF Metrics_ topic. 
 * **Data Store**: You can now configure additional properties in the **Data Store** pane. See the [Data Store](./installing.html#data) section of the _Installing PCF Metrics_ topic. 
@@ -25,7 +25,7 @@ Consider the following updates when configuring and deploying PCF Metrics 1.2.0:
 
 #### <a name="persistence"></a> Increased Data Persistence
 
-PCF Metrics 1.2.0 increases the retention period for log, metric, and event data to two weeks. To support this increase, PCF Metrics 1.2.0 includes the following component updates:
+PCF Metrics 1.2.1 increases the retention period for log, metric, and event data to two weeks. To support this increase, PCF Metrics 1.2.1 includes the following component updates:
 
 * **Log datastore**: The default size of the Elasticsearch cluster is now nine VMs instead of three. 
 * **Metrics datastore**: The tile stores metrics data in MySQL instead of IMDS and increases the default number of metrics storage VMs to seven instead of five to support higher capacity and introduce high availability.
@@ -35,12 +35,12 @@ See the [Sizing PCF Metrics for Your System](./sizing.html) topic for updated gu
 
 #### Improved UI
 
-PCF Metrics 1.2.0 improves the user experience by removing the **Dashboard** screen and and replacing it with an enhanced **Explore** screen. The following list describes how PCF Metrics 1.2.0 further refines its UI. To view the  UI and understand the new functionality, see the [Using PCF Metrics](./using.html) topic.
+PCF Metrics 1.2.1 improves the user experience by removing the **Dashboard** screen and and replacing it with an enhanced **Explore** screen. The following list describes how PCF Metrics 1.2.1 further refines its UI. To view the  UI and understand the new functionality, see the [Using PCF Metrics](./using.html) topic.
 
 * **Viewing historical data**: You can now view data for the past two weeks. 
 * **Monitoring app events**: The new **Events** view displays all start, stop, crash, and update events.
 * **Searching Logs**: The **Logs** view now includes a histogram that displays log frequency for the current time frame. The histogram updates based on your search results. You can also download your logs.  
-* **Setting the time frame**: PCF Metrics 1.2.0 improves time frame selection.
+* **Setting the time frame**: PCF Metrics 1.2.1 improves time frame selection.
 
 ### Known Issues
 
