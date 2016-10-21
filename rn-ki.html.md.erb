@@ -15,17 +15,17 @@ The following sections describe what's new in PCF Metrics 1.2.0.
 
 PCF Metrics 1.2.0 requires the Redis tile version 1.6 or later. 
 
-Consider the following updates when configuring and deploying PCF Metrics 1.2.0. You can find more information in the [Installing PCF Metrics](./installing.html) topic.
+Consider the following updates when configuring and deploying PCF Metrics 1.2.0:
 
-* **Alerts**: You can now specify an email address that receives alerts from PCF Metrics about MySQL storage issues. 
-* **Data Store**: You can now configure additional properties in the **Data Store** pane. 
-* **Errands**: The tile includes two new errands, **Remove Legacy PCF Metrics CF Resources** and **Smoke tests for Metrics Data**.
+* **MySQL Alerts**: You can now specify an email address that receives alerts from PCF Metrics about MySQL storage issues. See the [MySQL Alerts](./install#alerts) section of the _Installing PCF Metrics_ topic. 
+* **Data Store**: You can now configure additional properties in the **Data Store** pane. See the [Data Store](./install#data) section of the _Installing PCF Metrics_ topic. 
+* **Errands**: The tile includes two new errands, **Remove Legacy PCF Metrics CF Resources** and **Smoke tests for Metrics Data**. See the [Errands](./install#data) section of the _Installing PCF Metrics_ topic. 
 * **Resource Config**: See the [Increased Data Persistence](#persistence) section below to learn about updates affecting this configuration pane. 
-* **Stemcell**: This release uses stemcell version XXXX.
+* **Stemcell**: This release uses stemcell version 3263.
 
 #### <a name="persistence"></a> Increased Data Persistence
 
-PCF Metrics 1.2.0 increases the retention period for log, metric, and event data to two weeks. To support this increase, PCF Metrics 1.2.0 includes the following components updates:
+PCF Metrics 1.2.0 increases the retention period for log, metric, and event data to two weeks. To support this increase, PCF Metrics 1.2.0 includes the following component updates:
 
 * **Log datastore**: The default size of the Elasticsearch cluster is now nine VMs instead of three. 
 * **Metrics datastore**: The tile stores metrics data in MySQL instead of IMDS and increases the default number of metrics storage VMs to seven instead of five to support higher capacity and introduce high availability.

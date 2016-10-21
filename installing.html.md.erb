@@ -45,12 +45,12 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 1. Click **Save**.
 
 
-### Alerts
+### <a name="alerts"></a> MySQL Alerts
 
 1. Click **Alerts**.
 1. Set the **Email** value.  Alerts for issues storing metrics into the MySQL cluster will be sent to this email address.
 
-### Data Store
+### <a name="data"></a> Data Store
 
 1. Click **Data Store**.
 1. Review the **Elastic Search Heap Size** value. Elastic Search memory allocation for Heap use. Set to 50% of the memory allocated to the Elasticsearch instances in Resource Config or 31GB, whichever is smaller. Use a unit of M for megabytes or G for gigabytes.
@@ -60,12 +60,16 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 1. Review the **Ingestor Count** value. You can increase this instance count at any time to accommodate higher levels of Loggregator Firehose traffic. 
 1. Click **Save**.
 
-### Errands
+### <a name="errands"></a> Errands
 
 1. Click **Errands**.
 1. Review the **Post-Deploy Errands** and **Pre-Delete Errands**:
   * If this is the first deployment of the tile, all **Post-Deploy Errands** must be selected.
   * If you deselect the **Remove PCF Metrics 1.2 CF Resources** checkbox, artifacts may remain after the PCF Metrics tile uninstalls.
+  * The **Smoke tests** errand does the following. See the [Troubleshoot Smoke Test Errors](#smoke-test) section.
+    * Confirms that MySQL ingests metrics
+    * Confirms that Elasticsearch ingests logs
+    * Confirms that the APIs return metrics and logs
 
 
 <p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong> by default. Pivotal recommends that you do not deselect any errands as doing so can cause issues with the deployment of the tile. However, you can deselect the <b>Remove Legacy PCF Metrics CF Resources</b> errand after deploying version 1.2 of the tile.</p>
@@ -89,15 +93,7 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 
 PCF Metrics runs a set of smoke tests during installation to confirm system health.
 
-###<a id='smoke-test-steps'></a> Smoke Test Steps
-
-The Metrics tile will perform the following smoke tests:
-
-1. Confirm that metrics are ingested into MySQL
-1. Confirm that logs are ingested into Elasticsearch
-1. Confirm that the APIs return metrics and logs.
-
-###<a id='troubleshooting'></a> Troubleshooting
+###<a id='smoke-test'></a> Troubleshoot Smoke Test Errors
 
 If errors occur while the smoke tests run, they will be summarized at the end of the errand log output. Detailed logs can be found where the failure occurs. Some common failures are listed below.
 
