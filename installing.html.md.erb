@@ -53,7 +53,6 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 ### Data Store
 
 1. Click **Data Store**.
-	![Ingestor](push-ingestor.png)
 1. Review the **Elastic Search Heap Size** value. Elastic Search memory allocation for Heap use. Set to 50% of the memory allocated to the Elasticsearch instances in Resource Config or 31GB, whichever is smaller. Use a unit of M for megabytes or G for gigabytes.
 1. Review the **MySQL InnoDB Buffer Size** value. Number of bytes for MySQL to use with memory allocation of InnoDB buffer. Set to 80% of the memory allocated to the MySQL instances in Resource Config. This does not take a unit, please provide the value in bytes.
 1. Review the **MySQL Logqueue Count** value. You can increase this instance count at any time to accommodate higher levels of inbound metrics traffic. 
@@ -74,7 +73,6 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 ### Resource Config
 
 1. Click **Resource Config**.
-	![Resource Config](resource-config.png)
 1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job. If you expect a high level of use, you may need to increase the disk resources available to your instances. 
 1. Click **Save**.
 

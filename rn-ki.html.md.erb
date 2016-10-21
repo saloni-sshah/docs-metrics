@@ -9,25 +9,42 @@ owner: PCF Metrics
 
 ### Notes
 
-PCF Metrics 1.2.0 introduces the following features:
+The following sections describe what's new in PCF Metrics 1.2.0. 
 
-* **Increased log and metric retention period**: Now 2 weeks instead of 24 hours. To support this increase, 1.2 includes the following component updates:
-    * **Log datastore**: The default size of the Elasticsearch cluster is now 9 VMs instead of 3. 
-    * **Metrics datastore**: The tile stores metrics in MySQL instead of IMDS and increases the number of metrics VMs to 7 instead of 5 to support higher capacity and introduce high availability.
-    * **Storage requirements**: The default storage requirement for version 1.2 increases by a factor of 10 over PCF Metrics 1.1.X.
+#### New Requirements and Configurations
+
+PCF Metrics 1.2.0 requires the Redis tile version 1.6 or later. 
+
+Consider the following updates when configuring and deploying PCF Metrics 1.2.0. You can find more information in the [Installing PCF Metrics](./installing.html) topic.
+
+* **Alerts**: You can now specify an email address that receives alerts from PCF Metrics about MySQL storage issues. 
+* **Data Store**: You can now configure additional properties in the **Data Store** pane. 
+* **Errands**: The tile includes two new errands, **Remove Legacy PCF Metrics CF Resources** and **Smoke tests for Metrics Data**.
+* **Resource Config**: See the [Increased Data Persistence](#persistence) section below to learn about updates affecting this configuration pane. 
+* **Stemcell**: This release uses stemcell version XXXX.
+
+#### <a name="persistence"></a> Increased Data Persistence
+
+PCF Metrics 1.2.0 increases the retention period for log, metric, and event data to two weeks. To support this increase, PCF Metrics 1.2.0 includes the following components updates:
+
+* **Log datastore**: The default size of the Elasticsearch cluster is now nine VMs instead of three. 
+* **Metrics datastore**: The tile stores metrics data in MySQL instead of IMDS and increases the default number of metrics storage VMs to seven instead of five to support higher capacity and introduce high availability.
+* **All VMs**: The default persistent disk usage is 10 times greater than in version 1.1.X.
+
+See the [Sizing PCF Metrics for Your System](./sizing.html) topic for updated guidance.
+
+#### Improved UI
+
+PCF Metrics 1.2.0 improves the user experience by removing the **Dashboard** screen and immediately providing developers with the most useful information in a more robust version of what was previously the **Explore** screen. 
+
+The following list describes how PCF Metrics 1.2.0 further refines its UI. To view the improved UI and better understand the new functionality, see the [Using PCF Metrics](./using.html) topic.
+
+* **Viewing historical data**: You can now view data for the past two weeks. 
+* **Monitoring app events**: The new **Events** view displays all start, stop, crash, and update events.
+* **Searching Logs**: The **Logs** view now includes a histogram that displays log frequency for the current time frame. The histogram updates based on your search results. You can also download your logs.  
+* **Setting the time frame**: PCF Metrics 1.2.0 provides a more intuitive way to focus on the time that interests you.
 
 ### Known Issues
-* Due to a stemcell upgrade issue in earlier versions of Ops Manager, you must be on Ops Manager 1.7.8 or later to upgrade to PCF Metrics 1.1
-* If you have access to more than 50 apps, it is possible that you may not be able to see or search for a particular app in apps dropdown. We will fix this issue in the v1.2 release. In the meantime, the following are available workarounds:
-    * Click on PCF Metrics link directly from Apps Manager
-    * Copy the appGuid from Apps Manager or from CLI and paste it into the metrics URL 
-* Due to a known limitation with deep pagination in Elastic Search, if the results of your log query exceed 10k, we are capping the result set that returns to the UI at 10k and disabling the needle navigation interaction. We are working to overcome this issue in the next version of the product. In the meantime, if you are impacted by the 10k result cap on your logs data, you can do the following to ensure more targeted queries:
-	* reduce your viewed timeslice to an hour or a minute
-	* use the available search filters
-	* potentially change the timestamp filter from newest to oldest
-* On the Explore view, when using the needle navigation interaction on the metrics graphs to jump to a particular point in time of your application logs, you may occasionally see the needle snap to a slightly different time stamp than the time selected. This can occur when there are fewer log lines available for the chosen time, and the needle instead snaps to a nearby time. If you experience this issue, we suggest that you scroll within the logs view to the desired time, at which point you should also see the needle move itself to the same time stamp. 
-* For applications that do not have any activity in the past 24 hours (which means no app events or http requests have been generated), users will not see any data in the UI. They will also need to refresh their browser after metrics are generated by the use of the app.
-* While installing the PCF Metrics tile, the default Resource Config settings for each resource pool may be over-sized for POC/Beta purposes. You may adjust them manually to fit your environment.
 
 
 ## Past Minor Version 1.1.X
