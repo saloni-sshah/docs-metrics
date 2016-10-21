@@ -1,0 +1,149 @@
+---
+title: Troubleshooting PCF Metrics
+owner: PCF Metrics
+---
+
+This topic describes how to resolve common issues experienced while operating or using Pivotal Cloud Foundry (PCF) Metrics.
+
+##<a id='smoke-test'></a> Troubleshoot Smoke Test Errors
+
+PCF Metrics runs a set of smoke tests during installation to confirm system health. If errors occur while the smoke tests run, they will be summarized at the end of the errand log output. Detailed logs can be found where the failure occurs. Some common failures are listed below.
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><code>Insufficient Resources</code>
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>Your Pivotal Cloud Foundry does not have enough Diego resources</td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>Increase the amount of Diego cells for your Pivotal Cloud Foundry installation.</td>
+</tr>
+</table>
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><code>Failed querying mysql</code>
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>Internal database schema is incorrect</td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>Run the DB Migrations errand and verify that it succeeds.</td>
+</tr>
+</table>
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><code>Received no results back from mysql - failing</code>
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>Ingestor is not functioning properly.</td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>Verify the Ingestor is running and connected to the Firehose by checking the logs.</td>
+</tr>
+</table>
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><code>Failed to connect to mysql</code>
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>MySql is not running properly.</td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>Check the logs for the MySQL instances to identify the root cause.</td>
+</tr>
+</table>
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><code>Failed to start elasticsearch client</code>
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>Elasticsearch is not running correctly.</td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>Verify all of the Elasticsearch nodes are running.</td>
+</tr>
+</table>
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><code>Never received app logs - something in the firehose -> elasticsearch flow is broken</code>
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>Ingestor is not inserting logs correctly</td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>Verify Ingestor and LogQueue are functioning correctly by checking their logs for errors.</td>
+</tr>
+</table>
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td>
+      <code>Network metrics are not available.</code>
+      <code>Container metrics are not available.</code>
+      <code>App events are not available.</code>
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>Metrics is incorrectly configured.</td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>The front end API is not receiving metrics from MySQL.  
+  Investigate the cause by checking the logs for the <code>metrics</code> application located in the 
+  <code>metrics-v1-2</code> space of the <code>system</code> organization.
+  </td>
+</tr>
+</table>
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td>
+    <code>Logs are not available.</code>
+    <code>Histograms are not available.</code>
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>Metrics is incorrectly configured.</td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>The front end API is not receiving logs from ElasticSearch.  
+  Investigate the cause by checking the logs for the <code>metrics</code> application located in the 
+  <code>metrics-v1-2</code> space of the <code>system</code> organization.  
+  </td>
+</tr>
+</table>

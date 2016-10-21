@@ -29,8 +29,6 @@ This document describes how to install and configure Pivotal Cloud Foundry (PCF)
 
 From the **Installation Dashboard**, click the **PCF Metrics** tile.
 
-<p class='note'><strong>Note:</strong> The tile appears orange when it requires configuration.</p>
-
 ### Assign Availability Zones (AZs) and Networks.
 
 1. Click **Assign AZs and Networks**.
@@ -63,24 +61,21 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 ### <a name="errands"></a> Errands
 
 1. Click **Errands**.
+  <p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong> by default. Pivotal recommends that you do not deselect any errands as doing so can cause issues with the deployment of the tile. However, you can deselect the <b>Remove Legacy PCF Metrics CF Resources</b> errand after deploying version 1.2 of the tile.</p>
 1. Review the **Post-Deploy Errands** and **Pre-Delete Errands**:
   * If this is the first deployment of the tile, all **Post-Deploy Errands** must be selected.
   * If you deselect the **Remove PCF Metrics 1.2 CF Resources** checkbox, artifacts may remain after the PCF Metrics tile uninstalls.
-  * The **Smoke tests** errand does the following. See the [Troubleshoot Smoke Test Errors](#smoke-test) section.
+  * The following list describes what the **Smoke tests** errand does. See the [Troubleshoot Smoke Test Errors](./troubleshooting.html#smoke-test) section of the _Troubleshooting PCF Metrics_ topic for information on resolving errors discovered by this errand.
       * Confirms that MySQL ingests metrics
       * Confirms that Elasticsearch ingests logs
       * Confirms that the APIs return metrics and logs
-
-
-<p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong> by default. Pivotal recommends that you do not deselect any errands as doing so can cause issues with the deployment of the tile. However, you can deselect the <b>Remove Legacy PCF Metrics CF Resources</b> errand after deploying version 1.2 of the tile.</p>
 
 ### Resource Config
 
 1. Click **Resource Config**.
 1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job. If you expect a high level of use, you may need to increase the disk resources available to your instances. 
+  <p class="note"><strong>Note:</strong> There have been issues with the Ops Manager Bosh Director using persistent disks larger than 2TB.</p> 
 1. Click **Save**.
-
-<p class="note"><strong>Note:</strong> There have been issues with the Ops Manager Bosh Director using persistent disks larger than 2TB.</p> 
 
 ### Stemcell
 
@@ -89,156 +84,8 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
    <p class='note'><strong>Note:</strong> On AWS make sure to use a HVM stemcell if you are using the default instance sizes.</p>
 1. Click **Import Stemcell** and select the stemcell file you downloaded.
 
-## <a id='step3'></a>Step 3: Smoke Testing of PCF Metrics Tile
-
-PCF Metrics runs a set of smoke tests during installation to confirm system health.
-
-###<a id='smoke-test'></a> Troubleshoot Smoke Test Errors
-
-If errors occur while the smoke tests run, they will be summarized at the end of the errand log output. Detailed logs can be found where the failure occurs. Some common failures are listed below.
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td><code>Insufficient Resources</code>
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>Your Pivotal Cloud Foundry does not have enough Diego resources</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>Increase the amount of Diego cells for your Pivotal Cloud Foundry installation.</td>
-</tr>
-</table>
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td><code>Failed querying mysql</code>
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>Internal database schema is incorrect</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>Run the DB Migrations errand and verify that it succeeds.</td>
-</tr>
-</table>
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td><code>Received no results back from mysql - failing</code>
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>Ingestor is not functioning properly.</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>Verify the Ingestor is running and connected to the Firehose by checking the logs.</td>
-</tr>
-</table>
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td><code>Failed to connect to mysql</code>
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>MySql is not running properly.</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>Check the logs for the MySQL instances to identify the root cause.</td>
-</tr>
-</table>
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td><code>Failed to start elasticsearch client</code>
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>Elasticsearch is not running correctly.</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>Verify all of the Elasticsearch nodes are running.</td>
-</tr>
-</table>
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td><code>Never received app logs - something in the firehose -> elasticsearch flow is broken</code>
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>Ingestor is not inserting logs correctly</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>Verify Ingestor and LogQueue are functioning correctly by checking their logs for errors.</td>
-</tr>
-</table>
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td>
-      <code>Network metrics are not available.</code>
-      <code>Container metrics are not available.</code>
-      <code>App events are not available.</code>
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>Metrics is incorrectly configured.</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>The front end API is not receiving metrics from MySQL.  
-  Investigate the cause by checking the logs for the <code>metrics</code> application located in the 
-  <code>metrics-v1-2</code> space of the <code>system</code> organization.
-  </td>
-</tr>
-</table>
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td>
-    <code>Logs are not available.</code>
-    <code>Histograms are not available.</code>
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>Metrics is incorrectly configured.</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>The front end API is not receiving logs from ElasticSearch.  
-  Investigate the cause by checking the logs for the <code>metrics</code> application located in the 
-  <code>metrics-v1-2</code> space of the <code>system</code> organization.  
-  </td>
-</tr>
-</table>
-
-
-
-
 ## <a id='step4'></a>Step 4: Deploy PCF Metrics
 
-Click **Apply Changes** to install the service. Review the [Using PCF Metrics](./using.html) topic for more information on how to log in, use, and interpret data from PCF Metrics.
+Click **Apply Changes** to install the service. If the smoke tests fail, see the [Troubleshoot Smoke Test Errors](./troubleshooting.html#smoke-test) section of the _Troubleshooting PCF Metrics_ topic.
+
+Review the [Using PCF Metrics](./using.html) topic for more information on how to log in, use, and interpret data from PCF Metrics.
