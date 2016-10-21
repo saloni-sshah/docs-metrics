@@ -67,9 +67,9 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
   * If this is the first deployment of the tile, all **Post-Deploy Errands** must be selected.
   * If you deselect the **Remove PCF Metrics 1.2 CF Resources** checkbox, artifacts may remain after the PCF Metrics tile uninstalls.
   * The **Smoke tests** errand does the following. See the [Troubleshoot Smoke Test Errors](#smoke-test) section.
-    * Confirms that MySQL ingests metrics
-    * Confirms that Elasticsearch ingests logs
-    * Confirms that the APIs return metrics and logs
+      * Confirms that MySQL ingests metrics
+      * Confirms that Elasticsearch ingests logs
+      * Confirms that the APIs return metrics and logs
 
 
 <p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong> by default. Pivotal recommends that you do not deselect any errands as doing so can cause issues with the deployment of the tile. However, you can deselect the <b>Remove Legacy PCF Metrics CF Resources</b> errand after deploying version 1.2 of the tile.</p>
