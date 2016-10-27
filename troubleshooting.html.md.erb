@@ -147,3 +147,24 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
   </td>
 </tr>
 </table>
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td>
+    <code>New logs are not being added.</code>
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>Update was applied with the <code>Push PCF Metrics Data Components</code> errand deselected.</td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>The front end API is not displaying any new logs from ElasticSearch.
+  Enable the <code>Push PCF Metrics Data Components</code> errand to address future updates.
+  Manually restart the <code>elasticsearch-logqueue</code> application located in the
+  <code>metrics-v1-2</code> space of the <code>system</code> organization.
+  </td>
+</tr>
+</table>
