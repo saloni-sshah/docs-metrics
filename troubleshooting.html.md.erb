@@ -5,7 +5,7 @@ owner: PCF Metrics
 
 This topic describes how to resolve common issues experienced while operating or using Pivotal Cloud Foundry (PCF) Metrics.
 
-##<a id='smoke-test'></a> Troubleshoot Smoke Test Errors
+##<a id='smoke-test'></a> Smoke Test Errors
 
 PCF Metrics runs a set of smoke tests during installation to confirm system health. If errors occur while the smoke tests run, they will be summarized at the end of the errand log output. Detailed logs can be found where the failure occurs. Some common failures are listed below.
 
@@ -148,16 +148,18 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 </table>
 
+##<a id='log'></a> ElasticSearch Log Errors
+
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
   <td>
-    <code>New logs are not being added.</code>
+    The Metrics UI does not show any new logs. 
   </td>
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Update was applied with the <code>Push PCF Metrics Data Components</code> errand deselected.</td>
+  <td>An operator updated the tile with the <code>Push PCF Metrics Data Components</code> errand deselected.</td>
 </tr>
 <tr>
   <th>Solution</th>
