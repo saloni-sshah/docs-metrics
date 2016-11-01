@@ -148,13 +148,13 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 </table>
 
-##<a id='log'></a> ElasticSearch Log Errors
+##<a id='log'></a> Log Errors
 
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
   <td>
-    The Metrics UI does not show any new logs. 
+    The PCF Metrics UI does not show any new logs from Elasticsearch. 
   </td>
 </tr>
 <tr>
@@ -163,10 +163,15 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Solution</th>
-  <td>The front end API is not displaying any new logs from ElasticSearch.
-  Enable the <code>Push PCF Metrics Data Components</code> errand to address future updates.
-  Manually restart the <code>elasticsearch-logqueue</code> application located in the
-  <code>metrics-v1-2</code> space of the <code>system</code> organization.
+  <td>
+  Restart the Elasticsearch Logqueue using the <a href="http://docs.pivotal.io/pivotalcf/cf-cli/index.html">cf CLI</a> as follows:
+    <p class="note"><strong>Note</strong>: To avoid having to apply this fix in the future, select the checkbox to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update. </p>
+  <ol>
+    <li>Target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
+    <li>Run the following command to restart the Logqueue application:</li>
+    <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
+  </ol>
   </td>
 </tr>
 </table>
