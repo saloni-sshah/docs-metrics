@@ -7,7 +7,7 @@ This topic describes how to resolve common issues experienced while operating or
 
 ##<a id='smoke-test'></a> Smoke Test Errors
 
-PCF Metrics runs a set of smoke tests during installation to confirm system health. If errors occur while the smoke tests run, they will be summarized at the end of the errand log output. Detailed logs can be found where the failure occurs. Some common failures are listed below.
+PCF Metrics runs a set of smoke tests during installation to confirm system health. Errors that occur while the smoke tests run are are summarized at the end of the errand log output. You can find detailed logs where the failure occurs. The following list describes common failures.
 
 <table border='1' class='nice'>
 <tr>
@@ -17,11 +17,11 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Your Pivotal Cloud Foundry does not have enough Diego resources</td>
+  <td>Your Pivotal Cloud Foundry deployment has insufficient Diego resources</td>
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Increase the amount of Diego cells for your Pivotal Cloud Foundry installation.</td>
+  <td>Increase the number of Diego cells for your Pivotal Cloud Foundry installation.</td>
 </tr>
 </table>
 
@@ -49,7 +49,7 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Ingestor is not functioning properly.</td>
+  <td>Ingestor is not functioning properly</td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -65,7 +65,7 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>MySql is not running properly.</td>
+  <td>MySQL is not running properly</td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -81,7 +81,7 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Elasticsearch is not running correctly.</td>
+  <td>Elasticsearch is not running correctly</td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -109,20 +109,18 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 <tr>
   <th width="22%">Error</th>
   <td>
-      <code>Network metrics are not available.</code>
-      <code>Container metrics are not available.</code>
+      <code>Network metrics are not available.</code><br>
+      <code>Container metrics are not available.</code><br>
       <code>App events are not available.</code>
   </td>
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Metrics is incorrectly configured.</td>
+  <td>Metrics is incorrectly configured</td>
 </tr>
 <tr>
   <th>Solution</th>
-  <td>The front end API is not receiving metrics from MySQL.  
-  Investigate the cause by checking the logs for the <code>metrics</code> application located in the 
-  <code>metrics-v1-2</code> space of the <code>system</code> organization.
+  <td>The frontend API is not receiving metrics from MySQL. Investigate the cause by checking the logs for the <code>metrics</code> application located in the <code>metrics-v1-2</code> space of the <code>system</code> organization.
   </td>
 </tr>
 </table>
@@ -131,7 +129,7 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 <tr>
   <th width="22%">Error</th>
   <td>
-    <code>Logs are not available.</code>
+    <code>Logs are not available.</code><br>
     <code>Histograms are not available.</code>
   </td>
 </tr>
@@ -141,9 +139,7 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Solution</th>
-  <td>The front end API is not receiving logs from ElasticSearch.  
-  Investigate the cause by checking the logs for the <code>metrics</code> application located in the 
-  <code>metrics-v1-2</code> space of the <code>system</code> organization.  
+  <td>The frontend API is not receiving logs from Elasticsearch. Investigate the cause by checking the logs for the <code>metrics</code> application located in the <code>metrics-v1-2</code> space of the <code>system</code> organization. 
   </td>
 </tr>
 </table>
@@ -159,19 +155,19 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>An operator updated the tile with the <code>Push PCF Metrics Data Components</code> errand deselected.</td>
+  <td>An operator updated the tile with the <code>Push PCF Metrics Data Components</code> errand deselected</td>
 </tr>
 <tr>
   <th>Solution</th>
   <td>
   Restart the Elasticsearch Logqueue using the <a href="http://docs.pivotal.io/pivotalcf/cf-cli/index.html">cf CLI</a> as follows:
-    <p class="note"><strong>Note</strong>: To avoid having to apply this fix in the future, select the checkbox to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update. </p>
   <ol>
     <li>Target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
     <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
     <li>Run the following command to restart the Logqueue application:</li>
     <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
   </ol>
+    <p class="note"><strong>Note</strong>: To avoid having to apply this fix in the future, select the checkbox to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update. </p>
   </td>
 </tr>
 </table>
