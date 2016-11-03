@@ -21,7 +21,7 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Increase the number of Diego cells for your Pivotal Cloud Foundry installation.</td>
+  <td>Increase the number of Diego cells for your Pivotal Cloud Foundry installation to support the applications pushed as part of the PCF Metrics installation.  This includes five 1GB memory, 1GB disk application instances associated with the PCF Metrics UI and well as the metrics ingestor, metrics logqueue and elasticsearch logqueue applications configured as part of <a href="./installing.html#data">Data Store configuration</a> during installation.</td>
 </tr>
 </table>
 
@@ -33,11 +33,11 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Internal database schema is incorrect</td>
+  <td>Internal database schema is out of sync with applications because the "Database migration for PCF Metrics", "Push PCF Metrics Data components" or "Push PCF Metrics UI components" errands were disabled for a deployment.</td>
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Run the DB Migrations errand and verify that it succeeds.</td>
+  <td>Ensure the "Database migrations for PCF Metrics", "Push PCF Metrics Data components" and "Push PCF Metrics UI components" errands are enabled and re-deploy.</td>
 </tr>
 </table>
 
@@ -53,7 +53,7 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Verify the Ingestor is running and connected to the Firehose by checking the logs.</td>
+  <td>Verify the Ingestor and MySQL Metrics Logqueue applications are running by reviewing the <code>metrics-ingestor</code> and <code>mysql-logqueue</code> applications in the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment.  Review the Ingestor logs using <code>cf logs metrics-ingestor --recent</code> and Metrics Logqueue logs using <code>cf logs mysql-logqueue --recent</code> for any <code>ERROR</code> messages containing additional information.</td>
 </tr>
 </table>
 
@@ -69,7 +69,7 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Check the logs for the MySQL instances to identify the root cause.</td>
+  <td>Verify the MySQL Server and MySQL Proxy jobs are running correctly.  Check the logs for the MySQL Server and MySQL Proxy jobs for errors.  Review the security group associated with the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment with <code>cf security-group metrics-api</code> to ensure it is configured to be able to access to the MySQL jobs.</td>
 </tr>
 </table>
 
@@ -85,7 +85,7 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Verify all of the Elasticsearch nodes are running.</td>
+  <td>Verify the Elasticsearch Master, Elasticsearch Coordinator and Elasticsearch Data jobs are running correctly.  Review the logs of these jobs for errors.  Review the security group associated with the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment with <code>cf security-group metrics-api</code> to ensure it is configured to be able to access to the Elasticsearch jobs.</td>
 </tr>
 </table>
 
@@ -101,7 +101,7 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Verify Ingestor and LogQueue are functioning correctly by checking their logs for errors.</td>
+  <td>Verify the Ingestor and Elasticsearch Logqueue are running by reviewing the <code>metrics-ingestor</code> and <code>elasticsearch-logqueue</code> applications in the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment.  Review the Ingestor logs using <code>cf logs metrics-ingestor --recent</code> and Metrics Logqueue logs using <code>cf logs elasticsearch-logqueue --recent</code>, searching for any <code>ERROR</code> messages containing additional information.</td>
 </tr>
 </table>
 
