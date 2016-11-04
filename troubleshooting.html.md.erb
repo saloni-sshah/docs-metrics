@@ -7,7 +7,9 @@ This topic describes how to resolve common issues experienced while operating or
 
 ##<a id='smoke-test'></a> Smoke Test Errors
 
-PCF Metrics runs a set of smoke tests during installation to confirm system health. Errors that occur while the smoke tests run are are summarized at the end of the errand log output. You can find detailed logs where the failure occurs. The following list describes common failures.
+PCF Metrics runs a set of smoke tests during installation to confirm system health. If the smoke tests discover any errors, you can find a summary of those errors at the end of the errand log output, including detailed logs about where the failure occurred. 
+
+The following tables describe common failures and how to resolve them.
 
 <table border='1' class='nice'>
 <tr>
@@ -17,14 +19,31 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Your Pivotal Cloud Foundry deployment has insufficient Diego resources</td>
+  <td>Your PCF deployment has insufficient Diego resources to handle the apps pushed as part of a PCF Metrics installation. 
+  <br><br>
+  The PCF Metrics tile deploys the following apps, which each use 1GB memory and 1GB disk:
+  <ul>
+    <li>Metrics Ingestor</li>
+    <li>Metrics Logqueue</li>
+    <li>Elasticsearch Loqueue</li>
+    <li>Metrics UI</li>
+    <li>Metrics frontend API</li>
+  </ul>
+  
+   You may have more than one instance of each of the Ingestor and Loqueue apps depending your <a href="./sizing.html">sizing</a> needs. You configure these instance counts as part of the <a href="./installing.html#data">Data Store</a> pane of the tile.</p></td></td>
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Increase the number of Diego cells for your Pivotal Cloud Foundry installation to support the applications pushed as part of the PCF Metrics installation.  This includes five 1GB memory, 1GB disk application instances associated with the PCF Metrics UI and well as the metrics ingestor, metrics logqueue and elasticsearch logqueue applications configured as part of <a href="./installing.html#data">Data Store configuration</a> during installation.</td>
+  <td>Increase the number of Diego cells so that your PCF deployment can support the apps pushed as part of the PCF Metrics installation:
+  <br>
+  <br>
+  <ol>
+  <li>Navigate to the <b>Resource Config</b> section of the Elastic Runtime tile.</li>
+  <li>In the <b>Diego Cell</b> row, add another <b>Instance</b>.</li> 
+  </ol>
 </tr>
 </table>
-
+<br>
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
@@ -33,14 +52,26 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Internal database schema is out of sync with applications because the "Database migration for PCF Metrics", "Push PCF Metrics Data components" or "Push PCF Metrics UI components" errands were disabled for a deployment.</td>
+  <td>The tile deployed without the necessary errands selected to keep the internal database schema in sync with apps.</td>
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Ensure the "Database migrations for PCF Metrics", "Push PCF Metrics Data components" and "Push PCF Metrics UI components" errands are enabled and re-deploy.</td>
+  <td>Re-deploy the tile with the following errands selected: 
+  <ul>
+    <li>
+      <b>Database migrations for PCF Metrics</b>
+    </li>
+    <li>
+      <b>Push PCF Metrics Data components</b>
+    </li>
+    <li>
+      <b>Push PCF Metrics UI component</b>
+    </li>
+  </ul>
+  </td>
 </tr>
 </table>
-
+<br>
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
@@ -49,14 +80,28 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Ingestor is not functioning properly</td>
+  <td>The Ingestor is not functioning properly.</td>
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Verify the Ingestor and MySQL Metrics Logqueue applications are running by reviewing the <code>metrics-ingestor</code> and <code>mysql-logqueue</code> applications in the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment.  Review the Ingestor logs using <code>cf logs metrics-ingestor --recent</code> and Metrics Logqueue logs using <code>cf logs mysql-logqueue --recent</code> for any <code>ERROR</code> messages containing additional information.</td>
+  <td>
+  <ol>
+  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
+    <li>Run <code>cf apps</code> to see if these apps are running:
+      <ul>
+        <li><code>metrics-ingestor</code></li>
+        <li><code>mysql-logqueue</code></li>
+      </ul>
+    </li>
+    <li>
+      Run the following commands and search the app logs for <code>ERROR</code> messages containing additional information:
+    </li>
+     <pre class="terminal">$ cf logs metrics-ingestor --recent<br>$ cf logs mysql-logqueue --recent</pre>
+  </ol>
 </tr>
 </table>
-
+<br>
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
@@ -65,14 +110,25 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>MySQL is not running properly</td>
+  <td>MySQL is not running properly.</td>
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Verify the MySQL Server and MySQL Proxy jobs are running correctly.  Check the logs for the MySQL Server and MySQL Proxy jobs for errors.  Review the security group associated with the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment with <code>cf security-group metrics-api</code> to ensure it is configured to be able to access to the MySQL jobs.</td>
+  <td>
+  <ol>
+    <li>
+    Check the logs of the MySQL Server and MySQL Proxy jobs for errors.  
+    </li>
+    <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
+    <li>
+    Run the following command and ensure the security group can access the MySQL jobs:
+    </li>
+    <pre class="terminal">$ cf security-group metrics-api</pre>
+  </ol></td>
 </tr>
 </table>
-
+<br>
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
@@ -81,14 +137,25 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Elasticsearch is not running correctly</td>
+  <td>Elasticsearch is not running correctly.</td>
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Verify the Elasticsearch Master, Elasticsearch Coordinator and Elasticsearch Data jobs are running correctly.  Review the logs of these jobs for errors.  Review the security group associated with the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment with <code>cf security-group metrics-api</code> to ensure it is configured to be able to access to the Elasticsearch jobs.</td>
+  <td>
+  <ol>
+    <li>
+    Check the logs of the Elasticsearch Master, Elasticsearch Coordinator and Elasticsearch Data jobs for errors.  
+    </li>
+    <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
+    <li>
+    Run the following command and ensure the security group can access the Elasticsearch jobs:
+    </li>
+    <pre class="terminal">$ cf security-group metrics-api</pre>
+  </ol></td>
 </tr>
 </table>
-
+<br>
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
@@ -97,14 +164,28 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Ingestor is not inserting logs correctly</td>
+  <td>Ingestor is not inserting logs correctly.</td>
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Verify the Ingestor and Elasticsearch Logqueue are running by reviewing the <code>metrics-ingestor</code> and <code>elasticsearch-logqueue</code> applications in the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment.  Review the Ingestor logs using <code>cf logs metrics-ingestor --recent</code> and Metrics Logqueue logs using <code>cf logs elasticsearch-logqueue --recent</code>, searching for any <code>ERROR</code> messages containing additional information.</td>
+  <td>
+  <ol>
+  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
+    <li>Run <code>cf apps</code> to see if these apps are running:
+      <ul>
+        <li><code>metrics-ingestor</code></li>
+        <li><code>elasticsearch-logqueue</code></li>
+      </ul>
+    </li>
+    <li>
+      Run the following commands and search the app logs for <code>ERROR</code> messages containing additional information:
+    </li>
+     <pre class="terminal">$ cf logs metrics-ingestor --recent<br>$ cf logs elasticsearch-logqueue --recent</pre>
+  </ol></td>
 </tr>
 </table>
-
+<br>
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
@@ -116,15 +197,23 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Metrics is incorrectly configured</td>
+  <td>PCF Metrics is misconfigured and the frontend API does not receive logs from MySQL.</td>
 </tr>
 <tr>
   <th>Solution</th>
-  <td>The frontend API is not receiving metrics from MySQL. Investigate the cause by checking the logs for the <code>metrics</code> application located in the <code>metrics-v1-2</code> space of the <code>system</code> organization.
+  <td> 
+  <ol>
+  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
+    <li>
+      Run the following command to check the app logs and investigate the error:
+    </li>
+     <pre class="terminal">$ cf logs metrics --recent</pre>
+  </ol>
   </td>
 </tr>
 </table>
-
+<br>
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
@@ -135,11 +224,19 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Metrics is incorrectly configured.</td>
+  <td>PCF Metrics is misconfigured and the frontend API does not receive logs from Elasticsearch.</td>
 </tr>
 <tr>
   <th>Solution</th>
-  <td>The frontend API is not receiving logs from Elasticsearch. Investigate the cause by checking the logs for the <code>metrics</code> application located in the <code>metrics-v1-2</code> space of the <code>system</code> organization. 
+  <td> 
+  <ol>
+  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
+    <li>
+      Run the following command to check the app logs and investigate the error:
+    </li>
+     <pre class="terminal">$ cf logs metrics --recent</pre>
+  </ol>
   </td>
 </tr>
 </table>
@@ -155,7 +252,7 @@ PCF Metrics runs a set of smoke tests during installation to confirm system heal
 </tr>
 <tr>
   <th>Cause</th>
-  <td>An operator updated the tile with the <code>Push PCF Metrics Data Components</code> errand deselected</td>
+  <td>The tile deployed with the <code>Push PCF Metrics Data Components</code> errand deselected</td>
 </tr>
 <tr>
   <th>Solution</th>
