@@ -21,16 +21,61 @@ The following tables describe common failures and how to resolve them.
   <th>Cause</th>
   <td>Your PCF deployment has insufficient Diego resources to handle the apps pushed as part of a PCF Metrics installation. 
   <br><br>
-  The PCF Metrics tile deploys the following apps, which each use 1GB memory and 1GB disk:
-  <ul>
-    <li>Metrics Ingestor</li>
-    <li>Metrics Logqueue</li>
-    <li>Elasticsearch Loqueue</li>
-    <li>Metrics UI</li>
-    <li>Metrics frontend API</li>
-  </ul>
+  The PCF Metrics tile deploys the following apps:
+  <table>
+    <tr>
+      <th>App</th>
+      <th>Memory</th>
+      <th>Disk</th>
+    </tr>
+    <tr>
+      <td><code>metrics-ingestor</code><sup>*</sup></td>
+      <td>512MB</td>
+      <td>1GB</td>
+    </tr>
+    <tr>
+      <td><code>mysql-logqueue</code><sup>*</sup></td>
+      <td>1GB</td>
+      <td>1GB</td>
+    </tr>
+    <tr>
+      <td><code>elasticsearch-logqueue</code><sup>*</sup></td>
+      <td>512MB</td>
+      <td>1GB</td>
+    </tr>
+    <tr>
+      <td><code>metrics-aggregator</code></td>
+      <td>256MB</td>
+      <td>1GB</td>
+    </tr>
+    <tr>
+      <td><code>metrics</code></td>
+      <td>1GB</td>
+      <td>1GB</td>
+    </tr>
+    <tr>
+      <td><code>worker-app-dev</code></td>
+      <td>1GB</td>
+      <td>1GB</td>
+    </tr>
+    <tr>
+      <td><code>worker-app-logs</code></td>
+      <td>1GB</td>
+      <td>1GB</td>
+    </tr>
+    <tr>
+      <td><code>worker-health-check</code></td>
+      <td>1GB</td>
+      <td>1GB</td>
+    </tr>
+    <tr>
+      <td><code>worker-reaper</code></td>
+      <td>1GB</td>
+      <td>1GB</td>
+    </tr>
+  </table>
   
-   You may have more than one instance of each of the Ingestor and Loqueue apps depending your <a href="./sizing.html">sizing</a> needs. You configure these instance counts as part of the <a href="./installing.html#data">Data Store</a> pane of the tile.</p></td></td>
+   <sup>*</sup>You may have more than one instance of each of the Ingestor and Loqueue apps depending your <a href="./sizing.html">sizing</a> needs. You configure these instance counts as part of the <a href="./installing.html#data">Data Store</a> pane of the tile.</p></td></td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -95,6 +140,10 @@ The following tables describe common failures and how to resolve them.
       </ul>
     </li>
     <li>
+      If the apps are not running, run the following commands to restart them:
+    </li>
+       <pre class="terminal">$ cf restart metrics-ingestor<br>$ cf restart mysql-logqueue</pre>
+    <li>
       Run the following commands and search the app logs for <code>ERROR</code> messages containing additional information:
     </li>
      <pre class="terminal">$ cf logs metrics-ingestor --recent<br>$ cf logs mysql-logqueue --recent</pre>
@@ -118,6 +167,7 @@ The following tables describe common failures and how to resolve them.
   <ol>
     <li>
     Check the logs of the MySQL Server and MySQL Proxy jobs for errors.  
+      <ul><li>You can download the logs from the PCF Metrics tile under the <b>Status</b> tab.</li></ul>
     </li>
     <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
     <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
@@ -145,6 +195,7 @@ The following tables describe common failures and how to resolve them.
   <ol>
     <li>
     Check the logs of the Elasticsearch Master, Elasticsearch Coordinator and Elasticsearch Data jobs for errors.  
+      <ul><li>You can download the logs from the PCF Metrics tile under the <b>Status</b> tab.</li></ul>
     </li>
     <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
     <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
@@ -178,6 +229,10 @@ The following tables describe common failures and how to resolve them.
         <li><code>elasticsearch-logqueue</code></li>
       </ul>
     </li>
+    <li>
+      If the apps are not running, run the following commands to restart them:
+    </li>
+      <pre class="terminal">$ cf restart metrics-ingestor<br>$ cf restart elasticsearch-logqueue</pre>
     <li>
       Run the following commands and search the app logs for <code>ERROR</code> messages containing additional information:
     </li>
