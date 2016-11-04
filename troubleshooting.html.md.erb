@@ -140,13 +140,14 @@ The following tables describe common failures and how to resolve them.
       </ul>
     </li>
     <li>
-      If the apps are not running, run the following commands to restart them:
+      If the apps are not running, run the following commands to start them:
     </li>
-       <pre class="terminal">$ cf restart metrics-ingestor<br>$ cf restart mysql-logqueue</pre>
+       <pre class="terminal">$ cf start metrics-ingestor<br>$ cf start mysql-logqueue</pre>
     <li>
       Run the following commands and search the app logs for <code>ERROR</code> messages containing additional information:
     </li>
      <pre class="terminal">$ cf logs metrics-ingestor --recent<br>$ cf logs mysql-logqueue --recent</pre>
+     <p class="note"><strong>Note</strong>: In some cases, the apps cannot communicate due to TLS certificate verification failure. If your deployment uses self-signed certs, ensure the <b>Disable SSL certificate verification for this environment</b> box is checked in the Elastic Runtime <b>Networking</b> pane.</p>
   </ol>
 </tr>
 </table>
@@ -173,6 +174,7 @@ The following tables describe common failures and how to resolve them.
     <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
     <li>
     Run the following command and ensure the security group can access the MySQL jobs:
+    <p class="note"><strong>Note</strong>: PCF Metrics creates a default security group to allow all traffic to its apps.</p>
     </li>
     <pre class="terminal">$ cf security-group metrics-api</pre>
   </ol></td>
@@ -201,6 +203,7 @@ The following tables describe common failures and how to resolve them.
     <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
     <li>
     Run the following command and ensure the security group can access the Elasticsearch jobs:
+    <p class="note"><strong>Note</strong>: PCF Metrics creates a default security group to allow all traffic to its apps.</p>
     </li>
     <pre class="terminal">$ cf security-group metrics-api</pre>
   </ol></td>
@@ -230,14 +233,16 @@ The following tables describe common failures and how to resolve them.
       </ul>
     </li>
     <li>
-      If the apps are not running, run the following commands to restart them:
+      If the apps are not running, run the following commands to start them:
     </li>
-      <pre class="terminal">$ cf restart metrics-ingestor<br>$ cf restart elasticsearch-logqueue</pre>
+      <pre class="terminal">$ cf start metrics-ingestor<br>$ cf start elasticsearch-logqueue</pre>
     <li>
       Run the following commands and search the app logs for <code>ERROR</code> messages containing additional information:
     </li>
      <pre class="terminal">$ cf logs metrics-ingestor --recent<br>$ cf logs elasticsearch-logqueue --recent</pre>
-  </ol></td>
+     <p class="note"><strong>Note</strong>: In some cases, you may discover a failure to communicate with Loggregator in the form of a bad handshake error. <br><br>Ensure the <b>Loggregator Port</b> setting in the Elastic Runtime tile <b>Networking</b> pane is set to the correct value. For AWS, it is <code>4443</code>. For all other IaaSes, it is <code>443</code>.
+      </p></td>
+  </ol>
 </tr>
 </table>
 <br>
