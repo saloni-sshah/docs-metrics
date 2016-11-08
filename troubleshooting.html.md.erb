@@ -376,14 +376,15 @@ If you do not use a load balancer, or this issue does not apply to you proceed t
 1. Check the logs of each app for errors using the following command:
   <pre class="terminal">$ cf logs APP-NAME --recent</pre>
 
-1. If the `cf logs` command does not return any output, or if you did not find any errors, proceed to [Step 3: Check El the Elasticsearch Cluster](#check-es-cluster).
+1. If the `cf logs` command does not return any output, or if you did not find any errors, proceed to [Step 3: Check the Elasticsearch Cluster](#check-es-cluster).
 
 ### <a name="check-es-cluster"></a>Check the Elasticsearch Cluster
 
 1. From Ops Manager, select the PCF Metrics tile. 
 
-1. 
-1. Use `bosh ssh` to acess any elasticsearch VM. See the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) topic for instructions.
+1. Under the **Status** tab, record the IP of an **Elasticsearch Master** node.  
+
+1. Use `bosh ssh` to access VM from the previous step. See the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) topic for instructions.
 
 
 1. Run the following command to list all the Elasticsearch indices:
