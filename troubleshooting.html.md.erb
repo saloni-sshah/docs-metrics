@@ -328,3 +328,150 @@ The following tables describe common failures and how to resolve them.
   </td>
 </tr>
 </table>
+
+##<a id='ui'></a> No Logs or Metrics in the UI
+
+In some cases, you may not see any metrics and logs in the UI after successfully deploying the PCF Metrics tile.
+
+Follow the steps in this section to help locate the app or component causing the problem. 
+
+### <a name="check-lb"></a> Step 1: Check your Load Balancer Configuration
+
+If you use a load balancer, the event-stream mechanism used by the Metrics UI might be blocked. Refer to the table below to resolve this error. 
+
+If you do not use a load balancer, or this issue does not apply to you proceed to [Step 2: Check the PCF Metrics Apps](#check-apps).
+
+<table>
+  <tr>
+    <th>Error</th>
+    <td>In the case of a customer using a F5 load balancer, metrics and logs were not visible in the UI despite successful ingestion and no UI errors reported.</td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>The root of the issue was the traffic of type text/event-stream was blocked by the F5 load balancer.</td>
+  </tr>
+  <tr>
+    <th>Solution</th>
+    <td>When F5 was configured to allow event-stream traffic, the issue was resolved.
+</td>
+  </tr>
+</table>
+  
+### <a name="check-apps"></a> Step 2: Check the PCF Metrics Apps
+
+1. Target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:
+  <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
+
+1. Ensure that the output displays the following apps, each in a `started` state:
+  * `metrics-ingestor`
+  * `mysql-logqueue`
+  * `elasticsearch-logqueue`
+  * `metrics-aggregator`
+  * `metrics`
+  * `worker-app-dev`
+  * `worker-app-logs`
+  * `worker-health-check`
+  * `worker-reaper`
+
+1. Check the logs of each app for errors using the following command:
+  <pre class="terminal">$ cf logs APP-NAME --recent</pre>
+
+1. If the `cf logs` command does not return any output, or if you did not find any errors, proceed to [Step 3: Check El the Elasticsearch Cluster](#check-es-cluster).
+
+### <a name="check-es-cluster"></a>Check the Elasticsearch Cluster
+
+1. From Ops Manager, select the PCF Metrics tile. 
+
+1. 
+1. Use `bosh ssh` to acess any elasticsearch VM. See the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) topic for instructions.
+
+
+1. Run the following command to list all the Elasticsearch indices:
+  <pre class="terminal">$ curl localhost:9200/_cat/indices?v | sort </pre>
+  * The last row of the output corresponds to the most recent index.
+  * The sixth column displays the number of documents for the index.
+
+
+1. Examine the most recent index to see if the number of stored documents periodically increases.
+  1. If you do not see the number of documents increasing, note the statuses of the all the indices, located in the first column, and follow the table below:
+  <table>
+    <tr>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    <tr>
+      <td>Any status except for `green`</td>
+      <td>
+        There may be a problem with the Elasticsearch cluster. 
+        <br>
+        <ol>
+          <li>Restart the Elasticsearch Logqueue using the <a href="http://docs.pivotal.io/pivotalcf/cf-cli/index.html">cf CLI</a> as follows:</li>
+            <ol type="a">
+              <li>Target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
+              <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
+              <li>Run the following command to restart the Logqueue application:</li>
+              <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
+            </ol>
+          <li>Check the status of the indices periodically to see if they recover to `green` status.</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td>All indices are `green`</td>
+      <td>
+        See the Elasticsearch Logqueue and Metrics Ingestor sections below. There is likely a problem further up in ingestion.
+      </td>
+    </tr>
+  </table>
+
+
+
+1. If the curl returns a success response, ES may not even be running correctly
+  * Inspect `/var/vcap/sys/logs/elasticsearch/elasticsearch.stdout.log` and `/var/vcap/sys/logs/elasticsearch/elasticsearch.stderr.log` to see if you can spot any failures or errors.
+
+### Elasticsearch Logqueue
+
+1. From the cf CLI, target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
+1. Run <code>cf apps</code> to see if the <code>elasticsearch-logqueue</code> app instances are `started`.
+
+1. If any instance of the app is `stopped`, run the following command to increase logging:
+  <pre class="terminal">$ cf set-env elasticsearch-logqueue LOG_LEVEL DEBUG</pre>
+
+1. In one terminal window, run the following command:
+  <pre class="terminal">$ cf logs elasticsearch-logqueue</pre>
+  In a different terminal window, run the following command:
+  <pre class="terminal">$ $ cf restage elasticsearch-logqueue</pre>
+  1. Watch the logs emitted by the `elasticsearch-logqueue` app for errors. 
+      * A common error would be connecting to Elasticsearch.
+
+### Metrics Ingestor
+
+1. From the cf CLI, target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
+1. Run <code>cf apps</code> to see if the `metrics-ingestor` app instances are `started`. 
+1. If any of the app instances are `stopped`, run the following command to increase logging:
+  <pre class="terminal">$ cf set-env elasticsearch-logqueue LOG_LEVEL DEBUG</pre>
+
+1. In one terminal window, run the following command:
+  <pre class="terminal">$ cf logs metrics-ingestor</pre>
+  In a different terminal window, run the following command:
+  <pre class="terminal">$ $ cf restage metrics-ingestor</pre>
+  1. Watch the logs emitted by the `metrics-ingestor` app for errors. 
+      * a common error would be connecting to the firehose
+      * another common error is connecting to either of the logqueues
+
+### Metrics (MySQL)
+
+1. Use `bosh ssh` to access one of the PCF Metrics MySQL server VMs. See the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) topic for instructions.
+
+1. Log in by running `mysql -u USERNAME -p PASSWORD` 
+  <p class="note"><strong>Note</strong>: If you do not know the username and password, you run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-2</code> space targeted.</p>
+
+1. Verify that the database was bootstrapped correctly:
+  1. Run `show databases` and check for a `metrics` database.
+      1. if there is no `metrics` database, the `migrate_db` errand of the bosh release may not have run or succeeded. Run it again and note any failures.
+  1. Enter the following query several times to verify that the number does not decrease over time:
+  <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_rollup where timestamp > ((UNIX\_TIMESTAMP() - 60) * POW(10, 3));</pre>
+  This command verifies that the metrics flow in at a constant rate over the last minute.
+      1. If the command returns `0` or a consistently decreasing value, the problem is likely further up in ingestion. 
