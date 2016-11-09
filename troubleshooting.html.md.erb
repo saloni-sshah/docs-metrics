@@ -426,7 +426,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. Run the following command to stream logs:
   <pre class="terminal">$ cf logs elasticsearch-logqueue</pre>
   1. In a different terminal window, run the following command:
-  <pre class="terminal">$ $ cf restage elasticsearch-logqueue</pre>
+  <pre class="terminal">$ cf restage elasticsearch-logqueue</pre>
   1. Watch the logs emitted by the `elasticsearch-logqueue` app for errors. Refer to the table below for a common error:
   <table>
     <tr>
@@ -462,7 +462,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. Run the following command to stream logs:
   <pre class="terminal">$ cf logs metrics-ingestor</pre>
   1. In a different terminal window, run the following command:
-  <pre class="terminal">$ $ cf restage metrics-ingestor</pre>
+  <pre class="terminal">$ cf restage metrics-ingestor</pre>
   1. Watch the logs emitted by the `metrics-ingestor` app for errors. Refer to the list below for common errors:
       * **Cannot connect to the firehose**: The UAA user supplied to the ingestor for authenticating the connection must have the `doppler.firehose` authority.
       * **Cannot connect to the logqueues**: There may be a problem with the UAA, or it could be throttling traffic.
@@ -502,7 +502,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. Run the following command to stream logs:
   <pre class="terminal">$ cf logs mysql-logqueue</pre>
   1. In a different terminal window, run the following command:
-  <pre class="terminal">$ $ cf restage mysql-logqueue</pre>
+  <pre class="terminal">$ cf restage mysql-logqueue</pre>
   1. Watch the logs emitted by the `mysql-logqueue` app for errors. 
       * A common error is that the app cannot connect to MySQL.
 
@@ -517,7 +517,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. Run the following command to stream logs:
   <pre class="terminal">$ cf logs metrics-aggregator</pre>
   1. In a different terminal window, run the following command:
-  <pre class="terminal">$ $ cf restage metrics-aggregator</pre>
+  <pre class="terminal">$ cf restage metrics-aggregator</pre>
   1. Watch the logs emitted by the `metrics-aggregator` app for errors. 
       * A common error is that the app cannot connect to MySQL.
 
