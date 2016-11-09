@@ -317,34 +317,6 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-##<a id='log'></a> Log Errors
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td>
-    The PCF Metrics UI does not show any new logs from Elasticsearch. 
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>The tile deployed with the <code>Push PCF Metrics Data Components</code> errand deselected</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>
-  Restart the Elasticsearch Logqueue using the <a href="http://docs.pivotal.io/pivotalcf/cf-cli/index.html">cf CLI</a> as follows:
-  <ol>
-    <li>Target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
-    <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
-    <li>Run the following command to restart the Logqueue application:</li>
-    <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
-  </ol>
-    <p class="note"><strong>Note</strong>: To avoid having to apply this fix in the future, select the checkbox to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update. </p>
-  </td>
-</tr>
-</table>
-
 ##<a id='ui'></a> No Logs or Metrics in the UI
 
 In some cases, the PCF Metrics UI may not display metrics and logs after successfully deploying.
@@ -427,30 +399,9 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   <pre class="terminal">$ cf logs elasticsearch-logqueue</pre>
   1. In a different terminal window, run the following command:
   <pre class="terminal">$ cf restage elasticsearch-logqueue</pre>
-  1. Watch the logs emitted by the `elasticsearch-logqueue` app for errors. Refer to the table below for a common error:
-  <table>
-    <tr>
-      <th>Error</th>
-      <td>The Elasticsearch Logqueue cannot connect to the Elasticsearch cluster.</td>
-    </tr>
-    <tr>
-      <th>Cause</th>
-      <td>A possible cause is that a user deleted the application security group (ASG) that PCF Metrics creates to allow the logqueue app to connect to the loqueue VMs.</td>
-    </tr>
-    <tr>
-      <th>Solution</th>
-      <td>
-        <ol>
-          <li>
-            Run the following command to see if the ASG created by PCF Metrics exists:
-          </li>
-              <pre class="terminal">$ cf security-group metrics-api</pre>
-          <li>
-            If the security group does not exist, create it.
-          </li>
-      </td>
-    </tr>
-  </table>
+  1. Watch the logs emitted by the `elasticsearch-logqueue` app for errors. 
+      * A common error is that the app cannot connect to Elasticsearch because a user deleted the application security group (ASG) that PCF Metrics creates to allow the logqueue app to connect to the Elasticsearch VMs. You can run `cf security-group metrics-api` to see if the ASG exists. If not, see the documentation on [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
+
 
 1. If the app is started and you do not find any errors, proceed to [Step 5: Check the Metrics Ingestor](#check-ingestor).
 
@@ -464,8 +415,9 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. In a different terminal window, run the following command:
   <pre class="terminal">$ cf restage metrics-ingestor</pre>
   1. Watch the logs emitted by the `metrics-ingestor` app for errors. Refer to the list below for common errors:
-      * **Cannot connect to the firehose**: The UAA user supplied to the ingestor for authenticating the connection must have the `doppler.firehose` authority.
+      * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the firehose. This user must have the `doppler.firehose` authority.
       * **Cannot connect to the logqueues**: There may be a problem with the UAA, or it could be throttling traffic.
+      * **WebSocket Disconnects**: If you see Websocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances. The Firehose may be dropping the Ingestor connection to avoid back pressure.
 
 1. If the app is started and you do not find any errors, proceed to [Step 6: Check MySQL](#check-mysql).
 
@@ -504,7 +456,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. In a different terminal window, run the following command:
   <pre class="terminal">$ cf restage mysql-logqueue</pre>
   1. Watch the logs emitted by the `mysql-logqueue` app for errors. 
-      * A common error is that the app cannot connect to MySQL.
+      * A common error is that the app cannot connect to MySQL because a user deleted the application security group (ASG) that PCF Metrics creates to allow the logqueue app to connect to the MySQL VMs. You can run `cf security-group metrics-api` to see if the ASG exists. If not, see the documentation on [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
 
 1. If the app is started and you do not find any errors, proceed to [Step 8: Check the Metrics Aggregator](#check-aggregator).
 
@@ -519,5 +471,58 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. In a different terminal window, run the following command:
   <pre class="terminal">$ cf restage metrics-aggregator</pre>
   1. Watch the logs emitted by the `metrics-aggregator` app for errors. 
-      * A common error is that the app cannot connect to MySQL.
+      * A common error is that the app cannot connect to MySQL because a user deleted the application security group (ASG) that PCF Metrics creates to allow the aggregator app to connect to the MySQL VMs. You can run `cf security-group metrics-api` to see if the ASG exists. If not, see the documentation on [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
 
+##<a id='log'></a> Log Errors
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td>
+    The PCF Metrics UI does not show any new logs from Elasticsearch. 
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>The tile deployed with the <code>Push PCF Metrics Data Components</code> errand deselected</td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>
+  Restart the Elasticsearch Logqueue using the <a href="http://docs.pivotal.io/pivotalcf/cf-cli/index.html">cf CLI</a> as follows:
+  <ol>
+    <li>Target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
+    <li>Run the following command to restart the Logqueue application:</li>
+    <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
+  </ol>
+    <p class="note"><strong>Note</strong>: To avoid having to apply this fix in the future, select the checkbox to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update. </p>
+  </td>
+</tr>
+</table>
+
+## <a id="503"></a>503 Errors
+
+<table>
+  <tr>
+      <th>Error</th>
+      <td>You encounter <code>503</code> errors when accessing the PCF Metrics UI in your browser.</td>
+  </tr>
+  <tr>
+      <th>Cause</th>
+      <td>Your Elasticsearch nodes may have become unresponsive.</td>
+  </tr>
+  <tr>
+      <th>Solution</th>
+      <td>Check the Elasticsearch index health by following the procedure below, and consider adding additional Elasticsearch nodes.
+      <br><br>
+      <ol>
+        <li>Retrieve the IP address of your Elasticsearch master node by navigating to the <b>Metrics</b> tile in the Ops Manager Installation Dashboard, clicking the <b>Status</b> tab, and recording the IP address next to <b>ElasticSearchMaster</b>.</li>
+        <%= image_tag('elasticsearch-ip.png') %>
+        <li>SSH into the Ops Manager VM by following the instructions in <a href="http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh">SSH into Ops Manager</a>.</li>
+        <li>From the Ops Manager VM, use <code>curl</code> to target the IP address of your Elasticsearch master node. Follow the instructions in the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.2/_cluster_health.html">Cluster Health</a> topic of the Elasticsearch documentation.</li>
+      </ol>
+
+      </td>
+  </tr>
+</table>
