@@ -190,25 +190,3 @@ To scale the memory limit per Logqueue app instance, perform the following comma
 
 <p class="note warning">
 <strong>WARNING: </strong> If you decrease the number of Logqueue instances, you may lose data currently being processed on the instances you eliminate.</p>
-
-##<a id='troubleshooting'></a> Troubleshooting
-
-To troubleshoot PCF Metrics, review the list of common issues below. To resolve certain issues, you must check the health of your Elasticsearch cluster.
-
-###<a id='common-issues'></a> Common Issues
-
-The following list includes common issues and their solutions:
-
-* **WebSocket Disconnects**: If you see Websocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances. The Firehose may be dropping the Ingestor connection to avoid back pressure.
-* **"503" Error**: If you encounter "503" errors when accessing the PCF Metrics UI in your browser, your Elasticsearch nodes may have become unresponsive. Check the Elasticsearch index health by following the procedure below, and consider adding additional Elasticsearch nodes.
-
-###<a id='check-cluster-health'></a> Check Elasticsearch Cluster Health 
-
-To check the health of your Elasticsearch cluster, perform the following steps:
-
-1. Retrieve the IP address of your Elasticsearch master node by navigating to the **Metrics** tile in the Ops Manager Installation Dashboard, clicking the **Status** tab, and recording the IP address next to **ElasticSearchMaster**.
-	<%= image_tag('elasticsearch-ip.png') %>
-1. SSH into the Ops Manager VM by following the instructions in [SSH into Ops Manager](http://docs.pivotal.io/pivotalcf/1-7/customizing/trouble-advanced.html#ssh).
-1. From the Ops Manager VM, use `curl` to target the IP address of your Elasticsearch master node. Follow the instructions in the [Cluster Health](https://www.elastic.co/guide/en/elasticsearch/reference/2.2/_cluster_health.html) topic of the Elasticsearch documentation.
-
-
