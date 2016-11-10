@@ -374,7 +374,16 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 1. Use `bosh ssh` to access the VM from the previous step. See the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) topic for instructions.
 
 1. Run the following command to list all the Elasticsearch indices:
-  <pre class="terminal">$ curl localhost:9200/_cat/indices?v | sort </pre>
+  <pre class="terminal">$ curl localhost:9200/\_cat/indices?v | sort
+  <br> 
+  green  open   app\_logs\_1477512000   8   1  125459066            0     59.6gb         29.8gb
+  green  open   app\_logs\_1477526400   8   1  129356671            0     59.1gb         29.5gb
+  green  open   app\_logs\_1478174400   8   1  129747170            0     61.9gb         30.9gb
+  . . .
+  green  open   app\_logs\_1478707200   8   1  128392686            0     63.2gb         31.6gb
+  green  open   app\_logs\_1478721600   8   1  102005754            0     53.5gb         26.5gb
+  health status index               pri rep docs.count docs.deleted store.size pri.store.size
+  </pre>
   1. If the curl does not return a `success` response, Elasticsearch may not even be running correctly. Inspect the following logs for any failures or errors:
       * `/var/vcap/sys/logs/elasticsearch/elasticsearch.stdout.log`
       * `/var/vcap/sys/logs/elasticsearch/elasticsearch.stderr.log`
