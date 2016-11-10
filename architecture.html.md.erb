@@ -55,18 +55,18 @@ The following table describes how the components act during each stage.
 		<br><br>
 		The <code>mysql-logqueue</code> app that buffers logs and writes each data type to MySQL as follows:<br><br>
 		<ul>
-			<li><b>Container metrics</b>: Inserts the message into the <code>container\_metric</code> table of the MySQL component</li>
-			<li><b>HTTPStartStop events</b>: inserts the message into the <code>http\_start\_stop</code> table of the MySQL component</li>
-			<li><b>App logs</b>: Parses the log message for an app event name and inserts the message into the <code>app\_event</code> table of the MySQL component.</li>
+			<li><b>Container metrics</b>: Inserts the message into the <code>container_metric</code> table of the MySQL component</li>
+			<li><b>HTTPStartStop events</b>: inserts the message into the <code>http_start_stop</code> table of the MySQL component</li>
+			<li><b>App logs</b>: Parses the log message for an app event name and inserts the message into the <code>app_event</code> table of the MySQL component.</li>
 		</ul>
 	</tr>
 	<tr>
 		<td>3</td>
-		<td>The purpose of this stage is to aggregate the data in stored in MySQL. The <code>metrics-aggregator</code> app, whicn runs chronically based on an <code>AGGREGATE\_FREQUENCY</code> property, does the following:<br><br>
+		<td>The purpose of this stage is to aggregate the data in stored in MySQL. The <code>metrics-aggregator</code> app, whicn runs chronically based on an <code>AGGREGATE_FREQUENCY</code> property, does the following:<br><br>
 		<ol>
 			<li>Retrieves container metrics and HTTPStartStop event data from the MySQL component</li>
 			<li>Aggregates the data for each app over the last four minutes, grouped by one minute intervals.</li>
-			<li>Inserts the aggregates into the <code>app\_metric\_rollup</code> table of the MySQL component. 
+			<li>Inserts the aggregates into the <code>app_metric_rollup</code> table of the MySQL component. 
 			</li>
 			<p class="note"><strong>Note</strong>: If the record for an app and minute already exists, the Metrics Aggregator updates the record.</p>
 		</ol>
