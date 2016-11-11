@@ -5,13 +5,17 @@ owner: PCF Metrics
 
 This topic describes how to resolve common issues experienced while operating or using Pivotal Cloud Foundry (PCF) Metrics.
 
-##<a id='smoke-test'></a> Smoke Test Errors
+## <a id="deployment"></a> Errors during Deployment
+
+The following sections describe errors that cause failure during a PCF Metrics tile and how to troubleshoot them. 
+
+###<a id='smoke-test'></a> Smoke Test Errors
 
 PCF Metrics runs a set of smoke tests during installation to confirm system health. If the smoke tests discover any errors, you can find a summary of those errors at the end of the errand log output, including detailed logs about where the failure occurred. 
 
 The following tables describe common failures and how to resolve them.
 
-### Insufficient Resources
+#### Insufficient Resources
 
 <table border='1' class='nice'>
 <tr>
@@ -91,27 +95,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-### Deployment fails due to Elasticsearch instance not starting
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td><code>Deployment fails because an Elasticsearch instance refuses not start</code>
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>It is possible that the instance is not starting because it is being configured to ask for more heap size than has been provisioned to the VM that is hosting it.</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>
-    Check the configuration in Datastore -> Elastic Search Heap Size. Make sure that the VM that the failing Elasticsearch instance is hosted on actually has that much memory. If the VM does not, either give the VM more memory or lower the Elastic Search Heap Size configuration.
-  </td>
-</tr>
-</table>
-
-### Failed querying mysql
+#### Failed querying mysql
 
 <table border='1' class='nice'>
 <tr>
@@ -141,7 +125,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-### Received no results back from mysql - failing
+#### Received no results back from mysql - failing
 
 <table border='1' class='nice'>
 <tr>
@@ -178,7 +162,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-### Failed to connect to mysql
+#### Failed to connect to mysql
 
 <table border='1' class='nice'>
 <tr>
@@ -209,7 +193,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-### Failed to start elasticsearch client
+#### Failed to start elasticsearch client
 
 <table border='1' class='nice'>
 <tr>
@@ -240,7 +224,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-### Never received app logs
+#### Never received app logs
 
 <table border='1' class='nice'>
 <tr>
@@ -278,7 +262,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-### Metrics and Events not available
+#### Metrics and Events not available
 
 <table border='1' class='nice'>
 <tr>
@@ -308,7 +292,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-### Logs and Histograms not available
+#### Logs and Histograms not available
 
 <table border='1' class='nice'>
 <tr>
@@ -333,6 +317,42 @@ The following tables describe common failures and how to resolve them.
     </li>
      <pre class="terminal">$ cf logs metrics --recent</pre>
   </ol>
+  </td>
+</tr>
+</table>
+
+###<a id="es-no-start"></a>Elasticsearch Instance does not Start
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td>The Deployment fails because an Elasticsearch instance does not start.</code>
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>The instance may not start because its configured heap size is greater than that of the VM that hosts it.</td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>
+    <ol>
+      <li>From the PCF Metrics tile in Ops Manager, select the <b>Data Store</b> settings pane.</li>
+      <li>Record the value in the <b>Elastic Search Heap Size</b> field.</li>
+      <li>Select the <b>Resource Config</b> pane and ensure the following jobs have RAM greater than or equal to the <b>Elastic Search Heap Size</b>
+        <ul>
+          <li><b>Elasticsearch Master</b></li>
+          <li><b>Elasticsearch Coordinator</b></li>
+          <li><b>Elasticsearch Data</b></li>
+        </ul>
+      </li>
+      <li>If any of the jobs do not have enough memory, do one of the following:
+        <ul>
+          <li>Give the job more RAM</li>
+          <li>Lower the <b>Elastic Search Heap Size</b></li>
+        </ul>
+      </li>
+    </ol>
   </td>
 </tr>
 </table>
