@@ -41,7 +41,7 @@ The following table describes how the components act during each stage.
 		<th>Description</th>
 	</tr>
 	<tr>
-		<td>1</td>
+		<td valign="top">1</td>
 		<td>The <code>metrics-ingestor</code> app does the following:<br>
 			<ul>
 				<li>Receives app logs from the Firehose and forwards them to both the <code>elasticsearch-logqueue</code> and <code>mysql-logqueue</code> apps</li>
@@ -50,7 +50,7 @@ The following table describes how the components act during each stage.
 		</td>
 	</tr>
 	<tr>
-		<td>2</td>
+		<td valign="top">2</td>
 		<td>
 		Each of the logqueues act independently, writing information to the datastores:
 		<br><br>
@@ -68,7 +68,7 @@ The following table describes how the components act during each stage.
 		</ul>
 	</tr>
 	<tr>
-		<td>3</td>
+		<td valign="top">3</td>
 		<td>The <code>metrics-aggregator</code> app, which runs according to an <code>AGGREGATE_FREQUENCY</code> property, does the following to aggregate the data stored in MySQL:<br><br>
 		<ol>
 			<li>Retrieves container and network metrics from MySQL</li>
@@ -96,12 +96,12 @@ The following table describes how the components act during each stage.
 
 <table>
 	<tr><th>Stage</th><th>Description</th></tr>
-	<tr><td>1</td>
+	<tr><td valign="top">1</td>
 		<td>
 			A user launches <code>metrics.SYSTEM-DOMAIN</code> in a browser and enters her UAA credentials. 
 		</td>
 	</tr>
-	<tr><td>2</td>
+	<tr><td valign="top">2</td>
 		<td>		
 			After the UAA authorizes the user, the browser does the following:
 			<br><br>
@@ -111,7 +111,7 @@ The following table describes how the components act during each stage.
 			</ol>
 		</td>
 	</tr>
-	<tr><td>3</td>
+	<tr><td valign="top">3</td>
 		<td>
 			A user selects an app from the dropdown menu, which does the following:<br></br>
 			<ol>
@@ -121,7 +121,7 @@ The following table describes how the components act during each stage.
 		</td>
 	</tr>
 	<tr>
-		<td>4</td>
+		<td valign="top">4</td>
 		<td>
 			The metrics API receives the requests from the browser and does the following:
 			<br><br>
@@ -133,7 +133,7 @@ The following table describes how the components act during each stage.
 		</td>
 	</tr>
 	<tr>
-		<td>
+		<td valign="top">
 			5
 		</td>
 		<td>
@@ -150,11 +150,11 @@ The following table describes how the components act during each stage.
 		</td>
 	</tr>
 	<tr>
-		<td>6</td>
+		<td valign="top">6</td>
 		<td>Redis forwards the data to the metrics API.</td>
 	</tr>
 	<tr>
-		<td>7</td>
+		<td valign="top">7</td>
 		<td>The metrics API streams the data to the browser over SSE and the PCF Metrics UI displays the data requested by the user.</td>
 	</tr>
 </table>
