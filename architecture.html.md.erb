@@ -97,7 +97,12 @@ The following table describes how the components act during each stage.
 	</tr>
 	<tr><td>2</td>
 		<td>		
-			PCF Metrics displays a page in which the user can select any app returned by the Cloud Controller API based on the UAA credentials entered by the user. 
+			After the UAA authorizes the user, the browser does the following:
+			<br><br>
+			<ol>
+				<li>Retrieves through the Cloud Controller API a list of apps that the user can access</li>
+				<li>Displays a page in which the user can select any app returned by the Cloud Controller API</li>
+			</ol>
 		</td>
 	</tr>
 	<tr><td>3</td>
@@ -113,9 +118,13 @@ The following table describes how the components act during each stage.
 	<tr>
 		<td>4</td>
 		<td>
-			The metrics API receives the requests from the browser and creates jobs on Redis channels that describe the type of metric, log, or event requested, as well as the time period.
-
-			<p class="note"><strong>Note</strong>: PCF Metrics uses Redis as a <a href="http://redis.io/topics/pubsub">pub-sub</a> mechanism between the metrics API and worker apps to marshal metrics and logs.</p>
+			The metrics API receives the requests from the browser and does the following:
+			<br><br>
+			<ol>
+				<li>Communicates with the UAA and Cloud Controller to confirm that the user can access data for the requested app</li>
+				<li>Creates jobs on Redis channels that describe the type of metric, log, or event requested, as well as the time period</li>
+				<p class="note"><strong>Note</strong>: PCF Metrics uses Redis as a <a href="http://redis.io/topics/pubsub">pub-sub</a> mechanism between the metrics API and worker apps to marshal metrics and logs.</p>
+			</ol>
 		</td>
 	</tr>
 	<tr>
