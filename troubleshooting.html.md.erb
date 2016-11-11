@@ -91,6 +91,26 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
+### Deployment fails due to Elasticsearch instance not starting
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><code>Deployment fails because an Elasticsearch instance refuses not start</code>
+  </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>It is possible that the instance is not starting because it is being configured to ask for more heap size than has been provisioned to the VM that is hosting it.</td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>
+    Check the configuration in Datastore -> Elastic Search Heap Size. Make sure that the VM that the failing Elasticsearch instance is hosted on actually has that much memory. If the VM does not, either give the VM more memory or lower the Elastic Search Heap Size configuration.
+  </td>
+</tr>
+</table>
+
 ### Failed querying mysql
 
 <table border='1' class='nice'>
