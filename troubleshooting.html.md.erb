@@ -332,7 +332,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 <table>
   <tr>
     <th>Error</th>
-    <td>In the case of a customer using a F5 load balancer, metrics and logs were not visible in the UI despite successful ingestion and no UI errors reported.</td>
+    <td>In the case of a customer using an F5 load balancer, metrics and logs were not visible in the UI despite successful ingestion and no UI errors reported.</td>
   </tr>
   <tr>
     <th>Cause</th>
@@ -352,9 +352,10 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**. 
   1. Record the username and password for use in the next step. 
 
-1. Log in to the cf CLI using the credentials from the previous step. 
+1. Log in to the Cloud Foundry Command Line Interface (cf CLI) using the credentials from the previous step. 
   <pre class="terminal">$ cf login -a http<span>s</span>://api.YOUR-SYSTEM-DOMAIN -u admin -p PASSWORD</pre> 
-  1. When prompted, select the `system` org and the `metrics-v1-2` space. 
+
+1. When prompted, select the `system` org and the `metrics-v1-2` space. 
 
 1. Ensure that the output displays the following apps, each in a `started` state:
   * `metrics-ingestor`
@@ -415,7 +416,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. In a different terminal window, run the following command:
   <pre class="terminal">$ cf restage elasticsearch-logqueue</pre>
   1. Watch the logs emitted by the `elasticsearch-logqueue` app for errors. 
-      * A common error is that the app cannot connect to Elasticsearch because a user deleted the application security group (ASG) that PCF Metrics creates to allow the logqueue app to connect to the Elasticsearch VMs. You can run `cf security-group metrics-api` to see if the ASG exists. If not, see the documentation on [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
+      * A common error is that the app cannot connect to Elasticsearch because a user deleted the application security group (ASG) that PCF Metrics creates to allow the Logqueue app to connect to the Elasticsearch VMs. You can run `cf security-group metrics-api` to see if the ASG exists. If not, see the documentation on [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
 
 
 1. If the app is started and you do not find any errors, proceed to [Step 5: Check the Metrics Ingestor](#check-ingestor).
@@ -471,7 +472,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. In a different terminal window, run the following command:
   <pre class="terminal">$ cf restage mysql-logqueue</pre>
   1. Watch the logs emitted by the `mysql-logqueue` app for errors. 
-      * A common error is that the app cannot connect to MySQL because a user deleted the application security group (ASG) that PCF Metrics creates to allow the logqueue app to connect to the MySQL VMs. You can run `cf security-group metrics-api` to see if the ASG exists. If not, see the documentation on [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
+      * A common error is that the app cannot connect to MySQL because a user deleted the application security group (ASG) that PCF Metrics creates to allow the Logqueue app to connect to the MySQL VMs. You can run `cf security-group metrics-api` to see if the ASG exists. If not, see the documentation on [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
 
 1. If the app is started and you do not find any errors, proceed to [Step 8: Check the Metrics Aggregator](#check-aggregator).
 
