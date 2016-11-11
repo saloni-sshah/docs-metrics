@@ -10,17 +10,24 @@ This topic describes the product architecture of Pivotal Cloud Foundry (PCF) Met
 
 The diagram below displays the components of PCF Metrics in bold, as well as the Cloud Foundry components that the PCF Metrics system interacts with.
 
+PCF Metrics deploys several Cloud Foundry apps as part of the install process. These components are the bold rectangles in the diagram. The cylinders represent the data storage components of PCF Metrics. 
+
 <%= image_tag('architecture.png') %>
 
 See the following sections to understand the several processes that happen within the PCF Metrics system.
 
 ##<a id="data-flow"></a> How Data Flows from the Firehose to the Datastores
 
-This section describes how PCF Metrics fills its datastores with metric and log data.
+This section describes how PCF Metrics fills its datastores. PCF Metrics uses two datastores:
+
+* The MySQL component stores metric and event data from the apps running on your PCF deployment. 
+	* Examples of events are `start` and `stop`. 
+	* Examples of metrics are _container metrics_ such as CPU and _network metrics_ such as Requests. 
+* The Elasticsearch component stores logs from the apps running on your PCF deployment.
 
 ### Components
 
-The diagram below highlights the components involved in this process.
+The diagram below highlights the components involved in this process of getting metric and log data into the Elasticsearch and MySQL datastore.
 
 ![flow one](flow1.png)
 
@@ -35,17 +42,17 @@ The following table describes how the components act during each stage.
 	</tr>
 	<tr>
 		<td>1</td>
-		<td>The <code>metrics-ingestor</code> app does the following:<br><br>
+		<td>The <code>metrics-ingestor</code> app does the following:<br>
 			<ul>
-				<li>Receives app logs from the firehose and forwards them to both the <code>elasticsearch-logqueue</code> and <code>mysql-logqueue</code> apps</li>
-				<li>Receives container metrics and HTTPStartStop events from the Firehose and forwards them to the <code>mysql-logqueue</code> app</li>
+				<li>Receives app logs from the Firehose and forwards them to both the <code>elasticsearch-logqueue</code> and <code>mysql-logqueue</code> apps</li>
+				<li>Receives container metrics and network metrics (HTTPStartStop events) from the Firehose and forwards them to the <code>mysql-logqueue</code> app</li>
 			</ul>
 		</td>
 	</tr>
 	<tr>
 		<td>2</td>
 		<td>
-		In this stage, each of the logqueues act independently:
+		Each of the logqueues act independently, writing information to the datastores:
 		<br><br>
 		<b>Elasticsearch logqueue</b>
 		<br><br>
@@ -53,30 +60,29 @@ The following table describes how the components act during each stage.
 		<br><br>
 		<b>MySQL logqueue</b>
 		<br><br>
-		The <code>mysql-logqueue</code> app that buffers logs and writes each data type to MySQL as follows:<br><br>
+		The <code>mysql-logqueue</code> app buffers logs and writes each data type to MySQL as follows:<br><br>
 		<ul>
-			<li><b>Container metrics</b>: Inserts the message into the <code>container_metric</code> table of the MySQL component</li>
-			<li><b>HTTPStartStop events</b>: inserts the message into the <code>http_start_stop</code> table of the MySQL component</li>
-			<li><b>App logs</b>: Parses the log message for an app event name and inserts the message into the <code>app_event</code> table of the MySQL component.</li>
+			<li><b>Container metrics</b>: Inserts messages into the <code>container_metric</code> table of MySQL</li>
+			<li><b>Network</b>: Inserts messages into the <code>http_start_stop</code> table of MySQL</li>
+			<li><b>App logs</b>: Parses log messages for an app event name and inserts the message into the <code>app_event</code> table of MySQL</li>
 		</ul>
 	</tr>
 	<tr>
 		<td>3</td>
-		<td>The purpose of this stage is to aggregate the data in stored in MySQL. The <code>metrics-aggregator</code> app, whicn runs chronically based on an <code>AGGREGATE_FREQUENCY</code> property, does the following:<br><br>
+		<td>The <code>metrics-aggregator</code> app, which runs according to an <code>AGGREGATE_FREQUENCY</code> property, does the following to aggregate the data stored in MySQL:<br><br>
 		<ol>
-			<li>Retrieves container metrics and HTTPStartStop event data from the MySQL component</li>
-			<li>Aggregates the data for each app over the last four minutes, grouped by one minute intervals.</li>
-			<li>Inserts the aggregates into the <code>app_metric_rollup</code> table of the MySQL component. 
+			<li>Retrieves container and network metrics from MySQL</li>
+			<li>Aggregates the data for each app over the last four minutes, grouped by one minute intervals</li>
+			<li>Inserts the aggregated data into the <code>app_metric_rollup</code> table of the MySQL component 
 			</li>
-			<p class="note"><strong>Note</strong>: If the record for an app and minute already exists, the Metrics Aggregator updates the record.</p>
 		</ol>
 		</td>
 	</tr>
 </table>
 
-##<a id="user-flow"></a> How the UI Retrieves Data from the Datastores
+##<a id="user-flow"></a> How the PCF Metrics UI Retrieves Data from the Datastores
 
-This section describes the flow of data through the system when an end user makes a request. 
+This section describes the flow of data through the system when you interact with the PCF Metrics UI. 
 
 ### Components
 
@@ -110,8 +116,7 @@ The following table describes how the components act during each stage.
 			A user selects an app from the dropdown menu, which does the following:<br></br>
 			<ol>
 				<li>Opens a Server-Sent Events (SSE) connection  to the <code>metrics</code> app (metrics API) </li>
-				<li>Sends HTTP Put requests to the metrics API to retrieve metrics and logs for the last hour</li>
-				<p class="note"><strong>Note</strong>: <b>1 Hour</b> is the default time frame selection.</p>
+				<li>Sends HTTP Put requests to the metrics API to retrieve metrics and logs for the specified time frame</li>
 			</ol>
 		</td>
 	</tr>
@@ -150,9 +155,7 @@ The following table describes how the components act during each stage.
 	</tr>
 	<tr>
 		<td>7</td>
-		<td>The metrics API streams the the data to the browser over SSE. 
-		<br><br>
-		<b>Result</b>: The UI displays the data requested by the user.</td>
+		<td>The metrics API streams the data to the browser over SSE and the PCF Metrics UI displays the data requested by the user.</td>
 	</tr>
 </table>
 
@@ -162,15 +165,15 @@ The following table describes the two worker components that PCF Metrics uses to
 
 <table>
 	<tr>
-		<th width="28%">Component</th>
+		<th width="28%">Worker Component</th>
 		<th>Function</th>
 	</tr>
 	<tr>
 		<td><code>worker-health-check</code></td>
-		<td>The health-check worker is an app that does the following:<br><br>
+		<td>The health-check worker is an app that does the following every minute:<br><br>
 		<ul>
-			<li>Checks whether the apps deployed by PCF Metrics can reach MySQL, Elasticsearch, and Redis</li>
-			<li>Records the number of MySQL connections and Redis channels every minute</li>
+			<li>Checks whether the apps deployed by PCF Metrics can reach the MySQL, Elasticsearch, and Redis datastores</li>
+			<li>Records the number of MySQL connections and Redis channels</li>
 		</ul>
 		 </td>
 	</tr>
@@ -178,6 +181,6 @@ The following table describes the two worker components that PCF Metrics uses to
 		<td><code>worker-reaper</code></td>
 		<td>The reaper worker is an app that removes orphaned connections from the <code>worker-app-dev</code> and <code>worker-app-logs</code> apps to Redis. 
 		<br><br>
-		PCF Metrics requires the reaper worker because if either of the above apps restart, Redis does not remove their connections.</td>
+		PCF Metrics requires the reaper worker because if <code>worker-app-dev</code> or <code>worker-app-logs</code> restarts, Redis does not remove its connection.</td>
 	</tr>
 </table>
