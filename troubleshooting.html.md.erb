@@ -347,8 +347,14 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   
 ### <a name="check-apps"></a> Step 2: Check the PCF Metrics Apps
 
-1. Target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:
-  <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
+1. From Ops Manager, click the Elastic Runtime Tile. 
+  1. Click the **Credentials** tab.
+  1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**. 
+  1. Record the username and password for use in the next step. 
+
+1. Log in to the cf CLI using the credentials from the previous step. 
+  <pre class="terminal">$ cf login -a http<span>s</span>://api.YOUR-SYSTEM-DOMAIN -u admin -p PASSWORD</pre> 
+  1. When prompted, select the `system` org and the `metrics-v1-2` space. 
 
 1. Ensure that the output displays the following apps, each in a `started` state:
   * `metrics-ingestor`
