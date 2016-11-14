@@ -155,7 +155,7 @@ The following table describes how the components act during each stage.
 	</tr>
 	<tr>
 		<td valign="top">7</td>
-		<td>The metrics API streams the data to the browser over SSE and the PCF Metrics UI displays the data requested by the user.</td>
+		<td>The metrics API streams the data to the browser over SSE, and the PCF Metrics UI displays the data requested by the user.</td>
 	</tr>
 </table>
 
@@ -181,6 +181,6 @@ The following table describes the two worker components that PCF Metrics uses to
 		<td><code>worker-reaper</code></td>
 		<td>The reaper worker is an app that removes orphaned connections from the <code>worker-app-dev</code> and <code>worker-app-logs</code> apps to Redis. 
 		<br><br>
-		PCF Metrics requires the reaper worker because if <code>worker-app-dev</code> or <code>worker-app-logs</code> restarts, Redis does not remove its connection.</td>
+		PCF Metrics requires the reaper worker because Redis does not remove its connections to <code>worker-app-dev</code> and <code>worker-app-logs</code> if they restart.</td>
 	</tr>
 </table>
