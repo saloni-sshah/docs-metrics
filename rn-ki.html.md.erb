@@ -11,6 +11,7 @@ owner: PCF Metrics
 
 ### Known Issues
 * Due to a stemcell upgrade issue in earlier versions of Ops Manager, you must be on Ops Manager 1.7.8 or later to upgrade to PCF Metrics 1.1
+* Elastic Runtime deployments running on GCP use a HTTPS load balancer that does not support websockets. Several PCF Metrics components require websockets to communicate with each other, such as the SSE connection between the UI and the API. For this reason, PCF Metrics does not currently work on GCP. A future release of PCF Metrics will provide GCP support. 
 * If you do not see logs or metrics in the UI after installation and you use an F5 load balancer, you may be experiencing a proxy issue. For help, see the [Troubleshooting] (./sizing.html#troubleshooting) section.
 * If you have access to more than 50 apps, it is possible that you may not be able to see or search for a particular app in apps dropdown. We will fix this issue in the v1.2 release. In the meantime, the following are available workarounds:
     * Click on PCF Metrics link directly from Apps Manager
