@@ -17,9 +17,9 @@ PCF Metrics 1.2.1 requires the Redis tile version 1.6 or later.
 
 Consider the following updates when configuring and deploying PCF Metrics 1.2.1:
 
-* **MySQL Alerts**: You can now specify an email address that receives alerts from PCF Metrics about MySQL storage issues. See the [MySQL Alerts](./installing.html#alerts) section of the _Installing PCF Metrics_ topic. 
-* **Data Store**: You can now configure additional properties in the **Data Store** pane. See the [Data Store](./installing.html#data) section of the _Installing PCF Metrics_ topic. 
-* **Errands**: The tile includes new errands. See the [Errands](./installing.html#data) section of the _Installing PCF Metrics_ topic. 
+* **MySQL Alerts**: You can now specify an email address that receives alerts from PCF Metrics about MySQL storage issues. See the [MySQL Alerts](./installing.html#alerts) section of the _Installing PCF Metrics_ topic for more information. 
+* **Data Store**: You can now configure additional properties in the **Data Store** pane. See the [Data Store](./installing.html#data) section of the _Installing PCF Metrics_ topic for more information. 
+* **Errands**: The tile includes new errands. See the [Errands](./installing.html#data) section of the _Installing PCF Metrics_ topic for more information. 
     * The new **Smoke Test** tile errand summarizes any errors that occur during the test, linking directly to new [troubleshooting documentation](./troubleshooting.html#smoke-test).
 * **Resource Config**: See the [Increased Data Persistence](#persistence) section below to learn about updates affecting this configuration pane. 
 * **Stemcell**: This release uses stemcell version 3263.
@@ -30,13 +30,13 @@ PCF Metrics 1.2.1 increases the retention period for log, metric, and event data
 
 * **Log datastore**: The default size of the Elasticsearch cluster is now nine VMs instead of three. 
 * **Metrics datastore**: The tile stores metrics data in MySQL instead of IMDS and increases the default number of metrics storage VMs to seven instead of five to support higher capacity and introduce high availability.
-* **All VMs**: The default persistent disk usage is 10 times greater than in version 1.1.X.
+* **All VMs**: The default persistent disk usage is ten times greater than in version 1.1.X.
 
 See the [Sizing PCF Metrics for Your System](./sizing.html) topic for updated guidance and the [PCF Metrics Product Architecture](./architecture.html) topic for an updated explanation of the components.
 
 #### Improved UI
 
-PCF Metrics 1.2.1 improves the user experience by removing the **Dashboard** screen and and replacing it with an enhanced **Explore** screen. The following list describes how PCF Metrics 1.2.1 further refines its UI. To view the  UI and understand the new functionality, see the [Using PCF Metrics](./using.html) topic.
+PCF Metrics 1.2.1 improves the user experience by removing the **Dashboard** screen and replacing it with an enhanced **Explore** screen. The following list describes how PCF Metrics 1.2.1 further refines its UI. To view the UI and understand the new functionality, see the [Using PCF Metrics](./using.html) topic.
 
 * **Viewing historical data**: You can now view data for the past two weeks. 
 * **Monitoring app events**: The new **Events** view displays all start, stop, crash, and update events.
@@ -53,7 +53,7 @@ PCF Metrics 1.2.X requires Elastic Runtime 1.8.9 or later.
 
 #### Compatibility with GCP
 
-Elastic Runtime deployments running on GCP use a HTTPS load balancer that does not support websockets. Several PCF Metrics components require websockets to communicate with each other, such as the SSE connection between the UI and the API. For this reason, PCF Metrics does not currently work on GCP. A future release of PCF Metrics will provide GCP support. 
+Elastic Runtime deployments running on GCP use an HTTPS load balancer that does not support WebSockets. Several PCF Metrics components require WebSockets to communicate with each other, such as the SSE connection between the UI and the API. For this reason, PCF Metrics does not currently work on GCP. A future release of PCF Metrics will provide GCP support. 
 
 #### Data Loss when Upgrading from 1.1 to 1.2
 
@@ -66,7 +66,7 @@ The upgrade process does not save any 1.1 data and the new components do not beg
 
 #### Data Loss during Stemcell Upgrades
 
-The Elasticsearch cluster updates when PCF Metrics applies a new stemcell, which causes decreased log ingestion and consequently the loss of logs. Some storage occurs during this time because canary deployed nodes can intake some of the load from firehose. Ingestion reduction may vary depending on deployment size, but you can expect some loss. 
+The Elasticsearch cluster updates when PCF Metrics applies a new stemcell, which causes decreased log ingestion and, consequently, the loss of logs. Some storage occurs during this time because canary deployed nodes can intake some of the load from firehose. Ingestion reduction may vary depending on deployment size, but you can expect some loss. 
 
 In testing, the Elasticsearch cluster took approximately five minutes to update and experienced between a 40% and 60% reduction in logs ingested and stored. 
 
