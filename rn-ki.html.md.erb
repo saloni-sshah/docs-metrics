@@ -51,6 +51,10 @@ The following sections describe the known issues in PCF Metrics 1.2.1.
 
 PCF Metrics 1.2.X requires Elastic Runtime 1.8.9 or later. 
 
+#### Compatibility with GCP
+
+Elastic Runtime deployments running on GCP use a HTTPS load balancer that does not support websockets. Several PCF Metrics components require websockets to communicate with each other, such the SSE connection between the UI and the API. For this reason, PCF Metrics does not currently work on GCP. A future release of PCF Metrics will provide GCP support. 
+
 #### Data Loss when Upgrading from 1.1 to 1.2
 
 The upgrade process from 1.1 to 1.2 acts in the following sequence:
@@ -65,6 +69,14 @@ The upgrade process does not save any 1.1 data and the new components do not beg
 The Elasticsearch cluster updates when PCF Metrics applies a new stemcell, which causes decreased log ingestion and consequently the loss of logs. Some storage occurs during this time because canary deployed nodes can intake some of the load from firehose. Ingestion reduction may vary depending on deployment size, but you can expect some loss. 
 
 In testing, the Elasticsearch cluster took approximately five minutes to update and experienced between a 40% and 60% reduction in logs ingested and stored. 
+
+#### Smoke Test Failure
+
+The PCF Metrics **Smoke Test** errand may fail if your deployment authenticates user sign-ons with an external SAML identity provider or an external LDAP server. In some cases, these external user stores have an additional login procedure that prevents the errand from authenticating with the deployment and validating against the Metrics API. 
+
+If you experience this issue, disable the **Smoke Test** errand in the PCF Metrics tile and click **Apply Changes** to run the install again.
+
+See the [Configure Authentication and Enterprise SSO](http://docs.pivotal.io/pivotalcf/customizing/config-er-vmware.html#er-auth-config) section of the _Configuring Elastic Runtime_ topic for more information on what configurations can lead to this failure.
 
 #### For Operators who Deploy PCF Metrics using BOSH
 
