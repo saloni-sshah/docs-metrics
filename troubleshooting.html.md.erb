@@ -549,7 +549,7 @@ In some cases, a MySQL server node may fail to restart. The following two sectio
 
 Follow these steps to see if a `monit` time-out caused the MySQL node restart to fail:
 
-1. Use `bosh ssh` to access the failing node. See the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) topic for instructions.
+1. Use `bosh ssh` to access the failing node, using the IP address in the Ops Manager Director tile **Status** tab. See the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) topic for instructions.
 1. Run `monit summary` and check the status of the `mariadb_ctrl` job. 
 1. If the status of the `mariadb_ctrl` job is `Execution Failed`, open the following file: `/var/vcap/sys/log/mysql/mariadb_ctrl.combined.log`. 
   1. If the last line of the log indicates that MySQL started without issue, such as in the example below, `monit` likely timed out while waiting for the job to report healthy. Follow the steps below to resolve the issue.
@@ -563,7 +563,7 @@ Run the following commands to return the `mariadb_ctrl` job to a healthy state:
 
 1. Run `monit unmonitor mariadb`.
 1. Run `monit monitor mariadb`.
-3. Ensure that the job returns to a healthy state by running `monit summary` and checking the status of the `mariadb_ctrl` job. 
+3. Run `monit summary` and confirm that the output lists `mariadb_ctrl` as `running`. 
 
 ### Cause 2: Bin Logs Filled up the Disk
 
@@ -571,7 +571,7 @@ Run the following commands to return the `mariadb_ctrl` job to a healthy state:
 
 1. Use `bosh ssh` to access the failing node. See the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) topic for instructions. 
 1. Open the following log file: `/var/vcap/sys/log/mysql/mysql.err.log`.
-1. If you see log messages that indicate insufficient disk space, the persistent disk is likely storing too many bin logs. Confirm insufficient disk space by doing the following:
+1. If you see log messages that indicate insufficient disk space, the [persistent disk](https://bosh.io/docs/persistent-disks.html) is likely storing too many bin logs. Confirm insufficient disk space by doing the following:
   1. Run `df -h`. 
       1. Ensure that you see the `/var/vcap/store` folder is at or over `90%` usage.
   1. Navigate to `/var/vcap/store/mysql` and run `ls -al`. 
@@ -619,10 +619,11 @@ This procedure is extremely costly in terms of time and network resources. The c
     <p class="note"><strong>Note</strong>: You must know the name of your PCF deployment to download the manifest. To retrieve it, run <code>bosh deployments</code> 
     to list your deployments and locate the name of your PCF deployment.</p>
 1. Open the manifest and set the number of instances of the failed server node to `0`.
-1. Run `bosh deploy` to deploy with your edited manifest. 
-1. Run `bosh disks --orphaned` to see the persistent disk associated with the failed node.
-  1. Record the `CID` of the persistent disk.
-1. Run the following command to delete the disk, replacing `CID` with that of the persistent disk from the previous step.
+1. Run `bosh deployment YOUR-PCF-MANIFEST.yml` to specify your edited manifest.
+1. Run `bosh deploy` to deploy with your manifest. 
+1. Run `bosh disks --orphaned` to see the [persistent disk](https://bosh.io/docs/persistent-disks.html) or disks associated with the failed node.
+  1. Record the `CID` of the persistent disk(s).
+1. Run the following command to delete the disk(s), replacing `CID` with that of the persistent disk from the previous step.
   <pre class="terminal">$ bosh delete disk CID</pre> 
 1. Open the manifest and set the number of instances of the failed server node to `1`.
 1. Run `bosh deploy` to deploy with your edited manifest. 
