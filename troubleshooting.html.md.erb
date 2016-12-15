@@ -529,6 +529,96 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. Watch the logs emitted by the `metrics-aggregator` app for errors. 
       * A common error is that the app cannot connect to MySQL because a user deleted the application security group (ASG) that PCF Metrics creates to allow the aggregator app to connect to the MySQL VMs. You can run `cf security-group metrics-api` to see if the ASG exists. If not, see the documentation on [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
 
+##<a id='mysql'></a> MySQL Node Failure
+
+In some cases, a MySQL server node may fail to restart. The following two sections describe the known conditions that cause this failure as well as steps for diagnosing and resolving them. If neither of the causes listed apply, the final section provides instructions for re-deploying BOSH as a last resort to resolve the issue. 
+
+### Cause 1: Monit Timed Out
+
+#### Diagnose
+
+Follow these steps to see if a `monit` time-out caused the MySQL node restart to fail:
+
+1. Use `bosh ssh` to access the failing node, using the IP address in the Ops Manager Director tile **Status** tab. See the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) topic for instructions.
+1. Run `monit summary` and check the status of the `mariadb_ctrl` job. 
+1. If the status of the `mariadb_ctrl` job is `Execution Failed`, open the following file: `/var/vcap/sys/log/mysql/mariadb_ctrl.combined.log`. 
+  1. If the last line of the log indicates that MySQL started without issue, such as in the example below, `monit` likely timed out while waiting for the job to report healthy. Follow the steps below to resolve the issue.
+  <pre class="terminal">
+  {"timestamp":"1481149250.288255692","source":"/var/vcap/packages/<br>mariadb\_ctrl/bin/mariadb\_ctrl","message":"/var/vcap/packages/<br>mariadb\_ctrl/bin/mariadb\_ctrl.mariadb\_ctrl<br> started","log\_level":1,"data":{}}
+  </pre>
+
+#### Resolve
+
+Run the following commands to return the `mariadb_ctrl` job to a healthy state:
+
+1. Run `monit unmonitor mariadb`.
+1. Run `monit monitor mariadb`.
+3. Run `monit summary` and confirm that the output lists `mariadb_ctrl` as `running`. 
+
+### Cause 2: Bin Logs Filled up the Disk
+
+#### Diagnose
+
+1. Use `bosh ssh` to access the failing node. See the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) topic for instructions. 
+1. Open the following log file: `/var/vcap/sys/log/mysql/mysql.err.log`.
+1. If you see log messages that indicate insufficient disk space, the [persistent disk](https://bosh.io/docs/persistent-disks.html) is likely storing too many bin logs. Confirm insufficient disk space by doing the following:
+  1. Run `df -h`. 
+      1. Ensure that you see the `/var/vcap/store` folder is at or over `90%` usage.
+  1. Navigate to `/var/vcap/store/mysql` and run `ls -al`. 
+      1. Ensure that you see many files named with the format `mysql-bin.########`.
+
+In MySQL for PCF, the server node does not make use of these logs and you can remove all except the most recent bin log. Follow the steps below to resolve the issue. 
+
+#### Resolve
+
+1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD` 
+  <p class="note"><strong>Note</strong>: If you do not know the username and password, you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-2</code> space targeted.</p>
+1. Run `use metrics;`.
+1. Run the following command:
+<pre class="terminal">mysql> PURGE BINARY LOGS BEFORE 'YYYY-MM-DD HH:MM:SS'; </pre>
+
+### Re-deploy BOSH to Restart the Node
+
+If troubleshooting based on the causes mentioned above did not resolve the issue with your failing MySQL node, you can follow the steps below to recover it. Pivotal recommends only using this procedure as a if there are no other potential solutions available. 
+
+<p class="note warning">
+<strong>WARNING: </strong>
+This procedure is extremely costly in terms of time and network resources. The cluster takes a significant amount of time to put the data replicated to the rest of the cluster back into the rebuilt node. This procedure consumes considerable network bandwidth as potentially hundreds of gigabytes of data needs to transfer.
+</p>
+
+#### Stop the Ingestor App
+
+1. From Ops Manager, click the Elastic Runtime Tile. 
+  1. Click the **Credentials** tab.
+  1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**. 
+  1. Record the username and password for use in the next step. 
+1. Log in to the cf CLI using the credentials from the previous step. 
+  <pre class="terminal">$ cf login -a http<span>s</span>://api.YOUR-SYSTEM-DOMAIN -u admin -p PASSWORD</pre> 
+1. Target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:
+    <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
+1. Stop data flow into the Galera cluster:
+    <pre class="terminal">$ cf stop metrics-ingestor</pre>
+
+#### Edit Your Deployment Manifest
+
+1. Follow the steps in the [Log in to BOSH](../customizing/trouble-advanced.html#log-in) section of the Advanced Troubleshooting with the BOSH CLI topic to target and log in to your BOSH Director. The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
+1. Download the manifest of your PCF deployment: 
+    <pre class="terminal">
+    $ bosh download manifest YOUR-PCF-DEPLOYMENT YOUR-PCF-MANIFEST.yml
+    </pre>
+    <p class="note"><strong>Note</strong>: You must know the name of your PCF deployment to download the manifest. To retrieve it, run <code>bosh deployments</code> 
+    to list your deployments and locate the name of your PCF deployment.</p>
+1. Open the manifest and set the number of instances of the failed server node to `0`.
+1. Run `bosh deployment YOUR-PCF-MANIFEST.yml` to specify your edited manifest.
+1. Run `bosh deploy` to deploy with your manifest. 
+1. Run `bosh disks --orphaned` to see the [persistent disk](https://bosh.io/docs/persistent-disks.html) or disks associated with the failed node.
+  1. Record the `CID` of the persistent disk(s).
+1. Run the following command to delete the disk(s), replacing `CID` with that of the persistent disk from the previous step.
+  <pre class="terminal">$ bosh delete disk CID</pre> 
+1. Open the manifest and set the number of instances of the failed server node to `1`.
+1. Run `bosh deploy` to deploy with your edited manifest. 
+1. Wait for Bosh to rebuild the node.
+
 ##<a id='log'></a> Log Errors
 
 <table border='1' class='nice'>
