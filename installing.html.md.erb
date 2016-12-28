@@ -12,10 +12,22 @@ For information about the components deployed as part of this install procedure,
 ## <a id='pre-reqs'></a>Prerequisites
 
 1. Ensure that you have installed the [Elastic Runtime Tile](http://docs.pivotal.io/pivotalcf/installing/index.html).
-1. Ensure that you have installed version 1.6 or later of the [Redis tile](https://docs.pivotal.io/redis/1-6/).
+1. Ensure that you have installed v1.6 or later of the [Redis tile](https://docs.pivotal.io/redis/1-6/).
+1. If you are running PCF on Google Cloud Platform (GCP), then do the following to configure the DNS entries to 
+accommodate web sockets:
+   1. Log in to the GCP console.
+   2. In the menu, navigate to **Networking** tab and click on the **Load Balancing** option.
+   3. Find the load balancer that corresponds to `ENVIRONMENT-cf-ws`.
+   4. Copy the IP address.
+   5. Click on **Cloud DNS** and click the environment zone `ENVIRONMENT-zone`.
+   6. Click **Add Record Set**.
+   7. Enter the DNS name. You need a separate record for mysql-logqueue, elasticsearch-logqueue, and metrics. 
+      For example, `mysql-logqueue.sys.ENVIRONMENT.gcp.pcf-metrics.com`
+   8. Leave the other fields as default.
+   9. Enter the IPv4 address with the load balancer IP from Step d.
 
 <p class="note"><strong>Note</strong>: The default <strong>Loggregator Port</strong> in Elastic Runtime is 443. In an AWS environment, the port must be changed to 4443.</p> 
-  
+
 ## <a id='step1'></a> Step 1: Add the PCF Metrics Tile to Ops Manager
    <p class='note'><strong>Note</strong>: PCF Metrics should be installed on the same network as the Elastic Runtime Tile. </p>
 
@@ -63,7 +75,7 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 ### <a name="errands"></a> Errands
 
 1. Click **Errands**.
-  <p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong> by default. Pivotal recommends that you do not deselect any errands as doing so can cause issues with the deployment of the tile. However, you can deselect the <b>Remove Legacy PCF Metrics CF Resources</b> errand after deploying version 1.2 of the tile.</p>
+  <p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong> by default. Pivotal recommends that you do not deselect any errands as doing so can cause issues with the deployment of the tile. However, you can deselect the <b>Remove Legacy PCF Metrics CF Resources</b> errand after deploying v1.2 of the tile.</p>
 1. Review the **Post-Deploy Errands** and **Pre-Delete Errands**:
   * If this is the first deployment of the tile, all **Post-Deploy Errands** must be selected.
   * If you deselect the **Remove PCF Metrics 1.2 CF Resources** checkbox, artifacts may remain after the PCF Metrics tile uninstalls.
@@ -86,7 +98,7 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
    <p class='note'><strong>Note:</strong> On AWS make sure to use a HVM stemcell if you are using the default instance sizes.</p>
 1. Click **Import Stemcell** and select the stemcell file you downloaded.
 
-## <a id='step4'></a>Step 4: Deploy PCF Metrics
+## <a id='step3'></a>Step 3: Deploy PCF Metrics
 
 Click **Apply Changes** to install the service. If the smoke tests fail, see the [Troubleshoot Smoke Test Errors](./troubleshooting.html#smoke-test) section of the _Troubleshooting PCF Metrics_ topic.
 
