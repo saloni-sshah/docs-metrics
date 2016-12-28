@@ -12,17 +12,19 @@ For information about the components deployed as part of this install procedure,
 ## <a id='pre-reqs'></a>Prerequisites
 
 1. Ensure that you have installed the [Elastic Runtime Tile](http://docs.pivotal.io/pivotalcf/installing/index.html).
-1. Ensure that you have installed version 1.6 or later of the [Redis tile](https://docs.pivotal.io/redis/1-6/).
-1. If you are using GCP, then also do the following steps to configure the DNS entries to accommodate web sockets.
-   1. Login to the GCP console.
-   1. In the menu, navigate to `Networking` tab and click on the `Load Balancing` option.
-   1. Find the load balancer that corresponds to `<environment>-cf-ws`.
-   1. Copy the IP address.
-   1. Click on `Cloud DNS` and click the environment zone `<environment>-zone`.
-   1. Click `Add Record Set`.
-   1. Fill out the DNS name (you need a separate record for mysql-logqueue, elasticsearch-logqueue, and metrics). For example, `mysql-logqueue.sys.<environment>.gcp.pcf-metrics.com`
-   1. Leave the other fields as default
-   1. Fill out the IPv4 address with the load balancer IP from step d.
+1. Ensure that you have installed v1.6 or later of the [Redis tile](https://docs.pivotal.io/redis/1-6/).
+1. If you are running PCF on Google Cloud Platform (GCP), then do the following to configure the DNS entries to 
+accommodate web sockets:
+   1. Log in to the GCP console.
+   2. In the menu, navigate to **Networking** tab and click on the **Load Balancing** option.
+   3. Find the load balancer that corresponds to `ENVIRONMENT-cf-ws`.
+   4. Copy the IP address.
+   5. Click on **Cloud DNS** and click the environment zone `ENVIRONMENT-zone`.
+   6. Click **Add Record Set**.
+   7. Enter the DNS name. You need a separate record for mysql-logqueue, elasticsearch-logqueue, and metrics. 
+      For example, `mysql-logqueue.sys.ENVIRONMENT.gcp.pcf-metrics.com`
+   8. Leave the other fields as default.
+   9. Enter the IPv4 address with the load balancer IP from Step d.
 
 <p class="note"><strong>Note</strong>: The default <strong>Loggregator Port</strong> in Elastic Runtime is 443. In an AWS environment, the port must be changed to 4443.</p> 
 
@@ -73,7 +75,7 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 ### <a name="errands"></a> Errands
 
 1. Click **Errands**.
-  <p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong> by default. Pivotal recommends that you do not deselect any errands as doing so can cause issues with the deployment of the tile. However, you can deselect the <b>Remove Legacy PCF Metrics CF Resources</b> errand after deploying version 1.2 of the tile.</p>
+  <p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong> by default. Pivotal recommends that you do not deselect any errands as doing so can cause issues with the deployment of the tile. However, you can deselect the <b>Remove Legacy PCF Metrics CF Resources</b> errand after deploying v1.2 of the tile.</p>
 1. Review the **Post-Deploy Errands** and **Pre-Delete Errands**:
   * If this is the first deployment of the tile, all **Post-Deploy Errands** must be selected.
   * If you deselect the **Remove PCF Metrics 1.2 CF Resources** checkbox, artifacts may remain after the PCF Metrics tile uninstalls.
