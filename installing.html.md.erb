@@ -17,14 +17,14 @@ For information about the components deployed as part of this install procedure,
 * If you are running PCF on Google Cloud Platform (GCP), then do the following to configure the DNS entries to 
 accommodate web sockets:
    1. Log in to the GCP console.
-   2. In the menu, navigate to **Networking** tab and click **Load Balancing**.
+   2. In the menu, navigate to the **Networking** tab and click **Load Balancing**.
    3. Find the load balancer that corresponds to `ENVIRONMENT-cf-ws`.
-   4. Copy the IP address.
-   5. Click **Cloud DNS** and click **ENVIRONMENT-zone**.
+   4. Record the IP address.
+   5. Click **Cloud DNS**, then click **ENVIRONMENT-zone**.
    6. Click **Add Record Set**.
    7. Enter a DNS name for mysql-logqueue.
-      For example, `mysql-logqueue.sys.ENVIRONMENT.gcp.pcf-metrics.com`
-   8. In the IPv4 address field, enter the address of the load balancer copied in Step 4.
+      For example, `mysql-logqueue.sys.ENVIRONMENT.gcp.pcf-metrics.com`.
+   8. In the IPv4 address field, enter the IP address of the load balancer that you recorded in Step 4.
    9. Leave the other fields as default.
    10. Repeat Steps 6–9 twice more to create records for elasticsearch-logqueue and for metrics, 
        for example, `elasticsearch-logqueue.sys.ENVIRONMENT.gcp.pcf-metrics.com` and `metrics.sys.ENVIRONMENT.gcp.pcf-metrics.com`.
