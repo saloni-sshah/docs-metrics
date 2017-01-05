@@ -613,8 +613,7 @@ This procedure is extremely costly in terms of time and network resources. The c
 1. Run `bosh deploy` to deploy with your manifest. 
 1. Run `bosh disks --orphaned` to see the [persistent disk](https://bosh.io/docs/persistent-disks.html) or disks associated with the failed node.
   1. Record the `CID` of the persistent disk(s).
-1. Run the following command to delete the disk(s), replacing `CID` with that of the persistent disk from the previous step.
-  <pre class="terminal">$ bosh delete disk CID</pre> 
+  1. Contact [Pivotal Support](http://support.pivotal.io/) to walk through re-attaching the orphaned disks to new VMs, to preserve their data.
 1. Open the manifest and set the number of instances of the failed server node to `1`.
 1. Run `bosh deploy` to deploy with your edited manifest. 
 1. Wait for Bosh to rebuild the node.
