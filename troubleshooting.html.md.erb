@@ -210,7 +210,7 @@ The following tables describe common failures and how to resolve them.
   <td>
   <ol>
     <li>
-    Check the logs of the Elasticsearch Master, Elasticsearch Coordinator and Elasticsearch Data jobs for errors.  
+    Check the logs of the Elasticsearch Master, Elasticsearch Coordinator, and Elasticsearch Data jobs for errors.  
       <ul><li>You can download the logs from the PCF Metrics tile under the <b>Status</b> tab.</li></ul>
     </li>
     <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
@@ -490,7 +490,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 1. Verify that the database was bootstrapped correctly:
   1. Run `show databases` and check for a `metrics` database.
-      1. if there is no `metrics` database, the `migrate_db` errand of the bosh release may not have run or succeeded. Ensure the errand is selected in the tile configuration and update the tile.
+      1. if there is no `metrics` database, the `migrate_db` errand of the BOSH release may not have run or succeeded. Ensure the errand is selected in the tile configuration and update the tile.
 
 1. Run `show tables` and ensure you see the following tables:
     
@@ -612,11 +612,11 @@ This procedure is extremely costly in terms of time and network resources. The c
 1. Run `bosh deployment YOUR-PCF-MANIFEST.yml` to specify your edited manifest.
 1. Run `bosh deploy` to deploy with your manifest. 
 1. Run `bosh disks --orphaned` to see the [persistent disk](https://bosh.io/docs/persistent-disks.html) or disks associated with the failed node.
-  1. Record the `CID` of the persistent disk(s).
-  1. Contact [Pivotal Support](http://support.pivotal.io/) to walk through re-attaching the orphaned disks to new VMs, to preserve their data.
+  1. Record the `CID` of each persistent disk.
+  1. Contact [Pivotal Support](http://support.pivotal.io/) to walk through re-attaching the orphaned disks to new VMs to preserve their data.
 1. Open the manifest and set the number of instances of the failed server node to `1`.
 1. Run `bosh deploy` to deploy with your edited manifest. 
-1. Wait for Bosh to rebuild the node.
+1. Wait for BOSH to rebuild the node.
 
 ##<a id='log'></a> Log Errors
 
