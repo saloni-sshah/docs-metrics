@@ -22,12 +22,10 @@ accommodate web sockets:
    4. Record the IP address.
    5. Click **Cloud DNS**, then click **ENVIRONMENT-zone**.
    6. Click **Add Record Set**.
-   7. Enter a DNS name for mysql-logqueue.
-      For example, `mysql-logqueue.sys.ENVIRONMENT.gcp.pcf-metrics.com`.
+   7. Enter a DNS name for mysql-logqueue. The DNS name should be `mysql-logqueue.SYSTEM_DOMAIN`.  Refer to your ERT Tile's configuration of the System Domain under the Domains configuration section.
    8. In the IPv4 address field, enter the IP address of the load balancer that you recorded in Step 4.
    9. Leave the other fields as default.
-   10. Repeat Steps 6–9 twice more to create records for elasticsearch-logqueue and for metrics, 
-       for example, `elasticsearch-logqueue.sys.ENVIRONMENT.gcp.pcf-metrics.com` and `metrics.sys.ENVIRONMENT.gcp.pcf-metrics.com`.
+   10. Repeat Steps 6–9 twice more to create DNS records for elasticsearch-logqueue (`elasticsearch-logqueue.SYSTEM_DOMAIN`) and metrics (`metrics.SYSTEM_DOMAIN`).
    
 ## <a id='step1'></a> Step 1: Add the PCF Metrics Tile to Ops Manager
    <p class='note'><strong>Note</strong>: PCF Metrics should be installed on the same network as the Elastic Runtime Tile. </p>
