@@ -96,27 +96,29 @@ The following tables describe common failures and how to resolve them.
 </table>
 
 #### Nginx Load Balancer
-
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
-  <td><code>Failed apm-ui-smoketests errand</code> or if the apm-ui-smoketests errand is disabled, and installation is successful, UI keeps loading but fails to fetch data</td>
+  <td>The <code>apm-ui-smoketests</code> errand failed.  <br>Or, the <code>apm-ui-smoketests</code> errand is disabled, installation is successful, 
+      and the UI keeps loading but fails to fetch data.</td>
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Nginx proxy_buffering property is on and causes Nginx to block SSE traffic</td>
-  <br><br>
+  <td>The Nginx <code>proxy_buffering</code> property is on and causes Nginx to block SSE traffic.</td>
 </tr>
 <tr>
   <th>Solution</th>
   <td>
     <ol>
+      <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
       <li>
-        If apm-ui-smoketests is not run during installation
-        <pre class="terminal">$ cf logs --recent worker-app-logs <br>$cf logs --recent worker-app-dev</pre>
-        If there are no logs containing "jobStarted" exists in either app, jobs are not queued because Nginx is blocking SSEs
+        Confirm that the <code>apm-ui-smoketests</code> errand was not run during installation by listing
+        recent logs from the <code>worker-app-logs</code> and <code>worker-app-dev</code> apps:
+        <pre class="terminal">$ cf logs --recent worker-app-logs <br>$ cf logs --recent worker-app-dev</pre>
+        If neither log contains the text <code>jobStarted</code> then the jobs are not queued because Nginx is blocking SSEs.
       </li>
-      <li>Turn off proxy_buffering</li>
+      <li>Turn off the Nginx <code>proxy_buffering</code> property.</li>
     </ol>
   </td>
 </tr>
