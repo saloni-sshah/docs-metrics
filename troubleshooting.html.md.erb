@@ -95,6 +95,33 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
+#### Nginx Load Balancer
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><code>Failed apm-ui-smoketests errand</code> or if the apm-ui-smoketests errand is disabled, and installation is successful, UI keeps loading but fails to fetch data</td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>Nginx proxy_buffering property is on and causes Nginx to block SSE traffic</td>
+  <br><br>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>
+    <ol>
+      <li>
+        If apm-ui-smoketests is not run during installation
+        <pre class="terminal">$ cf logs --recent worker-app-logs <br>$cf logs --recent worker-app-dev</pre>
+        If there are no logs containing "jobStarted" exists in either app, jobs are not queued because Nginx is blocking SSEs
+      </li>
+      <li>Turn off proxy_buffering</li>
+    </ol>
+  </td>
+</tr>
+</table>
+
 #### Failed querying mysql
 
 <table border='1' class='nice'>
