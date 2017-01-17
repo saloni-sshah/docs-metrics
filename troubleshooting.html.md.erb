@@ -81,7 +81,8 @@ The following tables describe common failures and how to resolve them.
     </tr>
   </table>
   
-   <sup>*</sup>You may have more than one instance of each of the Ingestor and Loqueue apps depending your <a href="./sizing.html">sizing</a> needs. You configure these instance counts as part of the <a href="./installing.html#data">Data Store</a> pane of the tile.</p></td></td>
+   <sup>*</sup>You may have more than one instance of each of the Ingestor and Loqueue apps depending your <a href="./sizing.html">sizing</a> needs. 
+   You configure these instance counts as part of the <a href="./installing.html#data">Data Store</a> pane of the tile.</p></td></td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -99,8 +100,8 @@ The following tables describe common failures and how to resolve them.
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
-  <td>The <code>apm-ui-smoketests</code> errand failed.  <br>Or, the <code>apm-ui-smoketests</code> errand is disabled, installation is successful, 
-      and the UI keeps loading but fails to fetch data.</td>
+  <td>The Smoke tests for Metrics UI errand failed.  <br>Or, the <strong>Smoke tests for Metrics UI</strong> checkbox is not selected and installation was successful,
+      but the UI keeps loading although the graphs do not populate with data.</td>
 </tr>
 <tr>
   <th>Cause</th>
@@ -113,7 +114,7 @@ The following tables describe common failures and how to resolve them.
       <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-2</code> space of your PCF deployment:</li>
     <pre class="terminal">$ cf target -o system -s metrics-v1-2</pre>
       <li>
-        Confirm that the <code>apm-ui-smoketests</code> errand was not run during installation by listing
+        Confirm that <strong>Smoke tests for Metrics UI</strong> errand was not run during installation by listing
         recent logs from the <code>worker-app-logs</code> and <code>worker-app-dev</code> apps:
         <pre class="terminal">$ cf logs --recent worker-app-logs <br>$ cf logs --recent worker-app-dev</pre>
         If neither log contains the text <code>jobStarted</code> then the jobs are not queued because Nginx is blocking SSEs.
