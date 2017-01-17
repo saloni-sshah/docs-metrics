@@ -100,8 +100,7 @@ The following tables describe common failures and how to resolve them.
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
-  <td>The Smoke tests for Metrics UI errand failed.  <br>Or, the <strong>Smoke tests for Metrics UI</strong> checkbox is not selected and installation was successful,
-      but the UI keeps loading although the graphs do not populate with data.</td>
+  <td>The Smoke tests for Metrics UI errand failed.  <br>Or, the <strong>Smoke tests for Metrics UI</strong> checkbox is not selected and installation was successful, but the UI keeps loading and the graphs do not populate with data.</td>
 </tr>
 <tr>
   <th>Cause</th>
@@ -117,7 +116,7 @@ The following tables describe common failures and how to resolve them.
         Confirm that <strong>Smoke tests for Metrics UI</strong> errand was not run during installation by listing
         recent logs from the <code>worker-app-logs</code> and <code>worker-app-dev</code> apps:
         <pre class="terminal">$ cf logs --recent worker-app-logs <br>$ cf logs --recent worker-app-dev</pre>
-        If neither log contains the text <code>jobStarted</code> then the jobs are not queued because Nginx is blocking SSEs.
+        If neither log contains the text <code>jobStarted</code>, then the jobs are not queued because Nginx is blocking SSEs.
       </li>
       <li>Turn off the Nginx <code>proxy_buffering</code> property.</li>
     </ol>
