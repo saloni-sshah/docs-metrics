@@ -1,54 +1,51 @@
 ---
 breadcrumb: PCF Metrics Documentation
-title: Using PCF Metrics
+title: Monitoring and Troubleshooting Apps with PCF Metrics
 owner: PCF Metrics
 ---
 
-This topic describes how to log in to, use, and interpret data from Pivotal Cloud Foundry (PCF) Metrics. 
+This topic describes how developers can monitor and troubleshoot their apps using Pivotal Cloud Foundry (PCF) Metrics. 
 
-PCF Metrics stores logs, metrics data, and event data from applications running on PWS for the past two weeks. It graphically presents this data to help developers better understand the health and performance of their apps. PCF Metrics includes the following data views:
+## <a id="overview"></a> Overview
 
-* **Container metrics**: CPU, memory, and disk usage percentages 
-* **Network metrics**: requests per second, HTTP errors per second, and request latency 
-* **App events**: create, update, start, stop, and crash
-* **Logs**: searchable application logs from the past two weeks
+PCF Metrics helps you understand and troubleshoot the health and performance of your apps by displaying the following:
 
-For example, if you see a crash in the events view, you can zoom in on that time and view the corresponding container and network metrics. To help you troubleshoot, you can also see log output for that same time period. 
+* [Container metrics](#container): a graph of CPU, memory, and disk usage percentages 
+* [Network metrics](#network): a graph of requests per second, HTTP errors per second, and request latency 
+* [App events](#events): a graph of create, update, start, stop, crash, SSH, and staging failure events
+* [Logs](#logs): a searchable list of app logs
+* [Trace Explorer](#trace): a graph that traces a user request as it flows through your apps and their methods
+
+For example, if you see that an app crashed on the **Events** graph, you can zoom in and view the corresponding container metrics, network metrics, and logs. 
 
 
-##<a id='get-started'></a> View an App in PCF Metrics
+##<a id='get-started'></a> View an App
 
-In your browser, navigate to [PCF Metrics](https://metrics.run.pivotal.io) and choose an app for which you want to view metrics. You can view any app for which you are a Space Developer.
+In your browser, navigate to [PCF Metrics](https://metrics.run.pivotal.io) and choose an app for which you want to view metrics or logs. You can view any app for which you are a Space Developer.
 
 ![Search for an app](search.png)
 
-PCF Metrics provides you with a graphical representation of application data for a given time frame, along with the corresponding application logs. See the sections below to [Toggle the Data Views](#toggle) and [Change the Time Frame](#time). See the [Interpret Metrics](#metrics) section for more information on each data view.
+PCF Metrics displays app data for a given time frame. See the sections below to [Change the Time Frame](#time) for the dashboard, [Interpret Metrics](#metrics) information on each graph, and [Trace App Requests](#trace) with the trace explorer
 
 ![Metrics UI](full.png)
 
-### <a id="toggle"></a>Toggle the Data Views
-
-There are four data views: **Container Metrics**, **Network Metrics**, **Logs**, and **Events**. Select which views you want to see using the toggles in the upper left. 
-
-![Toggle](images/toggle.png)
-
-### <a id="time"></a>Change the Time Frame
+## <a id="time"></a>Change the Time Frame
 
 The data views show time along the horizontal axis. You can change the time frame for all the data views by using the dropdown at the top of the page. Use the refresh button to update all views with the most current data. 
 
 ![time](images/metrics-time.png)
 
-**Zoom**: From within any data view, you can also zoom in on areas of interest by clicking and dragging within the graph. This adjusts all of the views, including **Logs**, to show data from that time period.
+**Zoom**: From within any graph, click and drag to zoom in on areas of interest. This adjusts all of the graphs, and the **Logs**, to show data from that time frame.
 
 <%= image_tag("metric-zoom.png") %>
 
-**Drag**: From underneath the x-axis of any data view, you can drag left or right to view data for an earlier or later time. 
+**Drag**: From underneath the x-axis of any graph, drag left or right to view data for an earlier or later time. 
 
 
 
 ##<a id='metrics'></a> Interpret Metrics
 
-PCF Metrics displays the following data. You can hover over each view to see data for a specific time. 
+See the following sections to understand how to use each of the views in the dashboard to monitor and troubleshoot your app.
 
 ### <a id='container'></a> Container Metrics
 
@@ -84,14 +81,89 @@ Logs displays application log data ingested from the [firehose](http://docs.pivo
 
 ![Logs](logs.png)
 
-PCF Metrics lists all logs by default, and the histogram displays log frequency for the current time frame. You can refine the list and histogram with the following: 
+This view includes a logs and histogram that displays log frequency for the current time frame. Here is how you can interact with this view:
 
 * **Filter**: Perform a keyword search. The histogram updates with blue bars based on the filter. Hover over a histogram bar to view the amount of logs for a specific time based on your filter. 
 * **Highlight**: Enter a term to highlight within your search. The histogram updates with yellow bars based on the results. Hover over a histogram bar to view the amount of logs for a specific time that contain the highlighted term. 
-* **Sources**: Choose which sources to display logs from. 
+* **Sources**: Choose which sources to display logs from. SEE SOURCE DOC
 * **Order**: Modify the order in which logs appear. 
+* **Download**: Download a file containing logs for the current search. 
+* **Copy**: Click the copy icon to copy the text of the log.
+* **Open the Trace Explorer**: See [Trace App requests](#trace).
 
-You can also click the **Download** button to download a file containing logs for the current search. 
+## <a id="trace"></a>Trace App Requests
 
+PCF Metrics uses the PWS implementation of [Zipkin](https://zipkin.io), a distributed tracing system, to do the following: 
 
+* Collect all logs associated with a particular HTTP request made to your app.
+* Display the following in the PCF Metrics Trace Explorer window:
+	* An interactive graph that shows lifecycle of a request
+	* All logs associated with the request
+
+Before you can [use the Trace Explorer](#trace-explorer), you must configure your app as outlined in the [Prerequisite]
+(#before) section. For more information on how the Gorouter works with HTTP headers and Zipkin tracing in PWS, see [HTTP Headers](http://docs.pivotal.io/pivotalcf/concepts/http-routing.html#zipkin-headers).
+
+###<a id="before"></a> Prerequisite
+
+<!--PCF ONLY
+1. Ensure that Zipkin tracing is enabled for your PCF deployment. This feature is enabled by default in Elastic Runtime, but your operator can disable it. See [Enabling Zipkin Tracing](http://docs.pivotal.io/pivotalcf/adminguide/zipkin_tracing.html) for more information.
+-->
+
+You must configure your apps to add Zipkin trace IDs to their logs. Refer to the table below and follow the correct procedure for the app type:
+
+<table>
+<tr>
+	<th width="30%">If you have this type of app...</th>
+	<th>You must...</th>
+</tr>
+<tr>
+	<td>Go</td>
+	<td></td>
+</tr>
+<tr>
+	<td>Node.js</td>
+	<td></td>
+</tr>
+<tr>
+	<td>Ruby</td>
+	<td></td>
+</tr>
+<tr>
+	<td>Spring</td>
+	<td>
+		<ol>
+			<li>
+			Ensure you are using Spring Boot v1.4.3 or later. 
+			</li>
+			<li>
+			Ensure you are using Spring Cloud Sleuth v1.0.12 or later. 
+			</li>
+			<li>Add the following to your app dependency file:
+			<pre>dependencies { (2)
+	compile "org.springframework.cloud:spring-cloud-starter-sleuth"
+}</pre>
+			</li>
+		</ol>
+	</td>
+</tr>
+</table>
+
+###<a id="trace-explorer"></a> Use the Trace Explorer
+
+This section explains how to view the trace for a request and interact with the Trace Explorer.
+
+1. In PCF Metrics, select an one of the apps that you configured as outlined in the [Prerequisite](#prerequisite) section.
+
+1. In the **Logs** view, click the Trace Explorer icon for a request log that you want to trace.
+
+	![Hover over trace icon](click-trace.png)
+	* The Trace Explorer displays the apps and methods involved in a request, which is associated with a particular trace ID. By default, the graph lists each app and method in the order they were called. Each row includes an app in the left column and a _span_ in the right column. A span is a particular method within the app and the time it took to execute in milliseconds.
+		<p class="note"><strong>Note</strong>: If you are not a Space Developer or Space Auditor for an app involved in the request, you cannot see the spans or logs from that app.</p>
+		![Trace Explorer](trace-explorer.png)
+	* You can click a span to add or remove its logs from the **Logs** view.
+		![Click Span](click-span.png)
+
+- response time in milliseconds
+- If not a space devloper or auditor, can't see logs
+- In trace exporer, clicking on log name brings you to dashboard view at same time of log
 
