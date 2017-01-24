@@ -11,9 +11,9 @@ This topic describes how developers can monitor and troubleshoot their apps usin
 PCF Metrics helps you understand and troubleshoot the health and performance of your apps by displaying the following:
 
 * [Container metrics](#container): a graph of CPU, memory, and disk usage percentages 
-* [Network metrics](#network): a graph of requests per second, HTTP errors per second, and request latency 
+* [Network metrics](#network): a graph of requests, HTTP errors, and response times 
 * [App events](#events): a graph of update, start, stop, crash, SSH, and staging failure events
-* [Logs](#logs): a list of app logs that you can search and download
+* [Logs](#logs): a list of app logs that you can search, filter, and download
 * [Trace Explorer](#trace): a graph that traces a request as it flows through your apps and their endpoints, along with the corresponding logs
 
 For example, if you see that an app crashed on the **Events** graph, you can zoom in and view the corresponding container metrics, network metrics, and logs. 
@@ -59,13 +59,13 @@ The **Container Metrics** graph displays **CPU**, **Memory**, and **Disk** usage
 
 ### <a id='network'></a> Network Metrics
 
-The **Network Metric** graph displays HTTP **Requests and Errors** and **Latency**:
+The **Network Metric** graph displays HTTP **Requests and Errors** and **Response Time**:
 
 ![Network View](network.png)
 
-* A spike in latency means your users are waiting longer to use your app. Scaling app instances can spread that workload over more resources and result in faster response times. 
+* A spike in response time means your users are waiting longer to use your app. Scaling app instances can spread that workload over more resources and result in faster response times. 
 * A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information. 
-* A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the higher latency that may result.
+* A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the higher response time that may result.
 
 ### <a id='events'></a> Events 
 
@@ -100,7 +100,7 @@ You can interact with the **Logs** view in the following ways:
 
 ## <a id="trace"></a>Trace App Requests
 
-You can trace app requests with the Trace Explorer to help you troubleshoot app failures and latency issues. PCF Metrics uses the PWS implementation of [Zipkin](http://zipkin.io), a distributed tracing system, to do the following: 
+You can trace app requests with the Trace Explorer to help you troubleshoot app failures and latency issues. PCF Metrics uses trace IDs shared across app logs to do the following:
 
 * Collect all logs associated with a particular HTTP request made to your app.
 * Display an interactive graph that shows lifecycle of a request and the corresponding logs in the Trace Explorer window.
@@ -108,10 +108,6 @@ You can trace app requests with the Trace Explorer to help you troubleshoot app 
 See the sections below to understand how to use the Trace Explorer.
 
 ###<a id="before"></a> Prerequisite
-
-<!--PCF ONLY
-1. Ensure that Zipkin tracing is enabled for your PCF deployment. This feature is enabled by default in Elastic Runtime, but your operator can disable it. See [Enabling Zipkin Tracing](http://docs.pivotal.io/pivotalcf/adminguide/zipkin_tracing.html) for more information.
--->
 
 Before you [use the Trace Explorer](#trace-explorer), examine the following list to ensure PCF metrics can extract the necessary data from your app logs for your specific app type. 
 
@@ -123,10 +119,7 @@ Before you [use the Trace Explorer](#trace-explorer), examine the following list
 	compile "org.springframework.cloud:spring-cloud-starter-sleuth"
 }</pre>
 * **Node.js**, **Go**, **Python**: Ensure that the servers associated with your app do not modify HTTP requests in a way that removes the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers from a request. You do not have to add any dependency to your app.
-* **Ruby**: Ruby servers that use a library depending on Rack modify HTTP request headers in way that is incompatible with the PWS implementation of Zipkin tracing. If you want to trace app requests for your Ruby apps, ensure that your framework does not rely on Rack. You may need to write a raw ruby server that preserves the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers in the request.
-
-For more information on how the Gorouter works with HTTP headers and Zipkin tracing in PWS, see [HTTP Headers](../concepts/http-routing.html#zipkin-headers).
-			
+* **Ruby**: Ruby servers that use a library depending on Rack modify HTTP request headers in way that is incompatible with PCF Metrics. If you want to trace app requests for your Ruby apps, ensure that your framework does not rely on Rack. You may need to write a raw ruby server that preserves the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers in the request.
 
 ###<a id="trace-explorer"></a> Use the Trace Explorer
 
