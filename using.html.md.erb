@@ -69,9 +69,11 @@ The **Network Metric** graph displays HTTP **Requests and Errors** and **Respons
 
 ### <a id='events'></a> Events 
 
-The **Events** graph shows the following app events:  **STG Fail**, **Crash**, **Update**, **Stop**, **Start**, and **SSH**. You can change which events you see using the checkboxes in the upper right. 
+The **Events** graph shows the following app events:  staging failures (**STG Fail**), **Crash**, **Update**, **Stop**, **Start**, and **SSH**. You can change which events you see using the checkboxes in the upper right. 
 
 ![Events](events.png)
+
+<p class="note"><strong>Note</strong>: The <b>SSH</b> event corresponds to someone successfully uses SSH to access a container that runs an instance of the app.</p>
 
 See the following topics for more information about app events:
 
@@ -100,16 +102,16 @@ You can interact with the **Logs** view in the following ways:
 
 ## <a id="trace"></a>Trace App Requests
 
-You can trace app requests with the Trace Explorer to help you troubleshoot app failures and latency issues. PCF Metrics uses trace IDs shared across app logs to do the following:
+A request to one of your apps initiates a workflow within the app or system of apps. The record of this workflow is a _trace_, which you can use to troubleshoot app failures and latency issues. In the Trace Explorer view, PCF Metrics displays an interactive graph of a trace and its corresponding logs. See the sections below to understand how to use the Trace Explorer.
 
-* Collect all logs associated with a particular HTTP request made to your app.
-* Display an interactive graph that shows lifecycle of a request and the corresponding logs in the Trace Explorer window.
 
-See the sections below to understand how to use the Trace Explorer.
+For more information about traces, see the [What is a Trace?](http://opentracing.io/documentation/#what-is-a-trace) section of the Open Tracing documentation. 
+
+
 
 ###<a id="before"></a> Prerequisite
 
-Before you [use the Trace Explorer](#trace-explorer), examine the following list to ensure PCF metrics can extract the necessary data from your app logs for your specific app type. 
+PCF Metrics constructs the Trace Explorer view using trace IDs shared across app logs. Before you [use the Trace Explorer](#trace-explorer), examine the following list to ensure PCF metrics can extract the necessary data from your app logs for your specific app type. 
 
 * **Spring**: Follow the steps below.
 	1. Ensure you are using Spring Boot v1.4.3 or later. 
