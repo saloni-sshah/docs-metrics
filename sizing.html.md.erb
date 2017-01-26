@@ -78,6 +78,89 @@ After determining the number of Elasticsearch nodes needed for your deployment, 
 	<%= image_tag('elasticsearch.png') %>
 1. Click **Save**.  
 
+##<a id='temp-datastore'></a> Configuring the Upgrade Datastore
+
+<p class="note"><strong>Note</strong>: PCF Metrics uses the upgrade datastore only when upgrading from v1.3 or later.</p>
+
+During upgrades, PCF Metrics consumes logs from the Firehose using a temporary Redis datastore, or _upgrade datastore_. The upgrade datastore significantly reduces data loss during upgrades by continuing to store your app logs while the rest of the PCF Metrics components are down. When the upgrade finishes, the Elasticsearch and MySQL Logqueues contain the logs consumed by the upgrade datastore.  
+
+###<a id='temp-procedures'></a> Procedure for Scaling
+
+This procedure describes how to size the upgrade datastore for your system. 
+
+#### Calculate Storage Requirements
+
+Calculate the size of the upgrade datastore using the table below as a guide:
+
+<table>
+	<tr>
+		<th>Variable</th>
+		<th>How to find the value</th>
+	</tr>
+	<tr>
+		<td><code>AvgLogSize</code></td>
+		<td>Collect a sample of log messages from your apps and calculate the average log size in KB.</td>
+	</tr>
+	<tr>
+		<td><code>LogsPerSec</code></td>
+		<td>
+			<ol>
+				<li>
+					Install the <a href="https://docs.pivotal.io/loggregator/cli-plugin.html">nozzle plugin(</a> for the cf CLI if you do not already have it. 
+				</li>
+				<li>
+					Run following command to get a rough estimate of the volume of <code>LogMessages</code> coming from the Firehose. The command outputs the amount of <code>LogMessages</code> per second every 10 seconds.
+			<pre class="terminal">$ cf nozzle -filter LogMessage | pv -l -i10 -r >/dev/null
+[50.5 /s]</pre>
+				</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td><code>UpgradeTime</code></td>
+		<td>The average time in minutes that it takes to upgrade PCF Metrics. In testing, the tile takes 20-30 minutes.</td>
+	</tr>
+	<tr>
+		<td><code>RedisDisk</code></td>
+		<td>Find the value for <code>RedisDisk</code> using the following calculation:<br>
+<code>RedisDisk = AvgLogSize * LogsPerSec * UpgradeTime * 60</code></td>
+	</tr>
+	<tr>
+		<td>
+		<code>AdjustedRedisDisk</code>
+		</td>
+		<td>Adjust this value to account for Redis only allowing VMs to use 45% of their allocated disk:<br><code>AdjustedRedisDisk = RedisDisk / 0.45</code></td>
+	</tr>
+	<tr>
+		<td><code>RedisDocCount</code></td>
+		<td>Find the value for a new variable, <code>RedisDocCount</code>, using the following calculation:<br>
+<code>RedisDocCount = LogsPerSec * UpgradeTime * 60</code>.</td>
+	</tr>
+</table>
+
+#### Set Redis VM Size
+
+Follow these steps to configure the size of the upgrade datastore Redis VM based on your calculations.
+
+1. Navigate to the Ops Manager Installation Dashboard and click the **Redis** tile.
+
+1. From the **Settings** tab, click **Resource Config**. 
+
+1. In the **Dedicated Node** row, under **VM Type**, select an option with at least enough **disk** to support the value for AdjustedRedisMemory. 
+
+1. Click **Save**. 
+
+#### Set Redis Queue Limit
+
+Follow these steps to configure the Redis queue limit based on your calculations.
+
+1. Navigate to the Ops Manager Installation Dashboard and click the **Metrics** tile.
+
+1. From the **Settings** tab, click **Data Store**.
+
+1. In the **Redis Queue Limit** field, enter a value based on your RedisDocCount.
+
+
 ##<a id='ingestor'></a> Configuring the Ingestor
 
 PCF Metrics deploys the Ingestor as an app within PCF. The Ingestor consumes logs and metrics from the Loggregator Firehose, sending metrics and logs to their respective Logqueue apps. To customize PCF Metrics for high capacity, you can scale the number of Ingestor app instances and increase the amount of memory per instance.

@@ -65,19 +65,20 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 
 1. Click **Data Store**.
 1. Review the **Elastic Search Heap Size** value. Elastic Search memory allocation for Heap use. Set to 50% of the memory allocated to the smallest of the Elasticsearch instances in Resource Config or 31GB, whichever is smaller. Use a unit of M for megabytes or G for gigabytes.
-1. Review the **MySQL InnoDB Buffer Size** value. Number of bytes for MySQL to use with memory allocation of InnoDB buffer. Set to 80% of the memory allocated to the MySQL instances in Resource Config. This does not take a unit, please provide the value in bytes.
+1. Review the **MySQL InnoDB Buffer Size** value. Set to 80% of MySQL Server VM memory. Use a unit of M for megabytes or G for gigabytes.
 1. Review the **MySQL Logqueue Count** value. You can increase this instance count at any time to accommodate higher levels of inbound metrics traffic. 
 1. Review the **Elasticsearch Logqueue Count** value. You can increase this instance count at any time to accommodate higher levels of inbound log traffic. 
 1. Review the **Ingestor Count** value. You can increase this instance count at any time to accommodate higher levels of Loggregator Firehose traffic. 
+1. For **Redis Queue Limit**, calculate the value to enter using the procedure in [Configuring the Upgrade Datastore](./sizing.html#temp-datastore). 
 1. Click **Save**.
 
 ### <a name="errands"></a> Errands
 
 1. Click **Errands**.
-  <p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong> by default. Pivotal recommends that you do not deselect any errands as doing so can cause issues with the deployment of the tile. However, you can deselect the <b>Remove Legacy PCF Metrics CF Resources</b> errand after deploying v1.2 of the tile.</p>
+  <p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong> by default. Pivotal recommends that you do not deselect any errands as doing so can cause issues with the deployment of the tile. However, you can deselect the <b>Remove Legacy PCF Metrics CF Resources</b> errand after deploying v1.3 of the tile.</p>
 1. Review the **Post-Deploy Errands** and **Pre-Delete Errands**:
   * If this is the first deployment of the tile, all **Post-Deploy Errands** must be selected.
-  * If you deselect the **Remove PCF Metrics 1.2 CF Resources** checkbox, artifacts may remain after the PCF Metrics tile uninstalls.
+  * If you deselect the **Remove PCF Metrics 1.3 CF Resources** checkbox, artifacts may remain after the PCF Metrics tile uninstalls.
   * The following list describes what the **Smoke tests** errand does. See the [Smoke Test Errors](./troubleshooting.html#smoke-test) section of the _Troubleshooting PCF Metrics_ topic for information on resolving errors discovered by this errand.
       * Confirms that MySQL ingests metrics
       * Confirms that Elasticsearch ingests logs
