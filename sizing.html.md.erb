@@ -78,19 +78,19 @@ After determining the number of Elasticsearch nodes needed for your deployment, 
 	<%= image_tag('elasticsearch.png') %>
 1. Click **Save**.  
 
-##<a id='temp-datastore'></a> Configuring the Upgrade Datastore
+##<a id='temp-datastore'></a> Configuring the Temporary Datastore
 
-<p class="note"><strong>Note</strong>: PCF Metrics uses the upgrade datastore only when upgrading from v1.3 or later.</p>
+<p class="note"><strong>Note</strong>: PCF Metrics uses the temporary datastore only when upgrading from v1.3 or later.</p>
 
-During upgrades, PCF Metrics consumes logs from the Firehose using a temporary Redis datastore, or _upgrade datastore_. The upgrade datastore significantly reduces data loss during upgrades by continuing to store your app logs while the rest of the PCF Metrics components are down. When the upgrade finishes, the Elasticsearch and MySQL Logqueues contain the logs consumed by the upgrade datastore.  
+During upgrades, PCF Metrics consumes logs from the Firehose using a temporary Redis datastore. The temporary datastore significantly reduces data loss during upgrades by continuing to store your app logs while the rest of the PCF Metrics components are down. When the upgrade finishes, the Ingestor restores data from the temporary datastore. See [PCF Metrics Product Architecture](../architecture.html) for more information. 
 
 ###<a id='temp-procedures'></a> Procedure for Scaling
 
-This procedure describes how to size the upgrade datastore for your system. 
+This procedure describes how to size the temporary datastore for your system by calculating your requirements and configuring settings in Ops Manager . 
 
 #### Calculate Storage Requirements
 
-Calculate the size of the upgrade datastore using the table below as a guide:
+Calculate the disk and queue limit requirements of the temporary datastore using the table below as a guide:
 
 <table>
 	<tr>
@@ -99,7 +99,8 @@ Calculate the size of the upgrade datastore using the table below as a guide:
 	</tr>
 	<tr>
 		<td><code>AvgLogSize</code></td>
-		<td>Collect a sample of logs from your apps and calculate the average size of a log file in KB.</td>
+		<td>Collect a sample of logs from your apps and calculate the average size of a log file in KB. 
+		<p class="note"><strong>Note</strong>: PCF apps run on <a href="../concepts/diego/diego-architecture.html">Diego</a> cells that do not emit individual logs greater than approximately 60 KB. See <a href="https://github.com/cloudfoundry/loggregator#log-message-size-constraints">Log Message Size Constraints.</a></p></td>
 	</tr>
 	<tr>
 		<td><code>LogsPerSec</code></td>
@@ -140,7 +141,7 @@ Calculate the size of the upgrade datastore using the table below as a guide:
 
 #### Set Redis VM Size
 
-Follow these steps to configure the size of the upgrade datastore Redis VM based on your calculations.
+Follow these steps to configure the size of the temporary datastore Redis VM based on your calculations.
 
 1. Navigate to the Ops Manager Installation Dashboard and click the **Redis** tile.
 
