@@ -29,7 +29,7 @@ This section describes how PCF Metrics fills its datastores. PCF Metrics uses tw
 
 The diagram below highlights the components involved in the process of getting metric and log data into the Elasticsearch and MySQL datastore.
 
-![flow one](flow1.png)
+![process one](process1.png)
 
 ### Process 
 
@@ -88,7 +88,7 @@ This section describes the flow of data through the system when you interact wit
 
 The diagram below highlights the components involved in this process.
 
-![Flow 2](flow2.png)
+![Process 2](process2.png)
 
 ### Process
 
@@ -184,3 +184,5 @@ The following table describes the two worker components that PCF Metrics uses to
 		PCF Metrics requires the reaper worker because Redis does not remove its connections to <code>worker-app-dev</code> and <code>worker-app-logs</code> if they restart.</td>
 	</tr>
 </table>
+
+##<a id="temp-datastpre"></a> How PCF Metrics Reduces Data Loss with the Temporary Datastore

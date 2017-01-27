@@ -82,7 +82,7 @@ After determining the number of Elasticsearch nodes needed for your deployment, 
 
 <p class="note"><strong>Note</strong>: PCF Metrics uses the temporary datastore only when upgrading from v1.3 or later.</p>
 
-During upgrades, PCF Metrics consumes logs from the Firehose using a temporary Redis datastore. The temporary datastore significantly reduces data loss during upgrades by continuing to store your app logs while the rest of the PCF Metrics components are down. When the upgrade finishes, the Ingestor restores data from the temporary datastore. See [PCF Metrics Product Architecture](../architecture.html) for more information. 
+During upgrades, PCF Metrics consumes logs from the Firehose using a temporary Redis datastore. The temporary datastore significantly reduces data loss during upgrades by continuing to store your app logs while the rest of the PCF Metrics components are down. When the upgrade finishes, the Ingestor restores data from the temporary datastore. See [PCF Metrics Product Architecture](./architecture.html) for more information. 
 
 ###<a id='temp-procedures'></a> Procedure for Scaling
 
@@ -110,7 +110,7 @@ Calculate the disk and queue limit requirements of the temporary datastore using
 					Install the <a href="https://docs.pivotal.io/loggregator/cli-plugin.html">nozzle plugin(</a> for the cf CLI if you do not already have it. 
 				</li>
 				<li>
-					Run following command to estimate of the volume of <code>LogMessages</code> emitted from the Firehose. Every 10 seconds, the command gives you the average number of log messages per second, averaged over the previous 10 seconds.
+					Run following command to estimate of the volume of <code>LogMessages</code> emitted from the Loggregator Firehose. Every 10 seconds, the command gives you the average number of log messages per second, averaged over the previous 10 seconds.
 			<pre class="terminal">$ cf nozzle -filter LogMessage | pv -l -i10 -r >/dev/null
 [50.5 /s]</pre>
 				</li>
