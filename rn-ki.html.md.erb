@@ -7,66 +7,43 @@ This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
 ## <a id='130'></a>v1.3.0
 
-**Release Date: November 29 2016**
+**Release Date: February 1 2016**
 
 ### <a id="notes"></a>Notes
 
-The following sections describe what's new in PCF Metrics v1.2.1.
+The following sections describe what's new in PCF Metrics v1.3.0
 
-#### New Requirements and Configurations
+#### Reduced Data Loss During Upgrades
 
-PCF Metrics v1.2.1 requires the Redis tile v1.6 or later.
+See (./sizing.html#temp-datastore)
 
-Consider the following updates when configuring and deploying PCF Metrics v1.2.1:
+#### The Trace Explorer
 
-* **MySQL Alerts**: You can now specify an email address that receives alerts from PCF Metrics about MySQL storage issues. See the [MySQL Alerts](./installing.html#alerts) section of the _Installing PCF Metrics_ topic for more information.
-* **Data Store**: You can now configure additional properties in the **Data Store** pane. See the [Data Store](./installing.html#data) section of the _Installing PCF Metrics_ topic for more information.
-* **Errands**: The tile includes new errands. See the [Errands](./installing.html#data) section of the _Installing PCF Metrics_ topic for more information.
-    * The new **Smoke Test** tile errand summarizes any errors that occur during the test, linking directly to new [troubleshooting documentation](./troubleshooting.html#smoke-test).
-* **Resource Config**: See the [Increased Data Persistence](#persistence) section below to learn about updates affecting this configuration pane.
-* **Stemcell**: This release uses stemcell v3263.
-
-#### <a name="persistence"></a> Increased Data Persistence
-
-PCF Metrics v1.2.1 increases the retention period for log, metric, and event data to two weeks. To support this increase, PCF Metrics v1.2.1 includes the following component updates:
-
-* **Log datastore**: The default size of the Elasticsearch cluster is now nine VMs instead of three.
-* **Metrics datastore**: The tile stores metrics data in MySQL instead of IMDS and increases the default number of metrics storage VMs to seven instead of five to support higher capacity and introduce high availability.
-* **All VMs**: The default persistent disk usage is ten times greater than in v1.1.x.
-
-See the [Sizing PCF Metrics for Your System](./sizing.html) topic for updated guidance and the [PCF Metrics Product Architecture](./architecture.html) topic for an updated explanation of the components.
+See (./using.html#trace)
 
 #### Improved UI
 
-PCF Metrics v1.2.1 improves the user experience by removing the **Dashboard** screen and replacing it with an enhanced **Explore** screen. The following list describes how PCF Metrics v1.2.1 further refines its UI. To view the UI and understand the new functionality, see the [Using PCF Metrics](./using.html) topic.
+Time Selection 
+SSH and Staging Failure
+Selecting views
 
-* **Viewing historical data**: You can now view data for the past two weeks.
-* **Monitoring app events**: The new **Events** view displays all start, stop, crash, and update events.
-* **Searching Logs**: The **Logs** view now includes a histogram that displays log frequency for the current time frame. The histogram updates based on your search results. You can also download your logs.
-* **Setting the time frame**: PCF Metrics v1.2.1 improves time frame selection.
 
 ### <a id="issues"></a>Known Issues
 
-The following sections describe the known issues in PCF Metrics v1.2.1.
+The following sections describe the known issues in PCF Metrics v1.3.0
 
 #### Compatibility with Elastic Runtime
 
-PCF Metrics v1.2.x requires Elastic Runtime v1.8.9 or later.
+PCF Metrics v1.3.x requires Elastic Runtime v1.8.9 or later.
 
-#### Data Loss when Upgrading from v1.1 to v1.2
+#### Data Loss when Upgrading from v1.2 to v1.3
 
-The upgrade process from v1.1 to v1.2 acts in the following sequence:
+The upgrade process from v1.2 to v1.3 acts in the following sequence:
 
-1. Removes the data storage components of v1.1
-1. Deploys v1.2 data storage and ingestion components
+1. Removes the data storage components of v1.2
+1. Deploys v1.3 data storage and ingestion components
 
-The upgrade process does not save any v1.1 data and the new components do not begin ingesting and storing log or metrics data until they successfully deploy.
-
-#### Data Loss during Stemcell Upgrades
-
-The Elasticsearch cluster updates when PCF Metrics applies a new stemcell, which causes decreased log ingestion and, consequently, the loss of logs. Some storage occurs during this time because canary deployed nodes can intake some of the load from firehose. Ingestion reduction may vary depending on deployment size, but you can expect some loss.
-
-In testing, the Elasticsearch cluster took approximately five minutes to update and experienced between a 40% and 60% reduction in logs ingested and stored.
+The upgrade process does not save any v1.2 data and the new components do not begin ingesting and storing log or metrics data until they successfully deploy.
 
 #### Smoke Test Failure
 
