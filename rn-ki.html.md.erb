@@ -7,30 +7,18 @@ This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
 ## <a id='130'></a>v1.3.0
 
-**Release Date: February 1 2016**
+**Release Date: February 1, 2016**
 
 ### <a id="notes"></a>Notes
 
-The following sections describe what's new in PCF Metrics v1.3.0
+The following list describes what's new in PCF Metrics v1.3.0:
 
-#### Reduced Data Loss During Upgrades
-
-See (./sizing.html#temp-datastore)
-
-#### The Trace Explorer
-
-PCF Metrics provides an interactive graph that allows you to trace requests as they flow through your apps and their endpoints, along with the corresponding logs. See the [Trace App Requests](./using.html#trace) section of _Monitoring and Troubleshooting Apps with PCF Metrics_.
-
-#### Improved UI
-
-PCF Metrics v1.3.0 includes several UI enhancements such as a new time selector and an improved UX for collapsing and expanding which views you are interested in. See the [Monitoring and Troubleshooting Apps with PCF Metrics](./using.html) topic for more information.
-
-#### Events
-
-The **Events** graph now includes the following events;
-
-* **SSH**: This event corresponds to someone successfully using SSH to access a container that runs an instance of the app.
-* **STG Fail**: This event corresponds to your app failing to stage in PCF.
+* **Reduced Data Loss During Upgrades**: PCF Metrics uses a temporary datastore during upgrades to significantly reduce data loss by continuing to store app logs from the Loggregator Firehose while the rest of the PCF Metrics components are down. The upgrade datastore is a new Redis component deployed with PCF Metrics that operators must size according to the needs of their system. See [Configuring the Upgrade Datastore](./sizing.html#temp-datastore) for more information.
+* **The Trace Explorer**: PCF Metrics provides an interactive graph that allows you to trace requests as they flow through your apps and their endpoints, along with the corresponding logs. See the [Trace App Requests](./using.html#trace) section of _Monitoring and Troubleshooting Apps with PCF Metrics_.
+* **Improved UI**: PCF Metrics v1.3.0 includes several UI enhancements such as a new time selector and an improved UX for collapsing and expanding which views you are interested in. . To view the UI and understand the new functionality, see the Using PCF Metrics topic.
+* **Events**: The **Events** graph now includes the following events:
+	* **SSH**: This event corresponds to someone successfully using SSH to access a container that runs an instance of the app.
+	* **STG Fail**: This event corresponds to your app failing to stage in PCF.
 
 ### <a id="issues"></a>Known Issues
 
