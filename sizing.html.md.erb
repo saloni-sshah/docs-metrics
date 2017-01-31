@@ -82,7 +82,7 @@ After determining the number of Elasticsearch nodes needed for your deployment, 
 
 <p class="note"><strong>Note</strong>: PCF Metrics uses the temporary datastore only when upgrading from v1.3 or later.</p>
 
-During upgrades, PCF Metrics consumes logs from the Firehose using a temporary Redis datastore. The temporary datastore significantly reduces data loss during upgrades by continuing to store your app logs while the rest of the PCF Metrics components are down. When the upgrade finishes, the Ingestor restores data from the temporary datastore. See [PCF Metrics Product Architecture](./architecture.html) for more information. 
+During Elasticsearch downtime, including upgrades, PCF Metrics stores logs from the Loggregator Firehose in a temporary Redis datastore. When the upgrade finishes, the the Elasticsearch logqueue restores data from the temporary datastore by placing it in Elasticsearch. See [PCF Metrics Product Architecture](./architecture.html) for more information. 
 
 ###<a id='temp-procedures'></a> Procedure for Scaling
 
