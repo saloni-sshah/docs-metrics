@@ -61,7 +61,7 @@ The following table describes how the components act during each stage.
 			<li><b>If Elasticsearch is available</b>: Buffers logs and writes them to the Elasticsearch datastore</li>
 			<li><b>If Elasticsearch is NOT available</b>:
 				<ol>
-					<li>Buffers logs and writes them to the Temporary datastore until the Elasticsearch datastore is available again</li>
+					<li>Buffers logs and writes them to the Temporary datastore until the Elasticsearch datastore becomes available</li>
 					<li>After the Elasticsearch datastore becomes available, retrieves logs from the Temporary datastore in groups of 1000, buffers them, and writes them to the Elasticsearch datastore</li>
 					<li>Continues buffering logs from the ingestor and writing them to the Elasticsearch datastore</li>
 				</ol>
