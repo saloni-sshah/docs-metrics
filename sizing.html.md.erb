@@ -90,7 +90,7 @@ This procedure describes how to size the temporary datastore for your system by 
 
 #### Calculate Storage Requirements
 
-Calculate the disk and queue limit requirements of the temporary datastore using the table below as a guide:
+Calculate the storage requirements of the temporary datastore using the table below as a guide:
 
 <table>
 	<tr>
@@ -130,24 +130,25 @@ Calculate the disk and queue limit requirements of the temporary datastore using
 		<td>
 		<code>AdjustedRedisDisk</code>
 		</td>
-		<td>Because Redis only allows VMS to use 45% of their allocated disk, adjust the storage requirement as follows:<br><code>AdjustedRedisDisk = RedisDisk / 0.45</code></td>
-	</tr>
-	<tr>
-		<td><code>RedisDocCount</code></td>
-		<td>Calculate <code>RedisDocCount</code> as follows:<br>
-<code>RedisDocCount = LogsPerSec * UpgradeTime * 60</code>.</td>
+		<td>Because Redis only allows VMs to use 45% of their allocated disk, adjust the storage requirement as follows:<br><code>AdjustedRedisDisk = RedisDisk / 0.45</code></td>
 	</tr>
 </table>
 
-#### Set Redis VM Size
+#### Configure Redis
 
-Follow these steps to configure the size of the temporary datastore Redis VM based on your calculations.
+Follow these steps to configure the size and memory limit of the Redis VM for the temporary datastore based on your calculations.
+
+<p class="note"><strong>Note</strong>: In the case that the temporary datastore becomes full, Redis uses the <code>volatile-ttl</code> eviction policy to continue storing incoming logs. For more information, see the <i>Eviction policies</i> section of <a href="https://redis.io/topics/lru-cache">Using Redis as an LRU cache</a>.</p>
 
 1. Navigate to the Ops Manager Installation Dashboard and click the **Redis** tile.
 
 1. From the **Settings** tab, click **Resource Config**. 
 
 1. In the **Dedicated Node** row, under **VM Type**, select an option with at least enough **disk** to support the value for <code>AdjustedRedisDisk</code>. 
+
+1. Under **Settings**, click **Shared-VM Plan**. 
+
+1. In the **Redis Instance Memory Limit** field, enter a value equal to approximately 45% of the **RAM** of the **VM Type** you chose previously for **Dedicated Node**. 
 
 1. Click **Save**. 
 

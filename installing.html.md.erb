@@ -97,7 +97,13 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
    <p class='note'><strong>Note:</strong> On AWS make sure to use a HVM stemcell if you are using the default instance sizes.</p>
 1. Click **Import Stemcell** and select the stemcell file you downloaded.
 
-## <a id='step3'></a>Step 3: Deploy PCF Metrics
+## <a id='step3'></a>Step 3: Configure the Temporary Datastore
+
+PCF Metrics uses a temporary datastore during Elasticsearch downtime, including upgrades, to significantly reduce log loss by continuing to store app logs from the Loggregator Firehose.
+
+To configure the temporary datastore, follow the instructions in the [Configuring the Temporary Datastore](./sizing.html#temp-datastore) section of _Sizing PCF Metrics for your System_. 
+
+## <a id='step4'></a>Step 4: Deploy PCF Metrics
 
 Click **Apply Changes** to install the service. If the smoke tests fail, see the [Troubleshoot Smoke Test Errors](./troubleshooting.html#smoke-test) section of the _Troubleshooting PCF Metrics_ topic.
 
