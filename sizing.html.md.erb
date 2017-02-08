@@ -86,7 +86,7 @@ During Elasticsearch downtime, including upgrades, PCF Metrics stores logs from 
 
 ###<a id='temp-procedures'></a> Procedure for Scaling
 
-This procedure describes how to size the temporary datastore for your system by calculating your requirements and configuring settings in Ops Manager . 
+This procedure describes how to size the temporary datastore for your system by calculating your requirements and setting the VM size in Ops Manager. 
 
 #### Calculate Storage Requirements
 
@@ -130,13 +130,13 @@ Calculate the storage requirements of the temporary datastore using the table be
 		<td>
 		<code>AdjustedRedisRAM</code>
 		</td>
-		<td>Because Redis only allows VMs to use 45% of their allocated RAM, adjust the storage requirement as follows:<br><code>AdjustedRedisRAM = RedisRAM / 0.45</code></td>
+		<td>Because Redis only allows VMs to use <a href="https://docs.pivotal.io/redis/installing.html#service-plans">45% of their allocated RAM</a>, adjust the storage requirement as follows:<br><code>AdjustedRedisRAM = RedisRAM / 0.45</code></td>
 	</tr>
 </table>
 
 #### Configure Redis
 
-Follow these steps to configure the size and memory limit of the Redis VM for the temporary datastore based on your calculations.
+Follow these steps to configure the size of the Redis VM for the temporary datastore based on your calculations.
 
 <p class="note"><strong>Note</strong>: In the case that the temporary datastore becomes full, Redis uses the <code>volatile-ttl</code> eviction policy to continue storing incoming logs. For more information, see the <i>Eviction policies</i> section of <a href="https://redis.io/topics/lru-cache">Using Redis as an LRU cache</a>.</p>
 
@@ -145,8 +145,6 @@ Follow these steps to configure the size and memory limit of the Redis VM for th
 1. From the **Settings** tab, click **Resource Config**. 
 
 1. In the **Dedicated Node** row, under **VM Type**, select an option with at least enough **ram** to support the value for <code>AdjustedRedisRAM</code>. 
-
-1. Under **Settings**, click **Shared-VM Plan**. 
 
 1. Click **Save**. 
 
