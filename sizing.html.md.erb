@@ -122,15 +122,15 @@ Calculate the storage requirements of the temporary datastore using the table be
 		<td>Estimate how long your PCF Metrics upgrade will take. In tests in a large production environment, the upgrade takes 20–30 minutes.</td>
 	</tr>
 	<tr>
-		<td><code>RedisDisk</code></td>
-		<td>Find the value for <code>RedisDisk</code> using the following calculation:<br>
-<code>RedisDisk = AvgLogSize * LogsPerSec * UpgradeTime * 60</code></td>
+		<td><code>RedisRAM</code></td>
+		<td>Find the value for <code>RedisRAM</code> using the following calculation:<br>
+<code>RedisRAM = AvgLogSize * LogsPerSec * UpgradeTime * 60</code></td>
 	</tr>
 	<tr>
 		<td>
-		<code>AdjustedRedisDisk</code>
+		<code>AdjustedRedisRAM</code>
 		</td>
-		<td>Because Redis only allows VMs to use 45% of their allocated disk, adjust the storage requirement as follows:<br><code>AdjustedRedisDisk = RedisDisk / 0.45</code></td>
+		<td>Because Redis only allows VMs to use 45% of their allocated RAM, adjust the storage requirement as follows:<br><code>AdjustedRedisRAM = RedisRAM / 0.45</code></td>
 	</tr>
 </table>
 
@@ -144,11 +144,11 @@ Follow these steps to configure the size and memory limit of the Redis VM for th
 
 1. From the **Settings** tab, click **Resource Config**. 
 
-1. In the **Dedicated Node** row, under **VM Type**, select an option with at least enough **disk** to support the value for <code>AdjustedRedisDisk</code>. 
+1. In the **Dedicated Node** row, under **VM Type**, select an option with at least enough **ram** to support the value for <code>AdjustedRedisRAM</code>. 
 
 1. Under **Settings**, click **Shared-VM Plan**. 
 
-1. In the **Redis Instance Memory Limit** field, enter a value equal to approximately 45% of the **RAM** of the **VM Type** you chose previously for **Dedicated Node**. 
+1. In the **Redis Instance Memory Limit** field, enter the `AdjustedRedisRAM` value. 
 
 1. Click **Save**. 
 
