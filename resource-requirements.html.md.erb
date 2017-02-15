@@ -1,0 +1,101 @@
+---
+title: Resource Requirements
+owner: PCF Metrics
+---
+
+The following table shows the default resource and IP requirements for installing the tile:
+
+<table border="1" class="nice">
+  <thead>
+  <tr>
+    <th>Product</th>
+    <th>Resource</th>
+    <th>Instances</th>
+    <th>CPU</th>
+    <th>Ram</th>
+    <th>Ephemeral</th>
+    <th>Persistent</th>
+    <th>Static IP</th>
+    <th>Dynamic IP</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>PCF Metrics</td>
+    <td>Elasticsearch Master</td>
+    <td>3</td>
+    <td>4</td>
+    <td>16GB</td>
+    <td>32GB</td>
+    <td>10GB</td>
+    <td>3</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>PCF Metrics</td>
+    <td>Elasticsearch Coordinator</td>
+    <td>2</td>
+    <td>2</td>
+    <td>16GB</td>
+    <td>32GB</td>
+    <td>1GB</td>
+    <td>1</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>PCF Metrics</td>
+    <td>Elasticsearch Data</td>
+    <td>4</td>
+    <td>2</td>
+    <td>16GB</td>
+    <td>32GB</td>
+    <td>100GB</td>
+    <td>4</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>PCF Metrics</td>
+    <td>MySQL Server</td>
+    <td>2</td>
+    <td>2</td>
+    <td>16GB</td>
+    <td>32GB</td>
+    <td>100GB</td>
+    <td>3</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>PCF Metrics</td>
+    <td>MySQL Proxy</td>
+    <td>2</td>
+    <td>2</td>
+    <td>16GB</td>
+    <td>32GB</td>
+    <td>N/A</td>
+    <td>2</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>PCF Metrics</td>
+    <td>MySQL Monitor</td>
+    <td>N/A</td>
+    <td>2</td>
+    <td>16GB</td>
+    <td>32GB</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>PCF Metrics</td>
+    <td>Metron</td>
+    <td>N/A</td>
+    <td>2</td>
+    <td>4GB</td>
+    <td>32GB</td>
+    <td>N/A</td>
+    <td>1</td>
+    <td>0</td>
+  </tr>
+  </tbody>
+</table>
