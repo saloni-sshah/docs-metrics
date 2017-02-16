@@ -86,99 +86,102 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 ### <a name="resource-config"></a> Resource Config
 
 1. Click **Resource Config**.
-1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job. For reference, the following table shows the default resource and IP requirements for installing the PCF Metrics tile:
+1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job. 
+   For reference, the following table shows the default resource and IP requirements for installing the PCF Metrics tile:
   
-  <table border="1" class="nice">
-    <thead>
-    <tr>
-      <th>Resource</th>
-      <th>Instances</th>
-      <th>Persistent</th>
-      <th>CPU</th>
-      <th>RAM</th>
-      <th>Ephemeral</th>
-      <th>Static IP</th>
-      <th>Dynamic IP</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td>Elasticsearch Master</td>
-      <td>3</td>
-      <td>10&nbsp;GB</td>
-      <td>4</td>
-      <td>16&nbsp;GB</td>
-      <td>32&nbsp;GB</td>
-      <td>3</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>Elasticsearch Coordinator</td>
-      <td>2</td>
-      <td>1&nbsp;GB</td>
-      <td>2</td>
-      <td>16&nbsp;GB</td>
-      <td>32&nbsp;GB</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>Elasticsearch Data</td>
-      <td>4</td>
-      <td>100&nbsp;GB</td>
-      <td>2</td>
-      <td>16&nbsp;GB</td>
-      <td>32&nbsp;GB</td>
-      <td>4</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>MySQL Server</td>
-      <td>2</td>
-      <td>100&nbsp;GB</td>
-      <td>2</td>
-      <td>16&nbsp;GB</td>
-      <td>32&nbsp;GB</td>
-      <td>3</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>MySQL Proxy</td>
-      <td>2</td>
-      <td><em>n/a</em></td>
-      <td>2</td>
-      <td>16&nbsp;GB</td>
-      <td>32&nbsp;GB</td>
-      <td>2</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>MySQL Monitor</td>
-      <td><em>n/a</em></td>
-      <td><em>n/a</em></td>
-      <td>2</td>
-      <td>16&nbsp;GB</td>
-      <td>32&nbsp;GB</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>Metron</td>
-      <td><em>n/a</em></td>
-      <td><em>n/a</em></td>
-      <td>2</td>
-      <td>4&nbsp;GB</td>
-      <td>32&nbsp;GB</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    </tbody>
-  </table>
+    <table border="1" class="nice">
+      <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Instances</th>
+        <th>Persistent</th>
+        <th>CPU</th>
+        <th>RAM</th>
+        <th>Ephemeral</th>
+        <th>Static IP</th>
+        <th>Dynamic IP</th>
+      </tr>
+      </thead>
+     <tbody>
+      <tr>
+        <td>Elasticsearch Master</td>
+        <td>3</td>
+        <td>10&nbsp;GB</td>
+        <td>4</td>
+        <td>16&nbsp;GB</td>
+        <td>32&nbsp;GB</td>
+        <td>3</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>Elasticsearch Coordinator</td>
+        <td>2</td>
+        <td>1&nbsp;GB</td>
+        <td>2</td>
+        <td>16&nbsp;GB</td>
+        <td>32&nbsp;GB</td>
+        <td>1</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>Elasticsearch Data</td>
+        <td>4</td>
+        <td>100&nbsp;GB</td>
+        <td>2</td>
+        <td>16&nbsp;GB</td>
+        <td>32&nbsp;GB</td>
+        <td>4</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>MySQL Server</td>
+        <td>2</td>
+        <td>100&nbsp;GB</td>
+        <td>2</td>
+        <td>16&nbsp;GB</td>
+        <td>32&nbsp;GB</td>
+        <td>3</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>MySQL Proxy</td>
+        <td>2</td>
+        <td><em>n/a</em></td>
+        <td>2</td>
+        <td>16&nbsp;GB</td>
+        <td>32&nbsp;GB</td>
+        <td>2</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>MySQL Monitor</td>
+        <td><em>n/a</em></td>
+        <td><em>n/a</em></td>
+        <td>2</td>
+        <td>16&nbsp;GB</td>
+        <td>32&nbsp;GB</td>
+        <td>0</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>Metron</td>
+        <td><em>n/a</em></td>
+        <td><em>n/a</em></td>
+        <td>2</td>
+        <td>4&nbsp;GB</td>
+        <td>32&nbsp;GB</td>
+        <td>1</td>
+        <td>0</td>
+      </tr>
+      </tbody>
+    </table>
 
-  If you expect a high level of use, you may need to increase the disk resources available to your instances. 
+    If you expect a high level of use, you may need to increase the disk resources available to your instances. 
   
-  <p class="note"><strong>Note:</strong> There have been issues with the Ops Manager Bosh Director correctly partitioning persistent disks larger than 2TB.</p>
+    <p class="note"><strong>Note:</strong> There have been issues with the Ops Manager Bosh Director correctly partitioning persistent disks larger than 2&nbsp;TB.</p>
+
 1. Click **Save**.
+
 
 ### <a name="stemcell"></a> Stemcell
 
