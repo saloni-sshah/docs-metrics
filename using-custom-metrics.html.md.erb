@@ -1,0 +1,23 @@
+---
+breadcrumb: PCF Metrics Documentation
+title: Using Custom Application Metrics
+owner: PCF Metrics
+---
+
+This topic describes how developers can emit custom metrics from their apps and view them in visualized form using Pivotal Cloud Foundry (PCF) Metrics.
+
+## <a id="overview"></a> Overview
+
+* [Custom Metrics Service](#provision-and-bind): Provisioning and Binding via Cloud Foundry
+
+## <a id="provision-and-bind"></a>Provisioning and Binding via Cloud Foundry ##
+
+As part of installation the product is automatically registered with [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) Elastic Runtime (see [Lifecycle Errands](#lifecycle-errands)). On successful installation, the Custom Metrics service is available to application developers in the Services Marketplace, via the web-based Developer Console or `cf marketplace`. Developers can then provision instances of the service and bind them to their applications:
+
+<pre class="terminal">
+$ cf create-service custom-metrics standard my-custom-metrics
+$ cf bind-service my-app my-custom-metrics
+$ cf restart my-app
+</pre>
+
+For more information about the use of services, see the [Services Overview](http://docs.pivotal.io/pivotalcf/devguide/services/). Please note that binding may not be available during a tile upgrade.
