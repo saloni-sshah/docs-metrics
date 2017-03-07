@@ -16,8 +16,8 @@ public_host: hello
 sections:
   - repository:
       name: docs-content
-    directory: myservice
-    subnav_template: myservice_subnav.erb       
+    directory: pcf-metrics/1-4
+    subnav_template: pcf_metrics_1_4_subnav.erb       
 
 template_variables:                             # optional
 
