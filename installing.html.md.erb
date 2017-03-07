@@ -77,6 +77,11 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
   <p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong> by default. Pivotal recommends that you do not deselect any errands as doing so can cause issues with the deployment of the tile. However, you can deselect the <b>Remove Legacy PCF Metrics CF Resources</b> errand after deploying v1.3 of the tile.</p>
 1. Review the **Post-Deploy Errands** and **Pre-Delete Errands**:
   * If this is the first deployment of the tile, all **Post-Deploy Errands** must be selected.
+  * For subsequent deployments, the following configuration is appropriate:
+      * "Remove Legacy PCF Metrics CF Resources" should be set to "When Changed"
+      * "Remove PCF Metrics 1.2 CF Resources" should be set to "When Changed"
+      * "Push PCF Metrics components" should be set to "On"
+      * "Smoke tests for Metrics Data and Apm" should be set to "On"
   * If you deselect the **Remove PCF Metrics 1.3 CF Resources** checkbox, artifacts may remain after the PCF Metrics tile uninstalls.
   * The following list describes what the **Smoke tests** errand does. See the [Smoke Test Errors](./troubleshooting.html#smoke-test) section of the _Troubleshooting PCF Metrics_ topic for information on resolving errors discovered by this errand.
       * Confirms that MySQL ingests metrics
@@ -86,7 +91,7 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 ### <a name="resource-config"></a> Resource Config
 
 1. Click **Resource Config**.
-1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job. For reference, the following table shows the default resource and IP requirements for installing the PCF Metrics tile: 
+1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job. For reference, the following table shows the default resource and IP requirements for installing the PCF Metrics tile:
   <table border="1" class="nice">
     <thead>
     <tr>
