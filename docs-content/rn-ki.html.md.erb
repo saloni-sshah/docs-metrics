@@ -5,38 +5,38 @@ owner: PCF Metrics
 
 This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
-## <a id='130'></a>v1.3.0
+## <a id='130'></a>v1.4.0
 
 **Release Date: February 23, 2017**
 
 ### <a id="notes"></a>Notes
 
-The following list describes what's new in PCF Metrics v1.3.0:
+The following list describes what's new in PCF Metrics v1.4.0:
 
 * **Reduced Log Loss During Upgrades**: PCF Metrics uses a temporary datastore during Elasticsearch downtime, including upgrades, to significantly reduce log loss by continuing to store app logs from the Loggregator Firehose. The temporary datastore is a new Redis component deployed with PCF Metrics that operators must size according to the needs of their system. This includes a new **Redis Queue Limit** field in the **Data Store** pane of the tile **Settings** tab. See [Configuring the Temporary Datastore](./sizing.html#temp-datastore) for more information.
-	<p class="note"><strong>Note</strong>: If you are upgrading from v1.2, <strong>Redis Queue Limit</strong> is a required field even though PCF Metrics will not use the temporary datastore. PCF Metrics only uses the temporary datastore when upgrading from v1.3 or later.</p>	
+	<p class="note"><strong>Note</strong>: If you are upgrading from v1.2, <strong>Redis Queue Limit</strong> is a required field even though PCF Metrics will not use the temporary datastore. PCF Metrics only uses the temporary datastore when upgrading from v1.3 or later.</p>
 * **The Trace Explorer**: PCF Metrics provides an interactive graph that allows you to trace requests as they flow through your apps and their endpoints, along with the corresponding logs. See the [Trace App Requests](./using.html#trace) section of _Monitoring and Troubleshooting Apps with PCF Metrics_.
-* **Improved UI**: PCF Metrics v1.3.0 includes several UI enhancements such as a new time selector and an improved UX for collapsing and expanding which views you are interested in. To view the UI and understand the new functionality, see [Monitoring and Troubleshooting Apps with PCF Metrics](./using.html).
+* **Improved UI**: PCF Metrics v1.4.0 includes several UI enhancements such as a new time selector and an improved UX for collapsing and expanding which views you are interested in. To view the UI and understand the new functionality, see [Monitoring and Troubleshooting Apps with PCF Metrics](./using.html).
 * **Events**: The **Events** graph now includes the following events:
 	* **SSH**: This event corresponds to someone successfully using SSH to access a container that runs an instance of the app.
 	* **STG Fail**: This event corresponds to your app failing to stage in PCF.
 
 ### <a id="issues"></a>Known Issues
 
-The following sections describe the known issues in PCF Metrics v1.3.0
+The following sections describe the known issues in PCF Metrics v1.4.0
 
 #### Compatibility with Elastic Runtime
 
-PCF Metrics v1.3.x requires Elastic Runtime v1.8.9 or later.
+PCF Metrics v1.4.x requires Elastic Runtime v1.8.9 or later.
 
-#### Metrics and Log Loss when Upgrading from v1.2 to v1.3
+#### Metrics and Log Loss when Upgrading from v1.3 to v1.4
 
-The upgrade process from v1.2 to v1.3 acts in the following sequence:
+The upgrade process from v1.3 to v1.4 acts in the following sequence:
 
-1. Removes the data storage components of v1.2
-1. Deploys v1.3 data storage and ingestion components
+1. Removes the data storage components of v1.3
+1. Deploys v1.4 data storage and ingestion components
 
-The upgrade process does not save any v1.2 data and the new components do not begin ingesting and storing log or metrics data until they successfully deploy.
+The upgrade process does not save any v1.3 data and the new components do not begin ingesting and storing log or metrics data until they successfully deploy.
 
 #### Smoke Test Failure
 
