@@ -3,6 +3,16 @@ breadcrumb: PCF Metrics Documentation
 title: Using Custom Application Metrics
 owner: PCF Metrics
 ---
+<style>
+   .note.warning {
+       background-color: #fdd;
+       border-color: #fbb
+   }
+
+   .note.warning:before {
+       color: #f99;
+    }
+</style>
 
 This topic describes how app developers can emit custom metrics from their apps and 
 view them in visualized form using Pivotal Cloud Foundry (PCF) Metrics.
@@ -24,4 +34,4 @@ $ cf restart my-app
 </pre>
 
 For more information about the use of services, see the [Services Overview](http://docs.pivotal.io/pivotalcf/devguide/services/). 
-<p class="note warning"><strong>WARNING: </strong> Binding might not be available during a tile upgrade.</p>
+<p class="note warning"><strong>WARNING</strong>: Binding might not be available during a tile upgrade.</p>
