@@ -647,6 +647,16 @@ This procedure is extremely costly in terms of time and network resources. The c
 1. Run `bosh deploy` to deploy with your edited manifest. 
 1. Wait for BOSH to rebuild the node.
 
+##<a id='mysql-sst'></a> MySQL SST Disabled Error
+
+If you see the message below on a failing node in `/var/vcap/sys/log/mysql/mysql.err.log`, you can resolve the error by following the instructions in the [Interruptor Logs](http://docs.pivotal.io/p-mysql/monitoring-mysql.html#logs) section of the MySQL for PCF documentation. 
+
+<pre class="terminal">
+WSREP_SST: [ERROR] ############################################################################## (20160610 04:33:21.338)
+WSREP_SST: [ERROR] SST disabled due to danger of data loss. Verify data and bootstrap the cluster (20160610 04:33:21.340)
+WSREP_SST: [ERROR] ############################################################################## (20160610 04:33:21.341)
+</pre>
+
 ##<a id='log'></a> Log Errors
 
 <table border='1' class='nice'>
