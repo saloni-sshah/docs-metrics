@@ -28,10 +28,31 @@ To customize PCF Metrics for high capacity, you can add memory and persistent di
 ###<a id='metrics-considerations'></a> Considerations for Scaling
 Because apps emit logs at different volumes and frequencies, you should not scale the MySQL server nodes in accordance to the number of app instances in your deployment. Because of the ease in scaling these components, we recommend starting with a minimal configuration then evaluating performance over a period of time and scaling. As long as persistent disk is being scaled up, there should not be any fear of losing data. 
 
-To calculate approximate starting memory and disk allocation for each MySQL server node, use the following formulas:
+To determine approximate starting memory and disk allocation for each MySQL server node, use the following example configurations:
 
-* **Memory**: As a general rule, each MySQL server node should have a minimum of 35 GB of memory. Increase from here if read performance starts to decrease.
-* **Persistent Disk**: As a general rule, 10 million metrics stored in MySQL consumes approximately 6.5 GB of persistent disk on the VM.  
+####Minimum (test use ~100 apps)
+
+| servers                | VM sizing                                                 |
+|------------------------|-----------------------------------------------------------|
+| 1 mysql server node    | 1 cpu, 8g ephemeral disk, 1g memory, 50gb persistent disk |
+| 1 mysql proxy node     | 1 cpu, 8g ephemeral disk, 1g memory                       |
+
+####Medium (production use ~5000 apps)
+
+| servers                     | VM sizing                                                            |
+|-----------------------------|----------------------------------------------------------------------|
+| 2 mysql server nodes        | 2 vcpu, 12gb memory, 32gb epheremal disk, 500 gb persistent disk     |
+| 1 mysql proxy node          | 2 vcpu 4gb memory, 8gb ephemeral                                     |
+| 1 mysql monitoring node     | 2 vcpu 4gb memory, 8gb ephemeral                                     |
+
+
+####Large (production use ~15000 apps)
+
+| servers                     | VM sizing                                                         |
+|-----------------------------|-------------------------------------------------------------------|
+| 3 mysql server nodes        | 8 vcpu 64gb memory, 160 gb ephemeral disk. 1.5 tb persistent disk |
+| 1 mysql proxy node          | 2 vcpu 8gb memory 32gb ephemeral disk                             |
+| 1 mysql monitoring node     | 2 vcpu 4gb memory, 8gb ephemeral                                  |
 
 Use these results as guidelines. Consider configuring your MySQL server nodes with additional memory and disk if your deployment adds additional app instances.
 
