@@ -30,29 +30,31 @@ Because apps emit logs at different volumes and frequencies, you should not scal
 
 To determine approximate starting memory and disk allocation for each MySQL server node, use the following example configurations:
 
-####Minimum (test use ~100 apps)
+####Small (test use ~100 apps)
 
-| servers                | VM sizing                                                 |
-|------------------------|-----------------------------------------------------------|
-| 1 mysql server node    | 1 cpu, 8g ephemeral disk, 1g memory, 50gb persistent disk |
-| 1 mysql proxy node     | 1 cpu, 8g ephemeral disk, 1g memory                       |
+<p class="note warning"><strong>WARNING:</strong> Do NOT attempt to size your PCF Metrics deployment any smaller than this setting. These are the minimum resources required for the deployment to work correctly.</p>
+
+| Job           | Instances | Persistent Disk Type | VM sizing                   |
+|---------------|-----------|----------------------|-----------------------------|
+| MySQL Server  | 1         | 50 GB                | cpu: 1, ram: 1GB, disk: 8GB |
+| MySQL Proxy   | 1         | None                 | cpu: 1, ram: 1GB, disk: 8GB |
+| MySQL Monitor | 0         | None                 | N/A                         |
 
 ####Medium (production use ~5000 apps)
 
-| servers                     | VM sizing                                                            |
-|-----------------------------|----------------------------------------------------------------------|
-| 2 mysql server nodes        | 2 vcpu, 12gb memory, 32gb epheremal disk, 500 gb persistent disk     |
-| 1 mysql proxy node          | 2 vcpu 4gb memory, 8gb ephemeral                                     |
-| 1 mysql monitoring node     | 2 vcpu 4gb memory, 8gb ephemeral                                     |
-
+| Job           | Instances | Persistent Disk Type | VM sizing                      |
+|---------------|-----------|----------------------|--------------------------------|
+| MySQL Server  | 2         | 500 GB               | cpu: 2, ram: 12GB, disk: 32GB  |
+| MySQL Proxy   | 1         | None                 | cpu: 2, ram: 4GB, disk: 8GB    |
+| MySQL Monitor | 1         | None                 | cpu: 2, ram: 4GB, disk: 8GB    |
 
 ####Large (production use ~15000 apps)
 
-| servers                     | VM sizing                                                         |
-|-----------------------------|-------------------------------------------------------------------|
-| 3 mysql server nodes        | 8 vcpu 64gb memory, 160 gb ephemeral disk. 1.5 tb persistent disk |
-| 1 mysql proxy node          | 2 vcpu 8gb memory 32gb ephemeral disk                             |
-| 1 mysql monitoring node     | 2 vcpu 4gb memory, 8gb ephemeral                                  |
+| Job           | Instances | Persistent Disk Type | VM sizing                      |
+|---------------|-----------|----------------------|--------------------------------|
+| MySQL Server  | 3         | ~1.5 TB              | cpu: 8, ram: 64GB, disk: 160GB |
+| MySQL Proxy   | 1         | None                 | cpu: 2, ram: 8GB, disk: 32GB   |
+| MySQL Monitor | 1         | None                 | cpu: 2, ram: 4Gb, disk: 8GB    |
 
 Use these results as guidelines. Consider configuring your MySQL server nodes with additional memory and disk if your deployment adds additional app instances.
 
