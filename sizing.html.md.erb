@@ -30,33 +30,34 @@ Because apps emit logs at different volumes and frequencies, you should not scal
 
 To determine approximate starting memory and disk allocation for each MySQL server node, use the following example configurations:
 
-####Small (test use ~100 apps)
+####Small: Test Use ~100 Apps
 
-<p class="note warning"><strong>WARNING:</strong> Do NOT attempt to size your PCF Metrics deployment any smaller than this setting. These are the minimum resources required for the deployment to work correctly.</p>
+<p class="note warning"><strong>WARNING:</strong> Do NOT attempt to size your PCF Metrics deployment any smaller than this setting. These are the minimum resources required.</p>
 
-| Job           | Instances | Persistent Disk Type | VM sizing                   |
-|---------------|-----------|----------------------|-----------------------------|
-| MySQL Server  | 1         | 50 GB                | cpu: 1, ram: 1GB, disk: 8GB |
-| MySQL Proxy   | 1         | None                 | cpu: 1, ram: 1GB, disk: 8GB |
-| MySQL Monitor | 0         | None                 | N/A                         |
+| Job           | Instances | Persistent Disk Type | VM Sizing                               |
+|---------------|-----------|----------------------|-----------------------------------------|
+| MySQL Server  | 1         | 50 GB                | CPU: 1, RAM: 1&nbsp;GB, disk: 8&nbsp;GB |
+| MySQL Proxy   | 1         | None                 | CPU: 1, RAM: 1&nbsp;GB, disk: 8&nbsp;GB |
+| MySQL Monitor | 0         | None                 | N/A                                     |
 
-####Medium (production use ~5000 apps)
+####Medium: Production Use ~5000 Apps
 
-| Job           | Instances | Persistent Disk Type | VM sizing                      |
-|---------------|-----------|----------------------|--------------------------------|
-| MySQL Server  | 2         | 500 GB               | cpu: 2, ram: 12GB, disk: 32GB  |
-| MySQL Proxy   | 1         | None                 | cpu: 2, ram: 4GB, disk: 8GB    |
-| MySQL Monitor | 1         | None                 | cpu: 2, ram: 4GB, disk: 8GB    |
+| Job           | Instances | Persistent Disk Type | VM Sizing                                  |
+|---------------|-----------|----------------------|--------------------------------------------|
+| MySQL Server  | 2         | 500 GB               | CPU: 2, RAM: 12&nbsp;GB, disk: 32&nbsp;GB  |
+| MySQL Proxy   | 1         | None                 | CPU: 2, RAM: 4&nbsp;GB, disk: 8&nbsp;GB    |
+| MySQL Monitor | 1         | None                 | CPU: 2, RAM: 4&nbsp;GB, disk: 8G&nbsp;B    |
 
-####Large (production use ~15000 apps)
+####Large: Production Use ~15000 Apps
 
-| Job           | Instances | Persistent Disk Type | VM sizing                      |
-|---------------|-----------|----------------------|--------------------------------|
-| MySQL Server  | 3         | ~1.5 TB              | cpu: 8, ram: 64GB, disk: 160GB |
-| MySQL Proxy   | 1         | None                 | cpu: 2, ram: 8GB, disk: 32GB   |
-| MySQL Monitor | 1         | None                 | cpu: 2, ram: 4Gb, disk: 8GB    |
+| Job           | Instances | Persistent Disk Type | VM Sizing                                  |
+|---------------|-----------|----------------------|--------------------------------------------|
+| MySQL Server  | 3         | ~1.5 TB              | CPU: 8, RAM: 64&nbsp;GB, disk: 160&nbsp;GB |
+| MySQL Proxy   | 1         | None                 | CPU: 2, RAM: 8&nbsp;GB, disk: 32&nbsp;GB   |
+| MySQL Monitor | 1         | None                 | CPU: 2, RAM: 4&nbsp;GB, disk: 8&nbsp;GB    |
 
-Use these results as guidelines. Consider configuring your MySQL server nodes with additional memory and disk if your deployment adds additional app instances.
+Use these results as guidelines. Consider configuring your MySQL server nodes with additional memory and disk.
+If your deployment adds additional app instances, consider configuring your MySQL server nodes with additional memory and disk.
 
 ###<a id='metrics-procedures'></a> Procedures for Scaling
 
@@ -66,7 +67,7 @@ After determining the amount of memory and persistent disk required for each MyS
 1. From the **Settings** tab of the **Metrics** tile, click **Resource Config**.
 1. Modify the memory limit or persistent disk allocation as needed for your environment.
 
-	<p class="note warning"><strong>WARNING:</strong> There have been issues with Ops Manager BOSH Director using persistent disks larger than 2TB.</p>
+	<p class="note warning"><strong>WARNING:</strong> There have been issues with Ops Manager BOSH Director using persistent disks larger than 2&nbsp;TB.</p>
 
 1. If you modify the memory allocation for the MySQL server nodes, you must also update the MySQL InnoDB Buffer Size setting. Pivotal recommends that you set the buffer size to 80% of the memory allocated to that VM. To change the MySQL InnoDB Buffer Size:
 	1. Navigate to the Ops Manager Installation Dashboard and click the <strong>Metrics</strong> tile.
@@ -167,7 +168,7 @@ Follow these steps to configure the size of the Redis VM for the temporary datas
 
 1. From the **Settings** tab, click **Resource Config**. 
 
-1. In the **Dedicated Node** row, under **VM Type**, select an option with at least enough **ram** to support the value for <code>AdjustedRedisRAM</code>. 
+1. In the **Dedicated Node** row, under **VM Type**, select an option with at least enough **RAM** to support the value for <code>AdjustedRedisRAM</code>. 
 
 1. Click **Save**. 
 
@@ -244,7 +245,7 @@ After determining the number of Ingestor app instances needed for your deploymen
 	stack: cflinuxfs2
 	buildpack: binary_buildpack 
 	<br>	
-	     state     since                    cpu    memory        disk           details
+	     state     since                    CPU    memory        disk           details
 	<span>#</span>0   running   2016-07-21 03:49:58 PM   2.9%   13.5M of 1G   12.9M of 1G
 	</pre>
 

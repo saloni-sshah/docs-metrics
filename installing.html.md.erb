@@ -81,7 +81,8 @@ To properly configure the **Errands** pane, follow the procedure that correspond
   <p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong> by default. Pivotal recommends that you do not deselect any errands as doing so can cause issues with the deployment of the tile. However, you can deselect the <b>Remove Legacy PCF Metrics CF Resources</b> errand after deploying v1.3 of the tile.</p>
 1. Review the **Post-Deploy Errands** and **Pre-Delete Errands**:
   1. If you are deploying the tile for the first time, select all **Post-Deploy Errands**.
-      * The following list describes what the **Smoke tests** errand does. See the [Smoke Test Errors](./troubleshooting.html#smoke-test) section of the _Troubleshooting PCF Metrics_ topic for information on resolving errors discovered by this errand.
+      * The following list describes what the **Smoke tests** errand does. For information about resolving errors discovered by this errand, 
+        see the [Smoke Test Errors](./troubleshooting.html#smoke-test) section of the _Troubleshooting PCF Metrics_ topic.
           * Confirms that MySQL ingests metrics
           * Confirms that Elasticsearch ingests logs
           * Confirms that the APIs return metrics and logs
@@ -100,7 +101,8 @@ To properly configure the **Errands** pane, follow the procedure that correspond
       1. Set **Remove PCF Metrics 1.2 CF Resources** to **When Changed**
       1. Set **Push PCF Metrics components** to **On**
       1. Set **Smoke tests for Metrics Data and Apm** to **On**
-          * The following list describes what the **Smoke tests** errand does. See the [Smoke Test Errors](./troubleshooting.html#smoke-test) section of the _Troubleshooting PCF Metrics_ topic for information on resolving errors discovered by this errand.
+          * The following list describes what the **Smoke tests** errand does. For information about resolving errors discovered by this errand, 
+            see the [Smoke Test Errors](./troubleshooting.html#smoke-test) section of the _Troubleshooting PCF Metrics_ topic.
               * Confirms that MySQL ingests metrics
               * Confirms that Elasticsearch ingests logs
               * Confirms that the APIs return metrics and logs
@@ -198,7 +200,7 @@ To properly configure the **Errands** pane, follow the procedure that correspond
     </tbody>
   </table>
 
-    If you expect a high level of use, you may need to increase the disk resources available to your instances. See [Sizing PCF Metrics For Your System](./sizing.html) for guidance on sizing.
+    If you expect a high level of use, you may need to increase the disk resources available to your instances. For information about sizing, see [Sizing PCF Metrics For Your System](./sizing.html).
   
     <p class="note"><strong>Note:</strong> There have been issues with the Ops Manager Bosh Director correctly partitioning persistent disks larger than 2&nbsp;TB.</p>
 
