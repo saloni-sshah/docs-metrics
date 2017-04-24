@@ -5,6 +5,22 @@ owner: PCF Metrics
 
 This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
+## <a id='134'></a>v1.3.4
+
+**Release Date: April 24, 2017**
+
+### <a id="notes"></a>Notes
+
+The following list describes what's new in PCF Metrics v1.3.4:
+
+* **Dependency Graphs and Span ID Filtering**: PCF Metrics v1.3.4 re-enables dependency graphs and span id filtering on the trace explorer page. 
+	<p class="note"><strong>Note</strong>: For the dependency graph and span id filtering to work correctly, you must have a patch version of ERT that is >=v1.9.16 or >=1.10.3.</p>	
+* **Compatibility with Azure/OpenStack**: This version of PCF Metrics can be successfully installed on Azure and OpenStack IaaSes.
+
+### <a id="issues"></a>Known Issues
+
+See the Known Issues section for the previous release.
+
 ## <a id='133'></a>v1.3.3
 
 **Release Date: April 12, 2017**
@@ -48,7 +64,7 @@ PCF Metrics v1.3.x requires Elastic Runtime v1.9.0 or later.
 
 #### Installing Metrics on Azure/OpenStack
 
-PCF Metrics will not install correctly if you have ERT v1.10.x installed on Azure or OpenStack. To use PCF Metrics v1.3.x on these IaaSes, use make sure you have ERT v1.9.x installed.
+PCF Metrics v1.3.0 and v1.3.3 will not install correctly if you have ERT v1.10.x installed on Azure or OpenStack. Upgrade to v1.3.4 if you wish to use PCF Metrics with ERT v1.10.x on either of these IaaSes.
 
 #### Metrics and Log Loss when Upgrading from v1.2 to v1.3
 
