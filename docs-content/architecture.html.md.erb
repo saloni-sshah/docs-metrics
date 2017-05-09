@@ -129,8 +129,7 @@ The following table describes how the components act during each stage.
 		<td>
 			A user selects an app from the dropdown menu, which does the following:<br></br>
 			<ol>
-				<li>Opens a Server-Sent Events (SSE) connection  to the <code>metrics</code> app (metrics API) </li>
-				<li>Sends HTTP Put requests to the metrics API to retrieve metrics and logs for the specified time frame</li>
+				<li>Opens an AJAX connection the metrics API to retrieve metrics and logs for the specified time frame</li>
 			</ol>
 		</td>
 	</tr>
@@ -169,7 +168,7 @@ The following table describes how the components act during each stage.
 	</tr>
 	<tr>
 		<td valign="top">7</td>
-		<td>The metrics API streams the data to the browser over SSE, and the PCF Metrics UI displays the data requested by the user.</td>
+		<td>The metrics API streams the data to the browser using AJAX, and the PCF Metrics UI displays the data requested by the user.</td>
 	</tr>
 </table>
 
