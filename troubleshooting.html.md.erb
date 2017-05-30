@@ -710,3 +710,30 @@ WSREP_SST: [ERROR] #############################################################
       </td>
   </tr>
 </table>
+
+## <a id="fetch-apps"></a>Fail to fetch Apps
+<table>
+  <tr>
+      <th>Error</th>
+      <td>The metrics app fails to fetch apps for a user with the proper credentials.</td>
+  </tr>
+  <tr>
+      <th>Cause</th>
+      <td>The client's browser’s plugins/cookies inject extraneous content in requests to CAPI, causing CAPI to reject the request</td>
+  </tr>
+  <tr>
+      <th>Verifying the error</th>
+      <td>You can verify having this error by using either of the two methods:
+      <br><br>
+      - Examining the network requests to cloud controller in a browser, and see if there are any out of the ordinary content being sent with the request (/cc/apps)
+      <br><br>
+      **Or**
+      <br><br>
+      - Use a browser's incognito mode to see if the metrics app is able to fetch apps
+      </td>
+  </tr>
+  <tr>
+      <th>Solution</th>
+      <td>Clear browser cookies/plugins</td>
+  </tr>
+</table>
