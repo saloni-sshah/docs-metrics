@@ -310,7 +310,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 <tr>
   <th>Cause</th>
-  <td>PCF Metrics is misconfigured and the frontend API does not receive logs from MySQL.</td>
+  <td>PCF Metrics is misconfigured and the front end API does not receive logs from MySQL.</td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -339,7 +339,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 <tr>
   <th>Cause</th>
-  <td>PCF Metrics is misconfigured and the frontend API does not receive logs from Elasticsearch.</td>
+  <td>PCF Metrics is misconfigured and the front end API does not receive logs from Elasticsearch.</td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -757,29 +757,24 @@ WSREP_SST: [ERROR] #############################################################
   </tr>
 </table>
 
-## <a id="fetch-apps"></a>Fail to fetch Apps
+## <a id="fetch-apps"></a>Failed to Fetch Apps
 <table>
   <tr>
       <th>Error</th>
-      <td>The metrics app fails to fetch apps for a user with the proper credentials.</td>
+      <td>Even though you entered the correct UAA credentials, the metrics app fails to fetch the list of apps.</td>
   </tr>
   <tr>
       <th>Cause</th>
-      <td>The client's browser’s plugins/cookies inject extraneous content in requests to CAPI, causing CAPI to reject the request</td>
-  </tr>
-  <tr>
-      <th>Verifying the error</th>
-      <td>You can verify having this error by using either of the two methods:
-      <br><br>
-      - Examining the network requests to cloud controller in a browser, and see if there are any out of the ordinary content being sent with the request (/cc/apps)
-      <br><br>
-      **Or**
-      <br><br>
-      - Use a browser's incognito mode to see if the metrics app is able to fetch apps
-      </td>
+      <td>The browser plugins or cookies inject extraneous content in requests to Cloud Controller API, causing it to reject the request.</td>
   </tr>
   <tr>
       <th>Solution</th>
-      <td>Clear browser cookies/plugins</td>
+      <td>
+      <ol>
+        <li>Try the browser's incognito mode to see if the metrics app is able to fetch the list of apps.
+             If this works, the problem is likely cookies or plugins.</li>
+        <li>Clear your browser cookies and plugins.</li>
+       </ol>
+       </td>
   </tr>
 </table>
