@@ -11,7 +11,9 @@ The following sections describe errors that cause failure during a PCF Metrics t
 
 ###<a id='smoke-test'></a> Smoke Test Errors
 
-PCF Metrics runs a set of smoke tests during installation to confirm system health. If the smoke tests discover any errors, you can find a summary of those errors at the end of the errand log output, including detailed logs about where the failure occurred. 
+PCF Metrics runs a set of smoke tests during installation to confirm system health.
+If the smoke tests discover any errors, you can find a summary of those errors at the end of the errand log output,
+including detailed logs about where the failure occurred. 
 
 The following tables describe common failures and how to resolve them.
 
@@ -158,7 +160,9 @@ The following tables describe common failures and how to resolve them.
       Run the following commands and search the app logs for <code>ERROR</code> messages containing additional information:
     </li>
      <pre class="terminal">$ cf logs metrics-ingestor --recent<br>$ cf logs mysql-logqueue --recent</pre>
-     <p class="note"><strong>Note</strong>: In some cases, the apps cannot communicate due to TLS certificate verification failure. If your deployment uses self-signed certs, ensure the <b>Disable SSL certificate verification for this environment</b> box is checked in the Elastic Runtime <b>Networking</b> pane.</p>
+     <p class="note"><strong>Note</strong>: In some cases, the apps cannot communicate due to TLS certificate verification failure.
+      If your deployment uses self-signed certs, ensure the <b>Disable SSL certificate verification for this environment</b> box is selected
+      in the Elastic Runtime <b>Networking</b> pane.</p>
   </ol>
 </tr>
 </table>
@@ -257,7 +261,9 @@ The following tables describe common failures and how to resolve them.
       Run the following commands and search the app logs for <code>ERROR</code> messages containing additional information:
     </li>
      <pre class="terminal">$ cf logs metrics-ingestor --recent<br>$ cf logs elasticsearch-logqueue --recent</pre>
-     <p class="note"><strong>Note</strong>: In some cases, you may discover a failure to communicate with Loggregator in the form of a bad handshake error. <br><br>Ensure the <b>Loggregator Port</b> setting in the Elastic Runtime tile <b>Networking</b> pane is set to the correct value. For AWS, it is <code>4443</code>. For all other IaaSes, it is <code>443</code>.
+     <p class="note"><strong>Note</strong>: In some cases, you might discover a failure to communicate with Loggregator in the form of a bad handshake error.
+         <br><br>Ensure the <b>Loggregator Port</b> setting in the Elastic Runtime tile <b>Networking</b> pane is set to the correct value.
+         For AWS, it is <code>4443</code>. For all other IaaSes, it is <code>443</code>.
       </p></td>
   </ol>
 </tr>
@@ -332,7 +338,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 <tr>
   <th>Cause</th>
-  <td>The instance may not start because its configured heap size is greater than that of the VM that hosts it.</td>
+  <td>The instance might not start because its configured heap size is greater than that of the VM that hosts it.</td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -360,13 +366,13 @@ The following tables describe common failures and how to resolve them.
 
 ##<a id='ui'></a> No Logs or Metrics in the UI
 
-In some cases, the PCF Metrics UI may not display metrics and logs after successfully deploying.
+In some cases, the PCF Metrics UI might not display metrics and logs after successfully deploying.
 
 Follow the steps in this section to help locate the app or component causing the problem. 
 
 ### <a name="check-lb"></a> Step 1: Check your Load Balancer Configuration
 
-If you use a load balancer, the event-stream mechanism used by the Metrics UI might be blocked. Refer to the table below to resolve this error. 
+If you use a load balancer, the event-stream mechanism used by the Metrics UI might be blocked. See the table below to resolve this error. 
 
 If you do not use a load balancer, or this issue does not apply to your deployment, proceed to [Step 2: Check the PCF Metrics Apps](#check-apps).
 
@@ -419,7 +425,8 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 1. Under the **Status** tab, record the IP of an **Elasticsearch Master** node.  
 
-1. Use `bosh ssh` to access the VM from the previous step. See the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) topic for instructions.
+1. Use `bosh ssh` to access the VM from the previous step.
+For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
 
 1. Run the following command to list all the Elasticsearch indices:
   <pre class="terminal">$ curl localhost:9200/\_cat/indices?v | sort
@@ -432,7 +439,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   green  open   app\_logs\_1478721600   8   1  102005754            0     53.5gb         26.5gb
   health status index               pri rep docs.count docs.deleted store.size pri.store.size
   </pre>
-  1. If the curl does not return a `success` response, Elasticsearch may not even be running correctly. Inspect the following logs for any failures or errors:
+  1. If the curl does not return a `success` response, Elasticsearch might not even be running correctly. Inspect the following logs for any failures or errors:
       * `/var/vcap/sys/logs/elasticsearch/elasticsearch.stdout.log`
       * `/var/vcap/sys/logs/elasticsearch/elasticsearch.stderr.log`
 
@@ -442,8 +449,11 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. Run the curl command periodically to see if the indices recover to a `green` status.
 
 1. Run the curl command several more times and examine the most recent index to see if the number of stored documents periodically increases.
-  <p class="note"><strong>Note</strong>: The last row of the output corresponds to the most recent index. The sixth column displays the number of documents for the index.</p>
-  1. If all indices show a `green` status, but the number of documents does not increase, there is likely a problem further up in ingestion. Proceed to to [Step 4: Check the Elasticsearch Logqueue](#check-es-logqueue).
+  <p class="note"><strong>Note</strong>: The last row of the output corresponds to the most recent index.
+     The sixth column displays the number of documents for the index.</p>
+  1. If all indices show a `green` status, but the number of documents does not increase,
+     there is likely a problem further up in ingestion.
+     Proceed to to [Step 4: Check the Elasticsearch Logqueue](#check-es-logqueue).
 
 
 ### <a name="check-es-logqueue"></a>Step 4: Check the Elasticsearch Logqueue
@@ -457,7 +467,11 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. In a different terminal window, run the following command:
   <pre class="terminal">$ cf restage elasticsearch-logqueue</pre>
   1. Watch the logs emitted by the `elasticsearch-logqueue` app for errors. 
-      * A common error is that the app cannot connect to Elasticsearch because a user deleted the application security group (ASG) that PCF Metrics creates to allow the Logqueue app to connect to the Elasticsearch VMs. You can run `cf security-group metrics-api` to see if the ASG exists. If not, see the documentation on [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
+      * A common error is that the app cannot connect to Elasticsearch 
+        because a user deleted the application security group (ASG) 
+        that PCF Metrics creates to allow the Logqueue app to connect to the Elasticsearch VMs.
+        You can run `cf security-group metrics-api` to see if the ASG exists. 
+        If not, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
 
 
 1. If the app is started and you do not find any errors, proceed to [Step 5: Check the Metrics Ingestor](#check-ingestor).
@@ -471,10 +485,12 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   <pre class="terminal">$ cf logs metrics-ingestor</pre>
   1. In a different terminal window, run the following command:
   <pre class="terminal">$ cf restage metrics-ingestor</pre>
-  1. Watch the logs emitted by the `metrics-ingestor` app for errors. Refer to the list below for common errors:
-      * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the firehose. This user must have the `doppler.firehose` authority.
-      * **Cannot connect to the logqueues**: There may be a problem with the UAA, or it could be throttling traffic.
-      * **WebSocket Disconnects**: If you see Websocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances. The Firehose may be dropping the Ingestor connection to avoid back pressure.
+  1. Watch the logs emitted by the `metrics-ingestor` app for errors. See the list below for common errors:
+      * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the Firehose.
+          This user must have the `doppler.firehose` authority.
+      * **Cannot connect to the logqueues**: There might be a problem with the UAA, or it could be throttling traffic.
+      * **WebSocket Disconnects**: If you see Websocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances.
+          The Firehose might be dropping the Ingestor connection to avoid back pressure.
 
 1. If the app is started and you do not find any errors, proceed to [Step 6: Check MySQL](#check-mysql).
 
@@ -484,14 +500,17 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 1. Under the **Status** tab, record the IP of a **MySQL Server** node.  
 
-1. Use `bosh ssh` to access the VM from the previous step. See the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) topic for instructions.
+1. Use `bosh ssh` to access the VM from the previous step.
+   For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
 
 1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD` 
-  <p class="note"><strong>Note</strong>: If you do not know the username and password, you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-3</code> space targeted.</p>
+  <p class="note"><strong>Note</strong>: If you do not know the username and password,
+    you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-3</code> space targeted.</p>
 
 1. Verify that the database was bootstrapped correctly:
   1. Run `show databases` and check for a `metrics` database.
-      1. if there is no `metrics` database, the `migrate_db` errand of the BOSH release may not have run or succeeded. Ensure the errand is selected in the tile configuration and update the tile.
+      1. If there is no `metrics` database, the `migrate_db` errand of the BOSH release might not have run or succeeded.
+         Ensure the errand is selected in the tile configuration and update the tile.
 
 1. Run `show tables` and ensure you see the following tables:
     
@@ -500,7 +519,8 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 1. Enter the following query several times to verify that the value returned does not decrease over time:
   <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_rollup where timestamp > ((UNIX\_TIMESTAMP() - 60) * POW(10, 3));</pre>
   This command displays the rate at which metrics flow in over the last minute.
-      1. If the command returns `0` or a consistently decreasing value, the problem is likely further up in ingestion. Proceed to [Step 7: Check the MySQL Logqueue](#check-mysql-logqueue). 
+      1. If the command returns `0` or a consistently decreasing value, the problem is likely further up in ingestion.
+         Proceed to [Step 7: Check the MySQL Logqueue](#check-mysql-logqueue). 
 
 ### <a name="check-mysql-logqueue"></a> Step 7: Check the MySQL Logqueue
 
@@ -513,7 +533,11 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. In a different terminal window, run the following command:
   <pre class="terminal">$ cf restage mysql-logqueue</pre>
   1. Watch the logs emitted by the `mysql-logqueue` app for errors. 
-      * A common error is that the app cannot connect to MySQL because a user deleted the application security group (ASG) that PCF Metrics creates to allow the Logqueue app to connect to the MySQL VMs. You can run `cf security-group metrics-api` to see if the ASG exists. If not, see the documentation on [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
+      * A common error is that the app cannot connect to MySQL
+        because a user deleted the application security group (ASG)
+        that PCF Metrics creates to allow the Logqueue app to connect to the MySQL VMs.
+        You can run `cf security-group metrics-api` to see if the ASG exists.
+        If not, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
 
 1. If the app is started and you do not find any errors, proceed to [Step 8: Check the Metrics Aggregator](#check-aggregator).
 
@@ -528,11 +552,17 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. In a different terminal window, run the following command:
   <pre class="terminal">$ cf restage metrics-aggregator</pre>
   1. Watch the logs emitted by the `metrics-aggregator` app for errors. 
-      * A common error is that the app cannot connect to MySQL because a user deleted the application security group (ASG) that PCF Metrics creates to allow the aggregator app to connect to the MySQL VMs. You can run `cf security-group metrics-api` to see if the ASG exists. If not, see the documentation on [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
+      * A common error is that the app cannot connect to MySQL
+        because a user deleted the application security group (ASG)
+        that PCF Metrics creates to allow the aggregator app to connect to the MySQL VMs.
+        You can run `cf security-group metrics-api` to see if the ASG exists.
+        If not, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
 
 ##<a id='mysql'></a> MySQL Node Failure
 
-In some cases, a MySQL server node may fail to restart. The following two sections describe the known conditions that cause this failure as well as steps for diagnosing and resolving them. If neither of the causes listed apply, the final section provides instructions for re-deploying BOSH as a last resort to resolve the issue. 
+In some cases, a MySQL server node might fail to restart.
+The following two sections describe the known conditions that cause this failure as well as steps for diagnosing and resolving them.
+If neither of the causes listed apply, the final section provides instructions for re-deploying BOSH as a last resort to resolve the issue. 
 
 ### Cause 1: Monit Timed Out
 
@@ -540,10 +570,12 @@ In some cases, a MySQL server node may fail to restart. The following two sectio
 
 Follow these steps to see if a `monit` time-out caused the MySQL node restart to fail:
 
-1. Use `bosh ssh` to access the failing node, using the IP address in the Ops Manager Director tile **Status** tab. See the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) topic for instructions.
+1. Use `bosh ssh` to access the failing node, using the IP address in the Ops Manager Director tile **Status** tab. 
+   For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
 1. Run `monit summary` and check the status of the `mariadb_ctrl` job. 
 1. If the status of the `mariadb_ctrl` job is `Execution Failed`, open the following file: `/var/vcap/sys/log/mysql/mariadb_ctrl.combined.log`. 
-  1. If the last line of the log indicates that MySQL started without issue, such as in the example below, `monit` likely timed out while waiting for the job to report healthy. Follow the steps below to resolve the issue.
+  1. If the last line of the log indicates that MySQL started without issue, such as in the example below,
+     `monit` likely timed out while waiting for the job to report healthy. Follow the steps below to resolve the issue.
   <pre class="terminal">
   {"timestamp":"1481149250.288255692","source":"/var/vcap/packages/<br>mariadb\_ctrl/bin/mariadb\_ctrl","message":"/var/vcap/packages/<br>mariadb\_ctrl/bin/mariadb\_ctrl.mariadb\_ctrl<br> started","log\_level":1,"data":{}}
   </pre>
@@ -560,15 +592,18 @@ Run the following commands to return the `mariadb_ctrl` job to a healthy state:
 
 #### Diagnose
 
-1. Use `bosh ssh` to access the failing node. See the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) topic for instructions. 
+1. Use `bosh ssh` to access the failing node.
+   For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare). 
 1. Open the following log file: `/var/vcap/sys/log/mysql/mysql.err.log`.
-1. If you see log messages that indicate insufficient disk space, the [persistent disk](https://bosh.io/docs/persistent-disks.html) is likely storing too many bin logs. Confirm insufficient disk space by doing the following:
+1. If you see log messages that indicate insufficient disk space, the [persistent disk](https://bosh.io/docs/persistent-disks.html) is likely storing too many bin logs.
+   Confirm insufficient disk space by doing the following:
   1. Run `df -h`. 
       1. Ensure that you see the `/var/vcap/store` folder is at or over `90%` usage.
   1. Navigate to `/var/vcap/store/mysql` and run `ls -al`. 
       1. Ensure that you see many files named with the format `mysql-bin.########`.
 
-In MySQL for PCF, the server node does not make use of these logs and you can remove all except the most recent bin log. Follow the steps below to resolve the issue. 
+In MySQL for PCF, the server node does not make use of these logs and you can remove all except the most recent bin log.
+Follow the steps below to resolve the issue. 
 
 #### Resolve
 
@@ -580,11 +615,15 @@ In MySQL for PCF, the server node does not make use of these logs and you can re
 
 ### Re-deploy BOSH to Restart the Node
 
-If troubleshooting based on the causes mentioned above did not resolve the issue with your failing MySQL node, you can follow the steps below to recover it. Pivotal recommends only using this procedure as a if there are no other potential solutions available. 
+If troubleshooting based on the causes mentioned above did not resolve the issue with your failing MySQL node,
+you can follow the steps below to recover it.
+Pivotal recommends only using this procedure as a if there are no other potential solutions available. 
 
 <p class="note warning">
 <strong>WARNING: </strong>
-This procedure is extremely costly in terms of time and network resources. The cluster takes a significant amount of time to put the data replicated to the rest of the cluster back into the rebuilt node. This procedure consumes considerable network bandwidth as potentially hundreds of gigabytes of data needs to transfer.
+This procedure is extremely costly in terms of time and network resources.
+The cluster takes a significant amount of time to put the data replicated to the rest of the cluster back into the rebuilt node.
+This procedure consumes considerable network bandwidth as potentially hundreds of gigabytes of data needs to transfer.
 </p>
 
 #### Stop the Ingestor App
@@ -602,7 +641,9 @@ This procedure is extremely costly in terms of time and network resources. The c
 
 #### Edit Your Deployment Manifest
 
-1. Follow the steps in the [Log in to BOSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in) section of the Advanced Troubleshooting with the BOSH CLI topic to target and log in to your BOSH Director. The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
+1. Follow the steps in the [Log in to BOSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in) section
+   of the Advanced Troubleshooting with the BOSH CLI topic to target and log in to your BOSH Director.
+   The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
 1. Download the manifest of your PCF deployment: 
     <pre class="terminal">
     $ bosh download manifest YOUR-PCF-DEPLOYMENT YOUR-PCF-MANIFEST.yml
@@ -621,7 +662,9 @@ This procedure is extremely costly in terms of time and network resources. The c
 
 ##<a id='mysql-sst'></a> MySQL SST Disabled Error
 
-If you see the message below on a failing node in `/var/vcap/sys/log/mysql/mysql.err.log`, you can resolve the error by following the instructions in the [Interruptor Logs](http://docs.pivotal.io/p-mysql/monitoring-mysql.html#logs) section of the MySQL for PCF documentation. 
+If you see the message below on a failing node in `/var/vcap/sys/log/mysql/mysql.err.log`,
+you can resolve the error by following the instructions in the [Interruptor Logs](http://docs.pivotal.io/p-mysql/monitoring-mysql.html#logs) section
+of the MySQL for PCF documentation. 
 
 <pre class="terminal">
 WSREP_SST: [ERROR] ############################################################################## (20160610 04:33:21.338)
@@ -652,7 +695,8 @@ WSREP_SST: [ERROR] #############################################################
     <li>Run the following command to restart the Logqueue application:</li>
     <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
   </ol>
-    <p class="note"><strong>Note</strong>: To avoid having to apply this fix in the future, select the checkbox to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update. </p>
+    <p class="note"><strong>Note</strong>: To avoid having to apply this fix in the future,
+    select the checkbox to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update. </p>
   </td>
 </tr>
 </table>
@@ -666,17 +710,19 @@ WSREP_SST: [ERROR] #############################################################
   </tr>
   <tr>
       <th>Cause</th>
-      <td>Your Elasticsearch nodes may have become unresponsive.</td>
+      <td>Your Elasticsearch nodes might have become unresponsive.</td>
   </tr>
   <tr>
       <th>Solution</th>
       <td>Check the Elasticsearch index health by following the procedure below, and consider adding additional Elasticsearch nodes.
       <br><br>
       <ol>
-        <li>Retrieve the IP address of your Elasticsearch master node by navigating to the <b>Metrics</b> tile in the Ops Manager Installation Dashboard, clicking the <b>Status</b> tab, and recording the IP address next to <b>ElasticSearchMaster</b>.</li>
+        <li>Retrieve the IP address of your Elasticsearch master node by navigating to the <b>Metrics</b> tile in the Ops Manager Installation Dashboard,
+            clicking the <b>Status</b> tab, and recording the IP address next to <b>ElasticSearchMaster</b>.</li>
         <%= image_tag('elasticsearch-ip.png') %>
         <li>SSH into the Ops Manager VM by following the instructions in <a href="http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh">SSH into Ops Manager</a>.</li>
-        <li>From the Ops Manager VM, use <code>curl</code> to target the IP address of your Elasticsearch master node. Follow the instructions in the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.2/_cluster_health.html">Cluster Health</a> topic of the Elasticsearch documentation.</li>
+        <li>From the Ops Manager VM, use <code>curl</code> to target the IP address of your Elasticsearch master node.
+            Follow the instructions in the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.2/_cluster_health.html">Cluster Health</a> topic of the Elasticsearch documentation.</li>
       </ol>
 
       </td>
