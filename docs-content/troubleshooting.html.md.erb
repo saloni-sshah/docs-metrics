@@ -728,3 +728,25 @@ WSREP_SST: [ERROR] #############################################################
       </td>
   </tr>
 </table>
+
+## <a id="fetch-apps"></a>Failed to Fetch Apps
+<table>
+  <tr>
+      <th>Error</th>
+      <td>Even though you entered the correct UAA credentials, the metrics app fails to fetch the list of apps.</td>
+  </tr>
+  <tr>
+      <th>Cause</th>
+      <td>The browser plugins or cookies inject extraneous content in requests to Cloud Controller API, causing it to reject the request.</td>
+  </tr>
+  <tr>
+      <th>Solution</th>
+      <td>
+      <ol>
+        <li>Try the browser's incognito mode to see if the metrics app is able to fetch the list of apps.
+             If this works, the problem is likely cookies or plugins.</li>
+        <li>Clear your browser cookies and plugins.</li>
+       </ol>
+       </td>
+  </tr>
+</table>
