@@ -17,7 +17,7 @@ owner: PCF Metrics
 
 This topic describes how to configure Pivotal Cloud Foundry (PCF) Metrics for high availability. Operators can use these procedures to optimize PCF Metrics for high capacity.
 
-For more information about PCF Metrics components, see the [PCF Metrics Product Architecture](./architecture.html) topic.
+For more information about PCF Metrics components, see [PCF Metrics Product Architecture](./architecture.html).
 
 ##<a id='metrics-datastore'></a> Configuring the Metrics Datastore
 
@@ -163,11 +163,11 @@ The Ingestor app can handle relatively large loads. For high availability, you m
 
 ###<a id='ingestor-procedures'></a> Procedures for Scaling
 
-<p class="note warning"><strong>WARNING: </strong> If you decrease the number of Ingestor instances, you may lose data currently being processed on the instances you eliminate.</p>
+<p class="note warning"><strong>WARNING: </strong> If you decrease the number of Ingestor instances, you might lose data currently being processed on the instances you eliminate.</p>
 
 After determining the number of Ingestor app instances needed for your deployment, perform the following steps to scale the Ingestor:
 
-1. Target your Cloud Controller with the Cloud Foundry Command Line Interface (cf CLI). If you have not installed the cf CLI, see the [Installing the cf CLI](http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html) topic.
+1. Target your Cloud Controller with the Cloud Foundry Command Line Interface (cf CLI). If you have not installed the cf CLI, see [Installing the cf CLI](http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html).
 	<pre class="terminal">
 	$ cf api api.YOUR-SYSTEM-DOMAIN
 	Setting api endpoint to api.YOUR-SYSTEM-DOMAIN...
@@ -231,7 +231,7 @@ After determining the number of Ingestor app instances needed for your deploymen
 
 	<pre class="terminal">$ cf scale metrics-ingestor -m NEW-MEMORY-LIMIT</pre>
 
-	For more information about scaling app instances, see the [Scaling an Application Using cf scale](http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/cf-scale.html) topic.
+	For more information about scaling app instances, see [Scaling an Application Using cf scale](http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/cf-scale.html).
 
 ##<a id='logqueue'></a> Configuring the Logqueues
 
@@ -239,7 +239,7 @@ PCF Metrics deploys a MySQL Logqueue and an Elasticsearch Logqueue as apps withi
 
 ###<a id='logqueue-considerations'></a> Considerations for Scaling
 
-The number of MySQL and Elasticsearch logqueues needed is dependent on the frequency of logs and metrics being forwarded by the Ingestor. As a general rule, for every 45,000 logs per minute, add 2 Elasticsearch logqueues. For every 17,000 metrics per minute, add 1 MySQL Logqueue. This is a general estimate and you may need fewer instances depending on your deployment. To optimize resource allocation, provision fewer instances initially and increase instances until you achieve desired performance.
+The number of MySQL and Elasticsearch logqueues needed is dependent on the frequency of logs and metrics being forwarded by the Ingestor. As a general rule, for every 45,000 logs per minute, add 2 Elasticsearch logqueues. For every 17,000 metrics per minute, add 1 MySQL Logqueue. This is a general estimate and you might need fewer instances depending on your deployment. To optimize resource allocation, provision fewer instances initially and increase instances until you achieve desired performance.
 
 ###<a id='logqueue-procedures'></a> Procedures for Scaling
 
@@ -260,4 +260,4 @@ To scale the memory limit per Logqueue app instance, perform the following comma
 <pre class="terminal">$ cf scale mysql-logqueue -m NEW-MEMORY-LIMIT</pre>
 
 <p class="note warning">
-<strong>WARNING: </strong> If you decrease the number of Logqueue instances, you may lose data currently being processed on the instances you eliminate.</p>
+<strong>WARNING: </strong> If you decrease the number of Logqueue instances, you might lose data currently being processed on the instances you eliminate.</p>
