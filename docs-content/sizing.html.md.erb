@@ -67,7 +67,9 @@ You can also use the throughput of logs per minute to help determine how many El
 ###<a id='log-procedures'></a> Procedures for Scaling
 
 <p class="note warning">
-<strong>WARNING: </strong> If you modify the number of Elasticsearch instances, the Elasticsearch cluster will temporarily enter an unhealthy period during which it will not ingest any new logs data (due to shard allocation).</p>
+<strong>WARNING</strong>: If you modify the number of Elasticsearch instances,
+               the Elasticsearch cluster temporarily enters an unhealthy period during which
+               it does not ingest any new logs data, due to shard allocation.</p>
 
 After determining the number of Elasticsearch nodes needed for your deployment, perform the following steps to scale your nodes:
 
