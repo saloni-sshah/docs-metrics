@@ -621,7 +621,7 @@ you can follow the steps below to recover it.
 Pivotal recommends only using this procedure as a if there are no other potential solutions available. 
 
 <p class="note warning">
-<strong>WARNING: </strong>
+<strong>WARNING! </strong>
 This procedure is extremely costly in terms of time and network resources.
 The cluster takes a significant amount of time to put the data replicated to the rest of the cluster back into the rebuilt node.
 This procedure consumes considerable network bandwidth as potentially hundreds of gigabytes of data needs to transfer.
@@ -693,7 +693,7 @@ WSREP_SST: [ERROR] #############################################################
   <ol>
     <li>Target the <code>system</code> org and <code>metrics-v1-3</code> space of your PCF deployment:</li>
     <pre class="terminal">$ cf target -o system -s metrics-v1-3</pre>
-    <li>Run the following command to restart the Logqueue application:</li>
+    <li>Run the following command to restart the Logqueue app:</li>
     <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
   </ol>
     <p class="note"><strong>Note</strong>: To avoid having to apply this fix in the future,

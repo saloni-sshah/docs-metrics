@@ -88,7 +88,7 @@ For PCF deployments with high app logs load, you can add memory and persistent d
 
 ###<a id='metrics-considerations'></a> Considerations for Scaling the Metrics Datastore
 
-While the default configurations above are a good starting point for your MySQL server node, 
+While the default configurations in [Suggested Sizing by Deployment Size](#configs-by-size) above are a good starting point for your MySQL server node, 
 they do not take into account the additional load from custom metrics.
 Pivotal recommends evaluating performance over a period of time and scaling upwards as necessary.
 As long as persistent disk is scaled up, you won't not lose any data from scaling.
@@ -96,10 +96,7 @@ As long as persistent disk is scaled up, you won't not lose any data from scalin
 
 ###<a id='metrics-procedures'></a> Procedure for Scaling
 
-After determining the amount of memory and persistent disk required for your MySQL server node, do the following to scale up the MySQL server node: 
-
-*Q: Is this topic only about scaling the MySQL Server VM? Or all the VMs on the Resource Config page? 
-Q: How do customers determine the memory and persistent disk required? Is it as simple as looking at the tables above?* 
+Do the following to scale up the MySQL server node: 
 
 To scale up the MySQL server node, do the following:
 
@@ -119,16 +116,21 @@ Each Elasticsearch node contains multiple shards of log data, divided by time sl
 
 ###<a id='log-considerations'></a> Considerations for Scaling
 
-The default configurations outlined above are a good starting point for your Elasticsearch Master and Data nodes.
-For more precision, perform the following calculations, using your specific log loads.
+The default configurations outlined [Suggested Sizing by Deployment Size](#configs-by-size) above are a good starting point for your Elasticsearch Master and Data nodes.
 
-First, you'll need to determine how many logs the apps in your deployment emit and the average size of each log.
-If your average log size is x, average log rate is r logs/hour, the persistent disk size of a single ES data node is y,
-and number of ES data nodes is n, then n = r * 336 * x / y. 
+For more precision, perform the following calculation, using your specific log loads:
+
+1. Determine how many logs the apps in your deployment emit and the average size of each log.
+
+2. If your average log size is _x_, average log rate is _r_ logs/hour,
+the persistent disk size of a single ES data node is _y_,
+and number of ES data nodes is _n_, then _n_ = _r_ * 336 * _x_ / _y_. 
 This assumes the retention period for logs is 2 weeks (and there are 336 hours in 2 weeks),
-and that x and y have the same units.
-You can use this formula to scale n and y as you see fit.
-If you want to achieve high availability for logs, then double the number of ES data nodes.
+and that _x_ and _y_ have the same units.
+
+    Use this formula to scale _n_ and _y_ as you see fit.
+
+3. If you want to achieve high availability for logs, then double the number of ES data nodes.
 
 ###<a id='log-procedures'></a> Procedure for Scaling
 
@@ -155,7 +157,8 @@ The latter is to potentially speed up frontend queries. See [PCF Metrics Product
 
 ###<a id='temp-considerations'></a> Considerations for Scaling
 
-The default Redis configuration specified in the tables above that fits your deployment size should work for most cases.
+The default Redis configuration specified in [Suggested Sizing by Deployment Size](#configs-by-size) above
+that fits your deployment size should work for most cases.
 Redis stores all data in memory, so if your deployment size requires it,
 you can also consider scaling up the RAM for your Redis instance(s).
 You can additionally increase the number of Redis instances to 2 if you need HA behavior when Redis upgrades.
@@ -189,7 +192,7 @@ Because apps emit logs at different volumes and frequencies, you should not scal
 
 Because Ingestor performance is affected by Loggregator performance, it can be difficult to determine in advance the proper configuration.
 Because of the ease in scaling these components,
-Pivotal recommends starting with the configuration in the table above (for your deployment size)
+Pivotal recommends starting with the configuration in [Suggested Sizing by Deployment Size](#configs-by-size) above, for your deployment size
 and then evaluating performance over a period of time and scaling upwards if performance degrades. 
 
 ###<a id='ingestor-procedures'></a> Procedure for Scaling
