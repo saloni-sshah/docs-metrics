@@ -8,14 +8,10 @@ list_style_none: true
 This topic describes how operators configure Pivotal Cloud Foundry (PCF) Metrics depending on their deployment size. 
 Operators can use these procedures to optimize PCF Metrics for high capacity or to reduce resource usage for smaller deployment sizes.
 
-Although [Configure Resources](#resource-config) in the installation procedure shows sample default configurations,
-if you know in advance how many apps your deployment will be running, 
-use the resource scaling information in this topic to size your first deployment.
-Alternatively, after your deployment has been running for a while, use the information in this topic to scale your running deployment. 
+After your deployment has been running for a while, use the information in this topic to scale your running deployment. 
 
 If you are not familiar with the PCF Metrics components, review [PCF Metrics Product Architecture](./architecture.html) before reading this topic.
 
-For how to configure resources during installation, see [Configure Resources](./installing.html#resource-config).
 For how to configure resources for a running deployment, see the procedures below:
 
 + [Procedure for Scaling the Metrics Datastore](#metrics-procedures)
@@ -37,10 +33,10 @@ Estimate the size of your deployment according to how many apps are expected to 
    <tr><td><a href="#large">Large</a></td><td>Production use</td><td>15,000</td></tr>
 </table>
 
-   
-<p class="note"><strong>Note</strong>: The values in the tables below do not account for additional load on MySQL from custom metrics. 
+If you are using Metrics Forwarder and custom metrics, you might need to scale up the MySQL Server instance
+more than indicated in the tables below. 
 Pivotal recommends you start with the one of the following configurations and scale up as necessary 
-by following the steps in <a href="#metrics-datastore">Configuring the Metrics Datastore</a>.</p>
+by following the steps in <a href="#metrics-datastore">Configuring the Metrics Datastore</a>.
 
 ###<a id='small'></a>Deployment Resources for a Small Deployment
 
@@ -103,13 +99,13 @@ To scale up the MySQL server node, do the following:
 1. Determine how much memory and persistent disk are required for the MySQL server node.
 1. Navigate to the Ops Manager Installation Dashboard and click the **Metrics** tile.
 1. From the **Settings** tab of the **Metrics** tile, click **Resource Config**.
-1. Enter the values for the Persistent Disk Type and VM type.
+1. Enter the values for the **Persistent Disk Type** and **VM Type**.
 1. Click **Save**.
 
 <p class="note warning"><strong>WARNING!</strong> If you are using PCF v1.9.x and earlier,
    there might be issues Ops Manager BOSH Director using persistent disks larger than 2&nbsp;TB.</p>
 
-##<a id='log-datastore'></a> Scaling the Log Datastore
+##<a id='log-datastore'></a> Scale the Log Datastore
 
 PCF Metrics uses Elasticsearch to store logs.
 Each Elasticsearch node contains multiple shards of log data, divided by time slice.
@@ -128,7 +124,12 @@ and number of ES data nodes is _n_, then _n_ = _r_ * 336 * _x_ / _y_.
 This assumes the retention period for logs is 2 weeks (and there are 336 hours in 2 weeks),
 and that _x_ and _y_ have the same units.
 
-    Use this formula to scale _n_ and _y_ as you see fit.
+    Use this formula to scale _n_ and _y_.
+
+    TODO: Wordsmith further on the above. Make it even more like a math problem. Given:     Then: 
+    y = Persistant Disk Size
+    n = Number of Elasticsearch Data Instances (e.g. 10 for a large deployment)
+    Okay to use instances instead of nodes above.
 
 3. If you want to achieve high availability for logs, then double the number of ES data nodes.
 
@@ -143,9 +144,7 @@ After determining the number of Elasticsearch nodes needed for your deployment, 
 
 1. Navigate to the Ops Manager Installation Dashboard and click the **Metrics** tile.
 1. From the **Settings** tab of the **Metrics** tile, click **Resource Config**.
-1. Locate the **Elasticsearch Data** job and select the dropdown menu under **Instances** to change the number of instances. Need to modify to include changing the persistent disk and VM type.
-	<br>
-	<%= image_tag('elasticsearch.png') %>
+1. Locate the **Elasticsearch Data** job and select the dropdown menu under **Instances** to change the number of instances. 
 1. Click **Save**.  
 
 ##<a id='temp-datastore'></a> Scale the Temporary Datastore (Redis)
@@ -175,12 +174,14 @@ For more information, see the <i>Eviction policies</i> section of <a href="https
 
 1. From the **Settings** tab, click **Resource Config**. 
 
-1. In the **Dedicated Node** row, under **VM Type**, select an option with enough **ram** for your deployment size.
+1. In the **Dedicated Node** row, under **VM Type**, select an option with enough **RAM** for your deployment size.
    Or, select the number of Redis instances you want under **Instances**.
 
 1. Click **Save**. 
 
 ##<a id='ingestor'></a> Scale the Ingestor
+
+TODO: Combine this with the other sections to be generally about scaling all three.
 
 PCF Metrics deploys the Ingestor as an app within PCF.
 The Ingestor consumes logs and metrics from the Loggregator Firehose, sending metrics and logs to their respective Logqueue apps.
@@ -188,10 +189,8 @@ To customize PCF Metrics for high capacity, you can scale the number of Ingestor
 
 ###<a id='ingestor-considerations'></a> Considerations for Scaling the Ingestor
 
-Because apps emit logs at different volumes and frequencies, you should not scale the Ingestor by matching the number of Ingestor instances to the number of app instances in your deployment.
+The ingestor is an app that deployw with your PCF metrics deployment and pulls metrics from Loggreator and forward it to PCF Metrics datastores.
 
-Because Ingestor performance is affected by Loggregator performance, it can be difficult to determine in advance the proper configuration.
-Because of the ease in scaling these components,
 Pivotal recommends starting with the configuration in [Suggested Sizing by Deployment Size](#configs-by-size) above, for your deployment size
 and then evaluating performance over a period of time and scaling upwards if performance degrades. 
 
@@ -200,7 +199,7 @@ and then evaluating performance over a period of time and scaling upwards if per
 <p class="note warning"><strong>WARNING! </strong> If you decrease the number of Ingestor instances, you might lose data currently being processed on the instances you eliminate.</p>
 
 After determining the number of Ingestor app instances needed for your deployment, 
-1perform the following steps to scale the Ingestor:
+perform the following steps to scale the Ingestor:
 
 1. Target your Cloud Controller with the Cloud Foundry Command Line Interface (cf CLI).
    If you have not installed the cf CLI, see [Installing the cf CLI](http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html).
