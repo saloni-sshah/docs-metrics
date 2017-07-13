@@ -47,9 +47,11 @@ see [PCF Metrics Product Architecture](./architecture.html).
    Ops Manager balances instances of Metrics jobs with more than one instance
    across the Availability Zones that you specify.
 1. Use the drop-down menu to select a network.
-   <p class='note'><strong>Note</strong>: PCF Metrics should be installed on the same network as the Elastic Runtime tile uses. </p>
-   However, if you select a subnet that is different from Elastic Runtime, then refer to the table below to configure Elastic Runtime
-   with each PCF Metrics data service. 
+   <br>
+   PCF Metrics should be installed on the same network as the Elastic Runtime tile uses.
+   However, if you do select a different subnet network, then refer to the table below when you configure
+   the subnet network in the Elastic Runtime tile to make sure that you have
+   the ports needed for each of the PCF Metrics data services.
    
     <table border="1" class="nice">
       <thead>
