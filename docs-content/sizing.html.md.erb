@@ -118,14 +118,17 @@ For more precision, perform the following calculation, using your specific log l
 
 1. Determine how many logs the apps in your deployment emit per hour (_R_) and the average size of each log (_S_).
 
-2. Calculate the number of instances (_N_) and the persistent disk size for the instances (_D_) with the following formula,
-   assuming a log retention period of 336 hours (2 weeks):<br><br>
+2. Calculate the number of instances (_N_) and the persistent disk size for the instances (_D_) you need to scale to
+   using the following formula, assuming a log retention period of 336 hours (2 weeks):<br><br>
 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _N_ &times; _D_ = _R_ &times; _S_ &times; 336 <br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _R_ &times; _S_ &times; 336 =  _N_ &times; _D_ <br><br>
 
     For example:
 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8 instances &times; 200 GB &asymp; 200,000 logs/hr &times; 336 hr &times; 25 KB
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200,000 logs/hr &times; 336 hr &times; 25 KB &asymp; 8 instances &times; 200 GB<br>
+    or<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200,000 logs/hr &times; 336 hr &times; 25 KB &asymp; 6 instances &times; 300 GB<br>
+
 
 
 3. If you want to achieve high availability for logs, then double the number of instances. 
@@ -180,12 +183,13 @@ For more information, see <i>Eviction policies</i> in <a href="https://redis.io/
 
 The procedures for scaling the Ingestor, Elasticsearch logqueue, MySQL logqueue, and Metrics API instances are similiar.
 
-+ **Ingestor** — PCF Metrics deploys the Ingestor as an app within PCF.
++ **Ingestor** — PCF Metrics deploys the Ingestor as an app, `metrics-ingestor`, within PCF.
 The Ingestor consumes logs and metrics from the Loggregator Firehose, sending metrics and logs to their respective Logqueue apps.
 
     To customize PCF Metrics for high capacity, you can scale the number of Ingestor app instances and increase the amount of memory per instance.
 
-+ **Logqueues** — PCF Metrics deploys a **MySQL Logqueue** and an **Elasticsearch Logqueue** as apps within PCF.
++ **Logqueues** — PCF Metrics deploys a **MySQL Logqueue** and an **Elasticsearch Logqueue** as apps,
+    `mysql-logqueue` and `elasticsearch-logqueue`, within PCF.
   The MySQL logqueue consumes metrics from the Ingestor and forwards them to MySQL.
   The Elasticsearch logqueue consumes logs from the Ingestor and forwards them to Elasticsearch.<br>
 
@@ -199,7 +203,7 @@ The Ingestor consumes logs and metrics from the Loggregator Firehose, sending me
     The above is a general estimate. You might need fewer instances depending on your deployment.
     To optimize resource allocation, provision fewer instances initially and increase instances until you achieve desired performance.
 
-+ **Metrics API** — 
++ **Metrics API** — PCF Metrics deploys the app, `metrics`, within PCF. 
 
 Refer to this table to determine how many instances you need for each component.
 
@@ -216,8 +220,6 @@ Find the number of doppler servers in the Resource Config pane of the Pivotal El
 
 
 ###<a id='ingestor-considerations'></a> Considerations for Scaling
-
-The ingestor is an app that deployw with your PCF metrics deployment and pulls metrics from Loggreator and forward it to PCF Metrics datastores.
 
 Pivotal recommends starting with the configuration in [Suggested Sizing by Deployment Size](#configs-by-size) above, for your deployment size
 and then evaluating performance over a period of time and scaling upwards if performance degrades. 
@@ -274,10 +276,11 @@ perform the following steps to scale:
 4. List the apps that are running in the `metrics` space.
 	<pre class="terminal">
 $ cf apps
-Getting apps in org system / space metrics-v1-4 as admin...
+Getting apps in org system / space metrics as admin...
 OK<br>
 name                      requested state     instances    memory   disk   urls
 elasticsearch-logqueue    started             1/1          256M     1G
+metrics                   started             1/1          1G       2G     metrics.YOUR-SYSTEM-DOMAIN/api/v1
 metrics-ingestor          started             1/1          256M     1G
 metrics-ui                started             1/1          64G      1G     metrics.YOUR-SYSTEM-DOMAIN
 mysql-logqueue            started             1/1          512M     1G
@@ -288,8 +291,12 @@ mysql-logqueue            started             1/1          512M     1G
 
     <code>cf scale APP-NAME -i INSTANCE-NUMBER</code>
 
-    For example, 
-	<pre class="terminal">$ cf scale metrics-ingestor -i 2</pre>
+    Where the `APP-NAME` is `elasticsearch-logqueue`, `metrics`, `metrics-ingestor`, or `mysql-logqueue`.<br>
+    For example, to scale all the apps: 
+	<pre class="terminal">$ cf scale elasticsearch-logqueue -i 2
+    $ cf scale metrics -i 2
+    $ cf scale metrics-ingestor -i 2
+    $ cf scale mysql-logqueue -i 2</pre>
 
 1. Evaluate the CPU and memory load on the instances:
 
@@ -313,13 +320,13 @@ mysql-logqueue            started             1/1          512M     1G
 	<span>#</span>0   running   2016-07-21 03:49:58 PM   2.9%   13.5M of 1G   12.9M of 1G
 	</pre>
 
-	If your average memory usage exceeds 50% or your CPU consistently averages over 85%,
-        add more instances with `cf scale APP-NAME -i INSTANCE-NUMBER`.
-	<br><br>
-	In general, you should scale the app by adding additional instances.
-        However, you can also scale the app by increasing the amount of memory per instance:
+1. If your average memory usage exceeds 50% or your CPU consistently averages over 85%,
+   add more instances with `cf scale APP-NAME -i INSTANCE-NUMBER`.
+   <br><br>
+   In general, you should scale the app by adding additional instances.
+   However, you can also scale the app by increasing the amount of memory per instance:
 
-        <code>cf scale APP-NAME -m NEW-MEMORY-LIMIT</code>
+        cf scale APP-NAME -m NEW-MEMORY-LIMIT
 
     For example, 
 	<pre class="terminal">$ cf scale metrics-ingestor -m 2G</pre>
