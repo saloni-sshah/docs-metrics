@@ -47,35 +47,34 @@ see [PCF Metrics Product Architecture](./architecture.html).
    Ops Manager balances instances of Metrics jobs with more than one instance
    across the Availability Zones that you specify.
 1. Use the drop-down menu to select a network.
-   <p class='note'><strong>Note</strong>: PCF Metrics should be installed on the same network as the Elastic Runtime Tile. </p>
+   <p class='note'><strong>Note</strong>: PCF Metrics should be installed on the same network as the Elastic Runtime tile uses. </p>
+   However, if you select a subnet that is different from Elastic Runtime, then refer to the table below to configure Elastic Runtime
+   with each PCF Metrics data service. 
+   
+    <table border="1" class="nice">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Port</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Elasticsearch</td>
+          <td>9200</td>
+        </tr>
+        <tr>
+          <td>MySQL</td>
+          <td>3306</td>
+        </tr>
+        <tr>
+          <td>Redis</td>
+          <td>6379</td>
+        </tr>
+      </tbody>
+    </table>
+    
 1. Click **Save**.
-
-#### Data Services Ports
-TODO This table refers to step 4 above. If you select a subnet that is different from Elastic Runtime,
-then refer to the table below to configure ERT with each PCF data service used by PCF Metrics.
-
-<table border="1" class="nice">
-  <thead>
-    <tr>
-      <th>Service</th>
-      <th>Port</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Elasticsearch</td>
-      <td>9200</td>
-    </tr>
-    <tr>
-      <td>MySQL</td>
-      <td>3306</td>
-    </tr>
-    <tr>
-      <td>Redis</td>
-      <td>6379</td>
-    </tr>
-  </tbody>
-</table>
 
 ### <a id="mc-config"></a> Configure Metrics Components
 
