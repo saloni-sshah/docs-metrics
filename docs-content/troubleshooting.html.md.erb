@@ -39,47 +39,27 @@ The following tables describe common failures and how to resolve them.
     </tr>
     <tr>
       <td><code>metrics-ingestor</code><sup>*</sup></td>
-      <td>512MB</td>
+      <td>256MB</td>
       <td>1GB</td>
     </tr>
     <tr>
       <td><code>mysql-logqueue</code><sup>*</sup></td>
-      <td>1GB</td>
-      <td>1GB</td>
-    </tr>
-    <tr>
-      <td><code>elasticsearch-logqueue</code><sup>*</sup></td>
       <td>512MB</td>
       <td>1GB</td>
     </tr>
     <tr>
-      <td><code>metrics-aggregator</code></td>
+      <td><code>elasticsearch-logqueue</code><sup>*</sup></td>
       <td>256MB</td>
       <td>1GB</td>
     </tr>
     <tr>
       <td><code>metrics</code></td>
       <td>1GB</td>
-      <td>1GB</td>
+      <td>2GB</td>
     </tr>
     <tr>
-      <td><code>worker-app-dev</code></td>
-      <td>1GB</td>
-      <td>1GB</td>
-    </tr>
-    <tr>
-      <td><code>worker-app-logs</code></td>
-      <td>1GB</td>
-      <td>1GB</td>
-    </tr>
-    <tr>
-      <td><code>worker-health-check</code></td>
-      <td>1GB</td>
-      <td>1GB</td>
-    </tr>
-    <tr>
-      <td><code>worker-reaper</code></td>
-      <td>1GB</td>
+      <td><code>metrics-ui</code></td>
+      <td>64MB</td>
       <td>1GB</td>
     </tr>
   </table>
@@ -411,10 +391,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   * `elasticsearch-logqueue`
   * `metrics-aggregator`
   * `metrics`
-  * `worker-app-dev`
-  * `worker-app-logs`
-  * `worker-health-check`
-  * `worker-reaper`
+  * `metrics-ui`
 
 1. Check the logs of each app for errors using the following command:
   <pre class="terminal">$ cf logs APP-NAME --recent</pre>
@@ -746,6 +723,36 @@ WSREP_SST: [ERROR] #############################################################
         <li>Try the browser's incognito mode to see if the metrics app is able to fetch the list of apps.
              If this works, the problem is likely cookies or plugins.</li>
         <li>Clear your browser cookies and plugins.</li>
+       </ol>
+       </td>
+  </tr>
+</table>
+
+## <a id="fetch-apps"></a>Redis Failed to Persist to Disk
+<table>
+  <tr>
+      <th>Error</th>
+      <td><code>metrics-ingestor</code> fails to insert to Redis.</td>
+  </tr>
+  <tr>
+      <th>Cause</th>
+      <td>Redis data service runs out of memory/disk.</td>
+  </tr>
+  <tr>
+      <th>Solution</th>
+      <td>Confirm the problem and clean up Redis, as follows:
+      <ol>
+        <li>Check <code>metrics-ingestor</code>'s logs and find the following log <code>MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.</code></li>
+        <li>Check that memory usage of Redis is close to full.</li>
+        <li>Check that Redis's persistent disk usage is close to full.</li>
+        <li>Size up redis and restart:
+          <ul>
+            <li>Go to redis-cli by running <code>/var/vcap/packages/redis/bin/redis-cli -a <password></code> (password can be found in the Metrics tile's credentials tab)</li>
+            <li>Run <code>FLUSHDB</code> command</li>
+            <li>Restart Redis</li>
+          </ul>
+        </li>
+        <li>If the issue persists, size up Redis VM for more memory/persistent disk.</li>
        </ol>
        </td>
   </tr>
