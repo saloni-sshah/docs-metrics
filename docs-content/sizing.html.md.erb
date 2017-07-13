@@ -116,22 +116,19 @@ The default configurations outlined [Suggested Sizing by Deployment Size](#confi
 
 For more precision, perform the following calculation, using your specific log loads:
 
-1. Determine how many logs the apps in your deployment emit and the average size of each log.
+1. Determine how many logs the apps in your deployment emit per hour (_R_) and the average size of each log (_S_).
 
-2. If your average log size is _x_, average log rate is _r_ logs/hour,
-the persistent disk size of a single ES data node is _y_,
-and number of ES data nodes is _n_, then _n_ = _r_ * 336 * _x_ / _y_. 
-This assumes the retention period for logs is 2 weeks (and there are 336 hours in 2 weeks),
-and that _x_ and _y_ have the same units.
+2. Calculate the number of instances (_N_) and the persistent disk size for the instances (_D_) with the following formula,
+   assuming a log retention period of 336 hours (2 weeks):<br><br>
 
-    Use this formula to scale _n_ and _y_.
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _N_ &times; _D_ = _R_ &times; _S_ &times; 336 <br><br>
 
-    TODO: Wordsmith further on the above. Make it even more like a math problem. Given:     Then: 
-    y = Persistant Disk Size
-    n = Number of Elasticsearch Data Instances (e.g. 10 for a large deployment)
-    Okay to use instances instead of nodes above.
+    For example:
 
-3. If you want to achieve high availability for logs, then double the number of ES data nodes.
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8 instances &times; 200 GB &asymp; 200,000 logs/hr &times; 336 hr &times; 25 KB
+
+
+3. If you want to achieve high availability for logs, then double the number of instances. 
 
 ###<a id='log-procedures'></a> Procedure for Scaling
 
@@ -185,18 +182,22 @@ The procedures for scaling the Ingestor, Elasticsearch logqueue, MySQL logqueue,
 
 + **Ingestor** — PCF Metrics deploys the Ingestor as an app within PCF.
 The Ingestor consumes logs and metrics from the Loggregator Firehose, sending metrics and logs to their respective Logqueue apps.
-To customize PCF Metrics for high capacity, you can scale the number of Ingestor app instances and increase the amount of memory per instance.
+
+    To customize PCF Metrics for high capacity, you can scale the number of Ingestor app instances and increase the amount of memory per instance.
 
 + **Logqueues** — PCF Metrics deploys a **MySQL Logqueue** and an **Elasticsearch Logqueue** as apps within PCF.
-The MySQL logqueue consumes metrics from the Ingestor and forwards them to MySQL.
-The Elasticsearch logqueue consumes logs from the Ingestor and forwards them to Elasticsearch.
+  The MySQL logqueue consumes metrics from the Ingestor and forwards them to MySQL.
+  The Elasticsearch logqueue consumes logs from the Ingestor and forwards them to Elasticsearch.<br>
 
     To customize PCF Metrics for high capacity, you can scale the number of Logqueue app instances and increase the amount of memory per instance.
-The number of MySQL and Elasticsearch logqueues needed is dependent on the frequency of logs and metrics being forwarded by the Ingestor.
-As a general rule, for every 45,000 logs per minute, add 2 Elasticsearch logqueues.
-For every 17,000 metrics per minute, add 1 MySQL Logqueue.
-This is a general estimate and you might need fewer instances depending on your deployment.
-To optimize resource allocation, provision fewer instances initially and increase instances until you achieve desired performance.
+
+    The number of MySQL and Elasticsearch logqueues needed is dependent on the frequency that logs and metrics are forwarded by the Ingestor.
+    As a general rule:
+    +  For every 45,000 logs per minute, add 2 Elasticsearch logqueues.
+    +  For every 17,000 metrics per minute, add 1 MySQL logqueue.
+
+    The above is a general estimate. You might need fewer instances depending on your deployment.
+    To optimize resource allocation, provision fewer instances initially and increase instances until you achieve desired performance.
 
 + **Metrics API** — 
 
