@@ -19,12 +19,13 @@ See the following sections to understand the several processes that happen withi
 
 ##<a id="data-flow"></a> How Data Flows from the Firehose to the Datastores
 
-This section describes how PCF Metrics fills its datastores. PCF Metrics uses two datastores:
+This section describes how PCF Metrics fills its datastores. PCF Metrics uses three datastores:
 
 * The MySQL component stores metric and event data from the apps running on your PCF deployment. 
 	* Examples of events are `start` and `stop`. 
 	* Examples of metrics are _container metrics_ such as CPU and _network metrics_ such as Requests. 
 * The Elasticsearch component stores logs from the apps running on your PCF deployment.
+* The Redis component is used to cache data ingested from the Firehose as well as data queried by the Metrics API.
 
 ### Components
 
@@ -43,11 +44,15 @@ The following table describes how the components act during each stage.
 	</tr>
 	<tr>
 		<td valign="top">1</td>
-		<td>The <code>metrics-ingestor</code> app does the following:<br>
+		<td>
+		The <code>metrics-ingestor</code> app receives app logs, container metrics, and network metrics from the Firehose and forwards them to Redis both the <code>elasticsearch-logqueue</code> and <code>mysql-logqueue</code> apps
+
+		Redis does the following:
 			<ul>
-				<li>Receives app logs from the Firehose and forwards them to both the <code>elasticsearch-logqueue</code> and <code>mysql-logqueue</code> apps</li>
-				<li>Receives container metrics and network metrics (HTTPStartStop events) from the Firehose and forwards them to the <code>mysql-logqueue</code> app</li>
-			</ul>
+				<li>Acts as a buffer for event and metrics data when Elasticsearch or MySQL datastores are unavailable</li>
+				<li>Forwards app events to both the <code>elasticsearch-logqueue</code> and <code>mysql-logqueue</code> apps</li>
+				<li>Forwards container metrics and network metrics to the mysql-logqueue app</li>
+			</ul> 
 		</td>
 	</tr>
 	<tr>
@@ -55,43 +60,19 @@ The following table describes how the components act during each stage.
 		<td>
 		Each of the logqueues act independently, writing information to the datastores:
 		<br><br>
+		
 		<b>Elasticsearch logqueue</b>
 		<br><br>
-		The <code>elasticsearch-logqueue</code> app checks whether the Elasticsearch datastore is available and does the following:
-		<ul>
-			<li><b>If Elasticsearch is available</b>: Buffers logs and writes them to the Elasticsearch datastore</li>
-			<li><b>If Elasticsearch is NOT available</b>:
-				<ol>
-					<li>Buffers logs and writes them to the Temporary datastore until  Elasticsearch becomes available</li>
-					<li>After the Elasticsearch becomes available:
-						<ul>
-							<li>Retrieves logs from the Temporary datastore in groups of 1000, buffers them, and writes them to the Elasticsearch datastore</li>
-							<li>Continues buffering logs from the ingestor and writing them to the Elasticsearch datastore</li>
-						</ul> 
-					</li>
-				</ol>
-			</li>
-		</ul>
+		The <code>elasticsearch-logqueue</code> app checks whether the Elasticsearch datastore is available and writes logs to the Elasticsearch datastore if so.
 		<br><br>
+		
 		<b>MySQL logqueue</b>
 		<br><br>
-		The <code>mysql-logqueue</code> app buffers logs and writes each data type to MySQL as follows:<br><br>
+		The <code>mysql-logqueue</code> app checks whether the MySQL datastore is available and does the following:<br><br>
 		<ul>
-			<li><b>Container metrics</b>: Inserts messages into the <code>container_metric</code> table of MySQL</li>
-			<li><b>Network</b>: Inserts messages into the <code>http_start_stop</code> table of MySQL</li>
-			<li><b>App logs</b>: Parses log messages for an app event name and inserts the message into the <code>app_event</code> table of MySQL</li>
+			<li>Inserts <b>container metrics</b> and <b>network</b> metrics into MySQL with 1-minute granularity.</li>
+			<li>Parses app log messages for an app event name and inserts the event MySQL</li>
 		</ul>
-	</tr>
-	<tr>
-		<td valign="top">3</td>
-		<td>The <code>metrics-aggregator</code> app, which runs according to an <code>AGGREGATE_FREQUENCY</code> property, does the following to aggregate the data stored in MySQL:<br><br>
-		<ol>
-			<li>Retrieves container and network metrics from MySQL</li>
-			<li>Aggregates the data for each app over the last four minutes, grouped by one minute intervals</li>
-			<li>Inserts the aggregated data into the <code>app_metric_rollup</code> table of the MySQL component 
-			</li>
-		</ol>
-		</td>
 	</tr>
 </table>
 
