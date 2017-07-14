@@ -45,13 +45,13 @@ The following table describes how the components act during each stage.
 	<tr>
 		<td valign="top">1</td>
 		<td>
-		The <code>metrics-ingestor</code> app receives app logs, container metrics, and network metrics from the Firehose and forwards them to Redis both the <code>elasticsearch-logqueue</code> and <code>mysql-logqueue</code> apps
-
+		The <code>metrics-ingestor</code> app receives app logs, container metrics, and network metrics from the Firehose and forwards them to Redis
+		<br><br>
 		Redis does the following:
 			<ul>
 				<li>Acts as a buffer for event and metrics data when Elasticsearch or MySQL datastores are unavailable</li>
 				<li>Forwards app events to both the <code>elasticsearch-logqueue</code> and <code>mysql-logqueue</code> apps</li>
-				<li>Forwards container metrics and network metrics to the mysql-logqueue app</li>
+				<li>Forwards container metrics and network metrics to the <b>mysql-logqueue</b> app</li>
 			</ul> 
 		</td>
 	</tr>
@@ -70,7 +70,7 @@ The following table describes how the components act during each stage.
 		<br><br>
 		The <code>mysql-logqueue</code> app checks whether the MySQL datastore is available and does the following:<br><br>
 		<ul>
-			<li>Inserts <b>container metrics</b> and <b>network</b> metrics into MySQL with 1-minute granularity.</li>
+			<li>Inserts container metrics and network metrics into MySQL with 1-minute granularity.</li>
 			<li>Parses app log messages for an app event name and inserts the event MySQL</li>
 		</ul>
 	</tr>
@@ -94,7 +94,7 @@ The following table describes how the components act during each stage.
 	<tr><th>Stage</th><th>Description</th></tr>
 	<tr><td valign="top">1</td>
 		<td>
-			A user launches <code>metrics.SYSTEM-DOMAIN</code> in a browser and enters her UAA credentials. 
+			A user launches <code>metrics.SYSTEM-DOMAIN</code> in a browser and enters their UAA credentials. 
 		</td>
 	</tr>
 	<tr><td valign="top">2</td>
