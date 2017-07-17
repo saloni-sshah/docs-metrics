@@ -49,10 +49,9 @@ The following table describes how the components act during each stage.
 		<br><br>
 		Redis does the following:
 			<ul>
-				<li>Acts as a buffer for event and metrics data when Elasticsearch or MySQL datastores are unavailable</li>
-				<li>Forwards app events to both the <code>elasticsearch-logqueue</code> and <code>mysql-logqueue</code> apps</li>
-				<li>Forwards container metrics and network metrics to the <b>mysql-logqueue</b> app</li>
-			</ul> 
+				<li>Acts as a buffer for events and metrics data</li>
+				<li>Acts as a cache</li>
+			</ul>
 		</td>
 	</tr>
 	<tr>
@@ -63,12 +62,12 @@ The following table describes how the components act during each stage.
 		
 		<b>Elasticsearch logqueue</b>
 		<br><br>
-		The <code>elasticsearch-logqueue</code> app checks whether the Elasticsearch datastore is available and writes logs to the Elasticsearch datastore if so.
+		The <code>elasticsearch-logqueue</code> app reads data from redis and checks whether the Elasticsearch datastore is available, then writes logs to the Elasticsearch datastore if so.
 		<br><br>
 		
 		<b>MySQL logqueue</b>
 		<br><br>
-		The <code>mysql-logqueue</code> app checks whether the MySQL datastore is available and does the following:<br><br>
+		The <code>mysql-logqueue</code> app reads data from redis and checks whether the MySQL datastore is available, then does the following:<br><br>
 		<ul>
 			<li>Inserts container metrics and network metrics into MySQL with 1-minute granularity.</li>
 			<li>Parses app log messages for an app event name and inserts the event MySQL</li>
@@ -128,54 +127,7 @@ The following table describes how the components act during each stage.
 		</td>
 	</tr>
 	<tr>
-		<td valign="top">
-			5
-		</td>
-		<td>
-			The <code>worker-app-dev</code> and <code>worker-app-logs</code> apps, which subscribe to the job channels on Redis, recognize the jobs created by the metrics API. The apps remove their corresponding jobs and do the following:<br><br>
-			<ol>
-				<li>Retrieve data from the datastores:
-					<ol>
-						<li><code>worker-app-dev</code> queries MySQL to retrieve any metrics and events requested for the time period.</li>
-						<li><code>worker-app-logs</code> queries Elasticsearch to retrieve the logs for the time period requested.</li>
-					</ol>
-				</li>
-				<li>Publish the data to Redis</li>
-			</ol>
-		</td>
-	</tr>
-	<tr>
-		<td valign="top">6</td>
-		<td>Redis forwards the data to the metrics API.</td>
-	</tr>
-	<tr>
-		<td valign="top">7</td>
-		<td>The metrics API streams the data to the browser using AJAX, and the PCF Metrics UI displays the data requested by the user.</td>
-	</tr>
-</table>
-
-## <a id="workers"></a> How Worker Apps Monitor the System
-
-The following table describes the two worker components that PCF Metrics uses to monitor other components in the system.
-
-<table>
-	<tr>
-		<th width="28%">Worker Component</th>
-		<th>Function</th>
-	</tr>
-	<tr>
-		<td><code>worker-health-check</code></td>
-		<td>The health-check worker is an app that does the following every minute:<br><br>
-		<ul>
-			<li>Checks whether the apps deployed by PCF Metrics can reach the MySQL, Elasticsearch, and Redis datastores</li>
-			<li>Records the number of MySQL connections and Redis channels</li>
-		</ul>
-		 </td>
-	</tr>
-	<tr>
-		<td><code>worker-reaper</code></td>
-		<td>The reaper worker is an app that removes orphaned connections from the <code>worker-app-dev</code> and <code>worker-app-logs</code> apps to Redis. 
-		<br><br>
-		PCF Metrics requires the reaper worker because Redis does not remove its connections to <code>worker-app-dev</code> and <code>worker-app-logs</code> if they restart.</td>
+		<td valign="top">5</td>
+		<td>The metrics API fetches the data from MYSQL and Elasticsearch, then streams it to the browser.</td>
 	</tr>
 </table>
