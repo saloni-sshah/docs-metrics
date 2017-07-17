@@ -39,28 +39,28 @@ The following tables describe common failures and how to resolve them.
     </tr>
     <tr>
       <td><code>metrics-ingestor</code><sup>*</sup></td>
-      <td>256MB</td>
-      <td>1GB</td>
+      <td>256&nbsp;MB</td>
+      <td>1&nbsp;GB</td>
     </tr>
     <tr>
       <td><code>mysql-logqueue</code><sup>*</sup></td>
-      <td>512MB</td>
-      <td>1GB</td>
+      <td>512&nbsp;MB</td>
+      <td>1&nbsp;GB</td>
     </tr>
     <tr>
       <td><code>elasticsearch-logqueue</code><sup>*</sup></td>
-      <td>256MB</td>
-      <td>1GB</td>
+      <td>256&nbsp;MB</td>
+      <td>1&nbsp;GB</td>
     </tr>
     <tr>
       <td><code>metrics</code></td>
-      <td>1GB</td>
-      <td>2GB</td>
+      <td>1&nbsp;GB</td>
+      <td>2&nbsp;GB</td>
     </tr>
     <tr>
       <td><code>metrics-ui</code></td>
-      <td>64MB</td>
-      <td>1GB</td>
+      <td>64&nbsp;MB</td>
+      <td>1&nbsp;GB</td>
     </tr>
   </table>
   
@@ -728,31 +728,31 @@ WSREP_SST: [ERROR] #############################################################
   </tr>
 </table>
 
-## <a id="fetch-apps"></a>Redis Failed to Persist to Disk
+## <a id="redis-full"></a>Redis Temporary Datastore Stops Accepting Metrics
 <table>
   <tr>
       <th>Error</th>
-      <td><code>metrics-ingestor</code> fails to insert to Redis.</td>
+      <td>
+            You see both these problems:<ul>
+            <li>Metrics stop appearing on the UI.</li>
+            <li>When you run <code>cf metrics-ingestor logs</code>, you see the following entry in the Ingestor logs:<br>
+                <code>MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk.
+                Commands that may modify the data set are disabled. Please check Redis logs for details about the error.</code></li>
+           </ul>
+      </td>
   </tr>
   <tr>
       <th>Cause</th>
-      <td>Redis data service runs out of memory/disk.</td>
+      <td>The Redis datastore is full. The component is out of memory or peristent disk space.</td>
   </tr>
   <tr>
       <th>Solution</th>
-      <td>Confirm the problem and clean up Redis, as follows:
+      <td>Confirm the problem and scale up Redis, as follows:
       <ol>
-        <li>Check <code>metrics-ingestor</code>'s logs and find the following log <code>MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.</code></li>
-        <li>Check that memory usage of Redis is close to full.</li>
-        <li>Check that Redis's persistent disk usage is close to full.</li>
-        <li>Size up redis and restart:
-          <ul>
-            <li>Go to redis-cli by running <code>/var/vcap/packages/redis/bin/redis-cli -a <password></code> (password can be found in the Metrics tile's credentials tab)</li>
-            <li>Run <code>FLUSHDB</code> command</li>
-            <li>Restart Redis</li>
-          </ul>
-        </li>
-        <li>If the issue persists, size up Redis VM for more memory/persistent disk.</li>
+        <li>On the <strong>Metrics</strong> tile, click the <strong>Status</strong> tab and
+            look to see if the memory or persistent disk usage of the Redis job is over 80%.</li>
+        <li>Scale up the Redis component. For more information, see <a href=".//sizing.html#temp-datastore">
+            Scale the Temporary Datastore (Redis)</a>.</li>
        </ol>
        </td>
   </tr>
