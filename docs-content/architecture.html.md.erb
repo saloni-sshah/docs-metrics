@@ -9,13 +9,13 @@ This topic describes the product architecture of Pivotal Cloud Foundry (PCF) Met
 
 ## <a id="overview"></a>Overview
 
-The diagram below displays the components of PCF Metrics in bold, as well as the Cloud Foundry components that the PCF Metrics system interacts with.
+The diagram below displays the components of PCF Metrics, as well as the Cloud Foundry components that the PCF Metrics system interacts with.
 
 PCF Metrics deploys several Cloud Foundry apps as part of the install process. These components are the bold rectangles in the diagram. The cylinders represent the data storage components of PCF Metrics. 
 
 <%= image_tag('architecture.png') %>
 
-See the following sections to understand the several processes that happen within the PCF Metrics system.
+See the following sections to understand the processes that happen within the PCF Metrics system.
 
 ##<a id="data-flow"></a> How Data Flows from the Firehose to the Datastores
 
@@ -62,7 +62,7 @@ The following table describes how the components act during each stage.
 		
 		<b>Elasticsearch logqueue</b>
 		<br><br>
-		The <code>elasticsearch-logqueue</code> app reads data from redis and checks whether the Elasticsearch datastore is available, then writes logs to the Elasticsearch datastore if so.
+		The <code>elasticsearch-logqueue</code> app reads data from redis and checks whether the Elasticsearch datastore is available, and if so, writes logs to the Elasticsearch datastore.
 		<br><br>
 		
 		<b>MySQL logqueue</b>
