@@ -11,18 +11,18 @@ This topic describes how developers can monitor and troubleshoot their apps usin
 
 PCF Metrics helps you understand and troubleshoot the health and performance of your apps by displaying the following:
 
-* [Container Metrics](#container): A graph of CPU, memory, and disk usage percentages 
-* [Network Metrics](#network): A graph of requests, HTTP errors, and response times 
+* [Container Metrics](#container): Three graphs measuring CPU, memory, and disk usage percentages 
+* [Network Metrics](#network): Three graphs measuring requests, HTTP errors, and response times
+* [Custom Metrics](#custom): User-customizable graphs for measuring app performance, such as Spring Boot Actuator metrics
 * [App Events](#events): A graph of update, start, stop, crash, SSH, and staging failure events
 * [Logs](#logs): A list of app logs that you can search, filter, and download
-* [Trace Explorer](#trace): A graph that traces a request as it flows through your apps and their endpoints, along with the corresponding logs
+* [Trace Explorer](#trace): A dependency graph that traces a request as it flows through your apps and their endpoints, along with the corresponding logs
 
-For example, if you see that an app crashed on the **Events** graph, you can zoom in and view the corresponding container metrics, network metrics, and logs. 
-
+The following sections will walk you through a standard workflow for using PCF Metrics to monitor or troubleshoot your apps.
 
 ##<a id='get-started'></a> View an App
 
-In a browser, navigate to `metrics.YOUR-SYSTEM-DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Choose an app for which you want to view metrics or logs. You can view any app that runs in a space that you have access to. 
+In a browser, navigate to `metrics.YOUR-SYSTEM-DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Choose an app for which you want to view metrics or logs. PCF Metrics respects UAA permissions such that you can view any app that runs in a space that you have access to. 
 
 ![Search for an app](search.png)
 
@@ -39,8 +39,6 @@ The graphs show time along the horizontal axis. You can change the time frame fo
 **Zoom**: From within any graph, click and drag to zoom in on areas of interest. This adjusts all of the graphs, and the logs, to show data from that time frame.
 
 <%= image_tag("metric-zoom.png") %>
-
-**Drag**: From underneath the x-axis of any graph, drag left or right to view data for an earlier or later time. 
 
 
 
