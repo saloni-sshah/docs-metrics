@@ -25,7 +25,7 @@ This section describes how PCF Metrics fills its datastores. PCF Metrics uses th
 	* Examples of events are `start` and `stop`. 
 	* Examples of metrics are _container metrics_ such as CPU and _network metrics_ such as Requests. 
 * The Elasticsearch component stores logs from the apps running on your PCF deployment.
-* The Redis component is used to cache data ingested from the Firehose as well as data queried by the Metrics API.
+* The Redis component is used to cache data ingested from the Firehose and data queried by the Metrics API.
 
 ### Components
 
@@ -45,7 +45,7 @@ The following table describes how the components act during each stage.
 	<tr>
 		<td valign="top">1</td>
 		<td>
-		The <code>metrics-ingestor</code> app receives app logs, container metrics, and network metrics from the Firehose and forwards them to Redis
+		The <code>metrics-ingestor</code> app receives app logs, container metrics, and network metrics from the Firehose and forwards them to Redis.
 		<br><br>
 		Redis does the following:
 			<ul>
@@ -57,20 +57,20 @@ The following table describes how the components act during each stage.
 	<tr>
 		<td valign="top">2</td>
 		<td>
-		Each of the logqueues act independently, writing information to the datastores:
+		Each of the logqueues acts independently, writing information to the datastores:
 		<br><br>
 		
 		<b>Elasticsearch logqueue</b>
 		<br><br>
-		The <code>elasticsearch-logqueue</code> app reads data from redis and checks whether the Elasticsearch datastore is available. If available, the app writes logs to the Elasticsearch datastore.
+		The <code>elasticsearch-logqueue</code> app reads data from Redis and checks whether the Elasticsearch datastore is available. If available, the app writes logs to the Elasticsearch datastore.
 		<br><br>
 		
 		<b>MySQL logqueue</b>
 		<br><br>
-		The <code>mysql-logqueue</code> app reads data from redis and checks whether the MySQL datastore is available, then does the following:<br><br>
+		The <code>mysql-logqueue</code> app reads data from Redis and checks whether the MySQL datastore is available. If the datastore is available, it does the following:<br><br>
 		<ul>
-			<li>Inserts container metrics and network metrics into MySQL with 1-minute granularity.</li>
-			<li>Parses app log messages for an app event name and inserts the event MySQL</li>
+			<li>Inserts container metrics and network metrics into MySQL with 1-minute granularity</li>
+			<li>Parses app log messages for an app event name and inserts the event into MySQL</li>
 		</ul>
 	</tr>
 </table>
@@ -128,6 +128,6 @@ The following table describes how the components act during each stage.
 	</tr>
 	<tr>
 		<td valign="top">5</td>
-		<td>The metrics API fetches the data from MySQL and Elasticsearch, then streams it to the browser.</td>
+		<td>The metrics API fetches the data from MySQL and Elasticsearch and then streams it to the browser.</td>
 	</tr>
 </table>

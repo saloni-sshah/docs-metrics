@@ -14,14 +14,14 @@ This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
 The following list describes what's new in PCF Metrics v1.4.0:
 
-* **Custom App Metrics**: PCF Metrics v1.4.0, when used along with the [Metrics Forwarder](http://docs.pivotal.io/), allows users to configure their apps to send custom app metrics and view them on the PCF Metrics dashboard. Spring Boot apps will be able to see **Spring Boot Actuator metrics** on the PCF Metrics dashboard out of the box.
-* **Instance-level Metrics**: The PCF Metrics dashboard now allows users to view metrics at the app instance granularity. Users can toggle between app instance and aggregated view and can choose their preferred method of aggregation across instances.
-* **Improved UI**: v1.4.0 introduces major UI enhancements of the metrics dashboard, including interactive features such as adding, deleting, reordering, and expanding charts in order to support custom metrics and to optimize readability.
-* **Improved Tile Config UX and VM Footprint Reduction**: The following changes have been made to the OpsMan tile config:
+* **Custom app metrics**: PCF Metrics v1.4.0, when used along with [Metrics Forwarder](http://docs.pivotal.io/), allows users to configure their apps to send custom app metrics and view them on the PCF Metrics dashboard. **Spring Boot Actuator metrics** will be available on the PCF Metrics dashboard as an out-of-the-box feature for Spring Boot apps.
+* **Instance-level metrics**: The PCF Metrics dashboard now enables users to view metrics for a specific app instance. Users can toggle between app instance and aggregated views and can choose their preferred method of aggregation across instances.
+* **Improved UI**: v1.4.0 introduces major UI enhancements of the metrics dashboard, including interactive features such as adding, deleting, reordering, and expanding charts, to support custom metrics and optimize readability.
+* **Improved tile configuration UX and VM footprint reduction**: The following changes have been made to the Ops Manager tile configuration:
   * Users can configure the number of Metrics API instances under the **Metrics Components Config** section.
   * MySQL VM footprint has been reduced by switching from a Galera cluster to a single-node MySQL. The number of MySQL instances is no longer configurable by the user in the **Resource Config** section.
-  * The unused Metron job was removed from **Resource Config**
-  * Redis job has been added to **Resource Config**. Users can configure Redis with the number of instances and size they prefer. For more information on what Redis does in PCF Metrics, visit [PCF Metrics Product Architecture](./architecture.html).
+  * The unused Metron job was removed from **Resource Config**.
+  * Redis job has been added to **Resource Config**. You can configure the number of instances and their size. For more information on how Redis is used in PCF Metrics, see [PCF Metrics Product Architecture](./architecture.html).
 
 
 ### <a id="issues"></a>Known Issues
@@ -34,16 +34,16 @@ PCF Metrics v1.4.x requires Elastic Runtime v1.11.0 or later.
 
 #### Using Custom App Metrics
 
-In order to use custom app metrics on PCF Metrics, you must have the [Metrics Forwarder tile](http://docs.pivotal.io/) installed and your apps must be bound the the metrics forwarder service. You can use PCF Metrics without the Metrics Forwarder, but will only be able to view default container metrics, network metrics, and app events.
+To use custom app metrics on PCF Metrics, you must install the [Metrics Forwarder](http://docs.pivotal.io/) tile and your apps must be bound to the Metrics Forwarder service. You can use PCF Metrics without Metrics Forwarder, but you will be able to view only default container metrics, network metrics, and app events.
 
 #### Smoke Test Failures Due to Elasticsearch
 
-The PCF Metrics **Smoke Test** errand may fail if you have significant logs data stored in Elasticsearch, and you perform one of the following actions:
+The PCF Metrics **Smoke Test** errand may fail if you have significant amount of log data stored in Elasticsearch, and you perform one of the following actions:
 
 * Upgrade from v1.3.x to v1.4.x
 * Scale the number of Elasticsearch Master or Data instances
 
-This happens because Elasticsearch may require up to 24hrs to re-allocate shards. During this time you will not see any logs in the UI, but no logs are lost. If you experience this issue, wait until your [Elasticsearch cluster is healthy/green](https://www.elastic.co/guide/en/elasticsearch/reference/2.2/_cluster_health.html). Smoke tests should pass once you re-run the PCF Metrics install. 
+This happens because Elasticsearch may require up to 24 hours to re-allocate shards. During this time, you will not see any logs in the UI. However, no logs are lost. If you experience this issue, wait until your [Elasticsearch cluster is healthy/green](https://www.elastic.co/guide/en/elasticsearch/reference/2.2/_cluster_health.html). Smoke tests should pass once you re-run the PCF Metrics install.
 
 #### Smoke Test Failures Due to User Authentication
 
