@@ -67,7 +67,7 @@ The following table describes how the components act during each stage.
 		
 		<b>MySQL logqueue</b>
 		<br><br>
-		The <code>mysql-logqueue</code> app reads data from Redis and checks whether the MySQL datastore is available. If the datastore is available, it does the following:<br><br>
+		The <code>mysql-logqueue</code> app reads data from Redis and checks whether the MySQL datastore is available. If the datastore is available, the app does the following:<br><br>
 		<ul>
 			<li>Inserts container metrics and network metrics into MySQL with 1-minute granularity</li>
 			<li>Parses app log messages for an app event name and inserts the event into MySQL</li>
@@ -110,7 +110,7 @@ The following table describes how the components act during each stage.
 		<td>
 			A user selects an app from the dropdown menu, which does the following:<br></br>
 			<ol>
-				<li>Opens an AJAX connection the metrics API to retrieve metrics and logs for the specified time frame</li>
+				<li>Opens an AJAX connection to the metrics API to retrieve metrics and logs for the specified time frame</li>
 			</ol>
 		</td>
 	</tr>
