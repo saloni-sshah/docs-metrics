@@ -17,7 +17,7 @@ The following list describes what's new in PCF Metrics v1.4.0:
 * **Custom App Metrics**: PCF Metrics v1.4.0, when used along with [Metrics Forwarder](http://docs.pivotal.io/), supports custom app metrics. Users can configure their apps to send the metrics to PCF Metrics and view them on the PCF Metrics dashboard. **Spring Boot Actuator metrics** will be available on the PCF Metrics dashboard as an out-of-the-box feature for Spring Boot apps.
 * **Instance-Level Metrics**: The PCF Metrics dashboard now enables users to view metrics for a specific app instance. Users can toggle between app instance and aggregated views and choose their preferred method of aggregation across instances.
 * **Improved UI**: PCF Metrics v1.4.0 introduces major UI enhancements of the metrics dashboard, including interactive features such as adding, deleting, reordering, and expanding charts, to support custom metrics and optimize readability.
-* **Improved Tile Configuration UX and VM Footprint Reduction**: The following changes have been made to the Ops Manager tile configuration:
+* **Improved Tile Configuration UX and VM Footprint Reduction**: The following changes have been made to the PCF Metrics tile configuration:
   * Users can configure the number of Metrics API instances under the **Metrics Components Config** section.
   * MySQL VM footprint has been reduced by switching from a Galera cluster to a single-node MySQL. The number of MySQL instances is no longer configurable by the user in the **Resource Config** section.
   * The unused Metron job was removed from **Resource Config**.
