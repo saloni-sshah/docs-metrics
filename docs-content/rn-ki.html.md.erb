@@ -34,11 +34,11 @@ PCF Metrics v1.4.x requires Elastic Runtime v1.11.0 or later.
 
 #### Using Custom App Metrics
 
-To use custom app metrics in PCF Metrics, you must install the [Metrics Forwarder](http://docs.pivotal.io/) tile and your apps must be bound to the Metrics Forwarder service. You can use PCF Metrics without Metrics Forwarder, but you will be able to view only default container metrics, network metrics, and app events.
+To use custom app metrics in PCF Metrics, you must install the [Metrics Forwarder](http://docs.pivotal.io/) tile and bind your apps to the Metrics Forwarder service. You can use PCF Metrics without Metrics Forwarder, but you will be able to view only default container metrics, network metrics, and app events.
 
 #### Smoke Test Failures Due to Elasticsearch
 
-The PCF Metrics **Smoke Test** errand may fail if you have significant amount of log data stored in Elasticsearch, and you perform one of the following actions:
+The PCF Metrics **Smoke Test** errand may fail if you have significant amount of log data stored in Elasticsearch and you perform one of the following actions:
 
 * Upgrade from v1.3.x to v1.4.x
 * Scale the number of Elasticsearch Master or Data instances
