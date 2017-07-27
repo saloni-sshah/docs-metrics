@@ -467,7 +467,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
       * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the Firehose.
           This user must have the `doppler.firehose` authority.
       * **Cannot connect to the logqueues**: There might be a problem with the UAA, or it could be throttling traffic.
-      * **WebSocket Disconnects**: If you see Websocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances.
+      * **WebSocket Disconnects**: If you see WebSocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances.
           The Firehose might be dropping the Ingestor connection to avoid back pressure.
 
 1. If the app is started and you do not find any errors, proceed to [Step 6: Check MySQL](#check-mysql).
@@ -743,7 +743,7 @@ WSREP_SST: [ERROR] #############################################################
   </tr>
   <tr>
       <th>Cause</th>
-      <td>The Redis datastore is full. The component is out of memory or peristent disk space.</td>
+      <td>The Redis datastore is full. The component is out of memory or persistent disk space.</td>
   </tr>
   <tr>
       <th>Solution</th>
