@@ -40,16 +40,58 @@ The graphs show time along the horizontal axis. You can change the time frame fo
 
 <%= image_tag("metric-zoom.png") %>
 
+##<a id='metrics'></a> Add, Edit, and Delete Charts
+
+The PCF Metrics app dashboard is largely interactive, and allows users to add, edit, and delete charts. 
+
+**Add Chart**: In order to add a new chart, click on the '+ ADD CHART' button at the top right of the dashboard.
+
+<%= image_tag("metrics-add1.png") %>
+
+From the modal, either select a metric from the dropdown if you see it, or type the name of the metric into the search bar to filter results. 
+
+<%= image_tag("metrics-add2.png") %>
+
+Then, select an aggregation type. This determines how to combine the data from multiple instances when in aggregated view.
+
+<%= image_tag("metrics-add3.png") %>
+
+**Edit Chart**: To change how instances are aggregated for an existing metric, click the pencil icon on the header of the metric chart. The 'Edit Chart' modal will appear and you can choose the aggregation type and click 'Save' to apply changes.
+
+<%= image_tag("metrics-edit.png") %>
+
+**Delete Chart**: To delete an existing chart on the dashboard, click on the trash can icon on the header of the metric chart. Then click 'Delete'.
+
+<%= image_tag("metrics-delete.png") %>
+
 ## <a id="time"></a>View and Reorder Metric Charts
 
 **Reorder**: Each metric has its own chart. You can click and drag the chart header to change the ordering of these charts.
 
 ![reorder](images/metrics-reorder.png)
 
-**Expand**: To see more detail in complex graphs, you can expand a chart by clicking the icon in the chart header. You can collapse the chart by clicking the icon again.
+**Expand**: To see more detail in complex graphs, you can expand a chart by clicking the icon in the chart header.
 
 <%= image_tag("metrics-expand1.png") %>
+
+You can collapse the chart by clicking the icon again.
 <%= image_tag("metrics-expand2.png") %>
+
+## <a id="time"></a>View Metrics at App Instance Level
+
+PCF Metrics now relays metric data at the application instance level to allow for a more in-depth troubleshooting experience. Users are able to view the app metrics pertaining to a specific instance index, which correlates directly with the app instance indices shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
+
+To view metrics at the app instance level, turn the **view instances** toggle on.
+
+![instances](images/metrics-instances1.png)
+
+To select/deselect a specific app instance, select the desired instance from the **instance filter** dropdown.
+
+<%= image_tag("metrics-instances2.png") %>
+
+Or, click on a line on the metric chart that interests you to select that instance.
+
+<%= image_tag("metrics-instances3.png") %>
 
 ##<a id='metrics'></a> Interpret Metrics
 
