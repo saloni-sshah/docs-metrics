@@ -42,31 +42,33 @@ The graphs show time along the horizontal axis. You can change the time frame fo
 
 ##<a id='metrics'></a> Add, Edit, and Delete Charts
 
-The PCF Metrics app dashboard is largely interactive, and allows users to add, edit, and delete charts. 
+The PCF Metrics dashboard allows users to add, edit, and delete charts. 
 
-**Add Chart**: In order to add a new chart, click on the '+ ADD CHART' button at the top right of the dashboard.
+**Add Chart**: To add a new chart, follow the steps below.
 
-<%= image_tag("metrics-add1.png") %>
+1. Click **+ ADD CHART** at the top right of the dashboard.
 
-From the modal, either select a metric from the dropdown if you see it, or type the name of the metric into the search bar to filter results. 
+	<%= image_tag("metrics-add1.png") %>
 
-<%= image_tag("metrics-add2.png") %>
+1. On the modal window, either select a metric from the dropdown menu or type the name of the metric into the search bar to filter results. 
 
-Then, select an aggregation type. This determines how to combine the data from multiple instances when in aggregated view.
+	<%= image_tag("metrics-add2.png") %>
 
-<%= image_tag("metrics-add3.png") %>
+1. Select an aggregation type. This determines how to combine the data from multiple instances.
 
-**Edit Chart**: To change how instances are aggregated for an existing metric, click the pencil icon on the header of the metric chart. The 'Edit Chart' modal will appear and you can choose the aggregation type and click 'Save' to apply changes.
+	<%= image_tag("metrics-add3.png") %>
+
+**Edit Chart**: To change how instances are aggregated for an existing metric, click the pencil icon on the header of the metric chart. The **Edit Chart** modal window appears where you can choose the aggregation type and click **Save** to apply changes.
 
 <%= image_tag("metrics-edit.png") %>
 
-**Delete Chart**: To delete an existing chart on the dashboard, click on the trash can icon on the header of the metric chart. Then click 'Delete'.
+**Delete Chart**: To delete an existing chart on the dashboard, click the trash can icon on the header of the metric chart and then click **Delete**.
 
 <%= image_tag("metrics-delete.png") %>
 
 ## <a id="time"></a>View and Reorder Metric Charts
 
-**Reorder**: Each metric has its own chart. You can click and drag the chart header to change the ordering of these charts.
+**Reorder**: Each metric has its own chart. You can click and drag the chart header to change the ordering of charts.
 
 ![reorder](images/metrics-reorder.png)
 
@@ -78,31 +80,37 @@ You can collapse the chart by clicking the icon again.
 
 <%= image_tag("metrics-expand2.png") %>
 
-## <a id="time"></a>View Metrics at App Instance Level
+## <a id="app-instance"></a>View Metrics at App-Instance Level
 
-PCF Metrics now relays metric data at the application instance level to allow for a more in-depth troubleshooting experience. Users are able to view the app metrics pertaining to a specific instance index, which correlates directly with the app instance indices shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
+PCF Metrics relays metric data at the app-instance level to allow for an in-depth troubleshooting experience. Users are able to view the app metrics related to a specific instance index, which correlates directly with the app instance indices shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
 
-To view metrics at the app instance level, turn the **view instances** toggle on.
+To view metrics at the app-instance level, turn the **view instances** toggle on.
 
 ![instances](images/metrics-instances1.png)
 
-To select/deselect a specific app instance, select the desired instance from the **instance filter** dropdown.
+To select/deselect a specific app instance, select the desired instance from the **instance filter** dropdown menu.
 
 <%= image_tag("metrics-instances2.png") %>
 
-Or, click on a line on the metric chart that interests you to select that instance.
+Alternatively, click on a line on the metric chart that interests you to select that instance.
 
 <%= image_tag("metrics-instances3.png") %>
 
 ##<a id='metrics'></a> Interpret Metrics
 
-See the following sections to understand how to use each of the views in the dashboard to monitor and troubleshoot your app.
+See the following sections to understand how to use each of the views on the dashboard to monitor and troubleshoot your app.
 
 ### <a id='container'></a> Container Metrics
 
-There are three **Container Metric** charts - **cf.system.cpu (CPU Usage Percentage)**, **cf.system.memory (Memory Usage Percentage)**, and **cf.system.disk (Disk Usage Percentage)** usage:
+Three **Container Metrics** charts are available on the PCF Metrics dashboard:
+
+* CPU usage percentage: **cf.system.cpu**
+* Memory usage percentage: **cf.system.memory**
+* Disk usage percentage: **cf.system.disk**
 
 ![Container View](container.png)
+
+Troubleshooting tips:
 
 * A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but investigate the app to better understand and fix the root cause. 
 * A spike in memory might mean a resource leak in the code. Scaling app memory can also relieve the immediate pressure, but look for and resolve the underlying issue so that it does not occur again. 
@@ -110,9 +118,15 @@ There are three **Container Metric** charts - **cf.system.cpu (CPU Usage Percent
 
 ### <a id='network'></a> Network Metrics
 
-There are three **Network Metric** charts - **cf.system.request-count (# of Network Requests per Minute)**, **cf.system.request-error-count (# of Network Request Errors per Minute)**, and **cf.system.latency (Average Latency of a Request in Milliseconds)**:
+Three **Network Metrics** charts are available on the PCF Metrics dashboard:
+
+* Number of network requests per minute: **cf.system.request-count**
+* Number of network request errors per minute: **cf.system.request-error-count** 
+* Average latency of a request in milliseconds: **cf.system.latency**
 
 ![Network View](network.png)
+
+Troubleshooting tips:
 
 * A spike in response time means your users are waiting longer to use your app. Scaling app instances can spread that workload over more resources and result in faster response times. 
 * A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information. 
@@ -120,7 +134,7 @@ There are three **Network Metric** charts - **cf.system.request-count (# of Netw
 
 ### <a id='events'></a> Events 
 
-The **Events** graph shows the following app events: **Crash**, **Fail** (Staging Failures), **Update**, **Stop**, **Start**, and **SSH**. 
+The **Events** graph shows the following app events: **Crash**, **Fail** (staging failures), **Update**, **Stop**, **Start**, and **SSH**. 
 
 ![Events](events.png)
 
@@ -133,11 +147,11 @@ See the following topics for more information about app events:
 
 ### <a id='custom'></a> Custom Metrics
 
-Users can instrument their apps to emit custom metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose), and consequently view these custom metrics on the PCF Metrics dashboard. For steps on how to configure your apps with custom metrics, follow the steps in the [Metrics Forwarder Docs](https://docs.pivotal.io/). If you've set everything up correctly, you should be able to automatically see custom metrics on your PCF Metrics dashboard when you add a chart:
+Users can configure their apps to emit custom metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the PCF Metrics dashboard. For steps on how to set up your apps to emit custom metrics, refer to [Metrics Forwarder Docs](https://docs.pivotal.io/). If you have configured the apps correctly, you should be able to automatically see custom metrics on the PCF Metrics dashboard when you add a chart.
 
 <%= image_tag("metrics-custom.png") %>
 
-Additionally, Spring Boot apps with actuators implemented will emit [Spring Boot Actuator metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out-of-the-box without any changes to source code. These metrics will look like this in PCF Metrics:
+In addition, Spring Boot apps with actuators implemented emit [Spring Boot Actuator metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code. In PCF Metrics, these metrics look similar to the following:
 
 <%= image_tag("metrics-spring.png") %>
 
@@ -165,10 +179,7 @@ You can interact with the **Logs** view in the following ways:
 
 A request to one of your apps initiates a workflow within the app or system of apps. The record of this workflow is a _trace_, which you can use to troubleshoot app failures and latency issues. In the Trace Explorer view, PCF Metrics displays an interactive graph of a trace and its corresponding logs. See the sections below to understand how to use the Trace Explorer.
 
-
 For more information about traces, see [What is a Trace?](http://opentracing.io/documentation/#what-is-a-trace) in the _Open Tracing_ documentation. 
-
-
 
 ###<a id="before"></a> Prerequisite
 
