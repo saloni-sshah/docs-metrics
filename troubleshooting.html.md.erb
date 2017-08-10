@@ -521,6 +521,9 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. Run `show databases` and check for a `metrics` database.
       1. if there is no `metrics` database, the `migrate_db` errand of the BOSH release may not have run or succeeded. Ensure the errand is selected in the tile configuration and update the tile.
 
+1. Run `use metrics` to select the `metrics` database:
+   <pre class="terminal">mysql> use metrics;</pre>
+
 1. Run `show tables` and ensure you see the following tables:
     
     ![Tables in Metrics](metrics-tables.png)
