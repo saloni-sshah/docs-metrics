@@ -124,7 +124,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Failed querying mysql
+#### Failed Querying MySQL
 
 <table border='1' class='nice'>
 <tr>
@@ -154,7 +154,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Received no results back from mysql - failing
+#### Received No Results Back from MySQL - Failing
 
 <table border='1' class='nice'>
 <tr>
@@ -191,7 +191,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Failed to connect to mysql
+#### Failed to Connect to MySQL
 
 <table border='1' class='nice'>
 <tr>
@@ -253,7 +253,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Never received app logs
+#### Never Received App Logs
 
 <table border='1' class='nice'>
 <tr>
@@ -291,7 +291,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Metrics and Events not available
+#### Metrics and Events Not Available
 
 <table border='1' class='nice'>
 <tr>
@@ -321,7 +321,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Logs and Histograms not available
+#### Logs and Histograms Not Available
 
 <table border='1' class='nice'>
 <tr>
@@ -360,7 +360,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 <tr>
   <th>Cause</th>
-  <td>The instance may not start because its configured heap size is greater than that of the VM that hosts it.</td>
+  <td>The instance might not start because its configured heap size is greater than that of the VM that hosts it.</td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -388,7 +388,7 @@ The following tables describe common failures and how to resolve them.
 
 ##<a id='ui'></a> No Logs or Metrics in the UI
 
-In some cases, the PCF Metrics UI may not display metrics and logs after successfully deploying.
+In some cases, the PCF Metrics UI might not display metrics and logs after successfully deploying.
 
 Follow the steps in this section to help locate the app or component causing the problem. 
 
@@ -460,9 +460,9 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   green  open   app\_logs\_1478721600   8   1  102005754            0     53.5gb         26.5gb
   health status index               pri rep docs.count docs.deleted store.size pri.store.size
   </pre>
-  1. If the curl does not return a `success` response, Elasticsearch may not even be running correctly. Inspect the following logs for any failures or errors:
-      * `/var/vcap/sys/logs/elasticsearch/elasticsearch.stdout.log`
-      * `/var/vcap/sys/logs/elasticsearch/elasticsearch.stderr.log`
+  1. If the curl does not return a `success` response, Elasticsearch might not even be running correctly. Inspect the following logs for any failures or errors:
+      * `/var/vcap/sys/log/elasticsearch/elasticsearch.stdout.log`
+      * `/var/vcap/sys/log/elasticsearch/elasticsearch.stderr.log`
 
 1. Examine the `status` column of the output.
   1. If the status of any of the indices is not `green`, restart the Logqueue app:
@@ -501,8 +501,8 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   <pre class="terminal">$ cf restage metrics-ingestor</pre>
   1. Watch the logs emitted by the `metrics-ingestor` app for errors. Refer to the list below for common errors:
       * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the firehose. This user must have the `doppler.firehose` authority.
-      * **Cannot connect to the logqueues**: There may be a problem with the UAA, or it could be throttling traffic.
-      * **WebSocket Disconnects**: If you see Websocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances. The Firehose may be dropping the Ingestor connection to avoid back pressure.
+      * **Cannot connect to the logqueues**: There might be a problem with the UAA, or it could be throttling traffic.
+      * **WebSocket Disconnects**: If you see WebSIocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances. The Firehose may be dropping the Ingestor connection to avoid back pressure.
 
 1. If the app is started and you do not find any errors, proceed to [Step 6: Check MySQL](#check-mysql).
 
@@ -519,7 +519,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 1. Verify that the database was bootstrapped correctly:
   1. Run `show databases` and check for a `metrics` database.
-      1. if there is no `metrics` database, the `migrate_db` errand of the BOSH release may not have run or succeeded. Ensure the errand is selected in the tile configuration and update the tile.
+      1. If there is no `metrics` database, the `migrate_db` errand of the BOSH release might not have run or succeeded.
 
 1. Run `use metrics` to select the `metrics` database:
    <pre class="terminal">mysql> use metrics;</pre>
