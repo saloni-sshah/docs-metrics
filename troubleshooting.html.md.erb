@@ -502,7 +502,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. Watch the logs emitted by the `metrics-ingestor` app for errors. Refer to the list below for common errors:
       * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the firehose. This user must have the `doppler.firehose` authority.
       * **Cannot connect to the logqueues**: There might be a problem with the UAA, or it could be throttling traffic.
-      * **WebSocket Disconnects**: If you see WebSIocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances. The Firehose may be dropping the Ingestor connection to avoid back pressure.
+      * **WebSocket Disconnects**: If you see WebSocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances. The Firehose may be dropping the Ingestor connection to avoid back pressure.
 
 1. If the app is started and you do not find any errors, proceed to [Step 6: Check MySQL](#check-mysql).
 
