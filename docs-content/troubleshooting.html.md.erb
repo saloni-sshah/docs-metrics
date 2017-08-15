@@ -418,8 +418,8 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
   health status index               pri rep docs.count docs.deleted store.size pri.store.size
   </pre>
   1. If the curl does not return a `success` response, Elasticsearch might not even be running correctly. Inspect the following logs for any failures or errors:
-      * `/var/vcap/sys/logs/elasticsearch/elasticsearch.stdout.log`
-      * `/var/vcap/sys/logs/elasticsearch/elasticsearch.stderr.log`
+      * `/var/vcap/sys/log/elasticsearch/elasticsearch.stdout.log`
+      * `/var/vcap/sys/log/elasticsearch/elasticsearch.stderr.log`
 
 1. Examine the `status` column of the output.
   1. If the status of any of the indices is not `green`, restart the Logqueue app:
@@ -489,6 +489,9 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
   1. Run `show databases` and check for a `metrics` database.
       1. If there is no `metrics` database, the `migrate_db` errand of the BOSH release might not have run or succeeded.
          Ensure the errand is selected in the tile configuration and update the tile.
+
+1. Run `use metrics` to select the `metrics` database:
+   <pre class="terminal">mysql> use metrics;</pre>
 
 1. Run `show tables` and ensure you see the following tables:
     
