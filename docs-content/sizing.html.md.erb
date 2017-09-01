@@ -111,10 +111,11 @@ Each Elasticsearch node contains multiple shards of log data, divided by time sl
 
 ###<a id='log-considerations'></a> Considerations for Scaling
 
-The default configurations outlined in [Suggested Sizing by Deployment Size](#configs-by-size) above are the best starting point for your Elasticsearch Master and Data nodes.
-**Pivotal highly suggests starting with the default configurations, observing your Elasticsearch Data node disk usage, and scaling accordingly from there.**
+The default configurations outlined in [Suggested Sizing by Deployment Size](#configs-by-size) are the best starting point for your Elasticsearch Master and Data nodes.
 
-The following calculation attempts to measure your Elasticsearch resource requirements more precisely depending on your logs load. They are still only an approximation, and Pivotal suggests rounding upwards as a safety measure against undersizing Elasticsearch:
+<p class="note"><strong>Note</strong>: Pivotal suggests starting with the default configurations, observing the disk usage of your Elasticsearch Data nodes, and then scaling the resources accordingly.</p>
+
+The following calculation attempts to measure Elasticsearch resource requirements more precisely depending on your logs load. The formula is only an approximation, and Pivotal suggests rounding upwards as a safety measure against undersizing Elasticsearch:
 
 1. Determine how many logs the apps in your deployment emit per hour (_R_) and the average size of each log (_S_).
 
