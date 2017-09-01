@@ -105,28 +105,34 @@ See the following sections to understand how to use each of the views on the das
 Three **Container Metrics** charts are available on the PCF Metrics dashboard:
 
 * CPU usage percentage: **cf.system.cpu**
-  ![Container CPU Metric](cpu.png)
-  A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but investigate the app to better understand and fix the root cause.
+	<%= image_tag("cpu.png") %>
+
+	A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but you need to investigate the app to better understand and fix the root cause.
 * Memory usage percentage: **cf.system.memory**
-  ![Container Memory Metric](memory.png)
-  A spike in memory might mean a resource leak in the code. Scaling app memory can also relieve the immediate pressure, but look for and resolve the underlying issue so that it does not occur again. 
+	<%= image_tag("memory.png") %>
+  
+	A spike in memory might mean a resource leak in the code. Scaling app memory can relieve the immediate pressure, but you need to find and resolve the underlying issue so that it does not occur again.
 * Disk usage percentage: **cf.system.disk**
-  ![Container Disk Metric](disk.png)
-  A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing huge sessions to disk. 
+	<%= image_tag("disk.png") %>
+
+	A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing large sessions to disk. 
 
 ### <a id='network'></a> Network Metrics
 
 Three **Network Metrics** charts are available on the PCF Metrics dashboard:
 
 * Number of network requests per minute: **cf.system.request-count**
-  ![Network Request Metric](request-count.png)
-  A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the higher response time that may result.
-* Number of network request errors per minute: **cf.system.request-error-count** 
-  ![Network Error Metric](request-error-count.png)
-  A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information. 
+	<%= image_tag("request-count.png") %>
+
+	A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.
+* Number of network request errors per minute: **cf.system.request-error-count**
+	<%= image_tag("request-error-count.png") %>
+
+	A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.
 * Average latency of a request in milliseconds: **cf.system.latency**
-  ![Network Latency Metric](latency.png)
-  A spike in response time means your users are waiting longer to use your app. Scaling app instances can spread that workload over more resources and result in faster response times. 
+	<%= image_tag("latency.png") %>
+
+	A spike in response time means your users are waiting longer to use your app. Scaling app instances can spread that workload over more resources and result in faster response times.
 
 ### <a id='events'></a> Events 
 
@@ -160,13 +166,15 @@ The **Logs** view displays app log data ingested from the [Loggregator Firehose]
 The green time needle visible on metrics charts and the logs histogram indicates the beginning of the logs. Depending on the sort order of your logs, you can see different results:
 
 * Sort by **newest first (default)**:
-  ![Logs Drawer Newest First](newest-first.png)
-  The logs drawer will retrieve all logs in the selected time frame that is _older than/to the left of_ the needle. The topmost log (outlined in green) is the newest log that is to the left of the needle placement. 
-* Sort by **oldest first**:
-  ![Logs Drawer Oldest First](oldest-first.png)
-  The logs drawer will retrieve all logs in the selected time frame that is _newer than/to the right of_ the needle. The topmost log (outlined in green) is the oldest log that is to the right of the needle placement.
+	<%= image_tag("newest-first.png") %>
 
-To adjust the placement of the time needle, click the handle at the bottom of the needle and drag to reposition. Or, you can click anywhere along the x-axis of a metric chart or the logs histogram to snap the needle to that position.
+	The logs drawer retrieves all logs in the selected time frame that is _older than/to the left of_ the needle. The topmost log (outlined in green) is the newest log that is to the left of the needle placement.
+* Sort by **oldest first**:
+	<%= image_tag("oldest-first.png") %>
+
+	The logs drawer retrieves all logs in the selected time frame that is _newer than/to the right of_ the needle. The topmost log (outlined in green) is the oldest log that is to the right of the needle placement.
+
+To adjust the placement of the time needle, click the handle at the bottom of the needle and drag to reposition. Alternatively, you can click anywhere along the x-axis of a metric chart or the logs histogram to snap the needle to that position.
 
 You can interact with the **Logs** view in the following ways:
 
