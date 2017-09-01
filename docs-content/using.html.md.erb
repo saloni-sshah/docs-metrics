@@ -203,8 +203,8 @@ PCF Metrics constructs the Trace Explorer view using trace IDs shared across app
 	<pre>dependencies { (2)
 	compile "org.springframework.cloud:spring-cloud-starter-sleuth"
 }</pre>
-* **Node.js**, **Go**, **Python**: Ensure that the servers associated with your app do not modify HTTP requests in a way that removes the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers from a request. You will also need to add trace id, span id, and parent span id to the SLF4J MDC in your app logs in order to correlate logs within Trace Explorer.
-* **Ruby**: Ruby servers that use a library depending on Rack modify HTTP request headers in way that is incompatible with PCF Metrics. If you want to trace app requests for your Ruby apps, ensure that your framework does not rely on Rack. You may need to write a raw Ruby server that preserves the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers in the request. You will also need to add trace id, span id, and parent span id to the SLF4J MDC in your app logs in order to correlate logs within Trace Explorer.
+* **Node.js**, **Go**, **Python**: Ensure that the servers associated with your app do not modify HTTP requests in a way that removes the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers from a request. You also need to add Trace ID, Span ID, and Parent Span ID to the SLF4J MDC in your app logs to correlate logs within Trace Explorer.
+* **Ruby**: Ruby servers that use a library depending on Rack modify HTTP request headers in a way that is incompatible with PCF Metrics. If you want to trace app requests for your Ruby apps, ensure that your framework does not rely on Rack. You may need to write a raw Ruby server that preserves the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers in the request. You also need to add Trace ID, Span ID, and Parent Span ID to the SLF4J MDC in your app logs to correlate logs within Trace Explorer.
 
 ###<a id="trace-explorer"></a> Use the Trace Explorer
 
