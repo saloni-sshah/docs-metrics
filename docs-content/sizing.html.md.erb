@@ -111,26 +111,26 @@ Each Elasticsearch node contains multiple shards of log data, divided by time sl
 
 ###<a id='log-considerations'></a> Considerations for Scaling
 
-The default configurations outlined in [Suggested Sizing by Deployment Size](#configs-by-size) are the best starting point for your Elasticsearch Master and Data nodes.
+Pivotal suggests starting with the [default configurations](#configs-by-size) for your Elasticsearch Master and Data nodes, observing the disk usage of the Data nodes, and then scaling the resources accordingly.
 
-<p class="note"><strong>Note</strong>: Pivotal suggests starting with the default configurations, observing the disk usage of your Elasticsearch Data nodes, and then scaling the resources accordingly.</p>
-
-The following calculation attempts to measure Elasticsearch resource requirements more precisely depending on your logs load. The formula is only an approximation, and Pivotal suggests rounding upwards as a safety measure against undersizing Elasticsearch:
+The following calculation attempts to measure Elasticsearch resource requirements more precisely depending on your logs load. This formula is only an approximation, and Pivotal suggests rounding the numbers up as a safety measure against undersizing Elasticsearch:
 
 1. Determine how many logs the apps in your deployment emit per hour (_R_) and the average size of each log (_S_).
 
 2. Calculate the number of instances (_N_) and the persistent disk size for the instances (_D_) you need to scale to
-   using the following formula, assuming a log retention period of 336 hours (2 weeks) and [number of Elasticsearch replica shards](https://www.elastic.co/guide/en/elasticsearch/guide/current/replica-shards.html) is 1 (default):<br><br>
+   using the following formula:<br><br>
 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _R_ &times; _S_ &times; 336 &times; 2 =  _N_ &times; _D_ <br><br>
 
+    The formula assumes that a log retention period is 336 hours (2 weeks), and the [number of Elasticsearch replica shards](https://www.elastic.co/guide/en/elasticsearch/guide/current/replica-shards.html) is 1 (default).
+    <br><br>
     For example:
 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200,000 logs/hr &times; 25 KB &times; 336 hr &times; 2 &asymp; 7 instances &times; 500 GB<br>
     or<br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200,000 logs/hr &times; 25 KB &times; 336 hr &times; 2 &asymp; 3 instances &times; 1 TB<br>
 
-   As stated above, the default Elasticsearch configuration sets the number of replicas to 1, which means that every shard will have 1 replica and Elasticsearch logs is HA by default. 
+   As stated above, the default Elasticsearch configuration sets the number of replicas to 1, which means that every shard has 1 replica and Elasticsearch logs are HA by default. 
 
 ###<a id='log-procedures'></a> Procedure for Scaling
 
