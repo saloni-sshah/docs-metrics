@@ -433,6 +433,24 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
      there is likely a problem further up in ingestion.
      Proceed to to [Step 4: Check the Elasticsearch Logqueue](#check-es-logqueue).
 
+1. Check if cluster allocation is enabled:
+  <pre class="terminal">$ curl localhost:9200/_cluster/settings</pre>
+
+1. Examine the output
+  1. "all" means that it is enabled.
+  1. "none" means that it is disabled.
+  <br>  Re-enable by running the following command:
+    <pre class="terminal">$ curl -XPUT localhost:9200/_cluster/settings -d
+  {"transient" : {
+        "cluster.routing.allocation.enable" : "all"
+    }}</pre>
+
+1. Check if there is a proxy in front of elasticsearch or if HTTP traffic is enabled:
+  1. Use `cf ssh` to ssh info any app in the metrics space:
+  <pre class="terminal">$ cf ssh APP_NAME</pre>
+  1. Run the following command to curl the IP address of the **Elasticsearch Master** node:
+  <pre class="terminal">$ curl ELASTICSEARCH\_MASTER\_IP\_ADDRESS</pre>
+  1. If the curl fails, talk to your system administrator about removing the proxy or green listing our apps.
 
 ### <a name="check-es-logqueue"></a>Step 4: Check the Elasticsearch Logqueue
 
@@ -521,23 +539,6 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
         If not, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
 
 1. If the app is started and you do not find any errors, proceed to [Step 8: Check the Metrics Aggregator](#check-aggregator).
-
-### <a name="check-aggregator"></a>Step 8: Check the Metrics Aggregator
-
-1. Run <code>cf apps</code> to see if the <code>metrics-aggregator</code> app instances are `started`.
-
-1. If any instance of the app is `stopped`, run the following command to increase logging:
-  <pre class="terminal">$ cf set-env metrics-aggregator LOG_LEVEL DEBUG</pre>
-  1. Run the following command to stream logs:
-  <pre class="terminal">$ cf logs metrics-aggregator</pre>
-  1. In a different terminal window, run the following command:
-  <pre class="terminal">$ cf restage metrics-aggregator</pre>
-  1. Watch the logs emitted by the `metrics-aggregator` app for errors. 
-      * A common error is that the app cannot connect to MySQL
-        because a user deleted the application security group (ASG)
-        that PCF Metrics creates to allow the aggregator app to connect to the MySQL VMs.
-        You can run `cf security-group metrics-api` to see if the ASG exists.
-        If not, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
 
 ##<a id='mysql'></a> MySQL Node Failure
 
@@ -639,18 +640,6 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 1. Open the manifest and set the number of instances of the failed server node to `1`.
 1. Run `bosh deploy` to deploy with your edited manifest. 
 1. Wait for BOSH to rebuild the node.
-
-##<a id='mysql-sst'></a> MySQL SST Disabled Error
-
-If you see the message below on a failing node in `/var/vcap/sys/log/mysql/mysql.err.log`,
-you can resolve the error by following the instructions in [Interruptor Logs](http://docs.pivotal.io/p-mysql/monitoring-mysql.html#logs) 
-in the MySQL for PCF documentation. 
-
-<pre class="terminal">
-WSREP_SST: [ERROR] ############################################################################## (20160610 04:33:21.338)
-WSREP_SST: [ERROR] SST disabled due to danger of data loss. Verify data and bootstrap the cluster (20160610 04:33:21.340)
-WSREP_SST: [ERROR] ############################################################################## (20160610 04:33:21.341)
-</pre>
 
 ##<a id='log'></a> Log Errors
 
