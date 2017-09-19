@@ -8,13 +8,13 @@ This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
 ## <a id='130'></a>v1.4.0
 
-**Release Date: August 2, 2017**
+**Release Date: September 22, 2017**
 
 ### <a id="notes"></a>Notes
 
 The following list describes what's new in PCF Metrics v1.4.0:
 
-* **Custom App Metrics**: PCF Metrics v1.4.0, when used along with [Metrics Forwarder](http://docs.pivotal.io/), supports custom app metrics. Users can configure their apps to send the metrics to PCF Metrics and view them on the PCF Metrics dashboard. **Spring Boot Actuator metrics** will be available on the PCF Metrics dashboard as an out-of-the-box feature for Spring Boot apps.
+* **Custom App Metrics**: PCF Metrics v1.4.0, when used along with [Metrics Forwarder](https://docs.pivotal.io/metrics-forwarder/index.html), supports custom app metrics. Users can configure their apps to send the metrics to PCF Metrics and view them on the PCF Metrics dashboard. **Spring Boot Actuator metrics** will be available on the PCF Metrics dashboard as an out-of-the-box feature for Spring Boot apps.
 * **Instance-Level Metrics**: The PCF Metrics dashboard now enables users to view metrics for a specific app instance. Users can toggle between app instance and aggregated views and choose their preferred method of aggregation across instances.
 * **Improved UI**: PCF Metrics v1.4.0 introduces major UI enhancements of the metrics dashboard, including interactive features such as adding, deleting, reordering, and expanding charts, to support custom metrics and optimize readability.
 * **Improved Tile Configuration UX and VM Footprint Reduction**: The following changes have been made to the PCF Metrics tile configuration:
@@ -34,7 +34,7 @@ PCF Metrics v1.4.x requires Elastic Runtime v1.11.0 or later.
 
 #### Using Custom App Metrics
 
-To use custom app metrics in PCF Metrics, you must install the [Metrics Forwarder](http://docs.pivotal.io/) tile and bind your apps to the Metrics Forwarder service. You can use PCF Metrics without Metrics Forwarder, but you will be able to view only default container metrics, network metrics, and app events.
+To use custom app metrics in PCF Metrics, you must install the Metrics Forwarder tile and bind your apps to the Metrics Forwarder service. You can use PCF Metrics without Metrics Forwarder, but you will be able to view only default container metrics, network metrics, and app events.
 
 #### Smoke Test Failures Due to Elasticsearch
 
