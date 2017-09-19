@@ -417,40 +417,42 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
   green  open   app\_logs\_1478721600   8   1  102005754            0     53.5gb         26.5gb
   health status index               pri rep docs.count docs.deleted store.size pri.store.size
   </pre>
-  1. If the curl does not return a `success` response, Elasticsearch might not even be running correctly. Inspect the following logs for any failures or errors:
+  1. If the `curl` command does not return a `success` response, Elasticsearch might not even be running correctly. Inspect the following logs for any failures or errors:
       * `/var/vcap/sys/log/elasticsearch/elasticsearch.stdout.log`
       * `/var/vcap/sys/log/elasticsearch/elasticsearch.stderr.log`
 
 1. Examine the `status` column of the output.
   1. If the status of any of the indices is not `green`, restart the Logqueue app:
     <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
-  1. Run the curl command periodically to see if the indices recover to a `green` status.
+  1. Run the `curl` command periodically to see if the indices recover to a `green` status.
 
-1. Run the curl command several more times and examine the most recent index to see if the number of stored documents periodically increases.
+1. Run the `curl` command several more times and examine the most recent index to see if the number of stored documents periodically increases.
   <p class="note"><strong>Note</strong>: The last row of the output corresponds to the most recent index.
      The sixth column displays the number of documents for the index.</p>
   1. If all indices show a `green` status, but the number of documents does not increase,
      there is likely a problem further up in ingestion.
      Proceed to to [Step 4: Check the Elasticsearch Logqueue](#check-es-logqueue).
 
-1. Check if cluster allocation is enabled:
+1. Check whether cluster allocation is enabled:
   <pre class="terminal">$ curl localhost:9200/_cluster/settings</pre>
 
-1. Examine the output
-  1. "all" means that it is enabled.
-  1. "none" means that it is disabled.
-  <br>  Re-enable by running the following command:
+    Examine the output:
+    <br><br>
+    * `"all"` means the allocation is enabled.
+    * `"none"` means the allocation is disabled.
+
+1. Re-enable the cluster allocation  by running the following command:
     <pre class="terminal">$ curl -XPUT localhost:9200/_cluster/settings -d
-  {"transient" : {
-        "cluster.routing.allocation.enable" : "all"
+    {"transient" : {
+      "cluster.routing.allocation.enable" : "all"
     }}</pre>
 
-1. Check if there is a proxy in front of elasticsearch or if HTTP traffic is enabled:
-  1. Use `cf ssh` to ssh info any app in the metrics space:
-  <pre class="terminal">$ cf ssh APP_NAME</pre>
+1. Check whether a proxy is present in front of Elasticsearch or whether HTTP traffic is enabled:
+  1. Use `cf ssh` to SSH into any app in the metrics space:
+  <pre class="terminal">$ cf ssh APP-NAME</pre>
   1. Run the following command to curl the IP address of the **Elasticsearch Master** node:
-  <pre class="terminal">$ curl ELASTICSEARCH\_MASTER\_IP\_ADDRESS</pre>
-  1. If the curl fails, talk to your system administrator about removing the proxy or green listing our apps.
+  <pre class="terminal">$ curl ELASTICSEARCH-MASTER-IP-ADDRESS</pre>
+  1. If the `curl` command fails, talk to your system administrator about removing the proxy or green listing our apps.
 
 ### <a name="check-es-logqueue"></a>Step 4: Check the Elasticsearch Logqueue
 
