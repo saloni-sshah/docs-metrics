@@ -433,26 +433,26 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
      there is likely a problem further up in ingestion.
      Proceed to to [Step 4: Check the Elasticsearch Logqueue](#check-es-logqueue).
 
-1. Check whether cluster allocation is enabled:
+1. Check whether cluster-level shard allocation is enabled:
   <pre class="terminal">$ curl localhost:9200/_cluster/settings</pre>
 
     Examine the output:
     <br><br>
-    * `"all"` means the allocation is enabled.
-    * `"none"` means the allocation is disabled.
+    * `"all"` means the shard allocation is enabled.
+    * `"none"` means the shard allocation is disabled.
 
-1. Re-enable the cluster allocation  by running the following command:
+1. Re-enable the shard allocation by running the following command:
     <pre class="terminal">$ curl -XPUT localhost:9200/_cluster/settings -d
     {"transient" : {
       "cluster.routing.allocation.enable" : "all"
     }}</pre>
 
-1. Check whether a proxy is present in front of Elasticsearch or whether HTTP traffic is enabled:
+1. Check whether a proxy is present in front of Elasticsearch and whether HTTP traffic is enabled:
   1. Use `cf ssh` to SSH into any app in the metrics space:
   <pre class="terminal">$ cf ssh APP-NAME</pre>
-  1. Run the following command to curl the IP address of the **Elasticsearch Master** node:
+  1. Run the `curl` command with the IP address of the **Elasticsearch Master** node:
   <pre class="terminal">$ curl ELASTICSEARCH-MASTER-IP-ADDRESS</pre>
-  1. If the `curl` command fails, talk to your system administrator about removing the proxy or green listing our apps.
+  1. If the `curl` command fails, talk to your system administrator about removing the proxy or green-listing the PCF Metrics apps.
 
 ### <a name="check-es-logqueue"></a>Step 4: Check the Elasticsearch Logqueue
 
