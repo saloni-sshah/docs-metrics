@@ -92,7 +92,7 @@ To select or deselect a specific app instance, select the desired instance from 
 
 <%= image_tag("metrics-instances2.png") %>
 
-Alternatively, click a line on the metric chart that interests you to select that instance.
+Alternatively, click an instance line on the metric chart that interests you to select the instance.
 
 <%= image_tag("metrics-instances3.png") %>
 
@@ -132,7 +132,7 @@ Three **Network Metrics** charts are available on the PCF Metrics dashboard:
 * Average latency of a request in milliseconds: **cf.system.latency**
 	<%= image_tag("latency.png") %>
 
-	A spike in response time means your users are waiting longer to use your app. Scaling app instances can spread that workload over more resources and result in faster response times.
+	A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
 
 ### <a id='events'></a> Events 
 
@@ -144,12 +144,12 @@ The **Events** graph shows the following app events: **Crash**, **Fail** (stagin
 
 See the following topics for more information about app events:
 
-* [About Starting Applications](https://docs.run.pivotal.io/devguide/deploy-apps/app-startup.html)
-* [Troubleshooting Application Deployment and Health](https://docs.run.pivotal.io/devguide/deploy-apps/troubleshoot-app-health.html)  
+* [About Starting Applications](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html)
+* [Troubleshooting Application Deployment and Health](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/troubleshoot-app-health.html)
 
 ### <a id='custom'></a> Custom Metrics
 
-Users can configure their apps to emit custom metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the PCF Metrics dashboard. For steps on how to set up your apps to emit custom metrics, refer to [Metrics Forwarder Docs](https://docs.pivotal.io/metrics-forwarder/index.html). If you have configured the apps correctly, you should be able to automatically see custom metrics on the PCF Metrics dashboard when you add a chart.
+Users can configure their apps to emit custom metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the PCF Metrics dashboard. For steps on how to set up your apps to emit custom metrics, refer to the [Metrics Forwarder Documentation](https://docs.pivotal.io/metrics-forwarder/index.html). If you have configured the apps correctly, you should be able to automatically see custom metrics on the PCF Metrics dashboard when you add a chart.
 
 <%= image_tag("metrics-custom.png") %>
 
@@ -159,7 +159,7 @@ In addition, Spring Boot apps with actuators implemented emit [Spring Boot Actua
 
 ### <a id="logs"></a>Logs
 
-The **Logs** view displays app log data ingested from the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose), including a histogram that displays log frequency for the current time frame: 
+The **Logs** view displays app log data ingested from the Loggregator Firehose, including a histogram that shows log frequency for the current time frame:
 
 ![Logs](logs.png)
 
@@ -168,18 +168,18 @@ The green time needle visible on metrics charts and the logs histogram indicates
 * Sort by **newest first (default)**:
 	<%= image_tag("newest-first.png") %>
 
-	The logs drawer retrieves all logs in the selected time frame that is _older than/to the left of_ the needle. The topmost log outlined in green is the newest log among the logs located to the left of the needle placement.
+	The logs drawer retrieves all logs in the selected time frame that is _older than/to the left of_ the needle. The log outlined in green is the newest log among the logs located to the left of the needle placement.
 * Sort by **oldest first**:
 	<%= image_tag("oldest-first.png") %>
 
-	The logs drawer retrieves all logs in the selected time frame that is _newer than/to the right of_ the needle. The topmost log outlined in green is the oldest log among the logs located to the right of the needle placement.
+	The logs drawer retrieves all logs in the selected time frame that is _newer than/to the right of_ the needle. The log outlined in green is the oldest log among the logs located to the right of the needle placement.
 
-To adjust the placement of the time needle, click the handle at the bottom of the needle and drag to reposition. Alternatively, you can click anywhere along the x-axis of a metric chart or the logs histogram to snap the needle to that position.
+To adjust the placement of the time needle, click the handle at the bottom of the needle and drag to reposition it. Alternatively, you can click anywhere along the x-axis of a metric chart or the logs histogram to snap the needle to that position.
 
 You can interact with the **Logs** view in the following ways:
 
-* **Keyword**: Perform a keyword search. The histogram updates with blue bars based on what you enter. Hover over a histogram bar to view the amount of logs for a specific time based on your filter. 
-* **Highlight**: Enter a term to highlight within your search. The histogram updates with yellow bars based on the results. Hover over a histogram bar to view the amount of logs for a specific time that contain the highlighted term. 
+* **Keyword**: Perform a keyword search. The histogram updates with blue bars based on what you enter. Hover over a histogram bar to view the number of logs for a specific time.
+* **Highlight**: Enter a term to highlight within your search. The histogram updates with yellow bars based on the results. Hover over a histogram bar to view the number of logs for a specific time that contain the highlighted term.
 * **Sources**: Choose which sources to display logs from. For more information, see [Log Types and Their Messages](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/streaming-logs.html#format).
 * **Order**: Modify the order in which logs appear. 
 * **Download**: Download a file containing logs for the current search. 
@@ -203,23 +203,23 @@ PCF Metrics constructs the Trace Explorer view using trace IDs shared across app
 	<pre>dependencies { (2)
 	compile "org.springframework.cloud:spring-cloud-starter-sleuth"
 }</pre>
-* **Node.js**, **Go**, **Python**: Ensure that the servers associated with your app do not modify HTTP requests in a way that removes the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers from a request. You also need to add Trace ID, Span ID, and Parent Span ID to the SLF4J MDC in your app logs to correlate logs within Trace Explorer.
-* **Ruby**: Ruby servers that use a library depending on Rack modify HTTP request headers in a way that is incompatible with PCF Metrics. If you want to trace app requests for your Ruby apps, ensure that your framework does not rely on Rack. You may need to write a raw Ruby server that preserves the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers in the request. You also need to add Trace ID, Span ID, and Parent Span ID to the SLF4J MDC in your app logs to correlate logs within Trace Explorer.
+* **Node.js**, **Go**, and **Python**: Ensure that the servers associated with your app do not modify HTTP requests in a way that removes the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers from a request. You also need to add Trace ID, Span ID, and Parent Span ID to the SLF4J MDC in your app logs to correlate logs within the Trace Explorer.
+* **Ruby**: Ruby servers that use a library depending on Rack modify HTTP request headers in a way that is incompatible with PCF Metrics. If you want to trace app requests for your Ruby apps, ensure that your framework does not rely on Rack. You may need to write a raw Ruby server that preserves the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers in the request. You also need to add Trace ID, Span ID, and Parent Span ID to the SLF4J MDC in your app logs to correlate logs within the Trace Explorer.
 
 ###<a id="trace-explorer"></a> Use the Trace Explorer
 
 This section explains how to view the trace for a request received by your app and interact with the Trace Explorer.
 
-1. Select an app in the PCF Metrics dashboard.
+1. Select an app on the PCF Metrics dashboard.
 
 1. Click the Trace Explorer icon in a log for which you want to trace the request.
 
 	![Hover over trace icon](click-trace.png)
-	* The Trace Explorer displays the apps and endpoints involved in a completing a request, along with the corresponding logs:
+	* The Trace Explorer displays the apps and endpoints involved in completing a request, along with the corresponding logs:
 		![Trace Explorer](trace-explorer.png)
-		A request corresponds to a single trace ID, displayed in the top left. Each row includes an app in the left column and a _span_ in the right column. A span is a particular endpoint within the app and the time it took to execute, in milliseconds. By default, the graph lists each app and endpoint in the order they were called. 
+		A request corresponds to a single trace ID displayed in the top left corner. Each row includes an app in the left column and a _span_ in the right column. A span is a particular endpoint within the app and the time it took to execute in milliseconds. By default, the graph lists each app and endpoint in the order they were called.
 		<p class="note"><strong>Note</strong>: If you do not have access to the space for an app involved in the request, you cannot see the spans or logs from that app.</p>
-	* You can click a span to show only logs from that span, or any number of spans to toggle which logs appear. Clicking a span also creates a box with that particular span ID in the **Logs** view: 
+	* You can click a span to show only logs from that span or any number of spans to toggle which logs appear. Clicking a span also creates a box with that particular span ID in the **Logs** view:
 		![Click Span](click-span.png)	
 	* If you click `APP APP-NAME` within a log, PCF Metrics returns you to the dashboard view for that app, with the time frame focused on the time of the log that you clicked from. 
 
