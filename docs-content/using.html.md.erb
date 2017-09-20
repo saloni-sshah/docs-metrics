@@ -32,7 +32,7 @@ PCF Metrics displays app data for a given time frame. See the sections below to 
 
 ## <a id="time"></a>Change the Time Frame
 
-The graphs show time along the horizontal axis. You can change the time frame for all graphs and the logs by using the time selector at the top of the window. Adjust either end of the selector, or click and drag.
+The graphs show time along the horizontal axis. You can change the time frame for all graphs and the logs by using the time selector at the top of the window. Adjust either end of the selector or click and drag.
 
 ![time](images/metrics-time.png)
 
@@ -50,7 +50,7 @@ The PCF Metrics dashboard allows users to add, edit, and delete charts.
 
 	<%= image_tag("metrics-add1.png") %>
 
-1. On the modal window, either select a metric from the dropdown menu or type the name of the metric into the search bar to filter results. 
+1. In the modal window, either select a metric from the dropdown menu or type the name of the metric into the search bar to filter results. 
 
 	<%= image_tag("metrics-add2.png") %>
 
@@ -58,7 +58,7 @@ The PCF Metrics dashboard allows users to add, edit, and delete charts.
 
 	<%= image_tag("metrics-add3.png") %>
 
-**Edit Chart**: To change how instances are aggregated for an existing metric, click the pencil icon on the header of the metric chart. The **Edit Chart** modal window appears where you can choose the aggregation type and click **Save** to apply changes.
+**Edit Chart**: To change how instances are aggregated for an existing metric, click the pencil icon on the header of the metric chart. When the **Edit Chart** modal window appears, you can choose the aggregation type and click **Save** to apply changes.
 
 <%= image_tag("metrics-edit.png") %>
 
@@ -72,7 +72,7 @@ The PCF Metrics dashboard allows users to add, edit, and delete charts.
 
 ![reorder](images/metrics-reorder.png)
 
-**Expand**: To see more detail in complex graphs, you can expand a chart by clicking the icon in the chart header.
+**Expand**: To see more details in complex graphs, you can expand a chart by clicking the icon in the chart header.
 
 <%= image_tag("metrics-expand1.png") %>
 
@@ -88,11 +88,11 @@ To view metrics at the app-instance level, turn the **view instances** toggle on
 
 ![instances](images/metrics-instances1.png)
 
-To select/deselect a specific app instance, select the desired instance from the **instance filter** dropdown menu.
+To select or deselect a specific app instance, select the desired instance from the **instance filter** dropdown menu.
 
 <%= image_tag("metrics-instances2.png") %>
 
-Alternatively, click on a line on the metric chart that interests you to select that instance.
+Alternatively, click a line on the metric chart that interests you to select that instance.
 
 <%= image_tag("metrics-instances3.png") %>
 
@@ -192,7 +192,7 @@ A request to one of your apps initiates a workflow within the app or system of a
 
 For more information about traces, see [What is a Trace?](http://opentracing.io/documentation/#what-is-a-trace) in the _Open Tracing_ documentation. 
 
-###<a id="before"></a> Prerequisite
+###<a id="before"></a> Prerequisites
 
 PCF Metrics constructs the Trace Explorer view using trace IDs shared across app logs. Before you [use the Trace Explorer](#trace-explorer), examine the following list to ensure PCF metrics can extract the necessary data from your app logs for your specific app type. 
 
