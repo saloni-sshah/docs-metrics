@@ -64,7 +64,7 @@ The following tables describe common failures and how to resolve them.
     </tr>
   </table>
   
-   <sup>*</sup>You may have more than one instance of each of the Ingestor and Loqueue apps depending your <a href="./sizing.html">sizing</a> needs. 
+   <sup>*</sup>You may have more than one instance of each of the Ingestor and Logqueue apps depending your <a href="./sizing.html">sizing</a> needs. 
    You configure these instance counts as part of the <a href="./installing.html#data">Data Store</a> pane of the tile.</p></td></td>
 </tr>
 <tr>
@@ -96,13 +96,10 @@ The following tables describe common failures and how to resolve them.
   <td>Re-deploy the tile with the following errands selected: 
   <ul>
     <li>
-      <b>Database migrations for PCF Metrics</b>
+      <b>Migrate Old Data to 1.4 Errand</b>
     </li>
     <li>
-      <b>Push PCF Metrics Data components</b>
-    </li>
-    <li>
-      <b>Push PCF Metrics UI component</b>
+      <b>Push PCF Metrics Components Errand</b>
     </li>
   </ul>
   </td>
@@ -309,42 +306,6 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-###<a id="es-no-start"></a>Elasticsearch Instance Does Not Start
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td>The Deployment fails because an Elasticsearch instance does not start.</code>
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>The instance might not start because its configured heap size is greater than that of the VM that hosts it.</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>
-    <ol>
-      <li>From the PCF Metrics tile in Ops Manager, select the <b>Data Store</b> settings pane.</li>
-      <li>Record the value in the <b>Elastic Search Heap Size</b> field.</li>
-      <li>Select the <b>Resource Config</b> pane and ensure the following jobs have RAM greater than or equal to the <b>Elastic Search Heap Size</b>
-        <ul>
-          <li><b>Elasticsearch Master</b></li>
-          <li><b>Elasticsearch Coordinator</b></li>
-          <li><b>Elasticsearch Data</b></li>
-        </ul>
-      </li>
-      <li>If any of the jobs do not have enough memory, do one of the following:
-        <ul>
-          <li>Give the job more RAM</li>
-          <li>Lower the <b>Elastic Search Heap Size</b></li>
-        </ul>
-      </li>
-    </ol>
-  </td>
-</tr>
-</table>
-
 ##<a id='ui'></a> No Logs or Metrics in the UI
 
 In some cases, the PCF Metrics UI might not display metrics and logs after successfully deploying.
@@ -407,7 +368,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
 
 1. Run the following command to list all the Elasticsearch indices:
-  <pre class="terminal">$ curl localhost:9200/\_cat/indices?v | sort
+  <pre class="terminal">$ curl <elasticsearch host ip>:9200/\_cat/indices?v | sort
   <br> 
   green  open   app\_logs\_1477512000   8   1  125459066            0     59.6gb         29.8gb
   green  open   app\_logs\_1477526400   8   1  129356671            0     59.1gb         29.5gb
@@ -422,9 +383,13 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
       * `/var/vcap/sys/log/elasticsearch/elasticsearch.stderr.log`
 
 1. Examine the `status` column of the output.
-  1. If the status of any of the indices is not `green`, restart the Logqueue app:
+  1. If any of the indices are `red`, delete those indicies with the following curl:
+     <pre class="terminal">curl -X DELETE <elasticsearch host ip>:9200/<index></pre>
+  1. Restart the `elasticsearch-logqueue` app:
     <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
-  1. Run the `curl` command periodically to see if the indices recover to a `green` status.
+  1. Inside each of the Elasticsearch VMs:
+    <pre class="terminal">$ monit restart all</pre>
+  1. Check periodically to see the indices gradually recover to a `green` status.
 
 1. Run the `curl` command several more times and examine the most recent index to see if the number of stored documents periodically increases.
   <p class="note"><strong>Note</strong>: The last row of the output corresponds to the most recent index.
@@ -514,8 +479,17 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
    <pre class="terminal">mysql> use metrics;</pre>
 
 1. Run `show tables` and ensure you see the following tables:
-    
-    ![Tables in Metrics](metrics-tables.png)
+   <pre class="terminal">mysql> show tables;
+   <br>
+   +-------------------+
+   | Tables_in_metrics |
+   +-------------------+
+   | app_event         |
+   | app_metric        |
+   | app_metric_rollup |
+   | schema_version    |
+   +-------------------+
+   </pre>
 
 1. Enter the following query several times to verify that the value returned does not decrease over time:
   <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_rollup where timestamp > ((UNIX\_TIMESTAMP() - 60) * POW(10, 3));</pre>
