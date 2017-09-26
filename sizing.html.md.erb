@@ -44,7 +44,7 @@ To determine approximate starting memory and disk allocation for each MySQL serv
 
 | Job           | Instances | Persistent Disk Type | VM Sizing                                  |
 |---------------|-----------|----------------------|--------------------------------------------|
-| MySQL Server  | 2         | 500 GB               | CPU: 2, RAM: 12&nbsp;GB, disk: 32&nbsp;GB  |
+| MySQL Server  | 3         | 500 GB               | CPU: 2, RAM: 12&nbsp;GB, disk: 32&nbsp;GB  |
 | MySQL Proxy   | 1         | None                 | CPU: 2, RAM: 4&nbsp;GB, disk: 8&nbsp;GB    |
 | MySQL Monitor | 1         | None                 | CPU: 2, RAM: 4&nbsp;GB, disk: 8&nbsp;GB    |
 
@@ -55,6 +55,8 @@ To determine approximate starting memory and disk allocation for each MySQL serv
 | MySQL Server  | 3         | ~1.5 TB              | CPU: 8, RAM: 64&nbsp;GB, disk: 160&nbsp;GB |
 | MySQL Proxy   | 1         | None                 | CPU: 2, RAM: 8&nbsp;GB, disk: 32&nbsp;GB   |
 | MySQL Monitor | 1         | None                 | CPU: 2, RAM: 4&nbsp;GB, disk: 8&nbsp;GB    |
+
+<p class="note warning"><strong>WARNING:</strong> The number of instances of MySQL Server MUST be an odd number. To read more about scaling MySQL Server instances [here](http://docs.pivotal.io/p-mysql/1-10/architecture.html#even-number).</p>
 
 Use these results as guidelines. Consider configuring your MySQL server nodes with additional memory and disk.
 If your deployment adds additional app instances, consider configuring your MySQL server nodes with additional memory and disk.
