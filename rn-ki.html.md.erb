@@ -38,7 +38,7 @@ To use custom app metrics in PCF Metrics, you must install the Metrics Forwarder
 
 #### Delay in Ingesting Metrics
 
-To prevent metrics data backup in Redis, please ensure that each application does not emit more than 400 metrics/minute. For deployments with a high number of apps, You may still experience a delay in metrics data appearing on the dashboard of up to 1-2 hours. 
+To prevent metrics data backup in Redis, ensure that each app does not emit more than 400 metrics per minute. For deployments with a high number of apps, you may still experience a delay of up to 1-2 hours before metrics data appears on the dashboard. 
 
 #### Smoke Test Failures Due to Elasticsearch
 
