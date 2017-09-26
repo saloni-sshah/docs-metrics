@@ -6,9 +6,9 @@ list_style_none: true
 
 This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
-## <a id='130'></a>v1.4.0
+## <a id='140'></a>v1.4.0
 
-**Release Date: September 22, 2017**
+**Release Date: September 27, 2017**
 
 ### <a id="notes"></a>Notes
 
@@ -35,6 +35,10 @@ PCF Metrics v1.4.x requires Elastic Runtime v1.11.0 or later.
 #### Using Custom App Metrics
 
 To use custom app metrics in PCF Metrics, you must install the Metrics Forwarder tile and bind your apps to the Metrics Forwarder service. You can use PCF Metrics without Metrics Forwarder, but you will be able to view only default container metrics, network metrics, and app events.
+
+#### Delay in Ingesting Metrics
+
+To prevent metrics data backup in Redis, please ensure that each application does not emit more than 400 metrics/minute. For deployments with a high number of apps, You may still experience a delay in metrics data appearing on the dashboard of up to 1-2 hours. 
 
 #### Smoke Test Failures Due to Elasticsearch
 
