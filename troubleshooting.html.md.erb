@@ -368,7 +368,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
 
 1. Run the following command to list all the Elasticsearch indices:
-  <pre class="terminal">$ curl <elasticsearch host ip>:9200/\_cat/indices?v | sort
+  <pre class="terminal">$ curl ELASTICSEARCH-HOST-IP:9200/\_cat/indices?v | sort
   <br> 
   green  open   app\_logs\_1477512000   8   1  125459066            0     59.6gb         29.8gb
   green  open   app\_logs\_1477526400   8   1  129356671            0     59.1gb         29.5gb
@@ -383,13 +383,13 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
       * `/var/vcap/sys/log/elasticsearch/elasticsearch.stderr.log`
 
 1. Examine the `status` column of the output.
-  1. If any of the indices are `red`, delete those indicies with the following curl:
-     <pre class="terminal">curl -X DELETE <elasticsearch host ip>:9200/<index></pre>
+  1. If any of the indices are `red`, delete them using the following command:
+    <pre class="terminal">curl -X DELETE ELASTICSEARCH-HOST-IP:9200/INDEX</pre>
   1. Restart the `elasticsearch-logqueue` app:
     <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
-  1. Inside each of the Elasticsearch VMs:
+  1. From each of the Elasticsearch VMs, run the following command:
     <pre class="terminal">$ monit restart all</pre>
-  1. Check periodically to see the indices gradually recover to a `green` status.
+  1. Check periodically to verify the indices gradually recover to a `green` status.
 
 1. Run the `curl` command several more times and examine the most recent index to see if the number of stored documents periodically increases.
   <p class="note"><strong>Note</strong>: The last row of the output corresponds to the most recent index.
@@ -480,14 +480,13 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
 
 1. Run `show tables` and ensure you see the following tables:
    <pre class="terminal">mysql> show tables;
-   <br>
    +-------------------+
-   | Tables_in_metrics |
+   | Tables\_in\_metrics |
    +-------------------+
-   | app_event         |
-   | app_metric        |
-   | app_metric_rollup |
-   | schema_version    |
+   | app\_event         |
+   | app\_metric        |
+   | app\_metric\_rollup |
+   | schema\_version    |
    +-------------------+
    </pre>
 
