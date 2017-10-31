@@ -6,6 +6,18 @@ list_style_none: true
 
 This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
+## <a id='142'></a>v1.4.2
+
+**Release Date: October 31, 2017**
+
+### <a id="notes"></a>Notes
+
+The following list describes what's new in PCF Metrics v1.4.2:
+
+* Bug fix for metrics configurable retention window, which will ensure that if you have set the retention to < 14 days, the data is correctly pruned for correct partions 
+* Bug fix for delay in getting metrics from apps to PCF Metrics datastore. In 1.4.0, it was around 15 mins depending on # of apps and metrics emitted.
+
+
 ## <a id='140'></a>v1.4.0
 
 **Release Date: September 28, 2017**
