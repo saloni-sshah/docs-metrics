@@ -23,7 +23,7 @@ All BOSH-deployed components generate the following metrics. Monitor them to ens
    <tr>
       <th width="25%">Description</th>
       <td>Percentage used of the VM Memory for MySQL, Redis, ElasticSearch data, and ElasticSearch master.<br><br>
-      <strong>Use</strong>: If system disk fills up, there are too few consumers.
+      <strong>Use</strong>: Too much VM Memory usage will likely negatively impact data storage and access performance.
       <br><br>
       <strong>Origin</strong>: JMX Bridge or BOSH HM<br>
       <strong>Type</strong>: percent<br>
@@ -50,7 +50,7 @@ All BOSH-deployed components generate the following metrics. Monitor them to ens
    <tr>
       <th width="25%">Description</th>
       <td>Percentage used of the VM persistent disk for MySQL, Redis, ElasticSearch data, and ElasticSearch master.<br><br>
-      <strong>Use</strong>: If system disk fills up, there are too few consumers.
+      <strong>Use</strong>: It is important to make sure that the system disks of data services do not fill up and cause data loss and performance degradation.
       <br><br>
       <strong>Origin</strong>: JMX Bridge or BOSH HM<br>
       <strong>Type</strong>: percent<br>
@@ -81,11 +81,11 @@ All apps pushed using Cloud Foundry automatically emit the following app system 
    <tr>
       <th width="25%">Description</th>
       <td>Percentage used of the app container memory for PCF Metrics apps (metrics-ingestor, mysql-logqueue, elasticsearch-logqueue, metrics, metrics-ui).<br><br>
-      <strong>Use</strong>: 
+      <strong>Use</strong>: PCF Metrics apps running out of memory will likely negatively impact performance.
       <br><br>
-      <strong>Origin</strong>: <br>
+      <strong>Origin</strong>: Firehose<br>
       <strong>Type</strong>: percent<br>
-      <strong>Frequency</strong>: <br>
+      <strong>Frequency</strong>: Every minute<br>
    </tr>
    <tr>
       <th>Recommended measurement</th>
@@ -108,11 +108,11 @@ All apps pushed using Cloud Foundry automatically emit the following app system 
    <tr>
       <th width="25%">Description</th>
       <td>Percentage used of the app container persistent disk for PCF Metrics apps (metrics-ingestor, mysql-logqueue, elasticsearch-logqueue, metrics, metrics-ui).<br><br>
-      <strong>Use</strong>: 
+      <strong>Use</strong>: PCF Metrics apps running out of disk will likely negatively impact performance.
       <br><br>
-      <strong>Origin</strong>: <br>
+      <strong>Origin</strong>: Firehose<br>
       <strong>Type</strong>: percent<br>
-      <strong>Frequency</strong>: <br>
+      <strong>Frequency</strong>: Every minute<br>
    </tr>
    <tr>
       <th>Recommended measurement</th>
@@ -140,15 +140,15 @@ Please refer to the <a href="https://docs.pivotal.io/metrics-forwarder/index.htm
    <tr>
       <th width="25%">Description</th>
       <td>The rate at which metrics processor stores metric envelopes to its persistent data store for mysql-logsqueue.<br><br>
-      <strong>Use</strong>: 
+      <strong>Use</strong>: Zero-value rate indicates that no metrics have been stored, which is likely caused by some major metrics processing errors or failures.
       <br><br>
-      <strong>Origin</strong>: <br>
-      <strong>Type</strong>: <br>
-      <strong>Frequency</strong>: <br>
+      <strong>Origin</strong>: Firehose<br>
+      <strong>Type</strong>: count per minute<br>
+      <strong>Frequency</strong>: Every minute<br>
    </tr>
    <tr>
       <th>Recommended measurement</th>
-      <td></td>
+      <td>At all times for the past 30 mins</td>
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
@@ -165,15 +165,15 @@ Please refer to the <a href="https://docs.pivotal.io/metrics-forwarder/index.htm
    <tr>
       <th width="25%">Description</th>
       <td>The rate at which log processor stores log envelopes to its persistent data store for PCF Metrics apps (metrics-ingestor, mysql-logqueue, elasticsearch-logqueue, metrics, metrics-ui).<br><br>
-      <strong>Use</strong>: 
+      <strong>Use</strong>: Zero-value rate indicates that no logs have been stored, which is likely caused by some major logs processing errors or failures.
       <br><br>
-      <strong>Origin</strong>: <br>
-      <strong>Type</strong>: <br>
-      <strong>Frequency</strong>: <br>
+      <strong>Origin</strong>: Firehose<br>
+      <strong>Type</strong>: count per minute<br>
+      <strong>Frequency</strong>: Every minute<br>
    </tr>
    <tr>
       <th>Recommended measurement</th>
-      <td></td>
+      <td>At all times for the past 30 mins</td>
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
