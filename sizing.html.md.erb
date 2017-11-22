@@ -71,7 +71,7 @@ After determining the amount of memory and persistent disk required for each MyS
 
 	<p class="note warning"><strong>WARNING:</strong> There have been issues with Ops Manager BOSH Director using persistent disks larger than 2&nbsp;TB.</p>
 
-1. If you modify the memory allocation for the MySQL server nodes, you must also update the MySQL InnoDB Buffer Size setting. Pivotal recommends that you set the buffer size to 80% of the memory allocated to that VM. To change the MySQL InnoDB Buffer Size:
+1. If you modify the memory allocation for the MySQL server nodes on PCF Metrics v1.3.4 or older, you must also update the MySQL InnoDB Buffer Size setting. Pivotal recommends that you set the buffer size to 80% of the memory allocated to that VM. To change the MySQL InnoDB Buffer Size:
 	1. Navigate to the Ops Manager Installation Dashboard and click the <strong>Metrics</strong> tile.
 	2. From the <strong>Settings</strong> tab of the <strong>Metrics</strong> tile, click <strong>Data Store</strong>.
 	3. Update the <strong>MySQL InnoDB Buffer Size</strong> input field.
