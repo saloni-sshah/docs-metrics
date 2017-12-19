@@ -45,7 +45,13 @@ see [PCF Metrics Product Architecture](./architecture.html).
 1. Select one or more Availability Zones under **Balance other jobs**.
    <br>
    Ops Manager balances instances of Metrics jobs with more than one instance
-   across the Availability Zones that you specify.
+   across the Availability Zones that you specify. However this setting does not 
+   balance Elastic Search jobs across multiple AZs as merely balancing ES jobs across multiple AZs 
+   does not ensure Highly available ES because ES auto-shards and distributes replicas across ES data nodes in real time. 
+   So instead, we have added a redis instance between the firehose and ES (https://docs.pivotal.io/pcf-metrics/1-4/architecture.html) 
+   which buffers logs before they are written to ES. In case of unavailable ES ( during deployment, ES red indices or AZ failure), 
+   redis will hold logs in buffer and write it back once ES is stable again. You can create multiple redis jobs and balance them across AZs for ensuring HA redis in case of AZ failure. 
+    
 1. Use the drop-down menu to select a network.
    <br>
    PCF Metrics should be installed on the same network as the Elastic Runtime tile uses.
