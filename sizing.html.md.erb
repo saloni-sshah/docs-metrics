@@ -56,7 +56,7 @@ To determine approximate starting memory and disk allocation for each MySQL serv
 | MySQL Proxy   | 1         | None                 | CPU: 2, RAM: 8&nbsp;GB, disk: 32&nbsp;GB   |
 | MySQL Monitor | 1         | None                 | CPU: 2, RAM: 4&nbsp;GB, disk: 8&nbsp;GB    |
 
-<p class="note warning"><strong>WARNING:</strong> The number of instances of MySQL Server MUST be an odd number. To read more about scaling MySQL Server instances [here](http://docs.pivotal.io/p-mysql/1-10/architecture.html#even-number).</p>
+<p class="note warning"><strong>WARNING:</strong> The number of instances of MySQL Server MUST be an odd number. For more information about about scaling MySQL Server instances, see <a href="http://docs.pivotal.io/p-mysql/1-10/architecture.html#even-number">Avoid an Even Number of Nodes</a> in the MySQL <em>Architecture</em> topic.</p>
 
 Use these results as guidelines. Consider configuring your MySQL server nodes with additional memory and disk.
 If your deployment adds additional app instances, consider configuring your MySQL server nodes with additional memory and disk.
@@ -128,7 +128,7 @@ Calculate the storage requirements of the temporary datastore using the table be
 	<tr>
 		<td><code>AvgLogSize</code></td>
 		<td>Collect a sample of logs from your apps and calculate the average size of a log file in KB. 
-		<p class="note"><strong>Note</strong>: PCF apps run on <a href="https://docs.pivotal.io/pivotalcf/concepts/diego/diego-architecture.html">Diego</a> cells that do not emit individual logs greater than approximately 60 KB. See <a href="https://github.com/cloudfoundry/loggregator#log-message-size-constraints">Log Message Size Constraints.</a></p></td>
+		<p class="note"><strong>Note</strong>: PCF apps run on <a href="https://docs.pivotal.io/pivotalcf/concepts/diego/diego-architecture.html">Diego</a> cells that do not emit individual logs greater than approximately 60 KB. See <a href="https://github.com/cloudfoundry/loggregator#log-message-size-constraints">Log Message Size Constraints</a>.</p></td>
 	</tr>
 	<tr>
 		<td><code>LogsPerSec</code></td>
@@ -166,7 +166,7 @@ Calculate the storage requirements of the temporary datastore using the table be
 
 Follow these steps to configure the size of the Redis VM for the temporary datastore based on your calculations.
 
-<p class="note"><strong>Note</strong>: In the case that the temporary datastore becomes full, Redis uses the <code>volatile-ttl</code> eviction policy to continue storing incoming logs. For more information, see the <i>Eviction policies</i> section of <a href="https://redis.io/topics/lru-cache">Using Redis as an LRU cache</a>.</p>
+<p class="note"><strong>Note</strong>: In the case that the temporary datastore becomes full, Redis uses the <code>volatile-ttl</code> eviction policy to continue storing incoming logs. For more information, see the <em>Eviction policies</em> section of <a href="https://redis.io/topics/lru-cache">Using Redis as an LRU cache</a>.</p>
 
 1. Navigate to the Ops Manager Installation Dashboard and click the **Redis** tile.
 
@@ -259,7 +259,7 @@ After determining the number of Ingestor app instances needed for your deploymen
 
 	<pre class="terminal">$ cf scale metrics-ingestor -m NEW-MEMORY-LIMIT</pre>
 
-	For more information about scaling app instances, see the [Scaling an Application Using cf scale](http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/cf-scale.html) topic.
+	For more information about scaling app instances, see [Scaling an Application Using cf scale](http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/cf-scale.html).
 
 ##<a id='logqueue'></a> Configuring the Logqueues
 
@@ -271,7 +271,7 @@ The number of MySQL and Elasticsearch logqueues needed is dependent on the frequ
 
 ###<a id='logqueue-procedures'></a> Procedures for Scaling
 
-To modify your Elasticsearch Logqueue app instances, you must first target your Cloud Controller, log in with your UAA administrator credentials, and target the `metrics` space by following steps 1-3 in the [previous section](#ingestor-procedures).
+To modify your Elasticsearch Logqueue app instances, you must first target your Cloud Controller, log in with your UAA administrator credentials, and target the `metrics` space by following steps 1-3 in the [Procedures for Scaling](#ingestor-procedures).
 
 To scale your Logqueue app instances, perform the following command:
 <pre class="terminal">$ cf scale elasticsearch-logqueue -i INSTANCE-NUMBER</pre>
@@ -279,7 +279,7 @@ To scale your Logqueue app instances, perform the following command:
 To scale the memory limit per Logqueue app instance, perform the following command:
 <pre class="terminal">$ cf scale elasticsearch-logqueue -m NEW-MEMORY-LIMIT</pre>
 
-To modify your MySQL Logqueue app instances, you must first target your Cloud Controller, log in with your UAA administrator credentials, and target the `metrics` space by following steps 1-3 in the [previous section](#ingestor-procedures).
+To modify your MySQL Logqueue app instances, you must first target your Cloud Controller, log in with your UAA administrator credentials, and target the `metrics` space by following steps 1-3 in the [Procedures for Scaling](#ingestor-procedures).
 
 To scale your Logqueue app instances, perform the following command:
 <pre class="terminal">$ cf scale mysql-logqueue -i INSTANCE-NUMBER</pre>
