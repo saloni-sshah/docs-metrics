@@ -515,6 +515,10 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
 
 1. If the app is started and you do not find any errors, proceed to [Step 8: Check the Metrics Aggregator](#check-aggregator).
 
+##<a id='missing-logs'></a> Missing Specific Logs
+
+PCF Metrics does not store logs with message containing non-UTF-8 characters or logs with application GUID that is not standard UUID. If you see specific individual logs missing from the UI, please check that the logs your application emit contain well-formed message and application GUID.
+
 ##<a id='mysql'></a> MySQL Node Failure
 
 In some cases, a MySQL server node might fail to restart.

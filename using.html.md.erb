@@ -161,6 +161,8 @@ In addition, Spring Boot apps with actuators implemented emit [Spring Boot Actua
 
 The **Logs** view displays app log data ingested from the Loggregator Firehose, including a histogram that shows log frequency for the current time frame:
 
+<p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non-standard UUID application GUID will not be stored.</p>
+
 ![Logs](logs.png)
 
 The green time needle visible on metrics charts and the logs histogram indicates the beginning of the logs. Depending on the sort order of your logs, you can see different results:
