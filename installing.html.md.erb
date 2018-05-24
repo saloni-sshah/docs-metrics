@@ -217,10 +217,17 @@ To properly configure the **Errands** pane, follow the procedure that correspond
 
 ### <a id="stemcell"></a> Import Stemcell
 
-1. Navigate to [Pivotal Network](https://network.pivotal.io) and click **Stemcells**.
+**For Ops Manager v2.0 and earlier:**
+
+1. Navigate to Pivotal Network and click [Stemcells for PCF](https://network.pivotal.io/products/stemcells).
 1. Download the appropriate stemcell version for your IaaS.
-   <p class='note'><strong>Note:</strong> On AWS, make sure to use a HVM stemcell if you are using the default instance sizes.</p>
+   <p class='note'><strong>Note:</strong> On AWS, make sure to use a Hardware Virtual Machine (HVM) stemcell if you are using the default instance sizes.</p>
+1. Navigate to the **Stemcell** pane found under the **Settings** tab of your tile.
 1. Click **Import Stemcell** and select the stemcell file you downloaded.
+
+**For Ops Manager v2.1 and later:**
+
+1. Follow the procedure outlined in [Importing and Managing Stemcells](https://docs-pcf-staging.cfapps.io/pivotalcf/2-1/opsguide/managing-stemcells.html).
 
 ## <a id='step3'></a>Deploy PCF Metrics
 
