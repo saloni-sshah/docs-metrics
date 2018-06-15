@@ -77,7 +77,11 @@ The following list describes what's new in PCF Metrics v1.4.0:
 
 ### Known Issues
 
-The following sections describe the known issues in PCF Metrics v1.4.0.
+The following sections describe the known issues in PCF Metrics v1.4.x.
+
+#### 'push-app' Errand Failures
+
+The 'push-app' errand allocation is set to 64MB by default, which can cause the errand to fail. Increasing this allocation to 128MB will resolve the issue and allow the errand to run as expected.
 
 #### Compatibility with Elastic Runtime
 
