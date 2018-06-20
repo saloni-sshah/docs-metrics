@@ -79,7 +79,7 @@ The following sections describe the known issues in PCF Metrics v1.4.x.
 
 The 'push-apps' errand metrics-ui allocation is set to 64MB by default, which can cause the errand to fail. Increasing the metrics-ui app memory allocation to 128MB will resolve the issue and allow the errand to run as expected.
 
-This can be changed via the Apps Manager or CLI after the intial failure:
+This can be changed via the Apps Manager or CLI after the initial failure:
 
 <pre>
 cf scale metrics-ui -m 128M
