@@ -27,7 +27,7 @@ The following list describes what's new in PCF Metrics v1.4.5:
 
 The following list describes what's new in PCF Metrics v1.4.4:
 
-* Upgraded to the cf CLI 6.36.1 to resolve known `cf auth` errand failures
+* Upgraded to the cf CLI v6.36.1 to resolve known `cf auth` errand failures.
 
 ## <a id='143'></a>v1.4.3
 
@@ -85,7 +85,7 @@ This can be changed via the Apps Manager or CLI after the initial failure by run
 cf scale metrics-ui -m 128M
 </pre>
 
-Please note that anytime the `push-apps` errand is re-run, the metrics-ui allocation reverts back to 64M.
+Please note that anytime the `push-apps` errand is re-run, the metrics-ui allocation reverts back to 64MB.
 
 #### Compatibility with Elastic Runtime
 
