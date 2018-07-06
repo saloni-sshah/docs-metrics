@@ -87,9 +87,13 @@ cf scale metrics-ui -m 128M
 
 Please note that anytime the `push-apps` errand is re-run, the metrics-ui allocation reverts back to 64MB.
 
+#### Node.js Buildpack Incompatibility
+
+The latest versions of the Node.js buildpack are not compatible with PCF Metrics 1.4.4 and earlier. Please update to PCF Metrics 1.4.5 or later to address this issue.
+
 #### Compatibility with Elastic Runtime
 
-PCF Metrics v1.4.x requires Elastic Runtime v1.11.0 or later.
+PCF Metrics v1.4.x requires Pivotal Application Service (formerly Elastic Runtime) v1.11.0 or later.
 
 #### Using Custom App Metrics
 
