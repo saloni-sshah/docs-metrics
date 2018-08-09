@@ -7,50 +7,31 @@ owner: PCF Metrics
 Pivotal Cloud Foundry (PCF) Metrics stores logs, metrics data, and event data from apps running on PCF for the past two weeks.
 It graphically presents this data to help operators and developers better understand the health and performance of their apps.
 
-## What's New in PCF Metrics v1.4
+## What's New in PCF Metrics v1.5
 
-PCF Metrics v1.4 supports out-of-the-box Spring Boot Actuator metrics, custom app metrics, and instance-level metrics visualization. It also adds significant changes to the UI.
+In addition to all of the out-of-the-box features provided in previous versions, PCF Metrics v1.5 introduces new functionality including streaming metrics visualization, and metric and event monitors and alerting. It also includes architectural updates aimed at improving reliability while reducing the overall resource footprint.
 
-| For more information... | See...|
+| For more information... | See... |
 |------|---------|
-| Spring Boot Actuator metrics | [Custom Metrics](./using.html#custom) |
-| Custom app metrics | [Custom Metrics](./using.html#custom) |
-| Instance-level metrics visualization | [View Metrics at App-Instance Level](./using.html#app-instance) |
-| Installation steps | [Installing PCF Metrics](./installing.html) |
+| Streaming Metrics | [Using PCF Metrics](./using.html#streaming) |
+| Monitors and Alerting | [Using PCF Metrics](./using.html#monitors) |
+| Upgrading to 1.5 from 1.4 | [Installing PCF Metrics](./installing.html) |
 
 
 ## Product Snapshot
 
 The following table provides version and version-support information about PCF Metrics.
 
-<table class="nice">
-    <th>Element</th>
-    <th>Details</th>
-    <tr>
-        <td>Tile version</td>
-        <td>v1.4</td>
-    </tr>
-    <tr>
-        <td>Release date</td>
-        <td>September 28, 2017</td>
-    </tr>
-    <tr>
-        <td>Compatible Ops Manager version(s)</td>
-        <td>v1.11 and later</td>
-    </tr>
-    <tr>
-        <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.11 and later</td>
-    </tr>
-    <tr>
-        <td>IaaS support</td>
-        <td>AWS, Azure, GCP, OpenStack, and vSphere</td>
-    </tr>
-    <tr>
-        <td>IPsec support</td>
-        <td>Yes</td>
-    </tr>
-</table>
+| Element | Details |
+|------|---------|
+| Tile version | v1.5 |
+| Release date | August 27, 2018 |
+| Compatible Ops Manager version(s) | v2.0 and later |
+| Compatible Elastic Runtime version(s) | v2.0 and later |
+| IaaS support | AWS, Azure, GCP, OpenStack, and vSphere |
+| IPsec support | Yes |
+
+
 ## PCF Metrics User Guide
 
 See the following topics for details about PCF Metrics:
