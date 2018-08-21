@@ -16,6 +16,7 @@ PCF Metrics helps you understand and troubleshoot the health and performance of 
 * [Custom Metrics](#custom): User-customizable graphs for measuring app performance, such as Spring Boot Actuator metrics
 * [App Events](#events): A graph of update, start, stop, crash, SSH, and staging failure events
 * [Logs](#logs): A list of app logs that you can search, filter, and download
+* [Monitors (Alpha)](#monitors): User-defined monitors with configurable trigger thresholds based on app metrics and events
 * [Trace Explorer](#trace): A dependency graph that traces a request as it flows through your apps and their endpoints, along with the corresponding logs
 
 The following sections describe a standard workflow for using PCF Metrics to monitor or troubleshoot your apps.
@@ -40,23 +41,35 @@ The graphs show time along the horizontal axis. You can change the time frame fo
 
 <%= image_tag("metric-zoom.png") %>
 
+## <a id="streaming"></a>Streaming Metrics
+
+PCF Metrics 1.5 introduces streaming metrics visualization. When enabled, the metrics charts will be updated in real-time as metrics data is ingested.
+
+To enable streaming metrics visualization, click the **PLAY** button next to the timeline in the top right of the dashbboard. This will show three hours of streamed metrics data. You can drag the left end of the selector to increase or decrease the duration of streaming metrics being displayed.
+
+<%= image_tag("TODO-streaming-play") %>
+
+**Note**: The Logs drawer is not available while metrics data is being streamed. To view Logs, pause streaming by clicking the **PAUSE** button next to the timeline in the top right of the dashbboard, or simply open the Logs drawer.
+
+<%= image_tag("TODO-streaming-pause") %>
+
 ##<a id='metrics'></a> Add, Edit, and Delete Charts
 
 The PCF Metrics dashboard allows users to add, edit, and delete charts. 
 
 **Add Chart**: To add a new chart, follow the steps below.
 
-1. Click **+ ADD CHART** at the top right of the dashboard.
+1. Click **+ ADD METRIC CHART** at the top left of the dashboard.
 
-	<%= image_tag("metrics-add1.png") %>
+<%= image_tag("metrics-add1.png") %>
 
 1. In the modal window, either select a metric from the dropdown menu or type the name of the metric into the search bar to filter results. 
 
-	<%= image_tag("metrics-add2.png") %>
+<%= image_tag("metrics-add2.png") %>
 
 1. Select an aggregation type. This determines how to combine the data from multiple instances.
 
-	<%= image_tag("metrics-add3.png") %>
+<%= image_tag("metrics-add3.png") %>
 
 **Edit Chart**: To change how instances are aggregated for an existing metric, click the pencil icon on the header of the metric chart. When the **Edit Chart** modal window appears, you can choose the aggregation type and click **Save** to apply changes.
 
@@ -84,15 +97,11 @@ You can collapse the chart by clicking the icon again.
 
 PCF Metrics relays metric data at the app-instance level to allow for an in-depth troubleshooting experience. Users are able to view the app metrics related to a specific instance index, which correlates directly with the app instance indices shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
 
-To view metrics at the app-instance level, turn the **view instances** toggle on.
-
-![instances](images/metrics-instances1.png)
-
-To select or deselect a specific app instance, select the desired instance from the **instance filter** dropdown menu.
+To view a specific app instance, select the desired instance from the **instance filter** dropdown menu at the top right of the dashboard.
 
 <%= image_tag("metrics-instances2.png") %>
 
-Alternatively, click an instance line on the metric chart that interests you to select the instance.
+Alternatively, you can click on an instance line on the metric chart that interests you while All Instances is selected in the dropdown.
 
 <%= image_tag("metrics-instances3.png") %>
 
@@ -104,35 +113,35 @@ See the following sections to understand how to use each of the views on the das
 
 Three **Container Metrics** charts are available on the PCF Metrics dashboard:
 
-* CPU usage percentage: **cf.system.cpu**
-	<%= image_tag("cpu.png") %>
+* CPU usage percentage
+<%= image_tag("cpu.png") %>
 
-	A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but you need to investigate the app to better understand and fix the root cause.
-* Memory usage percentage: **cf.system.memory**
-	<%= image_tag("memory.png") %>
-  
-	A spike in memory might mean a resource leak in the code. Scaling app memory can relieve the immediate pressure, but you need to find and resolve the underlying issue so that it does not occur again.
-* Disk usage percentage: **cf.system.disk**
-	<%= image_tag("disk.png") %>
+A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but you need to investigate the app to better understand and fix the root cause.
+* Memory usage percentage
+<%= image_tag("memory.png") %>
 
-	A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing large sessions to disk. 
+A spike in memory might mean a resource leak in the code. Scaling app memory can relieve the immediate pressure, but you need to find and resolve the underlying issue so that it does not occur again.
+* Disk usage percentage
+<%= image_tag("disk.png") %>
+
+A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing large sessions to disk. 
 
 ### <a id='network'></a> Network Metrics
 
 Three **Network Metrics** charts are available on the PCF Metrics dashboard:
 
-* Number of network requests per minute: **cf.system.request-count**
-	<%= image_tag("request-count.png") %>
+* Number of network requests per minute
+<%= image_tag("request-count.png") %>
 
-	A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.
-* Number of network request errors per minute: **cf.system.request-error-count**
-	<%= image_tag("request-error-count.png") %>
+A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.
+* Number of network request errors per minute
+<%= image_tag("request-error-count.png") %>
 
-	A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.
-* Average latency of a request in milliseconds: **cf.system.latency**
-	<%= image_tag("latency.png") %>
+A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.
+* Average latency of a request in milliseconds
+<%= image_tag("latency.png") %>
 
-	A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
+A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
 
 ### <a id='events'></a> Events 
 
@@ -159,7 +168,7 @@ In addition, Spring Boot apps with actuators implemented emit [Spring Boot Actua
 
 ### <a id="logs"></a>Logs
 
-The **Logs** view displays app log data ingested from the Loggregator Firehose, including a histogram that shows log frequency for the current time frame:
+The **Logs** view displays app log data ingested from the Loggregator Firehose:
 
 <p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non-standard UUID application GUIDs are not stored.</p>
 
@@ -168,25 +177,77 @@ The **Logs** view displays app log data ingested from the Loggregator Firehose, 
 The green time needle visible on metrics charts and the logs histogram indicates the beginning of the logs. Depending on the sort order of your logs, you can see different results:
 
 * Sort by **newest first (default)**:
-	<%= image_tag("newest-first.png") %>
+<%= image_tag("newest-first.png") %>
 
-	The logs drawer retrieves all logs in the selected time frame that is _older than/to the left of_ the needle. The log outlined in green is the newest log among the logs located to the left of the needle placement.
+The logs drawer retrieves all logs in the selected time frame that is _older than/to the left of_ the needle. The log outlined in green is the newest log among the logs located to the left of the needle placement.
 * Sort by **oldest first**:
-	<%= image_tag("oldest-first.png") %>
-
-	The logs drawer retrieves all logs in the selected time frame that is _newer than/to the right of_ the needle. The log outlined in green is the oldest log among the logs located to the right of the needle placement.
-
-To adjust the placement of the time needle, click the handle at the bottom of the needle and drag to reposition it. Alternatively, you can click anywhere along the x-axis of a metric chart or the logs histogram to snap the needle to that position.
+<%= image_tag("oldest-first.png") %>
 
 You can interact with the **Logs** view in the following ways:
 
-* **Keyword**: Perform a keyword search. The histogram updates with blue bars based on what you enter. Hover over a histogram bar to view the number of logs for a specific time.
-* **Highlight**: Enter a term to highlight within your search. The histogram updates with yellow bars based on the results. Hover over a histogram bar to view the number of logs for a specific time that contain the highlighted term.
+* **Keyword**: Perform a keyword search. While searching for a keyword, a histogram that shows matching log frequency for the current time frame will be displayed at the top of the Logs drawer. The histogram updates with blue bars based on what you enter. Hover over a histogram bar to view the number of logs for a specific time.
+* **Highlight**: Enter a term to visually highlight within your search. While searching for a keyword and highlighting terms, the histogram updates with yellow bars to indicate where the highlighted terms appear within the Keyword search results. Hover over a histogram bar to view the number of logs for a specific time that contain the highlighted term.
 * **Sources**: Choose which sources to display logs from. For more information, see [Log Types and Their Messages](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/streaming-logs.html#format).
-* **Order**: Modify the order in which logs appear. 
 * **Download**: Download a file containing logs for the current search. 
 * **Copy**: Click the copy icon to copy the text of the log.
 * **View in Trace Explorer**: Open a window to see the trace of the request associated with the log. See [Trace App Requests](#trace).
+
+## <a id="monitors"></a>Monitors (Alpha)
+
+PCF Metrics 1.5 introduces the alpha version of Monitors which allows users to create monitors on container, network, and custom metrics, as well as events. Users can also set trigger thresholds on these monitors to be notified via the PCF Metrics UI and webhooks when their criteria is met.
+
+<%= image_tag("TODO-tiggers-on-dash-image") %>
+
+### <a id="monitor-create"></a>Creating Monitors
+
+To create and manage monitors, click on the **Monitors Alpha** link in the left menu, then click on Manage.
+
+<%= image_tag("TODO-monitors-menu-image") %>
+
+To create a Metrics Monitor, click the **+ ADD METRIC MONITOR** button.
+
+* Select the metric that you want to monitor from the avaialble metrics in the dropdown in the Criteria builder.
+* Depending on the type of monitor that you are creating, you can select to trigger the monitor when the returned value is Above or Below the specified threshold.
+* Specify a Critical Threshold value (required) on which the monitor will be triggered.
+* Specify a Warning Threshold value (optional) if you wish to receive a notification before the monitor reaches the Critical Threshold.
+* Select a Trigger freqency to set how often the monitor will send the triggered notifications to the UI or specified webhook.
+* Create a Title for the Monitor (will be displayed in the Manage and Triggered Monitors views).
+* Enter a webhook URL for Critical Notifications (optional). An example and instructions on how to create Slack webhooks can be found in the UI, but you can specify other webhooks URLs of your choice.
+* Modify the JSON body for the notification as needed. A link to the app's Mertric's dashboard is included by default.
+* Enter a webhook URL for Warning Notifications (optional). An example and instructions on how to create Slack webhooks can be found in the UI, but you can specify other webhooks URLs of your choice.
+* Modify the JSON body for the notification as needed. A link to the app's Mertric's dashboard is included by default.
+* You can send a test of these triggered monitor notifications by clicking the **TEST NOTIFICATION** link above the JSON body of the Critical and Warning notifications.
+* Click the **SAVE** button to save your monitor.
+
+<%= image_tag("TODO-monitors-manage-metric-image") %>
+
+To create an Events Monitor, click the **+ ADD EVENT MONITOR** button.
+
+* Select the event type that you want to monitor from the dropdown in the Criteria builder.
+* Specify a Critical Threshold value (required) on which the monitor will be triggered.
+* Specify a Warning Threshold value (optional) if you wish to receive a notification before the monitor reaches the Critical Threshold.
+* Select a Trigger freqency to set how often the monitor will send the triggered notifications to the UI or specified webhook.
+* Create a Title for the Monitor (will be displayed in the Manage and Triggered Monitors views).
+* Enter a webhook URL for Critical Notifications (optional). An example and instructions on how to create Slack webhooks can be found in the UI, but you can specify other webhooks URLs of your choice.
+* Modify the JSON body for the notification as needed. A link to the app's Mertric's dashboard is included by default.
+* Enter a webhook URL for Warning Notifications (optional). An example and instructions on how to create Slack webhooks can be found in the UI, but you can specify other webhooks URLs of your choice.
+* Modify the JSON body for the notification as needed. A link to the app's Mertric's dashboard is included by default.
+* You can send a test of these triggered monitor notifications by clicking the **TEST NOTIFICATION** link above the JSON body of the Critical and Warning notifications.
+* Click the **SAVE** button to save your monitor.
+
+<%= image_tag("TODO-monitors-manage-event-image") %>
+
+### <a id="monitor-management"></a>Manage Monitors
+
+Users can find their current monitors under the Manage section of Monitors. To edit or delete a monitor, click the apprpriate Monitor from the list and make the necessary changes.
+
+<%= image_tag("TODO-monitors-manage-list-image") %>
+
+### <a id="monitor-management"></a>View Triggered Monitors
+
+Users can view previously triggered monitors under the Triggered section of Monitors. Click on any of the triggered monitors to manage the Monitor.
+
+<%= image_tag("TODO-triggered-monitors-list-image") %>
 
 ## <a id="trace"></a>Trace App Requests
 
@@ -199,11 +260,11 @@ For more information about traces, see [What is a Trace?](http://opentracing.io/
 PCF Metrics constructs the Trace Explorer view using trace IDs shared across app logs. Before you [use the Trace Explorer](#trace-explorer), examine the following list to ensure PCF metrics can extract the necessary data from your app logs for your specific app type. 
 
 * **Spring**: Follow the steps below.
-	1. Ensure you are using Spring Boot v1.4.3 or later. 
-	1. Ensure you are using Spring Cloud Sleuth v1.0.12 or later. 
-	1. Add the following to your app dependency file:
-	<pre>dependencies { (2)
-	compile "org.springframework.cloud:spring-cloud-starter-sleuth"
+1. Ensure you are using Spring Boot v1.4.3 or later. 
+1. Ensure you are using Spring Cloud Sleuth v1.0.12 or later. 
+1. Add the following to your app dependency file:
+<pre>dependencies { (2)
+compile "org.springframework.cloud:spring-cloud-starter-sleuth"
 }</pre>
 * **Node.js**, **Go**, and **Python**: Ensure that the servers associated with your app do not modify HTTP requests in a way that removes the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers from a request. You also need to add Trace ID, Span ID, and Parent Span ID to the SLF4J MDC in your app logs to correlate logs within the Trace Explorer.
 * **Ruby**: Ruby servers that use a library depending on Rack modify HTTP request headers in a way that is incompatible with PCF Metrics. If you want to trace app requests for your Ruby apps, ensure that your framework does not rely on Rack. You may need to write a raw Ruby server that preserves the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers in the request. You also need to add Trace ID, Span ID, and Parent Span ID to the SLF4J MDC in your app logs to correlate logs within the Trace Explorer.
@@ -216,12 +277,12 @@ This section explains how to view the trace for a request received by your app a
 
 1. Click the Trace Explorer icon in a log for which you want to trace the request.
 
-	![Hover over trace icon](click-trace.png)
-	* The Trace Explorer displays the apps and endpoints involved in completing a request, along with the corresponding logs:
-		![Trace Explorer](trace-explorer.png)
-		A request corresponds to a single trace ID displayed in the top left corner. Each row includes an app in the left column and a _span_ in the right column. A span is a particular endpoint within the app and the time it took to execute in milliseconds. By default, the graph lists each app and endpoint in the order they were called.
-		<p class="note"><strong>Note</strong>: If you do not have access to the space for an app involved in the request, you cannot see the spans or logs from that app.</p>
-	* You can click a span to show only logs from that span or any number of spans to toggle which logs appear. Clicking a span also creates a box with that particular span ID in the **Logs** view:
-		![Click Span](click-span.png)	
-	* If you click `APP APP-NAME` within a log, PCF Metrics returns you to the dashboard view for that app, with the time frame focused on the time of the log that you clicked from. 
+![Hover over trace icon](click-trace.png)
+* The Trace Explorer displays the apps and endpoints involved in completing a request, along with the corresponding logs:
+	![Trace Explorer](trace-explorer.png)
+	A request corresponds to a single trace ID displayed in the top left corner. Each row includes an app in the left column and a _span_ in the right column. A span is a particular endpoint within the app and the time it took to execute in milliseconds. By default, the graph lists each app and endpoint in the order they were called.
+	<p class="note"><strong>Note</strong>: If you do not have access to the space for an app involved in the request, you cannot see the spans or logs from that app.</p>
+* You can click a span to show only logs from that span or any number of spans to toggle which logs appear. Clicking a span also creates a box with that particular span ID in the **Logs** view:
+	![Click Span](click-span.png)	
+* If you click `APP APP-NAME` within a log, PCF Metrics returns you to the dashboard view for that app, with the time frame focused on the time of the log that you clicked from. 
 
