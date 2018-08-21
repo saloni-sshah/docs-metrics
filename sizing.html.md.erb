@@ -42,11 +42,30 @@ by following the steps in <a href="#metrics-datastore">Configuring the Metrics D
 This table lists the resources you need to configure for a small deployment, about 100 apps.
 
 <table>
-  <tr><th>Job</th><th>Instances</th><th>Persistent Disk Type</th><th width=40%>VM Type</th></tr>
-  <tr><td>Elasticsearch Master</td><td>1</td><td>10&nbsp;GB</td><td>small (cpu:&nbsp1, ram:&nbsp;4&nbsp;GB, disk:&nbsp;8&nbsp;GB)</td></tr>
-  <tr><td>Elasticsearch Data</td><td>2 or more</td><td>32&nbsp;GB</td><td>small (cpu:&nbsp1, ram:&nbsp;4&nbsp;GB, disk:&nbsp;8&nbsp;GB)</td></tr>
-  <tr><td>Redis</td><td>1</td><td>32&nbsp;GB</td><td>micro (cpu:&nbsp1, ram:&nbsp;4&nbsp;GB, disk:&nbsp;8&nbsp;GB)</td></tr>
-  <tr><td>MySQL Server</td><td>1 (not configurable)</td><td>32&nbsp;GB</td><td>small (cpu:&nbsp1, ram:&nbsp;4&nbsp;GB, disk:&nbsp;8&nbsp;GB)</td></tr>
+  <tr>
+    <th>Job</th>
+    <th>Instances</th>
+    <th>Persistent Disk Type</th>
+    <th width=40%>VM Type</th>
+  </tr>
+  <tr>
+    <td>PostgreSQL Data</td>
+    <td>1 (not configurable)</td>
+    <td>500 GB</td>
+    <td>xlarge (cpu: 4, ram: 16 GB, disk: 32 GB)</td>
+  </tr>
+  <tr>
+    <td>Redis</td>
+    <td>1 (not configurable)</td>
+    <td>100 GB</td>
+    <td>medium (cpu: 2, ram: 4 GB, disk: 8 GB)</td>
+  </tr>
+  <tr>
+    <td>MySQL Server</td>
+    <td>1 (not configurable)</td>
+    <td>500 GB</td>
+    <td>xlarge (cpu: 4, ram: 16 GB, disk: 32 GB)</td>
+  </tr>
 </table>
 
 ###<a id='medium'></a>Deployment Resources for a Medium Deployment
@@ -54,11 +73,30 @@ This table lists the resources you need to configure for a small deployment, abo
 This table lists the resources you need to configure for a medium deployment, about 5000 apps.
 
 <table>
-  <tr><th>Job</th><th>Instances</th><th>Persistent Disk Type</th><th width=40%>VM Type</th></tr>
-  <tr><td>Elasticsearch Master</td><td>1</td><td>10&nbsp;GB</td><td>small (cpu: 1, ram: 2&nbsp;GB, disk: 8&nbsp;GB)</td></tr>
-  <tr><td>Elasticsearch Data</td><td>5</td><td>200&nbsp;GB</td><td>small.disk (cpu: 1, ram: 2&nbsp;GB, disk: 16&nbsp;GB)</td></tr>
-  <tr><td>Redis</td><td>1</td><td>10&nbsp;GB</td><td>small.disk (cpu: 1, ram: 2&nbsp;GB, disk: 16&nbsp;GB)</td></tr>
-  <tr><td>MySQL Server</td><td>1 (not configurable)</td><td>500&nbsp;GB</td><td>medium (cpu: 2, ram: 4&nbsp;GB, disk: 8&nbsp;GB)</td></tr>
+  <tr>
+    <th>Job</th>
+    <th>Instances</th>
+    <th>Persistent Disk Type</th>
+    <th width=40%>VM Type</th>
+  </tr>
+  <tr>
+    <td>PostgreSQL Data</td>
+    <td>1 (not configurable)</td>
+    <td>500 GB</td>
+    <td>xlarge (cpu: 4, ram: 16 GB, disk: 32 GB)</td>
+  </tr>
+  <tr>
+    <td>Redis</td>
+    <td>1 (not configurable)</td>
+    <td>100 GB</td>
+    <td>medium (cpu: 2, ram: 4 GB, disk: 8 GB)</td>
+  </tr>
+  <tr>
+    <td>MySQL Server</td>
+    <td>1 (not configurable)</td>
+    <td>500 GB</td>
+    <td>xlarge (cpu: 4, ram: 16 GB, disk: 32 GB)</td>
+  </tr>
 </table>
 
 ###<a id='large'></a>Deployment Resources for a Large Deployment
@@ -66,13 +104,31 @@ This table lists the resources you need to configure for a medium deployment, ab
 This table lists the resources you need to configure for a large deployment, about 15,000 apps.
 
 <table>
-  <tr><th>Job</th><th>Instances</th><th>Persistent Disk Type</th><th width=40%>VM Type</th></tr>
-  <tr><td>Elasticsearch Master</td><td>1</td><td>10&nbsp;GB</td><td>small (cpu: 1, ram: 2&nbsp;GB, disk: 8&nbsp;GB)</td></tr>
-  <tr><td>Elasticsearch Data</td><td>10</td><td>500&nbsp;GB</td><td> large (cpu: 2, ram: 8&nbsp;GB, disk: 16&nbsp;GB)</td></tr>
-  <tr><td>Redis</td><td>1</td><td>10&nbsp;GB</td><td>large (cpu: 2, ram: 8&nbsp;GB, disk: 16&nbsp;GB)</td></tr>
-  <tr><td>MySQL Server</td><td>1 (not configurable)</td><td>2 &nbsp;TB</td><td>large (cpu: 2, ram: 8&nbsp;GB, disk: 16&nbsp;GB)</td></tr>
+  <tr>
+    <th>Job</th>
+    <th>Instances</th>
+    <th>Persistent Disk Type</th>
+    <th width=40%>VM Type</th>
+  </tr>
+  <tr>
+    <td>PostgreSQL Data</td>
+    <td>1 (not configurable)</td>
+    <td>500 GB</td>
+    <td>xlarge (cpu: 4, ram: 16 GB, disk: 32 GB)</td>
+  </tr>
+  <tr>
+    <td>Redis</td>
+    <td>1 (not configurable)</td>
+    <td>100 GB</td>
+    <td>medium (cpu: 2, ram: 4 GB, disk: 8 GB)</td>
+  </tr>
+  <tr>
+    <td>MySQL Server</td>
+    <td>1 (not configurable)</td>
+    <td>500 GB</td>
+    <td>xlarge (cpu: 4, ram: 16 GB, disk: 32 GB)</td>
+  </tr>
 </table>
-
 
 
 ##<a id='metrics-datastore'></a> Scale the Metrics Datastore
@@ -204,11 +260,11 @@ Refer to this table to determine how many instances you need for each component.
 
 
 | Item | Small | Medium | Large |
-|-----------------------------|--------------------------------|-------------------------------|--------------------------------|
-|Ingestor instance count      | Number of Doppler servers      |Number of Doppler servers      |Number of Doppler servers       |
-|MySQL logqueue instance count| 1                              | 1                             |2                               |
-|ES logqueue instance count   | 1                              | 2                             | 3                              |
-|Metrics API instance count   | 1                              | 2                             | 2                              |
+|-------------------------------|--------------------------------|-------------------------------|--------------------------------|
+| Ingestor instance count       | Number of Doppler servers      | Number of Doppler servers     | Number of Doppler servers      |
+| MySQL logqueue instance count | 1                              | 1                             | 2                              |
+| ES logqueue instance count    | 1                              | 2                             | 3                              |
+| Metrics API instance count    | 1                              | 2                             | 2                              |
 
 Find the number of Doppler servers in the Resource Config pane of the Pivotal Elastic Runtime tile.
 
