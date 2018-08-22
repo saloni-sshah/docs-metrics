@@ -9,7 +9,7 @@ This topic describes how developers can monitor and troubleshoot their apps usin
 
 ## <a id="overview"></a> Overview
 
-PCF Metrics helps you understand and troubleshoot the health and performance of your apps by displaying the following:
+PCF Metrics helps you understand and troubleshoot the health and performance of your apps by offering the following:
 
 * [Container Metrics](#container): Three graphs measuring CPU, memory, and disk usage percentages 
 * [Network Metrics](#network): Three graphs measuring requests, HTTP errors, and response times
@@ -47,11 +47,11 @@ PCF Metrics 1.5 introduces streaming metrics visualization. When enabled, the me
 
 To enable streaming metrics visualization, click the **PLAY** button next to the timeline in the top right of the dashbboard. This will show three hours of streamed metrics data. You can drag the left end of the selector to increase or decrease the duration of streaming metrics being displayed.
 
-<%= image_tag("TODO-streaming-play") %>
+<!--- TODO-streaming-play --->
 
 **Note**: The Logs drawer is not available while metrics data is being streamed. To view Logs, pause streaming by clicking the **PAUSE** button next to the timeline in the top right of the dashbboard, or simply open the Logs drawer.
 
-<%= image_tag("TODO-streaming-pause") %>
+<!--- TODO-streaming-pause --->
 
 ##<a id='metrics'></a> Add, Edit, and Delete Charts
 
@@ -196,13 +196,13 @@ You can interact with the **Logs** view in the following ways:
 
 PCF Metrics 1.5 introduces the alpha version of Monitors which allows users to create monitors on container, network, and custom metrics, as well as events. Users can also set trigger thresholds on these monitors to be notified via the PCF Metrics UI and webhooks when their criteria is met.
 
-<%= image_tag("TODO-tiggers-on-dash-image") %>
+<!--- TODO-tiggers-on-dash-image --->
 
 ### <a id="monitor-create"></a>Creating Monitors
 
 To create and manage monitors, click on the **Monitors Alpha** link in the left menu, then click on Manage.
 
-<%= image_tag("TODO-monitors-menu-image") %>
+<!--- TODO-monitors-menu-image --->
 
 To create a Metrics Monitor, click the **+ ADD METRIC MONITOR** button.
 
@@ -219,7 +219,7 @@ To create a Metrics Monitor, click the **+ ADD METRIC MONITOR** button.
 * You can send a test of these triggered monitor notifications by clicking the **TEST NOTIFICATION** link above the JSON body of the Critical and Warning notifications.
 * Click the **SAVE** button to save your monitor.
 
-<%= image_tag("TODO-monitors-manage-metric-image") %>
+<!--- TODO-monitors-manage-metric-image --->
 
 To create an Events Monitor, click the **+ ADD EVENT MONITOR** button.
 
@@ -235,19 +235,19 @@ To create an Events Monitor, click the **+ ADD EVENT MONITOR** button.
 * You can send a test of these triggered monitor notifications by clicking the **TEST NOTIFICATION** link above the JSON body of the Critical and Warning notifications.
 * Click the **SAVE** button to save your monitor.
 
-<%= image_tag("TODO-monitors-manage-event-image") %>
+<!--- TODO-monitors-manage-event-image --->
 
 ### <a id="monitor-management"></a>Manage Monitors
 
 Users can find their current monitors under the Manage section of Monitors. To edit or delete a monitor, click the apprpriate Monitor from the list and make the necessary changes.
 
-<%= image_tag("TODO-monitors-manage-list-image") %>
+<!--- TODO-monitors-manage-list-image --->
 
 ### <a id="monitor-management"></a>View Triggered Monitors
 
-Users can view previously triggered monitors under the Triggered section of Monitors. Click on any of the triggered monitors to manage the Monitor.
+Users can view previously triggered monitors under the Triggered section of Monitors.
 
-<%= image_tag("TODO-triggered-monitors-list-image") %>
+<!--- TODO-triggered-monitors-list-image --->
 
 ## <a id="trace"></a>Trace App Requests
 
