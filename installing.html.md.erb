@@ -13,6 +13,24 @@ However, the PCF Metrics tile can be installed without the Metrics Forwarder til
 For information about the components deployed as part of this install procedure,
 see [PCF Metrics Product Architecture](./architecture.html).
 
+##<a id='upgrade'></a>Upgrading from 1.4.x to 1.5.x
+
+PCF Metrics 1.5 includes new data storage solutions for logs and metrics.
+
+Due to a lack of an effective upgrade path from ElasticSearch to PostgreSQL for logs data, the recommended upgrade path is to install and run the 1.5 tile along side 1.4 in Ops Manager for the duration of your logs retention window to allow data to propagate in the new version.  
+
+The metrics data storage has also been upgraded from MariaDB to Percona. Running 1.5 and 1.4 simultaneously will also allow for metrics data to be propagated in its new data store.
+
+Support for running both 1.4 and 1.5 simultaneously has been included in 1.5, allowing users to manually install 1.5 along side 1.4 via Ops Manager or automate the installation via deployment pipeline.
+
+<!--- TODO-ops-man-metrics-tiles-image --->
+
+The dashboards for 1.4 and 1.5 will both be accessible during this period. While 1.4 and 1.5 are both installed, the 1.5 dashboard will be accessible via metrics.YOUR-SYSTEM-DOMAIN and 1.4 will be accessible via metrics-previous.YOUR-SYSTEM-DOMAIN. Additionally, a link will be available on the 1.5 dashboard to open the current app's metrics on the 1.4 dashboard.
+
+<!--- TODO-metrics-previous-link-image --->
+
+Historical metrics and logs data will only be accessible via the 1.4 dashboard until data is propagated for the configured Metrics and Logs retention windows in 1.5. Once you have reached your configured retention window for logs and metrics in 1.5, the 1.4 tile can be uninstalled from your foundation at your leisure.
+
 ## <a id='step1'></a> Add the PCF Metrics Tile to Ops Manager
 
 1. Download the PCF Metrics file from
@@ -28,8 +46,7 @@ see [PCF Metrics Product Architecture](./architecture.html).
               see the <a href="sizing.html">Sizing PCF Metrics for Your System</a>.</p>
 
 1. From the **Installation Dashboard**, click the **PCF Metrics** tile.
-
-2. Follow the procedures below to configure the PCF Metrics tile:
+1. Follow the procedures below to configure the PCF Metrics tile:
   + [Assign Availability Zones (AZs) and Networks](#az)
   + [Configure Metrics Components](#mc-config)
   + [Configure Resources](#resource-config)
@@ -44,18 +61,12 @@ see [PCF Metrics Product Architecture](./architecture.html).
 1. Select one or more Availability Zones under **Balance other jobs**.
    <br>
    Ops Manager balances instances of Metrics jobs with more than one instance
-   across the Availability Zones that you specify. However this setting does not 
-   balance Elastic Search jobs across multiple AZs as merely balancing ES jobs across multiple AZs 
-   does not ensure Highly available ES because ES auto-shards and distributes replicas across ES data nodes in real time. 
-   So instead, we have added a redis instance between the firehose and ES (https://docs.pivotal.io/pcf-metrics/1-5/architecture.html) 
-   which buffers logs before they are written to ES. In case of unavailable ES ( during deployment, ES red indices or AZ failure), 
-   redis will hold logs in buffer and write it back once ES is stable again. You can create multiple redis jobs and balance them across AZs for ensuring HA redis in case of AZ failure. 
-    
+   across the Availability Zones that you specify.
 1. Use the drop-down menu to select a network.
    <br>
-   PCF Metrics should be installed on the same network as the Elastic Runtime tile uses.
+   PCF Metrics should be installed on the same network the Pivotal Application Service tile uses.
    However, if you do select a different subnet network, then refer to the table below when you configure
-   the subnet network in the Elastic Runtime tile to make sure that you have
+   the subnet network in the Pivotal Application Service tile to make sure that you have
    the ports needed for each of the PCF Metrics data services.
    
     <table border="1" class="nice">
@@ -68,7 +79,7 @@ see [PCF Metrics Product Architecture](./architecture.html).
       <tbody>
         <tr>
           <td>PostgreSQL (Logs Data)</td>
-          <td>9200</td>
+          <td>5524</td>
         </tr>
         <tr>
           <td>MySQL (Metrics Data)</td>
@@ -122,14 +133,14 @@ see [PCF Metrics Product Architecture](./architecture.html).
       <td>4</td>
       <td>16&nbsp;GB</td>
       <td>32&nbsp;GB</td>
-      <td>4</td>
+      <td>1</td>
       <td>0</td>
     </tr>
     <tr>
       <td>Redis</td>
       <td>1 (Not configurable)</td>
-      <td>10&nbsp;GB</td>
-      <td>4</td>
+      <td>100&nbsp;GB</td>
+      <td>2</td>
       <td>4&nbsp;GB</td>
       <td>8&nbsp;GB</td>
       <td>1</td>
