@@ -60,15 +60,10 @@ The PCF Metrics dashboard allows users to add, edit, and delete charts.
 **Add Chart**: To add a new chart, follow the steps below.
 
 1. Click **+ ADD METRIC CHART** at the top left of the dashboard.
-
 <%= image_tag("metrics-add1.png") %>
-
 1. In the modal window, either select a metric from the dropdown menu or type the name of the metric into the search bar to filter results. 
-
 <%= image_tag("metrics-add2.png") %>
-
 1. Select an aggregation type. This determines how to combine the data from multiple instances.
-
 <%= image_tag("metrics-add3.png") %>
 
 **Edit Chart**: To change how instances are aggregated for an existing metric, click the pencil icon on the header of the metric chart. When the **Edit Chart** modal window appears, you can choose the aggregation type and click **Save** to apply changes.
@@ -115,15 +110,14 @@ Three **Container Metrics** charts are available on the PCF Metrics dashboard:
 
 * CPU usage percentage
 <%= image_tag("cpu.png") %>
-
 A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but you need to investigate the app to better understand and fix the root cause.
+
 * Memory usage percentage
 <%= image_tag("memory.png") %>
-
 A spike in memory might mean a resource leak in the code. Scaling app memory can relieve the immediate pressure, but you need to find and resolve the underlying issue so that it does not occur again.
+
 * Disk usage percentage
 <%= image_tag("disk.png") %>
-
 A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing large sessions to disk. 
 
 ### <a id='network'></a> Network Metrics
@@ -132,15 +126,14 @@ Three **Network Metrics** charts are available on the PCF Metrics dashboard:
 
 * Number of network requests per minute
 <%= image_tag("request-count.png") %>
-
 A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.
+
 * Number of network request errors per minute
 <%= image_tag("request-error-count.png") %>
-
 A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.
+
 * Average latency of a request in milliseconds
 <%= image_tag("latency.png") %>
-
 A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
 
 ### <a id='events'></a> Events 
@@ -178,8 +171,8 @@ The green time needle visible on metrics charts and the logs histogram indicates
 
 * Sort by **newest first (default)**:
 <%= image_tag("newest-first.png") %>
-
 The logs drawer retrieves all logs in the selected time frame that is _older than/to the left of_ the needle. The log outlined in green is the newest log among the logs located to the left of the needle placement.
+
 * Sort by **oldest first**:
 <%= image_tag("oldest-first.png") %>
 
@@ -272,10 +265,8 @@ compile "org.springframework.cloud:spring-cloud-starter-sleuth"
 This section explains how to view the trace for a request received by your app and interact with the Trace Explorer.
 
 1. Select an app on the PCF Metrics dashboard.
-
 1. Click the Trace Explorer icon in a log for which you want to trace the request.
-
-![Hover over trace icon](click-trace.png)
+	![Hover over trace icon](click-trace.png)
 
 * The Trace Explorer displays the apps and endpoints involved in completing a request, along with the corresponding logs:
 	![Trace Explorer](trace-explorer.png)
