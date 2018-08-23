@@ -200,22 +200,21 @@ PCF Metrics 1.5 introduces the alpha version of Monitors which allows users to c
 
 ### <a id="monitor-create"></a>Creating Monitors
 
-To create and manage monitors, click on the **Monitors Alpha** link in the left menu, then click on Manage.
+To create and manage monitors, click on the **Monitors Alpha** link in the left menu, then click on **Manage**.
 
 <!--- TODO-monitors-menu-image --->
 
 To create a Metrics Monitor, click the **+ ADD METRIC MONITOR** button.
 
-* Select the metric that you want to monitor from the avaialble metrics in the dropdown in the Criteria builder.
+* Select the metric that you want to monitor from the available metrics in the dropdown in the Criteria builder.
 * Depending on the type of monitor that you are creating, you can select to trigger the monitor when the returned value is Above or Below the specified threshold.
 * Specify a Critical Threshold value (required) on which the monitor will be triggered.
 * Specify a Warning Threshold value (optional) if you wish to receive a notification before the monitor reaches the Critical Threshold.
 * Select a Trigger freqency to set how often the monitor will send the triggered notifications to the UI or specified webhook.
 * Create a Title for the Monitor (will be displayed in the Manage and Triggered Monitors views).
 * Enter a webhook URL for Critical Notifications (optional). An example and instructions on how to create Slack webhooks can be found in the UI, but you can specify other webhooks URLs of your choice.
-* Modify the JSON body for the notification as needed. A link to the app's Mertric's dashboard is included by default.
 * Enter a webhook URL for Warning Notifications (optional). An example and instructions on how to create Slack webhooks can be found in the UI, but you can specify other webhooks URLs of your choice.
-* Modify the JSON body for the notification as needed. A link to the app's Mertric's dashboard is included by default.
+* Modify the JSON body for the notifications as needed. A link to the app's Mertric's dashboard is included by default.
 * You can send a test of these triggered monitor notifications by clicking the **TEST NOTIFICATION** link above the JSON body of the Critical and Warning notifications.
 * Click the **SAVE** button to save your monitor.
 
@@ -229,9 +228,8 @@ To create an Events Monitor, click the **+ ADD EVENT MONITOR** button.
 * Select a Trigger freqency to set how often the monitor will send the triggered notifications to the UI or specified webhook.
 * Create a Title for the Monitor (will be displayed in the Manage and Triggered Monitors views).
 * Enter a webhook URL for Critical Notifications (optional). An example and instructions on how to create Slack webhooks can be found in the UI, but you can specify other webhooks URLs of your choice.
-* Modify the JSON body for the notification as needed. A link to the app's Mertric's dashboard is included by default.
 * Enter a webhook URL for Warning Notifications (optional). An example and instructions on how to create Slack webhooks can be found in the UI, but you can specify other webhooks URLs of your choice.
-* Modify the JSON body for the notification as needed. A link to the app's Mertric's dashboard is included by default.
+* Modify the JSON body for the notifications as needed. A link to the app's Mertric's dashboard is included by default.
 * You can send a test of these triggered monitor notifications by clicking the **TEST NOTIFICATION** link above the JSON body of the Critical and Warning notifications.
 * Click the **SAVE** button to save your monitor.
 
@@ -278,6 +276,7 @@ This section explains how to view the trace for a request received by your app a
 1. Click the Trace Explorer icon in a log for which you want to trace the request.
 
 ![Hover over trace icon](click-trace.png)
+
 * The Trace Explorer displays the apps and endpoints involved in completing a request, along with the corresponding logs:
 	![Trace Explorer](trace-explorer.png)
 	A request corresponds to a single trace ID displayed in the top left corner. Each row includes an app in the left column and a _span_ in the right column. A span is a particular endpoint within the app and the time it took to execute in milliseconds. By default, the graph lists each app and endpoint in the order they were called.
