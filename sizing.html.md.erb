@@ -15,7 +15,7 @@ If you are not familiar with the PCF Metrics components, review [PCF Metrics Pro
 For how to configure resources for a running deployment, see the procedures below:
 
 + [Procedure for Scaling the Metrics Datastore](#metrics-procedures)
-+ [Procedure for Scaling the Log Datastore](##log-procedures)
++ [Procedure for Scaling the Log Datastore](#log-procedures)
 + [Procedure for Scaling the Temporary Datastore](#temp-procedures)
 + [Procedure for Scaling the Ingestor, Logqueues, and Metrics API](#ingestor-procedures)
 
@@ -39,7 +39,7 @@ by following the steps in <a href="#metrics-datastore">Configuring the Metrics D
 
 ###<a id='small'></a>Deployment Resources for a Small Deployment
 
-This table lists the resources you need to configure for a small deployment, about 100 apps.
+Example resource configuration to store 14 days of data for a small deployment, about 100 apps.
 
 <table>
   <tr>
@@ -70,7 +70,7 @@ This table lists the resources you need to configure for a small deployment, abo
 
 ###<a id='medium'></a>Deployment Resources for a Medium Deployment
 
-This table lists the resources you need to configure for a medium deployment, about 5000 apps.
+Example resource configuration to store 14 days of data for a medium deployment, about 5000 apps.
 
 <table>
   <tr>
@@ -101,7 +101,7 @@ This table lists the resources you need to configure for a medium deployment, ab
 
 ###<a id='large'></a>Deployment Resources for a Large Deployment
 
-This table lists the resources you need to configure for a large deployment, about 15,000 apps.
+Example resource configuration to store 14 days of data for a large deployment, about 15,000 apps.
 
 <table>
   <tr>
@@ -113,20 +113,20 @@ This table lists the resources you need to configure for a large deployment, abo
   <tr>
     <td>PostgreSQL Data</td>
     <td>1 (not configurable)</td>
-    <td>500 GB</td>
-    <td>xlarge (cpu: 4, ram: 16 GB, disk: 32 GB)</td>
+    <td>32 TB</td>
+    <td>2xlarge (cpu: 16, ram: 64 GB, disk: 32 GB)</td>
   </tr>
   <tr>
     <td>Redis</td>
     <td>1 (not configurable)</td>
-    <td>100 GB</td>
-    <td>medium (cpu: 2, ram: 4 GB, disk: 8 GB)</td>
+    <td>50 GB</td>
+    <td>2xlarge (cpu: 8, ram: 61 GB, disk: 8 GB)</td>
   </tr>
   <tr>
     <td>MySQL Server</td>
     <td>1 (not configurable)</td>
     <td>500 GB</td>
-    <td>xlarge (cpu: 4, ram: 16 GB, disk: 32 GB)</td>
+    <td>xlarge (cpu: 8, ram: 16 GB, disk: 32 GB)</td>
   </tr>
 </table>
 
