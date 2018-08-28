@@ -23,17 +23,17 @@ The metrics data storage has also been upgraded from MariaDB to Percona. Running
 
 Support for running both 1.4 and 1.5 simultaneously has been included in 1.5, allowing users to manually install 1.5 along side 1.4 via Ops Manager or automate the installation via deployment pipeline.
 
-<%= image_tag("ops-man-metrics-tiles-image.png") %>
+<%= image_tag("ops-man-metrics-tiles-image.png", :alt => "PCF Metrics 1.4 and 1.5 installed in Ops Manager") %>
 
 The dashboards for 1.4 and 1.5 will both be accessible during this period. While 1.4 and 1.5 are both installed, the 1.5 dashboard will be accessible via metrics.YOUR-SYSTEM-DOMAIN and 1.4 will be accessible via metrics-previous.YOUR-SYSTEM-DOMAIN. Additionally, a link will be available on the 1.5 dashboard to open the current app's metrics on the 1.4 dashboard.
 
-<!--- TODO-metrics-previous-link-image --->
+<%= image_tag("previous-link.png", :alt => "View Metrics in Previous Version link") %>
 
 Historical metrics and logs data will only be accessible via the 1.4 dashboard until data is propagated for the configured Metrics and Logs retention windows in 1.5. Once you have reached your configured retention window for logs and metrics in 1.5, the 1.4 tile can be uninstalled from your foundation at your leisure.
 
 ## <a id='step1'></a> Add the PCF Metrics Tile to Ops Manager
 
-1. Download the PCF Metrics file from
+1. Download the latest PCF Metrics 1.5 tile from
    [Pivotal Network](https://network.pivotal.io/products/pcf-metrics).
 1. Upload the PCF Metrics file to your Ops Manager installation.
 1. Click  **Add** next to the uploaded product description in the **Available Products**
