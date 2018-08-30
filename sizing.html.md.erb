@@ -255,13 +255,11 @@ Refer to this table to determine how many instances you need for each component.
 | Item | Small | Medium | Large |
 |-------------------------------|--------------------------------|-------------------------------|--------------------------------|
 | Ingestor instance count       | Number of Doppler servers      | Number of Doppler servers     | Number of Doppler servers      |
-| MySQL logqueue instance count | 1                              | 1                             | 2                              |
-| ES logqueue instance count    | 1                              | 2                             | 3                              |
+| Metrics Queue instance count | 1                              | 1                             | 2                              |
+| Logs Queue instance count    | 1                              | 2                             | 3                              |
 | Metrics API instance count    | 1                              | 2                             | 2                              |
 
-Find the number of Doppler servers in the Resource Config pane of the Pivotal Elastic Runtime tile.
-
-
+Find the number of Doppler servers in the Resource Config pane of the Pivotal Application Service tile.
 
 ###<a id='ingestor-considerations'></a> Considerations for Scaling
 
@@ -298,7 +296,7 @@ perform the following steps to scale:
 	Authenticating...
 	OK
 
-3. When prompted, target the `metrics` space.
+3. When prompted, target the `metrics-v1-5` space.
 	<pre class="terminal">
 	Targeted org system
 
@@ -306,28 +304,36 @@ perform the following steps to scale:
 	<span>1</span>. system
 	<span>2</span>. notifications-with-ui
 	<span>3</span>. autoscaling
-	<span>4</span>. metrics
+	<span>4</span>. metrics-v1-4
+	<span>5</span>. metrics-v1-5
 
 	Space> 4
-	Targeted space metrics
+	Targeted space metrics-v1-5
 
 	API endpoint:   <span>https:</span>//api.YOUR-SYSTEM-DOMAIN (API version: 2.54.0)
 	User:           admin
 	Org:            system
-	Space:          metrics
+	Space:          metrics-v1-5
 	</pre>
 
-4. List the apps that are running in the `metrics` space.
+4. List the apps that are running in the `metrics-v1-5` space.
 	<pre class="terminal">
 $ cf apps
-Getting apps in org system / space metrics as admin...
+Getting apps in org system / space metrics-v1-5 as admin...
 OK<br>
-name                      requested state     instances    memory   disk   urls
-elasticsearch-logqueue    started             1/1          256M     1G
-metrics                   started             1/1          1G       2G     metrics.YOUR-SYSTEM-DOMAIN/api/v1
-metrics-ingestor          started             1/1          256M     1G
-metrics-ui                started             1/1          64G      1G     metrics.YOUR-SYSTEM-DOMAIN
-mysql-logqueue            started             1/1          512M     1G
+name                    requested state   instances   memory   disk   urls
+metrics-queue-blue      stopped           0/1         512M     1G
+metrics-blue            stopped           0/1         1G       2G
+metrics-ui-blue         stopped           0/1         256M     1G
+metrics-alerting-blue   stopped           0/1         1G       2G
+metrics-ingestor-blue   stopped           0/2         384M     1G
+logs-queue-blue         stopped           0/1         256M     1G
+metrics-ingestor        started           2/2         384M     1G
+metrics-queue           started           1/1         512M     1G
+logs-queue              started           1/1         256M     1G
+metrics-ui              started           1/1         256M     1G     metrics.YOUR-SYSTEM-DOMAIN
+metrics-alerting        started           1/1         1G       2G
+metrics                 started           1/1         1G       2G     metrics.YOUR-SYSTEM-DOMAIN/api/v1
 </pre>
 
 
@@ -335,12 +341,12 @@ mysql-logqueue            started             1/1          512M     1G
 
     <code>cf scale APP-NAME -i INSTANCE-NUMBER</code>
 
-    Where the `APP-NAME` is `elasticsearch-logqueue`, `metrics`, `metrics-ingestor`, or `mysql-logqueue`.<br>
+    Where the `APP-NAME` is `logs-queue`, `metrics`, `metrics-ingestor`, or `metrics-queue`.<br>
     For example, to scale all the apps: 
-	<pre class="terminal">$ cf scale elasticsearch-logqueue -i 2
+	<pre class="terminal">$ cf scale logs-queue -i 2
     $ cf scale metrics -i 2
     $ cf scale metrics-ingestor -i 2
-    $ cf scale mysql-logqueue -i 2</pre>
+    $ cf scale metrics-queue -i 2</pre>
 
 1. Evaluate the CPU and memory load on the instances:
 
