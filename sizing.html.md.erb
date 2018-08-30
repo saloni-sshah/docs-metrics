@@ -186,9 +186,9 @@ The following calculation attempts to measure Postgres resource requirements mor
 ###<a id='log-procedures'></a> Procedure for Scaling
 
 <p class="note warning">
-<strong>WARNING!</strong> When you vertically scale your Postgres instance, Postgres temporarily enters an unhealthy period during which it does not ingest any new logs data.</p>
+<strong>WARNING!</strong> When you vertically scale your Postgres instance, Postgres enters an unhealthy period during which it does not ingest any new logs data until the scaling operation has completed.</p>
 
-After determining the number of Elasticsearch nodes needed for your deployment, perform the following steps to scale your nodes:
+After determining the desired size for the Postgres instance needed for your deployment, perform the following steps to scale your nodes:
 
 1. Navigate to the Ops Manager Installation Dashboard and click the **Metrics** tile.
 1. From the **Settings** tab of the **Metrics** tile, click **Resource Config**.
@@ -199,7 +199,7 @@ After determining the number of Elasticsearch nodes needed for your deployment, 
 
 PCF Metrics uses Redis to temporarily store ingested data from the Loggregator Firehose
 as well as cache data queried by the Metrics API.
-The former use case is to prevent major metrics and logs loss when the data stores (Elasticsearch and MySQL) are unavailable.
+The former use case is to prevent major metrics and logs loss when the data stores (Postgres and MySQL) are unavailable.
 The latter is to potentially speed up front-end queries. See [PCF Metrics Product Architecture](./architecture.html) for more information.
 
 ###<a id='temp-considerations'></a> Considerations for Scaling
@@ -225,24 +225,24 @@ For more information, see <i>Eviction policies</i> in <a href="https://redis.io/
 
 ##<a id='ingestor'></a> Scale the Ingestor, Logqueues, and Metrics API
 
-The procedures for scaling the Ingestor, Elasticsearch logqueue, MySQL logqueue, and Metrics API instances are similar.
+The procedures for scaling the Metrics Ingestor, Logs Queue, Metrics Queue, and Metrics API instances are similar.
 
-+ **Ingestor** — PCF Metrics deploys the Ingestor as an app, `metrics-ingestor`, within PCF.
++ **Metrics Ingestor** — PCF Metrics deploys the Ingestor as an app, `metrics-ingestor`, within PCF.
 The Ingestor consumes logs and metrics from the Loggregator Firehose, sending metrics and logs to their respective Logqueue apps.
 
     To customize PCF Metrics for high capacity, you can scale the number of Ingestor app instances and increase the amount of memory per instance.
 
-+ **Logqueues** — PCF Metrics deploys a **MySQL Logqueue** and an **Elasticsearch Logqueue** as apps,
-    `mysql-logqueue` and `elasticsearch-logqueue`, within PCF.
-  The MySQL logqueue consumes metrics from the Ingestor and forwards them to MySQL.
-  The Elasticsearch logqueue consumes logs from the Ingestor and forwards them to Elasticsearch.<br>
++ **Logs Queue** — PCF Metrics deploys a **Metrics Queue** and an **Logs Queue** as apps,
+    `metrics-queue` and `logs-queue`, within PCF.
+  The Metrics Queue consumes metrics from the Ingestor and forwards them to MySQL.
+  The Logs Queue consumes logs from the Ingestor and forwards them to Postgres.<br>
 
-    To customize PCF Metrics for high capacity, you can scale the number of Logqueue app instances and increase the amount of memory per instance.
+    To customize PCF Metrics for high capacity, you can scale the number of queue app instances and increase the amount of memory per instance.
 
-    The number of MySQL and Elasticsearch logqueues needed is dependent on the frequency that logs and metrics are forwarded by the Ingestor.
+    The number of Metrics and Logs Queues needed is dependent on the frequency that logs and metrics are forwarded by the Ingestor.
     As a general rule:
-    +  For every 45,000 logs per minute, add 2 Elasticsearch logqueues.
-    +  For every 17,000 metrics per minute, add 1 MySQL logqueue.
+    +  For every 45,000 logs per minute, add 2 Logs Queues.
+    +  For every 17,000 metrics per minute, add 1 Metrics Queue.
 
     The above is a general estimate. You might need fewer instances depending on your deployment.
     To optimize resource allocation, provision fewer instances initially and increase instances until you achieve desired performance.
@@ -285,7 +285,7 @@ perform the following steps to scale:
 	</pre>
 
 2. Log in with your UAA administrator credentials.
-   To retrieve these credentials, navigate to the **Pivotal Elastic Runtime** tile in the Ops Manager Installation Dashboard and click **Credentials**.
+   To retrieve these credentials, navigate to the **Pivotal Application Service** tile in the Ops Manager Installation Dashboard and click **Credentials**.
    Under **UAA**, click **Link to Credential** next to **Admin Credentials** and record the password.
 	<pre class="terminal">
 	$ cf login
