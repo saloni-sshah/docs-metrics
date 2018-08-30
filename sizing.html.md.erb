@@ -26,7 +26,7 @@ Use the following tables as a guide for configuring resources for your deploymen
 Estimate the size of your deployment according to how many apps are expected to be deployed.
 
 <table style='nice'>
-   <tr><th>Size</th><th>Purpose</th><th>Approximate number of apps</th></tr>
+   <tr><th>Size</th><th>Purpose</th><th>Approximate number of app instances</th></tr>
    <tr><td><a href="#small">Small</a></td><td>Test use</td><td>100</td></tr>
    <tr><td><a href="#medium">Medium</a></td><td>Production use</td><td>5,000</td></tr>
    <tr><td><a href="#large">Large</a></td><td>Production use</td><td>15,000</td></tr>
@@ -39,7 +39,7 @@ by following the steps in <a href="#metrics-datastore">Configuring the Metrics D
 
 ###<a id='small'></a>Deployment Resources for a Small Deployment
 
-Example resource configuration to store 14 days of data for a small deployment, about 100 apps.
+Example resource configuration to store approximately 14 days of data for a small deployment, about 100 application instances:
 
 <table>
   <tr>
@@ -57,20 +57,20 @@ Example resource configuration to store 14 days of data for a small deployment, 
   <tr>
     <td>Redis</td>
     <td>1 (not configurable)</td>
-    <td>100 GB</td>
-    <td>medium (cpu: 2, ram: 4 GB, disk: 8 GB)</td>
+    <td>32 GB</td>
+    <td>micro (cpu: 1, ram: 4 GB, disk: 8 GB)</td>
   </tr>
   <tr>
     <td>MySQL Server</td>
     <td>1 (not configurable)</td>
-    <td>500 GB</td>
-    <td>xlarge (cpu: 4, ram: 16 GB, disk: 32 GB)</td>
+    <td>32 GB</td>
+    <td>small (cpu: 1, ram: 4 GB, disk: 8 GB)</td>
   </tr>
 </table>
 
 ###<a id='medium'></a>Deployment Resources for a Medium Deployment
 
-Example resource configuration to store 14 days of data for a medium deployment, about 5000 apps.
+Example resource configuration to store approximately 14 days of data for a medium deployment, about 5000 application instances:
 
 <table>
   <tr>
@@ -83,25 +83,25 @@ Example resource configuration to store 14 days of data for a medium deployment,
     <td>PostgreSQL Data</td>
     <td>1 (not configurable)</td>
     <td>500 GB</td>
-    <td>xlarge (cpu: 4, ram: 16 GB, disk: 32 GB)</td>
+    <td>xlarge (cpu: 8, ram: 32 GB, disk: 64 GB)</td>
   </tr>
   <tr>
     <td>Redis</td>
     <td>1 (not configurable)</td>
-    <td>100 GB</td>
-    <td>medium (cpu: 2, ram: 4 GB, disk: 8 GB)</td>
+    <td>10 GB</td>
+    <td>small.disk (cpu: 1, ram: 2 GB, disk: 16 GB)</td>
   </tr>
   <tr>
     <td>MySQL Server</td>
     <td>1 (not configurable)</td>
     <td>500 GB</td>
-    <td>xlarge (cpu: 4, ram: 16 GB, disk: 32 GB)</td>
+    <td>medium (cpu: 2, ram: 4 GB, disk: 8 GB)</td>
   </tr>
 </table>
 
 ###<a id='large'></a>Deployment Resources for a Large Deployment
 
-Example resource configuration to store 14 days of data for a large deployment, about 15,000 apps.
+Example resource configuration to store approximately 14 days of data for a large deployment, about 15,000 application instances:
 
 <table>
   <tr>
@@ -114,19 +114,19 @@ Example resource configuration to store 14 days of data for a large deployment, 
     <td>PostgreSQL Data</td>
     <td>1 (not configurable)</td>
     <td>32 TB</td>
-    <td>2xlarge (cpu: 16, ram: 64 GB, disk: 32 GB)</td>
+    <td>2xlarge (cpu: 16, ram: 64 GB, disk: 64 GB)</td>
   </tr>
   <tr>
     <td>Redis</td>
     <td>1 (not configurable)</td>
-    <td>50 GB</td>
-    <td>2xlarge (cpu: 8, ram: 61 GB, disk: 8 GB)</td>
+    <td>10 GB</td>
+    <td>large (cpu: 2, ram: 8 GB, disk: 16 GB)</td>
   </tr>
   <tr>
     <td>MySQL Server</td>
     <td>1 (not configurable)</td>
-    <td>500 GB</td>
-    <td>xlarge (cpu: 8, ram: 16 GB, disk: 32 GB)</td>
+    <td>2 TB</td>
+    <td>large (cpu: 2, ram: 8 GB, disk: 16 GB)</td>
   </tr>
 </table>
 
@@ -162,14 +162,13 @@ To scale up the MySQL server node, do the following:
 
 ##<a id='log-datastore'></a> Scale the Log Datastore
 
-PCF Metrics uses Elasticsearch to store logs.
-Each Elasticsearch node contains multiple shards of log data, divided by time slice.
+PCF Metrics uses Postgres to store logs.
 
 ###<a id='log-considerations'></a> Considerations for Scaling
 
-Pivotal suggests starting with the [default configurations](#configs-by-size) for your Elasticsearch Master and Data nodes, observing the disk usage of the Data nodes, and then scaling the resources accordingly.
+Pivotal suggests estimating your Logs data storage needs using the equation below before configuring your Postgres instance.
 
-The following calculation attempts to measure Elasticsearch resource requirements more precisely depending on your logs load. This formula is only an approximation, and Pivotal suggests rounding the numbers up as a safety measure against undersizing Elasticsearch:
+The following calculation attempts to measure Postgres resource requirements more precisely depending on your logs load. This formula is only an approximation, and Pivotal suggests rounding the numbers up as a safety measure against undersizing Postgres:
 
 1. Determine how many logs the apps in your deployment emit per hour (_R_) and the average size of each log (_S_).
 
@@ -182,24 +181,18 @@ The following calculation attempts to measure Elasticsearch resource requirement
     <br><br>
     For example:
 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200,000 logs/hr &times; 25 KB &times; 336 hr &times; 2 &asymp; 7 instances &times; 500 GB<br>
-    or<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200,000 logs/hr &times; 25 KB &times; 336 hr &times; 2 &asymp; 3 instances &times; 1 TB<br>
-
-   As stated above, the default Elasticsearch configuration sets the number of replicas to 1, which means that every shard has 1 replica and Elasticsearch logs are HA by default. 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200,000 logs/hr &times; 25 KB &times; 336 hr &times; 2 &asymp; 1 instance &times; 3 TB
 
 ###<a id='log-procedures'></a> Procedure for Scaling
 
 <p class="note warning">
-<strong>WARNING!</strong> If you modify the number of Elasticsearch instances,
-               the Elasticsearch cluster temporarily enters an unhealthy period during which
-               it does not ingest any new logs data, due to shard allocation.</p>
+<strong>WARNING!</strong> When you vertically scale your Postgres instance, Postgres temporarily enters an unhealthy period during which it does not ingest any new logs data.</p>
 
 After determining the number of Elasticsearch nodes needed for your deployment, perform the following steps to scale your nodes:
 
 1. Navigate to the Ops Manager Installation Dashboard and click the **Metrics** tile.
 1. From the **Settings** tab of the **Metrics** tile, click **Resource Config**.
-1. Locate the **Elasticsearch Data** job and select the dropdown menu under **Instances** to change the number of instances. 
+1. Locate the **PostgreSQL** job and select the dropdown menu under **Persistent Disk Type** to change the size of the instance. 
 1. Click **Save**.  
 
 ##<a id='temp-datastore'></a> Scale the Temporary Datastore (Redis)
