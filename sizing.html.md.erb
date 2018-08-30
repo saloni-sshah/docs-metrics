@@ -170,18 +170,17 @@ Pivotal suggests estimating your Logs data storage needs using the equation belo
 
 The following calculation attempts to measure Postgres resource requirements more precisely depending on your logs load. This formula is only an approximation, and Pivotal suggests rounding the numbers up as a safety measure against undersizing Postgres:
 
-1. Determine how many logs the apps in your deployment emit per hour (_R_) and the average size of each log (_S_).
+1. Determine how many logs the apps in your deployment emit per hour (_R_). To do this, Pivotal recommends multiplying your app instances' _loggregator.doppler.ingress_ rate by the number of doppler instances. More information on _loggregator.doppler.ingress_ can be found at https://docs.pivotal.io/pivotalcf/2-2/monitoring/key-cap-scaling.html#doppler-message-rate-ksi
+1. Determine the average size of each log (_S_).
+1. Calculate the persistent disk size for the instance (_D_) you need to scale to using the following formula:<br><br>
 
-2. Calculate the number of instances (_N_) and the persistent disk size for the instances (_D_) you need to scale to
-   using the following formula:<br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _R_ &times; _S_ &times; 336 &times; 2 = _D_ <br><br>
 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _R_ &times; _S_ &times; 336 &times; 2 =  _N_ &times; _D_ <br><br>
-
-    The formula assumes that a log retention period is 336 hours (2 weeks), and the [number of Elasticsearch replica shards](https://www.elastic.co/guide/en/elasticsearch/guide/current/replica-shards.html) is 1 (default).
+    The formula assumes that a log retention period is 336 hours (2 weeks), and the number of Postgres is 1 (not configurable).
     <br><br>
     For example:
 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200,000 logs/hr &times; 25 KB &times; 336 hr &times; 2 &asymp; 1 instance &times; 3 TB
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200,000 logs/hr &times; 25 KB &times; 336 hr &times; 2 &asymp; 3 TB
 
 ###<a id='log-procedures'></a> Procedure for Scaling
 
