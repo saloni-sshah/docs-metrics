@@ -232,8 +232,7 @@ The Ingestor consumes logs and metrics from the Loggregator Firehose, sending me
 
 + **Logs Queue** — PCF Metrics deploys a **Metrics Queue** and an **Logs Queue** as apps,
     `metrics-queue` and `logs-queue`, within PCF.
-  The Metrics Queue consumes metrics from the Ingestor and forwards them to MySQL.
-  The Logs Queue consumes logs from the Ingestor and forwards them to Postgres.<br>
+  The Metrics Queue consumes metrics from the Ingestor and forwards them to MySQL. The Logs Queue consumes logs from the Ingestor and forwards them to Postgres.
 
     To customize PCF Metrics for high capacity, you can scale the number of queue app instances and increase the amount of memory per instance.
 
@@ -253,9 +252,9 @@ Refer to this table to determine how many instances you need for each component.
 | Item | Small | Medium | Large |
 |-------------------------------|--------------------------------|-------------------------------|--------------------------------|
 | Ingestor instance count       | Number of Doppler servers      | Number of Doppler servers     | Number of Doppler servers      |
-| Metrics Queue instance count | 1                              | 1                             | 2                              |
-| Logs Queue instance count    | 1                              | 2                             | 3                              |
-| Metrics API instance count    | 1                              | 2                             | 2                              |
+| Metrics Queue instance count  | 1                              | 2                             | 8                              |
+| Logs Queue instance count     | 1                              | 4                             | 11                             |
+| Metrics API instance count    | 1                              | 2                             | 6                              |
 
 Find the number of Doppler servers in the Resource Config pane of the Pivotal Application Service tile.
 
