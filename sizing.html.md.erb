@@ -173,15 +173,13 @@ The following calculation attempts to measure Postgres resource requirements mor
 1. Determine how many logs the apps in your deployment emit per hour (_R_). To do this, Pivotal recommends multiplying your app instances' _loggregator.doppler.ingress_ rate by the number of doppler instances. More information on _loggregator.doppler.ingress_ can be found at https://docs.pivotal.io/pivotalcf/2-2/monitoring/key-cap-scaling.html#doppler-message-rate-ksi
 1. Determine the average size of each log (_S_).
 1. As we don't want to max out the Postgres logs data storage disk, we're including a 20% buffer (_B_). Please feel free to remove this figure if you prefer.
-1. Calculate the persistent disk size for the instance (_D_) you need to scale to using the following formula:<br><br>
+1. Calculate the persistent disk size for the instance (_D_) you need to scale to using the following formula:
 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _R_ &times; _S_ &times; 336 &times; _B_ = _D_ <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _R_ &times; _S_ &times; 336 &times; _B_ = _D_
 
-    The formula assumes that a log retention period is 336 hours (2 weeks), and the number of Postgres is 1 (not configurable).
-    <br><br>
-    For example:
+The formula assumes that a log retention period is 336 hours (2 weeks), and the number of Postgres instances is 1 (not configurable). For example:
 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200,000 logs/hr &times; 25 KB &times; 336 hr &times; 1.2 &asymp; 2 TB
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200,000 logs/hr &times; 25 KB &times; 336 hr &times; 1.2 &asymp; 2 TB
 
 ###<a id='log-procedures'></a> Procedure for Scaling
 
