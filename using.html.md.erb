@@ -25,21 +25,21 @@ The following sections describe a standard workflow for using PCF Metrics to mon
 
 In a browser, navigate to `metrics.YOUR-SYSTEM-DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Choose an app for which you want to view metrics or logs. PCF Metrics respects UAA permissions such that you can view any app that runs in a space that you have access to. 
 
-![Search for an app](search.png)
+<%= image_tag("1-5-app-search.png", :alt => "Search for an app") %>
 
 PCF Metrics displays app data for a given time frame. See the sections below to [Change the Time Frame](#time) for the dashboard, [Interpret Metrics](#metrics) information on each graph, and [Trace App Requests](#trace) with the Trace Explorer.
 
-![Metrics UI](full.png)
+<%= image_tag("1-5-metrics-dashboard.png", :alt => "Metrics 1.5 dashboard") %>
 
 ## <a id="time"></a>Change the Time Frame
 
 The graphs show time along the horizontal axis. You can change the time frame for all graphs and the logs by using the time selector at the top of the window. Adjust either end of the selector or click and drag.
 
-![time](images/metrics-time.png)
+<%= image_tag("1-5-time-select.png", :alt => "Time frame selection in Metrics 1.5") %>
 
 **Zoom**: From within any graph, click and drag to zoom in on areas of interest. This adjusts all of the graphs, and the logs, to show data from that time frame.
 
-<%= image_tag("metric-zoom.png") %>
+<%= image_tag("1-5-chart-zoom.png", :alt => "Drag to select time frame on charts") %>
 
 ## <a id="streaming"></a>Streaming Metrics
 
@@ -53,6 +53,8 @@ To enable streaming metrics visualization, click the **PLAY** button next to the
 
 <%= image_tag("stream-pause-button.png", :alt => "Metrics Stream Pause Button") %>
 
+The time frame can be modified in both Streaming and Static Metrics modes.
+
 ##<a id='metrics'></a> Add, Edit, and Delete Charts
 
 The PCF Metrics dashboard allows users to add, edit, and delete charts. 
@@ -60,33 +62,33 @@ The PCF Metrics dashboard allows users to add, edit, and delete charts.
 **Add Chart**: To add a new chart, follow the steps below.
 
 1. Click **+ ADD METRIC CHART** at the top left of the dashboard.
-<%= image_tag("metrics-add1.png") %>
+<%= image_tag("1-5-add-chart.png", :alt => "Add metric chart") %>
 1. In the modal window, either select a metric from the dropdown menu or type the name of the metric into the search bar to filter results. 
-<%= image_tag("metrics-add2.png") %>
+<%= image_tag("1-5-chart-metric-select.png", :alt => "Metric selection for new chart") %>
 1. Select an aggregation type. This determines how to combine the data from multiple instances.
-<%= image_tag("metrics-add3.png") %>
+<%= image_tag("1-5-metrics-chart-options.png", :alt => "Aggregation and option selection for new chart") %>
 
 **Edit Chart**: To change how instances are aggregated for an existing metric, click the pencil icon on the header of the metric chart. When the **Edit Chart** modal window appears, you can choose the aggregation type and click **Save** to apply changes.
 
-<%= image_tag("metrics-edit.png") %>
+<%= image_tag("1-5-chart-edit.png", :alt => "Edit chart") %>
 
 **Delete Chart**: To delete an existing chart on the dashboard, click the trash can icon on the header of the metric chart and then click **Delete**.
 
-<%= image_tag("metrics-delete.png") %>
+<%= image_tag("1-5-chart-delete.png", :alt => "Delete chart") %>
 
 ## <a id="time"></a>View and Reorder Metric Charts
 
 **Reorder**: Each metric has its own chart. You can click and drag the chart header to change the ordering of charts.
 
-![reorder](images/metrics-reorder.png)
+<%= image_tag("1-5-move-chart.png", :alt => "Rearrange metrics charts") %>
 
 **Expand**: To see more details in complex graphs, you can expand a chart by clicking the icon in the chart header.
 
-<%= image_tag("metrics-expand1.png") %>
+<%= image_tag("1-5-expand-chart.png", :alt => "Expand metrics charts") %>
 
 You can collapse the chart by clicking the icon again.
 
-<%= image_tag("metrics-expand2.png") %>
+<%= image_tag("1-5-reduce-chart.png", :alt => "Collapse metrics charts") %>
 
 ## <a id="app-instance"></a>View Metrics at App-Instance Level
 
@@ -94,11 +96,11 @@ PCF Metrics relays metric data at the app-instance level to allow for an in-dept
 
 To view a specific app instance, select the desired instance from the **instance filter** dropdown menu at the top right of the dashboard.
 
-<%= image_tag("metrics-instances2.png") %>
+<%= image_tag("1-5-instance-select.png", :alt => "Select individual app instances") %>
 
 Alternatively, you can click on an instance line on the metric chart that interests you while All Instances is selected in the dropdown.
 
-<%= image_tag("metrics-instances3.png") %>
+<%= image_tag("1-5-instance-select-line.png", :alt => "Select specific app instance") %>
 
 ##<a id='metrics'></a> Interpret Metrics
 
@@ -108,39 +110,27 @@ See the following sections to understand how to use each of the views on the das
 
 Three **Container Metrics** charts are available on the PCF Metrics dashboard:
 
-* CPU usage percentage
-<%= image_tag("cpu.png") %>
-A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but you need to investigate the app to better understand and fix the root cause.
+* CPU usage percentage: A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but you need to investigate the app to better understand and fix the root cause.
 
-* Memory usage percentage
-<%= image_tag("memory.png") %>
-A spike in memory might mean a resource leak in the code. Scaling app memory can relieve the immediate pressure, but you need to find and resolve the underlying issue so that it does not occur again.
+* Memory usage percentage: A consistent, gradual increase in memory might mean a resource leak in the code. Scaling app memory can relieve the immediate pressure, but you need to find and resolve the underlying issue so that it does not occur again.
 
-* Disk usage percentage
-<%= image_tag("disk.png") %>
-A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing large sessions to disk. 
+* Disk usage percentage: A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing large sessions to disk. 
 
 ### <a id='network'></a> Network Metrics
 
 Three **Network Metrics** charts are available on the PCF Metrics dashboard:
 
-* Number of network requests per minute
-<%= image_tag("request-count.png") %>
-A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.
+* Number of network requests per minute: A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.
 
-* Number of network request errors per minute
-<%= image_tag("request-error-count.png") %>
-A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.
+* Number of network request errors per minute: A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.
 
-* Average latency of a request in milliseconds
-<%= image_tag("latency.png") %>
-A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
+* Average latency of a request in milliseconds: A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
 
 ### <a id='events'></a> Events 
 
 The **Events** graph shows the following app events: **Crash**, **Fail** (staging failures), **Update**, **Stop**, **Start**, and **SSH**. 
 
-![Events](events.png)
+<%= image_tag("1-5-events-chart.png", :alt => "Events chart") %>
 
 <p class="note"><strong>Note</strong>: The <b>SSH</b> event corresponds to someone successfully using SSH to access a container that runs an instance of the app.</p>
 
@@ -153,11 +143,11 @@ See the following topics for more information about app events:
 
 Users can configure their apps to emit custom metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the PCF Metrics dashboard. For steps on how to set up your apps to emit custom metrics, refer to the [Metrics Forwarder Documentation](https://docs.pivotal.io/metrics-forwarder/index.html). If you have configured the apps correctly, you should be able to automatically see custom metrics on the PCF Metrics dashboard when you add a chart.
 
-<%= image_tag("metrics-custom.png") %>
+<%= image_tag("1-5-custom-metric-chart.png", :alt => "Create custom metric charts") %>
 
 In addition, Spring Boot apps with actuators implemented emit [Spring Boot Actuator metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code. In PCF Metrics, these metrics look similar to the following:
 
-<%= image_tag("metrics-spring.png") %>
+<%= image_tag("1-5-spring-boot-metric-chart.png", :alt => "Create Spring Boot metric charts") %>
 
 ### <a id="logs"></a>Logs
 
@@ -165,16 +155,7 @@ The **Logs** view displays app log data ingested from the Loggregator Firehose:
 
 <p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non-standard UUID application GUIDs are not stored.</p>
 
-![Logs](logs.png)
-
-The green time needle visible on metrics charts and the logs histogram indicates the beginning of the logs. Depending on the sort order of your logs, you can see different results:
-
-* Sort by **newest first (default)**:
-<%= image_tag("newest-first.png") %>
-The logs drawer retrieves all logs in the selected time frame that is _older than/to the left of_ the needle. The log outlined in green is the newest log among the logs located to the left of the needle placement.
-
-* Sort by **oldest first**:
-<%= image_tag("oldest-first.png") %>
+<%= image_tag("1-5-logs-drawer.png", :alt => "PCF Metrics Logs drawer") %>
 
 You can interact with the **Logs** view in the following ways:
 
