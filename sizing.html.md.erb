@@ -171,7 +171,10 @@ Pivotal suggests estimating your Logs data storage needs using the equation belo
 The following calculation attempts to measure Postgres resource requirements more precisely depending on your logs load. This formula is only an approximation, and Pivotal suggests rounding the numbers up as a safety measure against undersizing Postgres:
 
 1. Determine how many logs the apps in your deployment emit per hour (_R_). To do this, Pivotal recommends multiplying your app instances' _loggregator.doppler.ingress_ rate by the number of doppler instances. More information on _loggregator.doppler.ingress_ can be found at https://docs.pivotal.io/pivotalcf/2-2/monitoring/key-cap-scaling.html#doppler-message-rate-ksi
-1. Determine the average size of each log (_S_). As an estimation tool, logs inserted into Postgres have been determined to be approximately 224 bytes plus _roughly_ two times the logline length in bytes. Or, 224 bytes + (logline in bytes x 2) =  _S_
+1. Determine the average size of each log (_S_). As an estimation tool, logs inserted into Postgres have been determined to be approximately 224 bytes plus _roughly_ two times the logline length in bytes.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 224 bytes + (logline in bytes x 2) =  _S_
+
 1. As we don't want to max out the Postgres logs data storage disk, we're including a 20% buffer (_B_). Please feel free to remove this figure if you prefer.
 1. Calculate the persistent disk size for the instance (_D_) you need to scale to using the following formula:
 
