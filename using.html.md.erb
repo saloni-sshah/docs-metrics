@@ -110,21 +110,21 @@ See the following sections to understand how to use each of the views on the das
 
 Three **Container Metrics** charts are available on the PCF Metrics dashboard:
 
-* CPU usage percentage:<br><br>A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but you need to investigate the app to better understand and fix the root cause.
+* CPU usage percentage:<br><br>A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but you need to investigate the app to better understand and fix the root cause.<br><br>
 
-* Memory usage percentage:<br><br>A consistent, gradual increase in memory might mean a resource leak in the code. Scaling app memory can relieve the immediate pressure, but you need to find and resolve the underlying issue so that it does not occur again.
+* Memory usage percentage:<br><br>A consistent, gradual increase in memory might mean a resource leak in the code. Scaling app memory can relieve the immediate pressure, but you need to find and resolve the underlying issue so that it does not occur again.<br><br>
 
-* Disk usage percentage:<br><br>A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing large sessions to disk. 
+* Disk usage percentage:<br><br>A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing large sessions to disk.<br><br>
 
 ### <a id='network'></a> Network Metrics
 
 Three **Network Metrics** charts are available on the PCF Metrics dashboard:
 
-* Number of network requests per minute:<br><br>A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.
+* Number of network requests per minute:<br><br>A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.<br><br>
 
-* Number of network request errors per minute:<br><br>A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.
+* Number of network request errors per minute:<br><br>A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.<br><br>
 
-* Average latency of a request in milliseconds:<br><br>A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
+* Average latency of a request in milliseconds:<br><br>A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.<br><br>
 
 ### <a id='events'></a> Events 
 
