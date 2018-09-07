@@ -177,10 +177,8 @@ The following calculation attempts to measure Postgres resource requirements mor
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 224 bytes + (975 bytes x 2) =  2,174 bytes<br>
 1. As we don't want to max out the Postgres logs data storage disk, we're including a 20% buffer (_B_). Please feel free to remove this figure if you prefer.
 1. Calculate the persistent disk size for the instance (_D_) you need to scale to using the following formula:<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _R_ &times; _S_ &times; 336 &times; _B_ = _D_
-
-The formula assumes that a log retention period is 336 hours (2 weeks), and the number of Postgres instances is 1 (not configurable). For example:
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _R_ &times; _S_ &times; 336 &times; _B_ = _D_<br>
+1. The formula assumes that a log retention period is 336 hours (2 weeks), and the number of Postgres instances is 1 (not configurable). For example:<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1,000,000 logs/hr &times; 2,174 bytes &times; 336 hr &times; 1.2 &asymp; 877 GB
 
 ###<a id='log-procedures'></a> Procedure for Scaling
