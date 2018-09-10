@@ -24,14 +24,14 @@ This section describes how PCF Metrics fills its datastores. PCF Metrics uses th
 * The MySQL component stores metric and event data from the apps running on your PCF deployment. 
 	* Examples of events are `start` and `stop`. 
 	* Examples of metrics are _container metrics_ such as CPU and _network metrics_ such as Requests. 
-* The Elasticsearch component stores logs from the apps running on your PCF deployment.
+* The Postgres component stores logs from the apps running on your PCF deployment.
 * The Redis component is used to cache data ingested from the Firehose and data queried by the Metrics API.
 
 ### Components
 
-The diagram below highlights the components involved in the process of getting metric and log data into the Elasticsearch and MySQL datastore.
+The diagram below highlights the components involved in the process of getting metric and log data into the Postgres and MySQL datastore.
 
-![process one](process1.png)
+<%= image_tag("data-ingestion-15.png", :alt => "Ingesting firehose data into PCF Metrics 1.5 datastores") %>
 
 ### Process 
 
@@ -60,9 +60,9 @@ The following table describes how the components act during each stage.
 		Each of the logqueues acts independently, writing information to the datastores:
 		<br><br>
 		
-		<b>Elasticsearch logqueue</b>
+		<b>Postgres logqueue</b>
 		<br><br>
-		The <code>elasticsearch-logqueue</code> app reads data from Redis and checks whether the Elasticsearch datastore is available. If available, the app writes logs to the Elasticsearch datastore.
+		The <code>postgres-logqueue</code> app reads data from Redis and checks whether the Postgres datastore is available. If available, the app writes logs to the Postgres datastore.
 		<br><br>
 		
 		<b>MySQL logqueue</b>
@@ -83,7 +83,8 @@ This section describes the flow of data through the system when you interact wit
 
 The diagram below highlights the components involved in this process.
 
-![Process 2](process2.png)
+
+<%= image_tag("data-to-ui-15.png", :alt => "Displaying logs, events, and metrics data in the PCF Metrics 1.5 UI") %>
 
 ### Process
 
@@ -121,7 +122,7 @@ The following table describes how the components act during each stage.
 			<br><br>
 			<ol>
 				<li>Communicates with the UAA and Cloud Controller to confirm that the user can access data for the requested app</li>
-				<li>Fetches the data from MySQL and Elasticsearch and then streams it to the browser</li>
+				<li>Fetches the data from MySQL and Postgres and then streams it to the browser</li>
 			</ol>
 		</td>
 	</tr>
