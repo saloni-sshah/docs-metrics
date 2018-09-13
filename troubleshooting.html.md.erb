@@ -62,6 +62,11 @@ The following tables describe common failures and how to resolve them.
       <td>256&nbsp;MB</td>
       <td>1&nbsp;GB</td>
     </tr>
+    <tr>
+      <td><code>metrics-alerting</code></td>
+      <td>1&nbsp;GB</td>
+      <td>2&nbsp;GB</td>
+    </tr>
   </table>
   
    <sup>*</sup>Your number of instances of each of these applications depend on your <a href="./sizing.html">sizing</a> needs.
@@ -319,9 +324,9 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   * `metrics-ingestor`
   * `metrics-queue`
   * `logs-queue`
-  * `metrics-aggregator`
   * `metrics`
   * `metrics-ui`
+  * `metrics-alerting`
 
 1. Check the logs of each app for errors using the following command:
   <pre class="terminal">$ cf logs APP-NAME --recent</pre>
