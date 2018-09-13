@@ -159,7 +159,7 @@ The following tables describe common failures and how to resolve them.
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
-  <td><code>Never received app logs - something in the firehose -> postgres flow is broken</code>
+  <td><code>Never received app logs - something in the firehose -> PostgreSQL flow is broken</code>
   </td>
 </tr>
 <tr>
@@ -236,7 +236,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 <tr>
   <th>Cause</th>
-  <td>PCF Metrics is misconfigured and the frontend API does not receive logs from Postgres.</td>
+  <td>PCF Metrics is misconfigured and the frontend API does not receive logs from PostgreSQL.</td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -314,9 +314,9 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. Run the following command to stream logs:
   <pre class="terminal">$ cf logs logs-queue</pre>
   1. Watch the logs emitted by the `logs-queue` app for errors.
-      * A common error is that the app cannot connect to Postgres
+      * A common error is that the app cannot connect to PostgreSQL
         due to the application security group (ASG) being deleted.
-        This ASG allows the logs-queue application to create a network connection to the Postgres VM.
+        This ASG allows the logs-queue application to create a network connection to the PostgreSQL VM.
         You can run `cf security-group metrics-api` to see if the ASG exists. 
         If the ASG is not present, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html)
         to recreate it.
@@ -476,57 +476,26 @@ Follow the steps below to resolve the issue.
 1. Navigate to the Resource Config section of the PCF Metrics Tile.
 1. Increase the Persistent Disk size of MySQL Server to at least twice the current size.
 
-##<a id='log'></a> Log Errors
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td>
-    The PCF Metrics UI does not show any new logs.
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>The tile deployed with the <code>Push PCF Metrics Data Components</code> errand deselected</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>
-  Restart the logs-queue using the <a href="http://docs.pivotal.io/pivotalcf/cf-cli/index.html">cf CLI</a> as follows:
-  <ol>
-    <li>Target the <code>system</code> org and <code>metrics-v1-5</code> space of your PCF deployment:</li>
-    <pre class="terminal">$ cf target -o system -s metrics-v1-5</pre>
-    <li>Run the following command to restart the Logqueue app:</li>
-    <pre class="terminal">$ cf restart logs-queue</pre>
-  </ol>
-    <p class="note"><strong>Note</strong>: To avoid having to apply this fix in the future,
-    select the checkbox to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update. </p>
-  </td>
-</tr>
-</table>
-
-## <a id="503"></a>503 Errors
+## <a id="503"></a>Too Many Clients Error
 
 <table>
   <tr>
       <th>Error</th>
-      <td>You encounter <code>503</code> errors when accessing the PCF Metrics UI in your browser.</td>
+      <td>You encounter <code>sorry, too many clients already</code> errors when accessing the PCF Metrics UI in your browser.</td>
   </tr>
   <tr>
       <th>Cause</th>
-      <td>Your Elasticsearch nodes might have become unresponsive.</td>
+      <td>Your PostgreSQL is undersized for your logs load.</td>
   </tr>
   <tr>
       <th>Solution</th>
-      <td>Check the Elasticsearch index health by following the procedure below, and consider adding additional Elasticsearch nodes.
+      <td>Decrease the Logs Retention Window and increase the PostgreSQL Persistent Disk
       <br><br>
       <ol>
-        <li>Retrieve the IP address of your Elasticsearch master node by navigating to the <b>Metrics</b> tile in the Ops Manager Installation Dashboard,
-            clicking the <b>Status</b> tab, and recording the IP address next to <b>ElasticSearchMaster</b>.</li>
-        <%= image_tag('elasticsearch-ip.png') %>
-        <li>SSH into the Ops Manager VM by following the instructions in <a href="http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh">SSH into Ops Manager</a>.</li>
-        <li>From the Ops Manager VM, use <code>curl</code> to target the IP address of your Elasticsearch master node.
-            Follow the instructions in <a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.2/_cluster_health.html">Cluster Health</a> of the Elasticsearch documentation.</li>
+        <li>Navigate to the <b>Metrics Components Config</b> section of the PCF Metrics Tile.</li>
+        <li>Decrease the Logs Retention Window to a smaller number to free up space in PostgreSQL.</li>
+        <li>Navigate to the <b>Resource Config</b> section of the PCF Metrics Tile.</li>
+        <li>Increase the Persistent Disk size of PostgreSQL Server to at least twice the current size.</li>
       </ol>
 
       </td>
