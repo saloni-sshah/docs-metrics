@@ -118,7 +118,7 @@ The following tables describe common failures and how to resolve them.
      <pre class="terminal">$ cf logs metrics-ingestor --recent<br>$ cf logs metrics-queue --recent</pre>
      <p class="note"><strong>Note</strong>: In some cases, the apps cannot communicate due to TLS certificate verification failure.
       If your deployment uses self-signed certs, ensure the <b>Disable SSL certificate verification for this environment</b> box is selected
-      in the Elastic Runtime <b>Networking</b> pane.</p>
+      in the PAS <b>Networking</b> pane.</p>
   </ol>
 </tr>
 </table>
@@ -187,7 +187,7 @@ The following tables describe common failures and how to resolve them.
     </li>
      <pre class="terminal">$ cf logs metrics-ingestor --recent<br>$ cf logs logs-queue --recent</pre>
      <p class="note"><strong>Note</strong>: In some cases, you might discover a failure to communicate with Loggregator in the form of a bad handshake error.
-         <br><br>Ensure the <b>Loggregator Port</b> setting in the Elastic Runtime tile <b>Networking</b> pane is set to the correct value.
+         <br><br>Ensure the <b>Loggregator Port</b> setting in the PAS tile <b>Networking</b> pane is set to the correct value.
          For AWS, it is <code>4443</code>. For all other IaaSes, it is <code>443</code>.
       </p></td>
   </ol>
@@ -283,7 +283,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   
 ### <a name="check-apps"></a> Step 2: Check the PCF Metrics Apps
 
-1. From Ops Manager, click the Elastic Runtime Tile. 
+1. From Ops Manager, click the PAS Tile.
   1. Click the **Credentials** tab.
   1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**. 
   1. Record the username and password for use in the next step. 
@@ -536,7 +536,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 
 #### Stop the Ingestor App
 
-1. From Ops Manager, click the Elastic Runtime Tile. 
+1. From Ops Manager, click the PAS Tile.
   1. Click the **Credentials** tab.
   1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**. 
   1. Record the username and password for use in the next step. 
