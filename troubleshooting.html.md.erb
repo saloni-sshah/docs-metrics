@@ -64,7 +64,7 @@ The following tables describe common failures and how to resolve them.
     </tr>
   </table>
   
-   <sup>*</sup>You may have more than one instance of each of the Ingestor and Logqueue apps depending your <a href="./sizing.html">sizing</a> needs. 
+   <sup>*</sup>Your number of instances of each of these applications depend on your <a href="./sizing.html">sizing</a> needs.
    You configure these instance counts as part of the <a href="./installing.html#data">Data Store</a> pane of the tile.</p></td></td>
 </tr>
 <tr>
@@ -127,17 +127,17 @@ The following tables describe common failures and how to resolve them.
     <li>Run <code>cf apps</code> to see if these apps are running:
       <ul>
         <li><code>metrics-ingestor</code></li>
-        <li><code>mysql-logqueue</code></li>
+        <li><code>metrics-queue</code></li>
       </ul>
     </li>
     <li>
       If the apps are not running, run the following commands to start them:
     </li>
-       <pre class="terminal">$ cf start metrics-ingestor<br>$ cf start mysql-logqueue</pre>
+       <pre class="terminal">$ cf start metrics-ingestor<br>$ cf start metrics-queue</pre>
     <li>
       Run the following commands and search the app logs for <code>ERROR</code> messages containing additional information:
     </li>
-     <pre class="terminal">$ cf logs metrics-ingestor --recent<br>$ cf logs mysql-logqueue --recent</pre>
+     <pre class="terminal">$ cf logs metrics-ingestor --recent<br>$ cf logs metrics-queue --recent</pre>
      <p class="note"><strong>Note</strong>: In some cases, the apps cannot communicate due to TLS certificate verification failure.
       If your deployment uses self-signed certs, ensure the <b>Disable SSL certificate verification for this environment</b> box is selected
       in the Elastic Runtime <b>Networking</b> pane.</p>
@@ -197,17 +197,17 @@ The following tables describe common failures and how to resolve them.
     <li>Run <code>cf apps</code> to see if these apps are running:
       <ul>
         <li><code>metrics-ingestor</code></li>
-        <li><code>elasticsearch-logqueue</code></li>
+        <li><code>logs-queue</code></li>
       </ul>
     </li>
     <li>
       If the apps are not running, run the following commands to start them:
     </li>
-      <pre class="terminal">$ cf start metrics-ingestor<br>$ cf start elasticsearch-logqueue</pre>
+      <pre class="terminal">$ cf start metrics-ingestor<br>$ cf start logs-queue</pre>
     <li>
       Run the following commands and search the app logs for <code>ERROR</code> messages containing additional information:
     </li>
-     <pre class="terminal">$ cf logs metrics-ingestor --recent<br>$ cf logs elasticsearch-logqueue --recent</pre>
+     <pre class="terminal">$ cf logs metrics-ingestor --recent<br>$ cf logs logs-queue --recent</pre>
      <p class="note"><strong>Note</strong>: In some cases, you might discover a failure to communicate with Loggregator in the form of a bad handshake error.
          <br><br>Ensure the <b>Loggregator Port</b> setting in the Elastic Runtime tile <b>Networking</b> pane is set to the correct value.
          For AWS, it is <code>4443</code>. For all other IaaSes, it is <code>443</code>.
@@ -317,8 +317,8 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 1. Ensure that the output displays the following apps, each in a `started` state:
   * `metrics-ingestor`
-  * `mysql-logqueue`
-  * `elasticsearch-logqueue`
+  * `metrics-queue`
+  * `logs-queue`
   * `metrics-aggregator`
   * `metrics`
   * `metrics-ui`
@@ -354,8 +354,8 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
 1. Examine the `status` column of the output.
   1. If any of the indices are `red`, delete them using the following command:
     <pre class="terminal">curl -X DELETE ELASTICSEARCH-HOST-IP:9200/INDEX</pre>
-  1. Restart the `elasticsearch-logqueue` app:
-    <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
+  1. Restart the `logs-queue` app:
+    <pre class="terminal">$ cf restart logs-queue</pre>
   1. From each of the Elasticsearch VMs, run the following command:
     <pre class="terminal">$ monit restart all</pre>
   1. Check periodically to verify the indices gradually recover to a `green` status.
@@ -390,15 +390,15 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
 
 ### <a name="check-es-logqueue"></a>Step 4: Check the Elasticsearch Logqueue
 
-1. Run <code>cf apps</code> to see if the <code>elasticsearch-logqueue</code> app instances are `started`.
+1. Run <code>cf apps</code> to see if the <code>logs-queue</code> app instances are `started`.
 
 1. If any instance of the app is `stopped`, run the following command to increase logging:
-  <pre class="terminal">$ cf set-env elasticsearch-logqueue LOG_LEVEL DEBUG</pre>
+  <pre class="terminal">$ cf set-env logs-queue LOG_LEVEL DEBUG</pre>
   1. Run the following command to stream logs:
-  <pre class="terminal">$ cf logs elasticsearch-logqueue</pre>
+  <pre class="terminal">$ cf logs logs-queue</pre>
   1. In a different terminal window, run the following command:
-  <pre class="terminal">$ cf restage elasticsearch-logqueue</pre>
-  1. Watch the logs emitted by the `elasticsearch-logqueue` app for errors. 
+  <pre class="terminal">$ cf restage logs-queue</pre>
+  1. Watch the logs emitted by the `logs-queue` app for errors.
       * A common error is that the app cannot connect to Elasticsearch 
         because a user deleted the application security group (ASG) 
         that PCF Metrics creates to allow the Logqueue app to connect to the Elasticsearch VMs.
@@ -437,7 +437,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
 
 1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD` 
   <p class="note"><strong>Note</strong>: If you do not know the username and password,
-    you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
+    you can run `cf env metrics-queue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
 
 1. Verify that the database was bootstrapped correctly:
   1. Run `show databases` and check for a `metrics` database.
@@ -463,22 +463,22 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
   <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_rollup where timestamp > ((UNIX\_TIMESTAMP() - 60) * POW(10, 3));</pre>
   This command displays the rate at which metrics flow in over the last minute.
       1. If the command returns `0` or a consistently decreasing value, the problem is likely further up in ingestion.
-         Proceed to [Step 7: Check the MySQL Logqueue](#check-mysql-logqueue). 
+         Proceed to [Step 7: Check the Metrics Queue](#check-metrics-queue).
 
-### <a name="check-mysql-logqueue"></a> Step 7: Check the MySQL Logqueue
+### <a name="check-metrics-queue"></a> Step 7: Check the Metrics Queue
 
-1. Run <code>cf apps</code> to see if the <code>mysql-logqueue</code> app instances are `started`.
+1. Run <code>cf apps</code> to see if the <code>metrics-queue</code> app instances are `started`.
 
 1. If any instance of the app is `stopped`, run the following command to increase logging:
-  <pre class="terminal">$ cf set-env mysql-logqueue LOG_LEVEL DEBUG</pre>
+  <pre class="terminal">$ cf set-env metrics-queue LOG_LEVEL DEBUG</pre>
   1. Run the following command to stream logs:
-  <pre class="terminal">$ cf logs mysql-logqueue</pre>
+  <pre class="terminal">$ cf logs metrics-queue</pre>
   1. In a different terminal window, run the following command:
-  <pre class="terminal">$ cf restage mysql-logqueue</pre>
-  1. Watch the logs emitted by the `mysql-logqueue` app for errors. 
+  <pre class="terminal">$ cf restage metrics-queue</pre>
+  1. Watch the logs emitted by the `metrics-queue` app for errors.
       * A common error is that the app cannot connect to MySQL
         because a user deleted the application security group (ASG)
-        that PCF Metrics creates to allow the Logqueue app to connect to the MySQL VMs.
+        that PCF Metrics creates to allow the metrics queue app to connect to the MySQL VMs.
         You can run `cf security-group metrics-api` to see if the ASG exists.
         If not, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
 
@@ -488,9 +488,9 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
 
 PCF Metrics does not store logs with messages containing non-UTF-8 characters or logs with application GUIDs that are not standard UUID. If you see specific individual logs missing from the UI, check that the logs your application emits contain well-formed message and application GUIDs.
 
-##<a id='mysql'></a> MySQL Node Failure
+##<a id='mysql'></a> MySQL Failure
 
-In some cases, a MySQL server node might fail to restart.
+In some cases, a MySQL server might fail to restart.
 The following two sections describe the known conditions that cause this failure as well as steps for diagnosing and resolving them.
 If neither of the causes listed apply, the final section provides instructions for re-deploying BOSH as a last resort to resolve the issue. 
 
@@ -538,7 +538,7 @@ Follow the steps below to resolve the issue.
 #### Resolve
 
 1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD` 
-  <p class="note"><strong>Note</strong>: If you do not know the username and password, you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
+  <p class="note"><strong>Note</strong>: If you do not know the username and password, you can run `cf env metrics-queue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
 1. Run `use metrics;`.
 1. Run the following command:
 <pre class="terminal">mysql> PURGE BINARY LOGS BEFORE 'YYYY-MM-DD HH:MM:SS'; </pre>
@@ -595,7 +595,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 <tr>
   <th width="22%">Error</th>
   <td>
-    The PCF Metrics UI does not show any new logs from Elasticsearch. 
+    The PCF Metrics UI does not show any new logs.
   </td>
 </tr>
 <tr>
@@ -605,12 +605,12 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 <tr>
   <th>Solution</th>
   <td>
-  Restart the Elasticsearch Logqueue using the <a href="http://docs.pivotal.io/pivotalcf/cf-cli/index.html">cf CLI</a> as follows:
+  Restart the logs-queue using the <a href="http://docs.pivotal.io/pivotalcf/cf-cli/index.html">cf CLI</a> as follows:
   <ol>
     <li>Target the <code>system</code> org and <code>metrics-v1-4</code> space of your PCF deployment:</li>
     <pre class="terminal">$ cf target -o system -s metrics-v1-4</pre>
     <li>Run the following command to restart the Logqueue app:</li>
-    <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
+    <pre class="terminal">$ cf restart logs-queue</pre>
   </ol>
     <p class="note"><strong>Note</strong>: To avoid having to apply this fix in the future,
     select the checkbox to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update. </p>
