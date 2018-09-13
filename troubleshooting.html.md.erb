@@ -78,36 +78,9 @@ The following tables describe common failures and how to resolve them.
   <br>
   <br>
   <ol>
-  <li>Navigate to the <b>Resource Config</b> section of the Elastic Runtime tile.</li>
+  <li>Navigate to the <b>Resource Config</b> section of the PAS tile.</li>
   <li>In the <b>Diego Cell</b> row, add another <b>Instance</b>.</li> 
   </ol>
-</tr>
-</table>
-
-#### Failed Querying MySQL
-
-<table border='1' class='nice'>
-<tr>
-  <th width="22%">Error</th>
-  <td><code>Failed querying mysql</code>
-  </td>
-</tr>
-<tr>
-  <th>Cause</th>
-  <td>The tile deployed without the necessary errands selected to keep the internal database schema in sync with apps.</td>
-</tr>
-<tr>
-  <th>Solution</th>
-  <td>Re-deploy the tile with the following errands selected: 
-  <ul>
-    <li>
-      <b>Migrate Old Data to 1.4 Errand</b>
-    </li>
-    <li>
-      <b>Push PCF Metrics Components Errand</b>
-    </li>
-  </ul>
-  </td>
 </tr>
 </table>
 
@@ -127,8 +100,8 @@ The following tables describe common failures and how to resolve them.
   <th>Solution</th>
   <td>
   <ol>
-  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-4</code> space of your PCF deployment:</li>
-    <pre class="terminal">$ cf target -o system -s metrics-v1-4</pre>
+  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-5</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-5</pre>
     <li>Run <code>cf apps</code> to see if these apps are running:
       <ul>
         <li><code>metrics-ingestor</code></li>
