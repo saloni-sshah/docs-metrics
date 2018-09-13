@@ -143,8 +143,8 @@ The following tables describe common failures and how to resolve them.
     Check the logs of the MySQL Server and MySQL Proxy jobs for errors.  
       <ul><li>You can download the logs from the PCF Metrics tile under the <b>Status</b> tab.</li></ul>
     </li>
-    <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-4</code> space of your PCF deployment:</li>
-    <pre class="terminal">$ cf target -o system -s metrics-v1-4</pre>
+    <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-5</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-5</pre>
     <li>
     Run the following command and ensure the security group can access the MySQL jobs:
     <p class="note"><strong>Note</strong>: PCF Metrics creates a default security group to allow all traffic to its apps.</p>
@@ -170,7 +170,7 @@ The following tables describe common failures and how to resolve them.
   <th>Solution</th>
   <td>
   <ol>
-  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-4</code> space of your PCF deployment:</li>
+  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-5</code> space of your PCF deployment:</li>
     <pre class="terminal">$ cf target -o system -s metrics-v1-5</pre>
     <li>Run <code>cf apps</code> to see if these apps are running:
       <ul>
