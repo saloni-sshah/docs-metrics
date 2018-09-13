@@ -401,7 +401,21 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 ##<a id='missing-logs'></a> Missing Specific Logs
 
-PCF Metrics does not store logs with messages containing non-UTF-8 characters or logs with application GUIDs that are not standard UUID. If you see specific individual logs missing from the UI, check that the logs your application emits contain well-formed message and application GUIDs.
+<table>
+  <tr>
+    <th>Error</th>
+    <td>Logs are missing for a specific application or a subset of logs are bing skipped.</td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>PCF Metrics does not store logs with messages containing non-UTF-8 characters or logs with application GUIDs that are not standard UUID.</td>
+  </tr>
+  <tr>
+    <th>Solution</th>
+    <td>Remove non-UTF-8 characters from log messages and ensure it is created with a correct application GUID.
+</td>
+  </tr>
+</table>
 
 ##<a id='mysql'></a> MySQL Failure
 
