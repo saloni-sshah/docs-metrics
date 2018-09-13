@@ -159,7 +159,7 @@ The following tables describe common failures and how to resolve them.
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
-  <td><code>Never received app logs - something in the firehose -> elasticsearch flow is broken</code>
+  <td><code>Never received app logs - something in the firehose -> postgres flow is broken</code>
   </td>
 </tr>
 <tr>
@@ -236,7 +236,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 <tr>
   <th>Cause</th>
-  <td>PCF Metrics is misconfigured and the frontend API does not receive logs from Elasticsearch.</td>
+  <td>PCF Metrics is misconfigured and the frontend API does not receive logs from Postgres.</td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -263,7 +263,7 @@ Follow the steps in this section to help locate the app or component causing the
 
 If you use a load balancer, the event-stream mechanism used by the Metrics UI might be blocked. See the table below to resolve this error. 
 
-If you do not use a load balancer, or this issue does not apply to your deployment, proceed to [Step 2: Check the PCF Metrics Apps](#check-apps).
+If you do not use a load balancer, or this issue does not apply to your deployment, proceed to the next step.
 
 <table>
   <tr>
@@ -303,108 +303,46 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 1. Check the logs of each app for errors using the following command:
   <pre class="terminal">$ cf logs APP-NAME --recent</pre>
-  If you do not see any output, or if you did not find any errors, proceed to [Step 3: Check the Elasticsearch Cluster](#check-es-cluster).
+  If you do not see any output, or if you did not find any errors, proceed to the next step.
 
-### <a name="check-es-cluster"></a>Step 3: Check the Elasticsearch Cluster
+### <a name="check-logqueue"></a>Step 3: Check the log-queue
 
-1. From Ops Manager, select the PCF Metrics tile. 
-
-1. Under the **Status** tab, record the IP of an **Elasticsearch Master** node.  
-
-1. Use `bosh ssh` to access the VM from the previous step.
-For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
-
-1. Run the following command to list all the Elasticsearch indices:
-  <pre class="terminal">$ curl ELASTICSEARCH-HOST-IP:9200/\_cat/indices?v | sort
-  <br> 
-  green  open   app\_logs\_1477512000   8   1  125459066            0     59.6gb         29.8gb
-  green  open   app\_logs\_1477526400   8   1  129356671            0     59.1gb         29.5gb
-  green  open   app\_logs\_1478174400   8   1  129747170            0     61.9gb         30.9gb
-  . . .
-  green  open   app\_logs\_1478707200   8   1  128392686            0     63.2gb         31.6gb
-  green  open   app\_logs\_1478721600   8   1  102005754            0     53.5gb         26.5gb
-  health status index               pri rep docs.count docs.deleted store.size pri.store.size
-  </pre>
-  1. If the `curl` command does not return a `success` response, Elasticsearch might not even be running correctly. Inspect the following logs for any failures or errors:
-      * `/var/vcap/sys/log/elasticsearch/elasticsearch.stdout.log`
-      * `/var/vcap/sys/log/elasticsearch/elasticsearch.stderr.log`
-
-1. Examine the `status` column of the output.
-  1. If any of the indices are `red`, delete them using the following command:
-    <pre class="terminal">curl -X DELETE ELASTICSEARCH-HOST-IP:9200/INDEX</pre>
-  1. Restart the `logs-queue` app:
-    <pre class="terminal">$ cf restart logs-queue</pre>
-  1. From each of the Elasticsearch VMs, run the following command:
-    <pre class="terminal">$ monit restart all</pre>
-  1. Check periodically to verify the indices gradually recover to a `green` status.
-
-1. Run the `curl` command several more times and examine the most recent index to see if the number of stored documents periodically increases.
-  <p class="note"><strong>Note</strong>: The last row of the output corresponds to the most recent index.
-     The sixth column displays the number of documents for the index.</p>
-  1. If all indices show a `green` status, but the number of documents does not increase,
-     there is likely a problem further up in ingestion.
-     Proceed to to [Step 4: Check the Elasticsearch Logqueue](#check-es-logqueue).
-
-1. Check whether cluster-level shard allocation is enabled:
-  <pre class="terminal">$ curl localhost:9200/_cluster/settings</pre>
-
-    Examine the output:
-    <br><br>
-    * `"all"` means the shard allocation is enabled.
-    * `"none"` means the shard allocation is disabled.
-
-1. Re-enable the shard allocation by running the following command:
-    <pre class="terminal">$ curl -XPUT localhost:9200/_cluster/settings -d
-    {"transient" : {
-      "cluster.routing.allocation.enable" : "all"
-    }}</pre>
-
-1. Check whether a proxy is present in front of Elasticsearch and whether HTTP traffic is enabled:
-  1. Use `cf ssh` to SSH into any app in the metrics space:
-  <pre class="terminal">$ cf ssh APP-NAME</pre>
-  1. Run the `curl` command with the IP address of the **Elasticsearch Master** node:
-  <pre class="terminal">$ curl ELASTICSEARCH-MASTER-IP-ADDRESS</pre>
-  1. If the `curl` command fails, talk to your system administrator about removing the proxy or green-listing the PCF Metrics apps.
-
-### <a name="check-es-logqueue"></a>Step 4: Check the Elasticsearch Logqueue
-
-1. Run <code>cf apps</code> to see if the <code>logs-queue</code> app instances are `started`.
-
-1. If any instance of the app is `stopped`, run the following command to increase logging:
+  1. To get a higher level of detail from the logs-queue application, set the LOG_LEVEL env variable:
   <pre class="terminal">$ cf set-env logs-queue LOG_LEVEL DEBUG</pre>
+  1. To apply this setting, restage the application:
+  <pre class="terminal">$ cf restage logs-queue</pre>
   1. Run the following command to stream logs:
   <pre class="terminal">$ cf logs logs-queue</pre>
-  1. In a different terminal window, run the following command:
-  <pre class="terminal">$ cf restage logs-queue</pre>
   1. Watch the logs emitted by the `logs-queue` app for errors.
-      * A common error is that the app cannot connect to Elasticsearch 
-        because a user deleted the application security group (ASG) 
-        that PCF Metrics creates to allow the Logqueue app to connect to the Elasticsearch VMs.
+      * A common error is that the app cannot connect to Postgres
+        due to the application security group (ASG) being deleted.
+        This ASG allows the logs-queue application to create a network connection to the Postgres VM.
         You can run `cf security-group metrics-api` to see if the ASG exists. 
-        If not, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
+        If the ASG is not present, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html)
+        to recreate it.
 
 
-1. If the app is started and you do not find any errors, proceed to [Step 5: Check the Metrics Ingestor](#check-ingestor).
+1. If the app is started and you do not find any errors, proceed to the next step.
 
-### <a name="check-ingestor"></a>Step 5: Check the Metrics Ingestor
+### <a name="check-ingestor"></a>Step 4: Check the Metrics Ingestor
 
-1. Run <code>cf apps</code> to see if the `metrics-ingestor` app instances are `started`. 
-1. If any of the app instances are `stopped`, run the following command to increase logging:
+  1. To get a higher level of detail from the metrics-ingestor application, set the LOG_LEVEL env variable:
   <pre class="terminal">$ cf set-env metrics-ingestor LOG_LEVEL DEBUG</pre>
+  1. To apply this setting, restage the application:
+  <pre class="terminal">$ cf restage metrics-ingestor</pre>
   1. Run the following command to stream logs:
   <pre class="terminal">$ cf logs metrics-ingestor</pre>
-  1. In a different terminal window, run the following command:
-  <pre class="terminal">$ cf restage metrics-ingestor</pre>
   1. Watch the logs emitted by the `metrics-ingestor` app for errors. See the list below for common errors:
       * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the Firehose.
           This user must have the `doppler.firehose` authority.
-      * **Cannot connect to the logqueues**: There might be a problem with the UAA, or it could be throttling traffic.
       * **WebSocket Disconnects**: If you see WebSocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances.
           The Firehose might be dropping the Ingestor connection to avoid back pressure.
+      * **Redis errors**: Investigate redis logs, for instructions see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
+           Many possible solutions start with restarting redis.
 
-1. If the app is started and you do not find any errors, proceed to [Step 6: Check MySQL](#check-mysql).
+1. If the app is started and you do not find any errors, proceed to the next step.
 
-### <a name="check-mysql"></a>Step 6: Check MySQL
+### <a name="check-mysql"></a>Step 5: Check MySQL
 
 1. From Ops Manager, select the PCF Metrics tile. 
 
@@ -419,7 +357,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
 
 1. Verify that the database was bootstrapped correctly:
   1. Run `show databases` and check for a `metrics` database.
-      1. If there is no `metrics` database, the `migrate_db` errand of the BOSH release might not have run or succeeded.
+      1. If there is no `metrics` database, the `Push PCF Metrics Components Errand` errand of the BOSH release might not have run or succeeded.
          Ensure the errand is selected in the tile configuration and update the tile.
 
 1. Run `use metrics` to select the `metrics` database:
@@ -427,40 +365,39 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.p
 
 1. Run `show tables` and ensure you see the following tables:
    <pre class="terminal">mysql> show tables;
-   +-------------------+
-   | Tables\_in\_metrics |
-   +-------------------+
-   | app\_event         |
-   | app\_metric        |
-   | app\_metric\_rollup |
-   | schema\_version    |
-   +-------------------+
+   +-----------------------------+
+   | Tables\_in\_metrics           |
+   +-----------------------------+
+   | app\_event                   |
+   | app\_metric                  |
+   | app\_metric\_rollup           |
+   | schema\_version              |
+   | app\_metric\_identifier       |
+   +-----------------------------+
    </pre>
 
 1. Enter the following query several times to verify that the value returned does not decrease over time:
-  <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_rollup where timestamp > ((UNIX\_TIMESTAMP() - 60) * POW(10, 3));</pre>
+  <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_identifier where timestamp > ((UNIX\_TIMESTAMP() - 60) * POW(10, 3));</pre>
   This command displays the rate at which metrics flow in over the last minute.
-      1. If the command returns `0` or a consistently decreasing value, the problem is likely further up in ingestion.
-         Proceed to [Step 7: Check the Metrics Queue](#check-metrics-queue).
+      1. If the command returns `0` or a consistently decreasing value, the problem is likely further up in ingestion;
+         proceed to the next step.
 
-### <a name="check-metrics-queue"></a> Step 7: Check the Metrics Queue
-
-1. Run <code>cf apps</code> to see if the <code>metrics-queue</code> app instances are `started`.
-
-1. If any instance of the app is `stopped`, run the following command to increase logging:
+### <a name="check-metrics-queue"></a> Step 6: Check the Metrics Queue
+  1. To get a higher level of detail from the metrics-queue application, set the LOG_LEVEL env variable:
   <pre class="terminal">$ cf set-env metrics-queue LOG_LEVEL DEBUG</pre>
+  1. To apply this setting, restage the application:
+  <pre class="terminal">$ cf restage metrics-queue</pre>
   1. Run the following command to stream logs:
   <pre class="terminal">$ cf logs metrics-queue</pre>
-  1. In a different terminal window, run the following command:
-  <pre class="terminal">$ cf restage metrics-queue</pre>
   1. Watch the logs emitted by the `metrics-queue` app for errors.
       * A common error is that the app cannot connect to MySQL
-        because a user deleted the application security group (ASG)
-        that PCF Metrics creates to allow the metrics queue app to connect to the MySQL VMs.
+        due to the application security group (ASG) being deleted.
+        This ASG allows the logs-queue application to create a network connection to the MySQL VM.
         You can run `cf security-group metrics-api` to see if the ASG exists.
-        If not, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
+        If the ASG is not present, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html)
+        to recreate it.
 
-1. If the app is started and you do not find any errors, proceed to [Step 8: Check the Metrics Aggregator](#check-aggregator).
+1. If the app is started and you do not find any errors, proceed to the next step.
 
 ##<a id='missing-logs'></a> Missing Specific Logs
 
