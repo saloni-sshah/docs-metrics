@@ -259,7 +259,7 @@ In some cases, the PCF Metrics UI might not display metrics and logs after succe
 
 Follow the steps in this section to help locate the app or component causing the problem. 
 
-### <a name="check-lb"></a> Step 1: Check your Load Balancer Configuration
+### Step 1: Check your Load Balancer Configuration
 
 If you use a load balancer, the event-stream mechanism used by the Metrics UI might be blocked. See the table below to resolve this error. 
 
@@ -281,7 +281,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   </tr>
 </table>
   
-### <a name="check-apps"></a> Step 2: Check the PCF Metrics Apps
+### Step 2: Check the PCF Metrics Apps
 
 1. From Ops Manager, click the PAS Tile.
   1. Click the **Credentials** tab.
@@ -305,7 +305,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   <pre class="terminal">$ cf logs APP-NAME --recent</pre>
   If you do not see any output, or if you did not find any errors, proceed to the next step.
 
-### <a name="check-logqueue"></a>Step 3: Check the log-queue
+### Step 3: Check the log-queue
 
   1. To get a higher level of detail from the logs-queue application, set the LOG_LEVEL env variable:
   <pre class="terminal">$ cf set-env logs-queue LOG_LEVEL DEBUG</pre>
@@ -324,7 +324,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 1. If the app is started and you do not find any errors, proceed to the next step.
 
-### <a name="check-ingestor"></a>Step 4: Check the Metrics Ingestor
+### Step 4: Check the Metrics Ingestor
 
   1. To get a higher level of detail from the metrics-ingestor application, set the LOG_LEVEL env variable:
   <pre class="terminal">$ cf set-env metrics-ingestor LOG_LEVEL DEBUG</pre>
@@ -342,7 +342,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 1. If the app is started and you do not find any errors, proceed to the next step.
 
-### <a name="check-mysql"></a>Step 5: Check MySQL
+### Step 5: Check MySQL
 
 1. From Ops Manager, select the PCF Metrics tile. 
 
@@ -382,7 +382,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
       1. If the command returns `0` or a consistently decreasing value, the problem is likely further up in ingestion;
          proceed to the next step.
 
-### <a name="check-metrics-queue"></a> Step 6: Check the Metrics Queue
+### Step 6: Check the Metrics Queue
   1. To get a higher level of detail from the metrics-queue application, set the LOG_LEVEL env variable:
   <pre class="terminal">$ cf set-env metrics-queue LOG_LEVEL DEBUG</pre>
   1. To apply this setting, restage the application:
