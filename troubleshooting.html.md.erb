@@ -6,19 +6,7 @@ list_style_none: true
 
 This topic describes how to resolve common issues experienced while operating or using Pivotal Cloud Foundry (PCF) Metrics.
 
-## <a id="deployment"></a> Errors during Deployment
-
-The following sections describe errors that cause failure during a PCF Metrics tile and how to troubleshoot them. 
-
-###<a id='smoke-test'></a> Smoke Test Errors
-
-PCF Metrics runs a set of smoke tests during installation to confirm system health.
-If the smoke tests discover any errors, you can find a summary of those errors at the end of the errand log output,
-including detailed logs about where the failure occurred. 
-
-The following tables describe common failures and how to resolve them.
-
-#### Insufficient Resources
+#### <a id='insufficient-resources'></a> Insufficient Resources
 
 <table border='1' class='nice'>
 <tr>
@@ -84,7 +72,103 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Received No Results Back from MySQL - Failing
+## <a id='missing-logs'></a> Missing Specific Logs
+
+<table>
+  <tr>
+    <th>Error</th>
+    <td>Logs are missing for a specific application or a subset of logs are bing skipped.</td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td>PCF Metrics does not store logs with messages containing non-UTF-8 characters or logs with application GUIDs that are not standard UUID.</td>
+  </tr>
+  <tr>
+    <th>Solution</th>
+    <td>Remove non-UTF-8 characters from log messages and ensure it is created with a correct application GUID.
+</td>
+  </tr>
+</table>
+
+## <a id="too-many-clients"></a>Too Many Clients Error
+
+<table>
+  <tr>
+      <th>Error</th>
+      <td>You encounter <code>sorry, too many clients already</code> errors when accessing the PCF Metrics UI in your browser.</td>
+  </tr>
+  <tr>
+      <th>Cause</th>
+      <td>Your PostgreSQL is undersized for your logs load.</td>
+  </tr>
+  <tr>
+      <th>Solution</th>
+      <td>Decrease the Logs Retention Window and increase the PostgreSQL Persistent Disk
+      <br><br>
+      <ol>
+        <li>Navigate to the <b>Metrics Components Config</b> section of the PCF Metrics Tile.</li>
+        <li>Decrease the Logs Retention Window to a smaller number to free up space in PostgreSQL.</li>
+        <li>Navigate to the <b>Resource Config</b> section of the PCF Metrics Tile.</li>
+        <li>Increase the Persistent Disk size of PostgreSQL Server to at least twice the current size.</li>
+      </ol>
+
+      </td>
+  </tr>
+</table>
+
+## <a id="fetch-apps"></a>Failed to Fetch Apps
+<table>
+  <tr>
+      <th>Error</th>
+      <td>Even though you entered the correct UAA credentials, the metrics app fails to fetch the list of apps.</td>
+  </tr>
+  <tr>
+      <th>Cause</th>
+      <td>The browser plugins or cookies inject extraneous content in requests to Cloud Controller API, causing it to reject the request.</td>
+  </tr>
+  <tr>
+      <th>Solution</th>
+      <td>Confirm the problem and clear the browser, as follows:
+      <ol>
+        <li>Try the browser's incognito mode to see if the metrics app is able to fetch the list of apps.
+             If this works, the problem is likely cookies or plugins.</li>
+        <li>Clear your browser cookies and plugins.</li>
+       </ol>
+       </td>
+  </tr>
+</table>
+
+## <a id="redis-full"></a>Redis Temporary Datastore Stops Accepting Metrics
+<table>
+  <tr>
+      <th>Error</th>
+      <td>
+            You see both these problems:<ul>
+            <li>Metrics stop appearing on the UI.</li>
+            <li>When you run <code>cf metrics-ingestor logs</code>, you see the following entry in the Ingestor logs:<br>
+                <code>MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk.
+                Commands that may modify the data set are disabled. Please check Redis logs for details about the error.</code></li>
+           </ul>
+      </td>
+  </tr>
+  <tr>
+      <th>Cause</th>
+      <td>The Redis datastore is full. The component is out of memory or persistent disk space.</td>
+  </tr>
+  <tr>
+      <th>Solution</th>
+      <td>Confirm the problem and scale up Redis, as follows:
+      <ol>
+        <li>On the <strong>Metrics</strong> tile, click the <strong>Status</strong> tab and
+            look to see if the memory or persistent disk usage of the Redis job is over 80%.</li>
+        <li>Scale up the Redis component. For more information, see <a href=".//sizing.html#temp-datastore">
+            Scale the Temporary Datastore (Redis)</a>.</li>
+       </ol>
+       </td>
+  </tr>
+</table>
+
+#### <a id="no-results-mysql"></a> Received No Results Back from MySQL - Failing
 
 <table border='1' class='nice'>
 <tr>
@@ -123,7 +207,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Failed to Connect to MySQL
+#### <a id="failed-connect-mysql"></a>Failed to Connect to MySQL
 
 <table border='1' class='nice'>
 <tr>
@@ -154,7 +238,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Never Received App Logs
+#### <a id="never-recieved-app-logs"></a> Never Received App Logs
 
 <table border='1' class='nice'>
 <tr>
@@ -194,7 +278,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Metrics and Events Not Available
+#### <a id="metrics-events-not-available"></a>Metrics and Events Not Available
 
 <table border='1' class='nice'>
 <tr>
@@ -224,7 +308,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Logs and Histograms Not Available
+#### <a id="logs-histograms-not-available"></a>Logs and Histograms Not Available
 
 <table border='1' class='nice'>
 <tr>
@@ -399,24 +483,6 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 1. If the app is started and you do not find any errors, proceed to the next step.
 
-##<a id='missing-logs'></a> Missing Specific Logs
-
-<table>
-  <tr>
-    <th>Error</th>
-    <td>Logs are missing for a specific application or a subset of logs are bing skipped.</td>
-  </tr>
-  <tr>
-    <th>Cause</th>
-    <td>PCF Metrics does not store logs with messages containing non-UTF-8 characters or logs with application GUIDs that are not standard UUID.</td>
-  </tr>
-  <tr>
-    <th>Solution</th>
-    <td>Remove non-UTF-8 characters from log messages and ensure it is created with a correct application GUID.
-</td>
-  </tr>
-</table>
-
 ##<a id='mysql'></a> MySQL Failure
 
 In some cases, a MySQL server might fail to restart.
@@ -475,81 +541,3 @@ Follow the steps below to resolve the issue.
 1. From Ops Manager, click the PCF Metrics Tile.
 1. Navigate to the Resource Config section of the PCF Metrics Tile.
 1. Increase the Persistent Disk size of MySQL Server to at least twice the current size.
-
-## <a id="503"></a>Too Many Clients Error
-
-<table>
-  <tr>
-      <th>Error</th>
-      <td>You encounter <code>sorry, too many clients already</code> errors when accessing the PCF Metrics UI in your browser.</td>
-  </tr>
-  <tr>
-      <th>Cause</th>
-      <td>Your PostgreSQL is undersized for your logs load.</td>
-  </tr>
-  <tr>
-      <th>Solution</th>
-      <td>Decrease the Logs Retention Window and increase the PostgreSQL Persistent Disk
-      <br><br>
-      <ol>
-        <li>Navigate to the <b>Metrics Components Config</b> section of the PCF Metrics Tile.</li>
-        <li>Decrease the Logs Retention Window to a smaller number to free up space in PostgreSQL.</li>
-        <li>Navigate to the <b>Resource Config</b> section of the PCF Metrics Tile.</li>
-        <li>Increase the Persistent Disk size of PostgreSQL Server to at least twice the current size.</li>
-      </ol>
-
-      </td>
-  </tr>
-</table>
-
-## <a id="fetch-apps"></a>Failed to Fetch Apps
-<table>
-  <tr>
-      <th>Error</th>
-      <td>Even though you entered the correct UAA credentials, the metrics app fails to fetch the list of apps.</td>
-  </tr>
-  <tr>
-      <th>Cause</th>
-      <td>The browser plugins or cookies inject extraneous content in requests to Cloud Controller API, causing it to reject the request.</td>
-  </tr>
-  <tr>
-      <th>Solution</th>
-      <td>Confirm the problem and clear the browser, as follows:
-      <ol>
-        <li>Try the browser's incognito mode to see if the metrics app is able to fetch the list of apps.
-             If this works, the problem is likely cookies or plugins.</li>
-        <li>Clear your browser cookies and plugins.</li>
-       </ol>
-       </td>
-  </tr>
-</table>
-
-## <a id="redis-full"></a>Redis Temporary Datastore Stops Accepting Metrics
-<table>
-  <tr>
-      <th>Error</th>
-      <td>
-            You see both these problems:<ul>
-            <li>Metrics stop appearing on the UI.</li>
-            <li>When you run <code>cf metrics-ingestor logs</code>, you see the following entry in the Ingestor logs:<br>
-                <code>MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk.
-                Commands that may modify the data set are disabled. Please check Redis logs for details about the error.</code></li>
-           </ul>
-      </td>
-  </tr>
-  <tr>
-      <th>Cause</th>
-      <td>The Redis datastore is full. The component is out of memory or persistent disk space.</td>
-  </tr>
-  <tr>
-      <th>Solution</th>
-      <td>Confirm the problem and scale up Redis, as follows:
-      <ol>
-        <li>On the <strong>Metrics</strong> tile, click the <strong>Status</strong> tab and
-            look to see if the memory or persistent disk usage of the Redis job is over 80%.</li>
-        <li>Scale up the Redis component. For more information, see <a href=".//sizing.html#temp-datastore">
-            Scale the Temporary Datastore (Redis)</a>.</li>
-       </ol>
-       </td>
-  </tr>
-</table>
