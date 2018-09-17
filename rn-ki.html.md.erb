@@ -8,7 +8,7 @@ This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
 ## <a id='150'></a>v1.5.0
 
-**Release Date: September 17, 2018**
+**Release Date: September 20, 2018**
 
 ### Notes
 
@@ -52,9 +52,9 @@ When you vertically scale your Postgres instance in PCF Metrics 1.5, Postgres en
 
 More information on scaling the Logs Postgres datastore can be found [here](/pcf-metrics/1-5/sizing.html#log-datastore).
 
-#### VM and Stemcell Updates
+#### Data Loss during Stemcell Upgrades
 
-No metrics or logs data will bbe ingested during a stemcell or VM update. 
+No metrics or logs data will be ingested during a stemcell or VM update. In tests on tile environments, stemcell updates resulted in approximately 9 minutes where logs data was not ingested.
 
 #### Smoke Test Failures Due to User Authentication
 
