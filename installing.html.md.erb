@@ -13,33 +13,46 @@ However, the PCF Metrics tile can be installed without the Metrics Forwarder til
 For information about the components deployed as part of this install procedure,
 see [PCF Metrics Product Architecture](./architecture.html).
 
-##<a id='upgrade'></a>Upgrading from 1.4.x to 1.5.x
+##<a id='upgrade'></a>Upgrade from v1.4.x to v1.5.x
 
-PCF Metrics 1.5 includes new data storage solutions for logs and metrics.
+This section describes upgrading from PCF Metrics v1.4.x to v1.5.x.
 
-Due to a lack of an effective upgrade path from ElasticSearch to PostgreSQL for logs data, the recommended upgrade path is to install and run the 1.5 tile along side 1.4 in Ops Manager for the duration of your logs retention window to allow data to propagate in the new version.  
+###<a id='upgrade-overview'></a> Overview 
 
-The metrics data storage has also been upgraded from MariaDB to Percona. Running 1.5 and 1.4 simultaneously will also allow for metrics data to be propagated in its new data store.
+PCF Metrics v1.5 includes new data storage solutions:
 
-Support for running both 1.4 and 1.5 simultaneously has been included in 1.5, allowing users to manually install 1.5 along side 1.4 via Ops Manager or automate the installation via deployment pipeline.
+- For logs, v1.5 uses PostgreSQL instead of ElasticSearch. 
+- For metrics, v1.5 uses Percona instead of MariaDB. 
 
-<%= image_tag("ops-man-metrics-tiles-image.png", :alt => "PCF Metrics 1.4 and 1.5 installed in Ops Manager") %>
+There is no effective upgrade path from ElasticSearch to PostgreSQL for logs data. For this reason, the upgrade [Procedure](#upgrade-procedure) is different from previous versions. 
 
-The dashboards for 1.4 and 1.5 will both be accessible during this period. While 1.4 and 1.5 are both installed, the 1.5 dashboard will be accessible via metrics.YOUR-SYSTEM-DOMAIN and 1.4 will be accessible via metrics-previous.YOUR-SYSTEM-DOMAIN. Additionally, a link will be available on the 1.5 dashboard to open the current app's metrics on the 1.4 dashboard.
+###<a id='upgrade-procedure'></a> Procedure 
 
-<%= image_tag("previous-link.png", :alt => "View Metrics in Previous Version link") %>
+To upgrade to PCF Metrics v1.5, Pivotal recommends that you follow this procedure:
 
-Historical metrics and logs data will only be accessible via the 1.4 dashboard until data is propagated for the configured Metrics and Logs retention windows in 1.5. Once you have reached your configured retention window for logs and metrics in 1.5, the 1.4 tile can be uninstalled from your foundation at your leisure.
+1. Upload and install the PCF Metrics v1.5 tile alongside the v1.4 tile. Follow the instructions in the [Install PCF Metrics](#install) section below. <br>PCF Metrics v1.5 supports running both the v1.5 and v1.4 tiles simultaneously. You can install v1.5 manually or automate the installation with a deployment pipeline.
+  <%= image_tag("ops-man-metrics-tiles-image.png", :alt => "PCF Metrics 1.4 and v1.5 installed in Ops Manager") %>
+1. Keep both tiles installed and running for the duration of the logs and metrics retention window you configured in v1.5. This allows data to propagate to the new version. 
+  * During this time, you can access both dashboards. However, you can no longer access historical metrics and logs data on the v1.4 dashboard after the duration of the logs and metrics retention window you configured in v1.5 has passed.
+      * **For v1.4**: Go to `metrics-previous.YOUR-SYSTEM-DOMAIN`. 
+      * **For v1.5**: Go to `metrics.YOUR-SYSTEM-DOMAIN`. You can also click **View Metrics in Previous Versions** on the v1.5 dashboard to see metrics for the current app on the v1.4 dashboard. 
+        <%= image_tag("previous-link.png", :alt => "View Metrics in Previous Version link") %>
+    
+1. Uninstall PCF Metrics v1.4. 
 
-## <a id='step1'></a> Add the PCF Metrics Tile to Ops Manager
+## <a id='install'></a> Install PCF Metrics
 
-1. Download the latest PCF Metrics 1.5 tile from
+This section describes how to install the PCF Metrics tile. 
+
+### <a id='step1'></a> Add the PCF Metrics Tile to Ops Manager
+
+1. Download the latest PCF Metrics v1.5 tile from
    [Pivotal Network](https://network.pivotal.io/products/pcf-metrics).
 1. Upload the PCF Metrics file to your Ops Manager installation.
 1. Click  **Add** next to the uploaded product description in the **Available Products**
    view to add PCF Metrics to your **Installation Dashboard**.
 
-## <a id='step2'></a>Configure the PCF Metrics Tile
+### <a id='step2'></a>Configure the PCF Metrics Tile
 
 <p class="note"><strong>Note</strong>: The following procedures offer a standard configuration.
               To customize PCF Metrics for high capacity,
@@ -52,7 +65,7 @@ Historical metrics and logs data will only be accessible via the 1.4 dashboard u
   + [Configure Resources](#resource-config)
   + [Import Stemcell](#stemcell)
 
-### <a id='az'></a> Assign Availability Zones (AZs) and Networks
+#### <a id='az'></a> Assign Availability Zones (AZs) and Networks
 
 1. Click **Assign AZs and Networks**.
 1. Select an Availability Zone under **Place singleton jobs**.
@@ -64,9 +77,9 @@ Historical metrics and logs data will only be accessible via the 1.4 dashboard u
    across the Availability Zones that you specify.
 1. Use the drop-down menu to select a network.
    <br>
-   PCF Metrics should be installed on the same network the Pivotal Application Service tile uses.
+   PCF Metrics should be installed on the same network the Pivotal Application Service (PAS) tile uses.
    However, if you do select a different subnet network, then refer to the table below when you configure
-   the subnet network in the Pivotal Application Service tile to make sure that you have
+   the subnet network in the PAS tile to make sure that you have
    the ports needed for each of the PCF Metrics data services.
    
     <table border="1" class="nice">
@@ -94,7 +107,7 @@ Historical metrics and logs data will only be accessible via the 1.4 dashboard u
     
 1. Click **Save**.
 
-### <a id="mc-config"></a> Configure Metrics Components
+#### <a id="mc-config"></a> Configure Metrics Components
 
 1. Click **Metrics Components Config**.
 1. Review the **MySQL Metrics Queue Count** value.
@@ -107,7 +120,7 @@ Historical metrics and logs data will only be accessible via the 1.4 dashboard u
    You can increase this instance count at any time to accommodate deployments with more apps, metrics, and logs.
 1. Click **Save**.
 
-### <a id="resource-config"></a> Configure Resources
+#### <a id="resource-config"></a> Configure Resources
 
 1. Click **Resource Config**.
 1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job.
@@ -166,7 +179,7 @@ Historical metrics and logs data will only be accessible via the 1.4 dashboard u
 
 1. Click **Save**.
 
-### <a id="stemcell"></a> Import Stemcell
+#### <a id="stemcell"></a> Import Stemcell
 
 **For Ops Manager v2.0 and earlier:**
 
@@ -180,7 +193,7 @@ Historical metrics and logs data will only be accessible via the 1.4 dashboard u
 
 1. Follow the procedure outlined in [Importing and Managing Stemcells](https://docs-pcf-staging.cfapps.io/pivotalcf/2-1/opsguide/managing-stemcells.html).
 
-## <a id='step3'></a>Deploy PCF Metrics
+### <a id='step3'></a>Deploy PCF Metrics
 
 1. Click **Apply Changes** to install the service.
 If the smoke tests fail, see [Smoke Test Errors](./troubleshooting.html#smoke-test) in _Troubleshooting PCF Metrics_.
