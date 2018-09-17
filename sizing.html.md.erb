@@ -221,7 +221,7 @@ For more information, see <i>Eviction policies</i> in <a href="https://redis.io/
 1. Locate the **Redis** job and select the dropdown menu under **Instances** to scale Redis up or down.
 1. Click **Save**. 
 
-##<a id='ingestor'></a> Scale the Ingestor, Logqueues, and Metrics API
+##<a id='ingestor'></a> Scale the Ingestor, Logqueues, Alerting, and Metrics API
 
 The procedures for scaling the Metrics Ingestor, Logs Queue, Metrics Queue, and Metrics API instances are similar.
 
@@ -250,11 +250,12 @@ Refer to this table to determine how many instances you need for each component.
 
 
 | Item | Small | Medium | Large |
-|-------------------------------|--------------------------------|-------------------------------|--------------------------------|
-| Ingestor instance count       | Number of Doppler servers      | Number of Doppler servers     | Number of Doppler servers      |
-| Metrics Queue instance count  | 1                              | 2                             | 8                              |
-| Logs Queue instance count     | 1                              | 4                             | 11                             |
-| Metrics API instance count    | 1                              | 2                             | 6                              |
+|----------------------------------------|--------------------------------|-------------------------------|--------------------------------|
+| Ingestor instance count                | Number of Doppler servers      | Number of Doppler servers     | Number of Doppler servers      |
+| Metrics Queue instance count           | 1                              | 2                             | 8                              |
+| Logs Queue instance count              | 1                              | 4                             | 11                             |
+| Metrics API instance count             | 1                              | 2                             | 6                              |
+| Metrics Alerting API instance count    | 1                              | 1                             | 1                              |
 
 Find the number of Doppler servers in the Resource Config pane of the Pivotal Application Service tile.
 
