@@ -5,7 +5,7 @@ found in the `pcf-metrics` channel on slack.
 
 The source documents are located in the docs-content folder. 
 
-If you want to know how to view a local version of these docs as they will apear on docs.pivotal.io, see https://github.com/pivotal-cf/docs-partners-template/blob/master/README.md. 
+If you want to know how to view a local version of these docs as they will appear on docs.pivotal.io, see https://github.com/pivotal-cf/docs-partners-template/blob/master/README.md. 
 
 If you would like to provide feedback on the architecture diagrams included in this documentation, see the following links:
 
