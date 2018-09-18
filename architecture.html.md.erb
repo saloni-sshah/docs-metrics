@@ -9,27 +9,27 @@ This topic describes the product architecture of Pivotal Cloud Foundry (PCF) Met
 
 ## <a id="overview"></a>Overview
 
-The diagram below displays the components of PCF Metrics, as well as the Cloud Foundry components that the PCF Metrics system interacts with.
+The diagram below shows the components of PCF Metrics and the Cloud Foundry components that the PCF Metrics system interacts with.
 
-PCF Metrics deploys several Cloud Foundry apps as part of the install process. These components are the bold rectangles in the diagram. The cylinders represent the data storage components of PCF Metrics. 
+The bold rectangles represent Cloud Foundry apps that PCF Metrics deploys. The cylinders represent the data storage components of PCF Metrics. 
 
 <%= image_tag("architecture-15.png", :alt => "PCF Metrics 1.5 architecture") %>
 
-See the following sections to understand the processes that happen within the PCF Metrics system.
+The following sections explain processes that run within the PCF Metrics system.
 
 ##<a id="data-flow"></a> How Data Flows from the Firehose to the Datastores
 
 This section describes how PCF Metrics fills its datastores. PCF Metrics uses three datastores:
 
-* The MySQL component stores metric and event data from the apps running on your PCF deployment. 
+* The **MySQL** component stores metric and event data from the apps running on your PCF deployment. 
 	* Examples of events are `start` and `stop`. 
 	* Examples of metrics are _container metrics_ such as CPU and _network metrics_ such as Requests. 
-* The Postgres component stores logs from the apps running on your PCF deployment.
-* The Redis component is used to cache data ingested from the Firehose and data queried by the Metrics API.
+* The **Postgres** component stores logs from the apps running on your PCF deployment.
+* The **Redis** component caches data ingested from the Firehose and data queried by the Metrics API.
 
 ### Components
 
-The diagram below highlights the components involved in the process of getting metric and log data into the Postgres and MySQL datastore.
+The diagram below highlights the components that convey metric and log data into the Postgres and MySQL datastore.
 
 <%= image_tag("data-ingestion-15.png", :alt => "Ingesting firehose data into PCF Metrics 1.5 datastores") %>
 
