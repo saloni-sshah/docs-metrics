@@ -157,17 +157,17 @@ The following KPIs can indicate problems with your installation.
       <td>The rate at which metrics processor stores metric envelopes to its persistent data store for metrics-queue.<br><br>
       <strong>Use</strong>: Zero-value rate indicates that no metrics have been stored, which is likely caused by some major metrics processing errors or failures.
       <br><br>
-      <strong>Origin</strong>: Firehose<br>
-      <strong>Type</strong>: count per minute<br>
+      <strong>Origin</strong>: metrics-forwarder<br>
+      <strong>Type</strong>: gauge<br>
       <strong>Frequency</strong>: Every minute<br>
    </tr>
    <tr>
       <th>Recommended measurement</th>
-      <td>At all times for the past 30 minutes</td>
+      <td>Every minute for the past 30 minutes</td>
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
-      <td>Below 0 at all times for the past 30 minutes</td>
+      <td>A 0 value at any point in the past 30 minutes</td>
    </tr>
    <tr>
       <th>Recommended response</th>
@@ -182,17 +182,17 @@ The following KPIs can indicate problems with your installation.
       <td>The rate at which log processor stores log envelopes to its persistent data store for PCF Metrics applications.<br><br>
       <strong>Use</strong>: Zero-value rate indicates that no logs have been stored, which is likely caused by some major logs processing errors or failures.
       <br><br>
-      <strong>Origin</strong>: Firehose<br>
-      <strong>Type</strong>: count per minute<br>
+      <strong>Origin</strong>: metrics-forwarder<br>
+      <strong>Type</strong>: gauge<br>
       <strong>Frequency</strong>: Every minute<br>
    </tr>
    <tr>
       <th>Recommended measurement</th>
-      <td>At all times for the past 30 minutes</td>
+      <td>Every minute for the past 30 minutes</td>
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
-      <td>Below 0 at all times for the past 30 minutes</td>
+      <td>A 0 value at any point in the past 30 minutes</td>
    </tr>
    <tr>
       <th>Recommended response</th>
