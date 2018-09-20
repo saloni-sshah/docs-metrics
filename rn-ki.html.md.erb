@@ -36,8 +36,6 @@ PCF Metrics v1.5.x requires the following versions of Pivotal Application Servic
 
 In order to successfully run both PCF Metrics 1.4 and 1.5 simultaneously during the upgrade period, please make sure the 1.4 tile is updated to 1.4.6 or later. 1.4.5 and older will not support the secondary metrics URL (metrics-previous.YOUR-SYSTEM-DOMAIN) that allows the 1.4 dashboard to be viewed.
 
-More information on the upgrade to 1.5 can be found [here](/pcf-metrics/1-5/installing.html#upgrade).
-
 #### Using Custom App Metrics
 
 To use custom app metrics in PCF Metrics, you must install the Metrics Forwarder tile and bind your apps to the Metrics Forwarder service. You can use PCF Metrics without Metrics Forwarder, but you will be able to view only default container metrics, network metrics, and app events.
@@ -49,8 +47,6 @@ To prevent metrics data backup in Redis, ensure that each app does not emit more
 #### Logs Data Availability During Postgres Scaling
 
 When you vertically scale your Postgres instance in PCF Metrics 1.5, Postgres enters an unhealthy period during which it does not ingest any new logs data until the scaling operation has completed.
-
-More information on scaling the Logs Postgres datastore can be found [here](/pcf-metrics/1-5/sizing.html#log-datastore).
 
 #### Data Loss During Stemcell Upgrades
 
