@@ -6,6 +6,21 @@ list_style_none: true
 
 This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
+## <a id='151'></a>v1.5.1
+
+**Release Date: November 7, 2018**
+
+### Notes
+
+The following list describes what's new in PCF Metrics v1.5.1:
+
+* The current PCF Metrics version is now displayed on the dashboard
+* Support has been added for v3 App Events
+* cflinuxfs3 support added
+* Now verifying that the `accept-encoding` header exists before checking its value to prevent crashes while using firewall compression
+* Bug fix: Log Search was not returning matching search terms in results
+* Bug fix: Reduced overly-chatty log level
+
 ## <a id='150'></a>v1.5.0
 
 **Release Date: September 20, 2018**
@@ -21,7 +36,7 @@ The following list describes what's new in PCF Metrics v1.5:
 
 ### <a id="issues"></a>Known Issues
 
-The following sections describe the known issues in PCF Metrics v1.5.0.
+The following sections describe the known issues in PCF Metrics v1.5.
 
 #### Compatibility with Pivotal Application Service (formerly Elastic Runtime)
 
@@ -84,6 +99,12 @@ If both of the following are true, you might experience issues while using PCF M
 * You use self-signed certificates.
 
 Pivotal recommends using certificates issued by a Certificate Authority for BOSH deployments of this product.
+
+#### Using PCF Metrics with Firewall Compression
+
+Using firewall compression is known to strip out `accept-encoding` header, which will cause `req.header('accept-encoding')` to return _null_. You will need to add an HTTP header to the load balancer in order for PCF Metrics to build and run correctly.
+
+Please note that this issue is addressed in PCF Metrics 1.5.1.
 
 ## <a id="14x"></a>Past Minor v1.4.x
 
