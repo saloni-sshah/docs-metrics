@@ -4,23 +4,21 @@ title: PCF Metrics
 owner: PCF Metrics
 ---
 
-Pivotal Cloud Foundry (PCF) Metrics stores logs, metrics data, and event data from apps running on PCF for the past two weeks.
+Pivotal Cloud Foundry (PCF) Metrics stores logs, metrics data, and event data from apps running on PCF for the past 14 days.
 It graphically presents this data to help operators and developers better understand the health and performance of their apps.
 
-## What's New in PCF Metrics v1.5
+## What's New in PCF Metrics v1.6
 
-In addition to the out-of-the-box features provided in previous versions, PCF Metrics v1.5 introduces the following new functionality:
+In addition to the out-of-the-box features provided in previous versions, PCF Metrics v1.6 introduces the following new functionality:
 
-* Streaming metrics visualization
-* Alerting and monitoring for metrics and events
-* Architectural updates that improve reliability while reducing the overall infrastructure footprint
+* Support for automated application metric and event monitors configuration
+* Improved logs datastore integrity
+* Xenial stemcell support
 
 | For more information about... | See... |
 |------|---------|
-| Monitors (Alpha) | [Using PCF Metrics](./using.html#monitors) |
-| Streaming Metrics | [Using PCF Metrics](./using.html#streaming) |
-| Upgrading to 1.5 from 1.4 | [Installing PCF Metrics](./installing.html) |
-| Architecture | [PCF Metrics Product Architecture](./architecture.html) |
+| Monitor Management Endpoint | [PCF Metrics API](./api/monitors.html) |
+| Automated Logs Storage Pruning | [Installing PCF Metrics](./installing.html#step2) |
 
 
 ## Product Snapshot
@@ -29,10 +27,10 @@ The following table provides version and version-support information about PCF M
 
 | Element | Details |
 |------|---------|
-| Tile version | v1.5 |
-| Release date | September 20, 2018 |
-| Compatible Ops Manager version(s) | v2.0 and later |
-| Compatible Elastic Runtime version(s) | v2.0 and later |
+| Tile version | v1.6 |
+| Release date | December 3, 2018 |
+| Compatible Ops Manager version(s) | v2.2 and later |
+| Compatible Elastic Runtime version(s) | v2.2 and later |
 | IaaS support | AWS, Azure, GCP, OpenStack, and vSphere |
 | IPsec support | Yes |
 
@@ -47,4 +45,5 @@ See the following topics for details about PCF Metrics:
 * [Troubleshooting PCF Metrics](./troubleshooting.html)
 * [Monitoring PCF Metrics](./monitoringpcfmetrics.html)
 * [PCF Metrics Product Architecture](./architecture.html)
+* [PCF Metrics API](./api/index.html)
 * [Release Notes and Known Issues](./rn-ki.html)
