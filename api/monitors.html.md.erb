@@ -3,3 +3,152 @@ breadcrumb: PCF Metrics Documentation
 title: Monitor Configuration
 owner: PCF Metrics
 ---
+## Details
+You must have the appropriate permissions to view or manage application Monitors in PCF Metrics.
+
+The following are attributes are optional and can be left out of commands if not needed:
+* warning_threshold
+* critical_webhook_url
+* critical_json_payload
+* warning_webhook_url
+* warning_json_payload
+
+### View Monitors
+#### cURL 
+
+curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/" | jq
+
+Replace `[DOMAIN]` with your domain
+Replace `[APP_NAME]` with the name of your app  
+#### API
+
+GET
+
+https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/
+
+Replace `[DOMAIN]` with your domain
+Replace `[APP_GUID]` with the GUID of your app  
+
+### Delete Monitors
+#### cURL
+
+curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/[MONITOR_GUID]" -X DELETE
+
+Replace `[DOMAIN]` with your domain
+Replace `[APP_NAME]` with the name of your app
+Replace `[MONITOR_GUID]` with the GUID of your app  
+
+#### API 
+
+DELETE
+
+https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/[MONITOR_GUID]
+
+Replace `[DOMAIN]` with your domain
+Replace `[APP_GUID]` with the GUID of your app
+Replace `[MONITOR_GUID]` with the GUID of your app
+
+### Create Monitors
+#### cURL
+curl -H "Authorization: $(cf oauth-token)" "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors" -d '{ "metric_name": "cf.system.latency","metric_type": "gauge","metric_unit": "milliseconds","name": "monitor_name","snooze_time_in_minutes": 1,"threshold_comparator": "<=","critical_threshold": 100.0,"warning_threshold": 70.0,"critical_webhook_url": "critical_webhook_url","critical_json_payload": "critical_json_payload","warning_webhook_url": "warning_webhook_url","warning_json_payload": "warning_json_payload" }'
+
+Replace `[DOMAIN]` with your domain
+Replace `[APP_NAME]` with the name of your app
+#### API
+
+POST
+
+https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/
+
+BODY:
+
+{
+    "name": "Lathrop CPU",
+    "metric_name": "cf.system.cpu",
+    "metric_type": "gauge",
+    "metric_unit": "percentage",
+    "snooze_time_in_minutes": 15,
+    "threshold_comparator": ">=",
+    "critical_threshold": 10,
+    "warning_threshold": 5,
+    "critical_webhook_url": "",
+    "critical_json_payload": "",
+    "warning_webhook_url": "",
+    "warning_json_payload": ""
+}
+
+### View Triggered Monitors
+#### cURL 
+
+curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/triggered_monitors/" | jq
+#### API 
+
+GET
+
+https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/triggered_monitors/
+### Configure Monitors via .yml
+#### Metric monitor .yml example format
+---
+- metric_name: cf.system.latency
+  metric_type: gauge
+  metric_unit: milliseconds
+  name: Latency
+  snooze_time_in_minutes: 1
+  threshold_comparator: ">="
+  critical_threshold: 60
+  warning_threshold: 50
+  critical_webhook_url: critical_webhook_url
+  critical_json_payload: critical_json_payload
+  warning_webhook_url: warning_webhook_url
+  warning_json_payload: warning_json_payload
+#### Event monitor .yml example format
+---
+- metric_name: cf.system.events.start
+  metric_type: event
+  metric_unit: per minute
+  name: App Start
+  snooze_time_in_minutes: 1
+  threshold_comparator: ">="
+  critical_threshold: 1
+  warning_threshold: 0
+  critical_webhook_url: critical_webhook_url
+  critical_json_payload: critical_json_payload
+  warning_webhook_url: warning_webhook_url
+  warning_json_payload: warning_json_payload
+#### Multiple monitor .yml example format
+---
+- metric_name: cf.system.latency
+  metric_type: gauge
+  metric_unit: milliseconds
+  name: Latency
+  snooze_time_in_minutes: 1
+  threshold_comparator: ">="
+  critical_threshold: 60
+  warning_threshold: 50
+- metric_name: cf.system.cpu
+  metric_type: gauge
+  metric_unit: percentage
+  name: CPU
+  snooze_time_in_minutes: 1
+  threshold_comparator: ">="
+  critical_threshold: 60
+  warning_threshold: 50
+- metric_name: cf.system.events.start
+  metric_type: event
+  metric_unit: per minute
+  name: App Start
+  snooze_time_in_minutes: 1
+  threshold_comparator: ">="
+  critical_threshold: 1
+  warning_threshold: 0
+- metric_name: cf.system.memory
+  metric_type: gauge
+  metric_unit: percentage
+  name: Lathrop Memory
+  snooze_time_in_minutes: 5
+  threshold_comparator: ">="
+  critical_threshold: 10
+  warning_threshold: 5
+
+#### Apply .yml cURL Command
+curl -H "Authorization: $(cf oauth-token)" -H "Content-Type: application/yaml" --data-binary "@/[PATH-TO-FILE.yml]" -k "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app metrics --guid)/monitors/" -vvv -X PUT
