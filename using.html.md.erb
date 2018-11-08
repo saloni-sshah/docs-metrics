@@ -16,7 +16,7 @@ PCF Metrics helps you understand and troubleshoot the health and performance of 
 * [Custom Metrics](#custom): User-customizable graphs for measuring app performance, such as Spring Boot Actuator metrics
 * [App Events](#events): A graph of update, start, stop, crash, SSH, and staging failure events
 * [Logs](#logs): A list of app logs that you can search, filter, and download
-* [Monitors (Alpha)](#monitors): User-defined monitors with configurable trigger thresholds based on app metrics and events
+* [Monitors (Beta)](#monitors): User-defined monitors with configurable trigger thresholds based on app metrics and events
 * [Trace Explorer](#trace): A dependency graph that traces a request as it flows through your apps and their endpoints, along with the corresponding logs
 
 The following sections describe a standard workflow for using PCF Metrics to monitor or troubleshoot your apps.
@@ -43,7 +43,7 @@ The graphs show time along the horizontal axis. You can change the time frame fo
 
 ## <a id="streaming"></a>Streaming Metrics
 
-PCF Metrics 1.5 introduces streaming metrics visualization. When enabled, the metrics charts will be updated in real-time as metrics data is ingested.
+Streaming Metrics mode allows the metrics charts on your dashboard to be updated in real-time as metrics data is ingested.
 
 To enable streaming metrics visualization, click the **PLAY** button next to the timeline in the top right of the dashbboard. This will show three hours of streamed metrics data. You can drag the left end of the selector to increase or decrease the duration of streaming metrics being displayed.
 
@@ -166,9 +166,9 @@ You can interact with the **Logs** view in the following ways:
 * **Copy**: Click the copy icon to copy the text of the log.
 * **View in Trace Explorer**: Open a window to see the trace of the request associated with the log. See [Trace App Requests](#trace).
 
-## <a id="monitors"></a>Monitors (Alpha)
+## <a id="monitors"></a>Monitors (Beta)
 
-PCF Metrics 1.5 introduces the alpha version of Monitors which allows users to create monitors on container, network, and custom metrics, as well as events. Users can also set trigger thresholds on these monitors to be notified via the PCF Metrics UI and webhooks when their criteria is met.
+PCF Metrics 1.6 includes the Monitors Beta which allows users to create monitors on container, network, and custom metrics, as well as events. Users can also set trigger thresholds on these monitors to be notified via the PCF Metrics UI and webhooks when their criteria is met.
 
 <%= image_tag("triggered-monitors-chart.png", :alt => "Triggered Monitors in Metrics Chart") %>
 
@@ -225,6 +225,10 @@ Users can view previously triggered monitors under the Triggered section of Moni
 
 <%= image_tag("triggered-monitors.png", :alt => "Triggered Monitors List") %>
 
+### <a id="monitor-api"></a>Monitors Endpoint
+
+PCF Metrics 1.6 makes managing application metric and events monitors easier by providing API and YAML file configuration support. For more information, please see our [API documentation](#).
+
 ## <a id="trace"></a>Trace App Requests
 
 A request to one of your apps initiates a workflow within the app or system of apps. The record of this workflow is a _trace_, which you can use to troubleshoot app failures and latency issues. In the Trace Explorer view, PCF Metrics displays an interactive graph of a trace and its corresponding logs. See the sections below to understand how to use the Trace Explorer.
@@ -260,4 +264,3 @@ This section explains how to view the trace for a request received by your app a
 * You can click a span to show only logs from that span or any number of spans to toggle which logs appear. Clicking a span also creates a box with that particular span ID in the **Logs** view:
 	![Click Span](click-span.png)	
 * If you click `APP APP-NAME` within a log, PCF Metrics returns you to the dashboard view for that app, with the time frame focused on the time of the log that you clicked from. 
-
