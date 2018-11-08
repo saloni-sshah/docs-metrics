@@ -108,9 +108,8 @@ This section describes how to install the PCF Metrics tile.
 1. Click **Save**.
 
 #### <a id="mc-config"></a> Configure Metrics Components
-
-1. Click **Metrics Components Config**.
 <%= image_tag("metrics-components-config.png", :alt => "Metrics App Components Settings") %>
+1. Click **Metrics Components Config**.
 1. Review the **MySQL Metrics Queue Count** value.
    You can increase this instance count at any time to accommodate higher levels of inbound metrics traffic. 
 1. Review the **PostgreSQL Logs Queue Count** value.
@@ -119,13 +118,13 @@ This section describes how to install the PCF Metrics tile.
    You can increase this instance count at any time to accommodate higher levels of Loggregator Firehose traffic. 
 1. Review the **Metrics API server instance count** value.
    You can increase this instance count at any time to accommodate deployments with more apps, metrics, and logs.
-1. Metrics Retention Window
+1. Review the **Metrics Retention Window** value. 
    You can set number of days to retain metrics data from 1 to 14 days.
-1. Logs Retention Window
+1. Review the **Logs Retention Window** value.
    You can set number of days to retain logs data from 1 to 14 days.
-1. Logs Max Retention Percentage
+1. Review the **Logs Max Retention Percentage** value.
    As a preventative measure, you can set the percentage of disk capacity used before triggering automatic log pruning to prevent Postgres failures. Default is 85%.
-1. Logs Disk Size Pruning Interval
+1. Review the **Logs Disk Size Pruning Interval** value.
    You can set the length of time between checking the Postgres disk capacity for automated pruning operations. Default is 1 hour.
 1. Click **Save**.
 
