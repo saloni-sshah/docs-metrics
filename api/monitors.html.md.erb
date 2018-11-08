@@ -7,24 +7,33 @@ owner: PCF Metrics
 You must have the appropriate permissions to view or manage application Monitors in PCF Metrics.
 
 The following are attributes are optional and can be left out of commands if not needed:
+
 * warning_threshold
+
 * critical_webhook_url
+
 * critical_json_payload
+
 * warning_webhook_url
+
 * warning_json_payload
 
 ### View Monitors
 #### cURL 
 
+<pre class="terminal">
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/" | jq
+</pre>
 
 Replace `[DOMAIN]` with your domain
 Replace `[APP_NAME]` with the name of your app  
 #### API
 
-GET
+<pre class="terminal">
+GET<br>
 
 https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/
+</pre>
 
 Replace `[DOMAIN]` with your domain
 Replace `[APP_GUID]` with the GUID of your app  
@@ -88,6 +97,8 @@ GET
 https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/triggered_monitors/
 ### Configure Monitors via .yml
 #### Metric monitor .yml example format
+
+<pre>
 ---
 - metric_name: cf.system.latency
   metric_type: gauge
@@ -101,6 +112,8 @@ https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/triggered_monitors/
   critical_json_payload: critical_json_payload
   warning_webhook_url: warning_webhook_url
   warning_json_payload: warning_json_payload
+</pre>
+    
 #### Event monitor .yml example format
 ---
 - metric_name: cf.system.events.start
