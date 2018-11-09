@@ -197,14 +197,6 @@ This section describes how to install the PCF Metrics tile.
 
 #### <a id="stemcell"></a> Import Stemcell
 
-**For Ops Manager v2.0 and earlier:**
-
-1. Navigate to Pivotal Network and click [Stemcells for PCF](https://network.pivotal.io/products/stemcells).
-1. Download the appropriate stemcell version for your IaaS.
-   <p class='note'><strong>Note:</strong> On AWS, make sure to use a Hardware Virtual Machine (HVM) stemcell if you are using the default instance sizes.</p>
-1. Navigate to the **Stemcell** pane found under the **Settings** tab of your tile.
-1. Click **Import Stemcell** and select the stemcell file you downloaded.
-
 **For Ops Manager v2.1 and later:**
 
 1. Follow the procedure outlined in [Importing and Managing Stemcells](https://docs.pivotal.io/pivotalcf/opsguide/managing-stemcells.html).
@@ -216,5 +208,7 @@ For more information about this Ops Manager page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 1. Click **Apply Changes** to install the service.
 If the smoke tests fail, see [Smoke Test Errors](./troubleshooting.html#smoke-test) in _Troubleshooting PCF Metrics_.
+
+<p class='note'><strong>Note:</strong> PCF Metrics 1.6 requires the Xenial stemcell line.</p>
 
 For more information on how to log in, use, and interpret data from PCF Metrics, see [Monitoring and Troubleshooting Apps with PCF Metrics](./using.html).
