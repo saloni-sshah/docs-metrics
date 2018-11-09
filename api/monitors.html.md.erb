@@ -5,7 +5,7 @@ owner: PCF Metrics
 ---
 This topic describes how to configure event and metric monitors for your applications using the PCF Metrics `monitors-api` endpoint. 
 
-###<a id='view-monitors'></a> View Monitors
+##<a id='view-monitors'></a> View Monitors
 #### cURL 
 <pre>
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/" | jq
@@ -24,7 +24,7 @@ GET https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/
 
 * Replace `[APP_GUID]` with the GUID of your app  
 
-###<a id='delete-monitors'></a> Delete Monitors
+##<a id='delete-monitors'></a> Delete Monitors
 #### cURL
 <pre>
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/[MONITOR_GUID]" -X DELETE
@@ -47,7 +47,7 @@ DELETE https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/[MONITOR_GUI
 
 * Replace `[MONITOR_GUID]` with the GUID of your app
 
-###<a id='create-monitors'></a> Create Monitors
+##<a id='create-monitors'></a> Create Monitors
 #### cURL
 <pre>
 curl -H "Authorization: $(cf oauth-token)" "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors" -d '{ "metric_name": "cf.system.latency","metric_type": "gauge","metric_unit": "milliseconds","name": "monitor_name","snooze_time_in_minutes": 1,"threshold_comparator": "<=","critical_threshold": 100.0,"warning_threshold": 70.0,"critical_webhook_url": "critical_webhook_url","critical_json_payload": "critical_json_payload","warning_webhook_url": "warning_webhook_url","warning_json_payload": "warning_json_payload" }'
@@ -80,7 +80,7 @@ BODY:
 }
 </pre>
 
-###<a id='view-triggered-monitors'></a> View Triggered Monitors
+##<a id='view-triggered-monitors'></a> View Triggered Monitors
 #### cURL 
 <pre>
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/triggered_monitors/" | jq
@@ -91,7 +91,7 @@ curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DO
 GET https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/triggered_monitors/
 </pre>
 
-###<a id='configure-monitors-yml'></a> Configure Monitors via .yml
+##<a id='configure-monitors-yml'></a> Configure Monitors via .yml
 #### Metric monitor .yml example format
 <pre>
 ---
@@ -168,7 +168,7 @@ GET https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/triggered_monitors/
 curl -H "Authorization: $(cf oauth-token)" -H "Content-Type: application/yaml" --data-binary "@/[PATH-TO-FILE.yml]" -k "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app metrics --guid)/monitors/" -vvv -X PUT
 </pre>
 
-###<a id='notes'></a> Notes
+##<a id='notes'></a> Notes
 You must have the appropriate permissions to view or manage application Monitors in PCF Metrics.
 
 The following are attributes are optional and can be omitted from your commands if not needed:
