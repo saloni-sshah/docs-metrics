@@ -3,74 +3,67 @@ breadcrumb: PCF Metrics Documentation
 title: Monitor Configuration
 owner: PCF Metrics
 ---
-## Details
-You must have the appropriate permissions to view or manage application Monitors in PCF Metrics.
+This topic describes how to configure event and metric monitors for your applications using the PCF Metrics `monitors-api` endpoint. 
 
-The following are attributes are optional and can be left out of commands if not needed:
-
-* warning_threshold
-
-* critical_webhook_url
-
-* critical_json_payload
-
-* warning_webhook_url
-
-* warning_json_payload
-
-### View Monitors
+###<a id='view-monitors'></a> View Monitors
 #### cURL 
-
-<pre class="terminal">
+<pre>
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/" | jq
 </pre>
 
-Replace `[DOMAIN]` with your domain
-Replace `[APP_NAME]` with the name of your app  
+* Replace `[DOMAIN]` with your domain
+
+* Replace `[APP_NAME]` with the name of your app  
+
 #### API
-
-<pre class="terminal">
-GET<br>
-
-https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/
+<pre>
+GET https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/
 </pre>
 
-Replace `[DOMAIN]` with your domain
-Replace `[APP_GUID]` with the GUID of your app  
+* Replace `[DOMAIN]` with your domain
 
-### Delete Monitors
+* Replace `[APP_GUID]` with the GUID of your app  
+
+###<a id='delete-monitors'></a> Delete Monitors
 #### cURL
-
+<pre>
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/[MONITOR_GUID]" -X DELETE
+</pre>
 
-Replace `[DOMAIN]` with your domain
-Replace `[APP_NAME]` with the name of your app
-Replace `[MONITOR_GUID]` with the GUID of your app  
+* Replace `[DOMAIN]` with your domain
+
+* Replace `[APP_NAME]` with the name of your app
+
+* Replace `[MONITOR_GUID]` with the GUID of your app  
 
 #### API 
+<pre>
+DELETE https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/[MONITOR_GUID]
+</pre>
 
-DELETE
+* Replace `[DOMAIN]` with your domain
 
-https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/[MONITOR_GUID]
+* Replace `[APP_GUID]` with the GUID of your app
 
-Replace `[DOMAIN]` with your domain
-Replace `[APP_GUID]` with the GUID of your app
-Replace `[MONITOR_GUID]` with the GUID of your app
+* Replace `[MONITOR_GUID]` with the GUID of your app
 
-### Create Monitors
+###<a id='create-monitors'></a> Create Monitors
 #### cURL
+<pre>
 curl -H "Authorization: $(cf oauth-token)" "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors" -d '{ "metric_name": "cf.system.latency","metric_type": "gauge","metric_unit": "milliseconds","name": "monitor_name","snooze_time_in_minutes": 1,"threshold_comparator": "<=","critical_threshold": 100.0,"warning_threshold": 70.0,"critical_webhook_url": "critical_webhook_url","critical_json_payload": "critical_json_payload","warning_webhook_url": "warning_webhook_url","warning_json_payload": "warning_json_payload" }'
+</pre>
 
-Replace `[DOMAIN]` with your domain
-Replace `[APP_NAME]` with the name of your app
+* Replace `[DOMAIN]` with your domain
+
+* Replace `[APP_NAME]` with the name of your app
+
 #### API
-
-POST
-
-https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/
+<pre>
+POST https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/
+</pre>
 
 BODY:
-
+<pre>
 {
     "name": "Lathrop CPU",
     "metric_name": "cf.system.cpu",
@@ -85,19 +78,21 @@ BODY:
     "warning_webhook_url": "",
     "warning_json_payload": ""
 }
+</pre>
 
-### View Triggered Monitors
+###<a id='view-triggered-monitors'></a> View Triggered Monitors
 #### cURL 
-
+<pre>
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/triggered_monitors/" | jq
+</pre>
+
 #### API 
+<pre>
+GET https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/triggered_monitors/
+</pre>
 
-GET
-
-https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/triggered_monitors/
-### Configure Monitors via .yml
+###<a id='configure-monitors-yml'></a> Configure Monitors via .yml
 #### Metric monitor .yml example format
-
 <pre>
 ---
 - metric_name: cf.system.latency
@@ -115,6 +110,7 @@ https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/triggered_monitors/
 </pre>
     
 #### Event monitor .yml example format
+<pre>
 ---
 - metric_name: cf.system.events.start
   metric_type: event
@@ -128,7 +124,10 @@ https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/triggered_monitors/
   critical_json_payload: critical_json_payload
   warning_webhook_url: warning_webhook_url
   warning_json_payload: warning_json_payload
+</pre>
+
 #### Multiple monitor .yml example format
+<pre>
 ---
 - metric_name: cf.system.latency
   metric_type: gauge
@@ -162,6 +161,24 @@ https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/triggered_monitors/
   threshold_comparator: ">="
   critical_threshold: 10
   warning_threshold: 5
+</pre>
 
 #### Apply .yml cURL Command
+<pre>
 curl -H "Authorization: $(cf oauth-token)" -H "Content-Type: application/yaml" --data-binary "@/[PATH-TO-FILE.yml]" -k "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app metrics --guid)/monitors/" -vvv -X PUT
+</pre>
+
+###<a id='notes'></a> Notes
+You must have the appropriate permissions to view or manage application Monitors in PCF Metrics.
+
+The following are attributes are optional and can be omitted from your commands if not needed:
+
+* warning_threshold
+
+* critical_webhook_url
+
+* critical_json_payload
+
+* warning_webhook_url
+
+* warning_json_payload
