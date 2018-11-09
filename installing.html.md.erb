@@ -132,6 +132,8 @@ This section describes how to install the PCF Metrics tile.
    As a preventative measure, you can set the percentage of disk capacity used before triggering automatic log pruning to prevent Postgres failures. Default is 85%.
 1. Review the **Logs Disk Size Pruning Interval** value.
    You can set the length of time between checking the Postgres disk capacity for automated pruning operations. Default is 1 hour.
+1. Review the **Log level for push apps** value.
+   You can set the log level for the `push-apps` errand to suit your troubleshooting needs. The options are `error`, `warning`, `info`, `debug`, or `trace`. Default level is `error`.
 1. Click **Save**.
 
 #### <a id="resource-config"></a> Configure Resources
