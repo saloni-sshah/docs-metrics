@@ -13,40 +13,44 @@ However, the PCF Metrics tile can be installed without the Metrics Forwarder til
 For information about the components deployed as part of this install procedure,
 see [PCF Metrics Product Architecture](./architecture.html).
 
-##<a id='upgrade'></a>Upgrade from v1.4.x to v1.5.x
+##<a id='upgrade'></a>Upgrade from v1.4.x to v1.6.x
 
-This section describes upgrading from PCF Metrics v1.4.x to v1.5.x.
+This section describes upgrading from PCF Metrics v1.4.x to v1.6.x.
 
 ###<a id='upgrade-overview'></a> Overview 
 
-PCF Metrics v1.5 includes new data storage solutions:
+PCF Metrics version 1.6 includes new data storage solutions that were introduced in version 1.5:
 
-- For logs, v1.5 uses PostgreSQL instead of ElasticSearch. 
-- For metrics, v1.5 uses Percona instead of MariaDB. 
+- For logs, versions 1.5 and 1.6 use PostgreSQL instead of ElasticSearch. 
+- For metrics, versions 1.5 and 1.6 use Percona instead of MariaDB. 
 
 There is no effective upgrade path from ElasticSearch to PostgreSQL for logs data. For this reason, the upgrade [Procedure](#upgrade-procedure) is different from previous versions. 
 
 ###<a id='upgrade-procedure'></a> Procedure 
 
-To upgrade to PCF Metrics v1.5, Pivotal recommends that you follow this procedure:
+To upgrade to PCF Metrics v1.6 from 1.4.x, Pivotal recommends that you follow this procedure:
 
-1. Upload and install the PCF Metrics v1.5 tile alongside the v1.4 tile. Follow the instructions in the [Install PCF Metrics](#install) section below. <br>PCF Metrics v1.5 supports running both the v1.5 and v1.4 tiles simultaneously. You can install v1.5 manually or automate the installation with a deployment pipeline.
-  <%= image_tag("ops-man-metrics-tiles-image.png", :alt => "PCF Metrics 1.4 and v1.5 installed in Ops Manager") %>
-1. Keep both tiles installed and running for the duration of the logs and metrics retention window you configured in v1.5. This allows data to propagate to the new version. 
-  * During this time, you can access both dashboards. However, you can no longer access historical metrics and logs data on the v1.4 dashboard after the duration of the logs and metrics retention window you configured in v1.5 has passed.
+1. Upload and install the PCF Metrics v1.6 tile alongside the v1.4 tile. Follow the instructions in the [Install PCF Metrics](#install) section below. <br>PCF Metrics v1.6 supports running both the v1.6 and v1.4 tiles simultaneously. You can install v1.6 manually or automate the installation with a deployment pipeline.
+  <%= image_tag("ops-man-metrics-tiles-image.png", :alt => "PCF Metrics 1.4 and v1.6 installed in Ops Manager") %>
+1. Keep both tiles installed and running for the duration of the logs and metrics retention window you configured in v1.6. This allows data to propagate to the new version. 
+  * During this time, you can access both dashboards. However, you can no longer access historical metrics and logs data on the v1.4 dashboard after the duration of the logs and metrics retention window you configured in v1.6 has passed.
       * **For v1.4**: Go to `metrics-previous.YOUR-SYSTEM-DOMAIN`. 
-      * **For v1.5**: Go to `metrics.YOUR-SYSTEM-DOMAIN`. You can also click **View Metrics in Previous Versions** on the v1.5 dashboard to see metrics for the current app on the v1.4 dashboard. 
+      * **For v1.6**: Go to `metrics.YOUR-SYSTEM-DOMAIN`. You can also click **View Metrics in Previous Versions** on the v1.6 dashboard to see metrics for the current app on the v1.4 dashboard. 
         <%= image_tag("previous-link.png", :alt => "View Metrics in Previous Version link") %>
     
 1. Uninstall PCF Metrics v1.4. 
 
-## <a id='install'></a> Install PCF Metrics
+##<a id='upgrade'></a>Upgrade from v1.5.x to v1.6.x
+
+As they use the same datastore solutions, standard upgrade paths can be applied for upgrading from PCF Metrics 1.5.x to 1.6.x. 
+
+## <a id='install'></a> New Install of PCF Metrics
 
 This section describes how to install the PCF Metrics tile. 
 
 ### <a id='step1'></a> Add the PCF Metrics Tile to Ops Manager
 
-1. Download the latest PCF Metrics v1.5 tile from
+1. Download the latest PCF Metrics v1.6 tile from
    [Pivotal Network](https://network.pivotal.io/products/pcf-metrics).
 1. Upload the PCF Metrics file to your Ops Manager installation.
 1. Click  **Add** next to the uploaded product description in the **Available Products**
