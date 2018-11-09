@@ -61,6 +61,10 @@ curl -H "Authorization: $(cf oauth-token)" "https://monitors-api.sys.[DOMAIN]/ap
 <pre>
 POST https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/
 </pre>
+    
+* Replace `[DOMAIN]` with your domain
+
+* Replace `[APP_GUID]` with the GUID of your app
 
 BODY:
 <pre>
@@ -86,10 +90,18 @@ BODY:
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/triggered_monitors/" | jq
 </pre>
 
+* Replace `[DOMAIN]` with your domain
+
+* Replace `[APP_NAME]` with the name of your app
+
 ### API 
 <pre>
 GET https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/triggered_monitors/
 </pre>
+
+* Replace `[DOMAIN]` with your domain
+
+* Replace `[APP_GUID]` with the GUID of your app
 
 ##<a id='configure-monitors-yml'></a> Configure Monitors via .yml
 ### Metric monitor .yml example format
@@ -165,8 +177,12 @@ GET https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/triggered_monitors/
 
 ### Apply .yml cURL Command
 <pre>
-curl -H "Authorization: $(cf oauth-token)" -H "Content-Type: application/yaml" --data-binary "@/[PATH-TO-FILE.yml]" -k "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app metrics --guid)/monitors/" -vvv -X PUT
+curl -H "Authorization: $(cf oauth-token)" -H "Content-Type: application/yaml" --data-binary "@/[PATH-TO-FILE.yml]" -k "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/" -vvv -X PUT
 </pre>
+
+* Replace `[DOMAIN]` with your domain
+
+* Replace `[APP_NAME]` with the GUID of your app
 
 ##<a id='notes'></a> Notes
 You must have the appropriate permissions to view or manage application Monitors in PCF Metrics.
