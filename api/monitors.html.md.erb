@@ -85,6 +85,9 @@ BODY:
 </pre>
 
 ##<a id='view-triggered-monitors'></a> View Triggered Monitors
+
+PCF Metrics 1.6 also allows you to retrieve triggered application event and metric monitors via endpoint.
+
 ### cURL 
 <pre>
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/triggered_monitors/" | jq
