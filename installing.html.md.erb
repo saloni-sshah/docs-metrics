@@ -126,8 +126,10 @@ This section describes how to install the PCF Metrics tile.
    You can increase this instance count at any time to accommodate deployments with more apps, metrics, and logs.
 1. Review the **Metrics Retention Window** value. 
    You can set number of days to retain metrics data from 1 to 14 days.
+   Will retain UTC±00:00 of the current day minus the retention period plus one additional day to prevent pruning within the retention period.
 1. Review the **Logs Retention Window** value.
    You can set number of days to retain logs data from 1 to 14 days.
+   Will retain UTC±00:00 of the current day minus the retention period plus one additional day to prevent pruning within the retention period.
 1. Review the **Logs Max Retention Percentage** value.
    As a preventative measure, you can set the percentage of disk capacity used before triggering automatic log pruning to prevent Postgres failures. Default is 85%.
 1. Review the **Logs Disk Size Pruning Interval** value.
