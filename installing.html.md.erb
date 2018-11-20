@@ -139,7 +139,7 @@ To configure the **Metrics Components Config** pane, do the following:
    You can set number of days to retain logs data from `1` to `14` days.
    PCF Metrics adds a day to your configured value to prevent pruning within your desired retention window. The retention window begins at UTC±00:00 of the current day and goes back the amount of days you enter in this field, plus the one more day added by PCF Metrics. 
 1. Review the **Logs Max Retention Percentage** value.
-   As a preventative measure, you can set the percentage of disk capacity used before triggering automatic log pruning to prevent Postgres failures. The Default is `85`.
+   As a preventative measure, you can set the percentage of disk capacity used before triggering automatic log pruning to prevent Postgres failures. The default is `85`.
 1. Review the **Logs Disk Size Pruning Interval** value.
    You can set the length of time between checking the Postgres disk capacity for automated pruning operations. Default is 1 hour.
 1. Review the **Log level for push apps** value.
