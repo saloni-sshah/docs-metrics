@@ -11,49 +11,69 @@ This topic describes how to configure event and metric monitors for your applica
 
 You can use the following cURL and API commands to view event and metric monitors.
 
-### cURL 
+###cURL
+
+To view monitors using cURL, run the following command:
+
 <pre>
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/" | jq
 </pre>
 
-* Replace `[DOMAIN]` with your domain
+Where: 
 
-* Replace `[APP_NAME]` with the name of your app  
+* `[DOMAIN]` is your domain
+
+* `[APP_NAME]` is the name of your app  
 
 ### API
+
+To view monitors via API, run the following command:
+
 <pre>
 GET https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/
 </pre>
 
-* Replace `[DOMAIN]` with your domain
+Where:
 
-* Replace `[APP_GUID]` with the GUID of your app  
+* `[DOMAIN]` is your domain
+
+* `[APP_GUID]` is the GUID of your app  
 
 ##<a id='delete-monitors'></a> Delete Monitors
 
 You can use the following cURL and API commands to delete event and metric monitors.
 
 ### cURL
+
+To delete monitors using cURL, run the following command:
+
 <pre>
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/[MONITOR_GUID]" -X DELETE
 </pre>
 
-* Replace `[DOMAIN]` with your domain
+Where:
 
-* Replace `[APP_NAME]` with the name of your app
+* `[DOMAIN]` is your domain
 
-* Replace `[MONITOR_GUID]` with the GUID of your app  
+* `[APP_NAME]` is the name of your app
+
+* `[MONITOR_GUID]` is the GUID of your app  
 
 ### API 
+
+To delete monitors via API, run the following command:
+
 <pre>
 DELETE https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/[MONITOR_GUID]
 </pre>
 
-* Replace `[DOMAIN]` with your domain
+Where:
 
-* Replace `[APP_GUID]` with the GUID of your app
+* `[DOMAIN]` is your domain
 
-* Replace `[MONITOR_GUID]` with the GUID of your app
+* `[APP_GUID]` is the GUID of your app
+
+* `[MONITOR_GUID]` is the GUID of your app
 
 ##<a id='create-monitors'></a> Create Monitors
 
@@ -68,24 +88,34 @@ The following attributes are optional and can be omitted from your commands if n
   *  `warning_json_payload`
 
 ### cURL
+
+To create monitors using cURL, run the following command:
+
 <pre>
 curl -H "Authorization: $(cf oauth-token)" "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors" -d '{ "metric_name": "cf.system.latency","metric_type": "gauge","metric_unit": "milliseconds","name": "monitor_name","snooze_time_in_minutes": 1,"threshold_comparator": "<=","critical_threshold": 100.0,"warning_threshold": 70.0,"critical_webhook_url": "critical_webhook_url","critical_json_payload": "critical_json_payload","warning_webhook_url": "warning_webhook_url","warning_json_payload": "warning_json_payload" }'
 </pre>
 
-* Replace `[DOMAIN]` with your domain
+Where:
 
-* Replace `[APP_NAME]` with the name of your app
+* `[DOMAIN]` is your domain
+
+* `[APP_NAME]` is the name of your app
 
 ### API
+
+To create monitors via API, run the following command:
+
 <pre>
 POST https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/
 </pre>
     
-* Replace `[DOMAIN]` with your domain
+Where:
 
-* Replace `[APP_GUID]` with the GUID of your app
+* `[DOMAIN]` is your domain
 
-BODY:
+* `[APP_GUID]` is the GUID of your app
+
+And BODY:
 <pre>
 {
     "name": "Lathrop CPU",
@@ -108,26 +138,52 @@ BODY:
 You can use the following cURL and API commands to view triggered event and metric monitors.
 
 ### cURL 
+
+To view triggered monitors using cURL, run the following command:
+
 <pre>
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/triggered_monitors/" | jq
 </pre>
 
-* Replace `[DOMAIN]` with your domain
+Where:
 
-* Replace `[APP_NAME]` with the name of your app
+* `[DOMAIN]` is your domain
+
+* `[APP_NAME]` is the name of your app
 
 ### API 
+
+To view triggered monitors via API, run the following command:
+
 <pre>
 GET https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/triggered_monitors/
 </pre>
 
-* Replace `[DOMAIN]` with your domain
+Where:
 
-* Replace `[APP_GUID]` with the GUID of your app
+* `[DOMAIN]` is your domain
+
+* `[APP_GUID]` is the GUID of your app
 
 ##<a id='configure-monitors-yml'></a> Configure Monitors via YAML
 
-In addition to configuring monitors directly via API, you can also automate monitors configuration via YAML file. The examples below show the correct YAML file format for automating event and metric monitor configuration.
+In addition to configuring monitors directly via API, you can also automate monitors configuration via YAML file. 
+
+To automate monitor configuration via YAML file, create a YAML file using the <a href="#yml-examples">YAML File Format Examples</a> below, then run the following command:
+
+<pre>
+curl -H "Authorization: $(cf oauth-token)" -H "Content-Type: application/yaml" --data-binary "@/[PATH-TO-FILE.yml]" -k "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/" -vvv -X PUT
+</pre>
+
+Where:
+
+* `[DOMAIN]` is your domain
+
+* `[APP_NAME]` is the name of your app
+
+###<a id='yml-examples'></a>YAML File Format Examples
+
+The examples below show the correct format for automating monitor configuration via YAML file.
 
 The following attributes are optional and can be omitted from your YAML file if not needed:
 
@@ -137,7 +193,10 @@ The following attributes are optional and can be omitted from your YAML file if 
   *  `warning_webhook_url`
   *  `warning_json_payload`
 
-### Metric monitor .yml example format
+#### YAML Format for Metric Monitors
+
+The following is an example YAML file for configuring a metric monitor.
+
 <pre>
 ---
 - metric_name: cf.system.latency
@@ -154,7 +213,10 @@ The following attributes are optional and can be omitted from your YAML file if 
   warning_json_payload: warning_json_payload
 </pre>
     
-### Event monitor .yml example format
+#### YAML Format for Event Monitors
+
+The following is an example YAML file for configuring an event monitor.
+
 <pre>
 ---
 - metric_name: cf.system.events.start
@@ -171,7 +233,10 @@ The following attributes are optional and can be omitted from your YAML file if 
   warning_json_payload: warning_json_payload
 </pre>
 
-### Multiple monitor .yml example format
+#### YAML Format for Multiple Monitors
+
+The following is an example YAML file for configuring multiple monitors.
+
 <pre>
 ---
 - metric_name: cf.system.latency
@@ -207,15 +272,3 @@ The following attributes are optional and can be omitted from your YAML file if 
   critical_threshold: 10
   warning_threshold: 5
 </pre>
-
-### Apply .yml cURL Command
-
-To automate event and metric monitor configuration via YAML file, run the following cURL command.
-
-<pre>
-curl -H "Authorization: $(cf oauth-token)" -H "Content-Type: application/yaml" --data-binary "@/[PATH-TO-FILE.yml]" -k "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/" -vvv -X PUT
-</pre>
-
-* Replace `[DOMAIN]` with your domain
-
-* Replace `[APP_NAME]` with the name of your app
