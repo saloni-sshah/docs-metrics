@@ -10,7 +10,7 @@ This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
 **Release Date: December 3, 2018**
 
-### Notes
+### <a id="new-features"></a>New Features in PCF Metrics v1.6
 
 The following list describes what's new in PCF Metrics v1.6:
 
@@ -32,9 +32,9 @@ PCF Metrics v1.6.x requires the following versions of Pivotal Application Servic
 
 #### Upgrade Compatibility with PCF Metrics 1.4
 
-In order to successfully run both PCF Metrics 1.4 and 1.6 simultaneously during the upgrade period, please make sure the 1.4 tile is updated to 1.4.6 or later. 1.4.5 and older will not support the secondary metrics URL (metrics-previous.YOUR-SYSTEM-DOMAIN) that allows the 1.4 dashboard to be viewed.
+In order to successfully run both PCF Metrics 1.4 and 1.6 simultaneously during the upgrade period, ensure the 1.4 tile is updated to 1.4.6 or later. 1.4.5 and older will not support the secondary metrics URL `metrics-previous.YOUR-SYSTEM-DOMAIN` that allows the 1.4 dashboard to be viewed.
 
-More information on the upgrade to 1.6 can be found [here](/pcf-metrics/1-6/installing.html#upgrade).
+For more information about upgrading to PCF Metrics v1.6, see [Installing PCF Metrics](/pcf-metrics/1-6/installing.html#upgrade).
 
 #### Using Custom App Metrics
 
@@ -48,7 +48,7 @@ To prevent metrics data backup in Redis, ensure that each app does not emit more
 
 When you vertically scale your Postgres instance in PCF Metrics 1.6, Postgres enters an unhealthy period during which it does not ingest any new logs data until the scaling operation has completed.
 
-More information on scaling the Logs Postgres datastore can be found [here](/pcf-metrics/1-6/sizing.html#log-datastore).
+For more information about scaling the Logs Postgres datastore, see [Sizing PCF Metrics for your System](/pcf-metrics/1-6/sizing.html#log-datastore).
 
 #### Data Loss During Stemcell Upgrades
 
@@ -60,15 +60,13 @@ Due to security, call pagination, and resource constraints, downloaded logs are 
 
 #### Smoke Test Failures Due to User Authentication
 
-The PCF Metrics **Smoke Test** errand may fail if your deployment authenticates user sign-ons
-with an external SAML identity provider or an external LDAP server.
-In some cases, these external user stores have an additional login procedure that prevents the errand
-from authenticating with the deployment and validating against the Metrics API.
+The PCF Metrics **Smoke Test** errand may fail if your deployment authenticates user sign-ons with an external SAML identity provider or an external LDAP server.
+In some cases, these external user stores have an additional login procedure that prevents the errand from authenticating with the deployment and validating against the Metrics API.
 
 If you experience this issue, disable the **Smoke Test** errand in the PCF Metrics tile and click **Apply Changes** to run the install again.
 
 For more information about what configurations lead to this failure,
-see [Configure Authentication and Enterprise SSO](http://docs.pivotal.io/pivotalcf/customizing/config-er-vmware.html#er-auth-config) in _Configuring Elastic Runtime_.
+see [Configure Authentication and Enterprise SSO](http://docs.pivotal.io/pivotalcf/customizing/config-er-vmware.html#er-auth-config) in Configuring Elastic Runtime.
 
 #### For Operators Who Deploy PCF Metrics Using BOSH
 
