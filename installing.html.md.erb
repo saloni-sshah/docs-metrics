@@ -50,6 +50,8 @@ This section describes how to install the PCF Metrics tile.
 
 ### <a id='step1'></a> Add the PCF Metrics Tile to Ops Manager
 
+To add the PCF Metrics tile to Ops Manager, do the following: 
+
 1. Download the latest PCF Metrics v1.6 tile from
    [Pivotal Network](https://network.pivotal.io/products/pcf-metrics).
 1. Upload the PCF Metrics file to your Ops Manager installation.
@@ -57,6 +59,8 @@ This section describes how to install the PCF Metrics tile.
    view to add PCF Metrics to your **Installation Dashboard**.
 
 ### <a id='step2'></a>Configure the PCF Metrics Tile
+
+This section describes how to configure the PCF Metrics tile. 
 
 <p class="note"><strong>Note</strong>: The following procedures offer a standard configuration.
               To customize PCF Metrics for high capacity,
@@ -70,6 +74,8 @@ This section describes how to install the PCF Metrics tile.
   + [Import Stemcell](#stemcell)
 
 #### <a id='az'></a> Assign Availability Zones (AZs) and Networks
+
+To configure the **Assign AZs and Networks** pane, do the following: 
 
 1. Click **Assign AZs and Networks**.
 1. Select an Availability Zone under **Place singleton jobs**.
@@ -113,6 +119,8 @@ This section describes how to install the PCF Metrics tile.
 
 #### <a id="mc-config"></a> Configure Metrics Components
 
+To configure the **Metrics Components Config** pane, do the following: 
+
 <%= image_tag("metrics-components-config.png", :alt => "Metrics App Components Settings") %>
 
 1. Click **Metrics Components Config**.
@@ -139,6 +147,8 @@ This section describes how to install the PCF Metrics tile.
 1. Click **Save**.
 
 #### <a id="resource-config"></a> Configure Resources
+
+To configure the **Resource Config** pane, do the following:
 
 1. Click **Resource Config**.
 1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job.
@@ -199,11 +209,15 @@ This section describes how to install the PCF Metrics tile.
 
 #### <a id="stemcell"></a> Import Stemcell
 
+To import the correct stemcell, do the following:  
+
 <p class='note'><strong>Note:</strong> PCF Metrics 1.6 requires the Xenial stemcell line.</p>
 
 1. Follow the procedure outlined in [Importing and Managing Stemcells](https://docs.pivotal.io/pivotalcf/opsguide/managing-stemcells.html).
 
 ### <a id='step3'></a>Deploy PCF Metrics
+
+To deploy PCF Metrics, do the following:  
 
 1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**. 
 For more information about this Ops Manager page, 
