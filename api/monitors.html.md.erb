@@ -5,7 +5,12 @@ owner: PCF Metrics
 ---
 This topic describes how to configure event and metric monitors for your applications using PCF Metrics' Beta `monitors-api` endpoint. 
 
+<p class="note"><b>Note</b>: You must have the appropriate permissions to view or manage application monitors in PCF Metrics.</p>
+
 ##<a id='view-monitors'></a> View Monitors
+
+You can use the following cURL and API commands to view event and metric monitors.
+
 ### cURL 
 <pre>
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/" | jq
@@ -25,6 +30,9 @@ GET https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/
 * Replace `[APP_GUID]` with the GUID of your app  
 
 ##<a id='delete-monitors'></a> Delete Monitors
+
+You can use the following cURL and API commands to delete event and metric monitors.
+
 ### cURL
 <pre>
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/[MONITOR_GUID]" -X DELETE
@@ -48,6 +56,17 @@ DELETE https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/monitors/[MONITOR_GUI
 * Replace `[MONITOR_GUID]` with the GUID of your app
 
 ##<a id='create-monitors'></a> Create Monitors
+
+You can use the following cURL and API commands to create event and metric monitors.
+
+The following attributes are optional and can be omitted from your commands if not needed:
+
+  *  `warning_threshold`
+  *  `critical_webhook_url`
+  *  `critical_json_payload`
+  *  `warning_webhook_url`
+  *  `warning_json_payload`
+
 ### cURL
 <pre>
 curl -H "Authorization: $(cf oauth-token)" "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors" -d '{ "metric_name": "cf.system.latency","metric_type": "gauge","metric_unit": "milliseconds","name": "monitor_name","snooze_time_in_minutes": 1,"threshold_comparator": "<=","critical_threshold": 100.0,"warning_threshold": 70.0,"critical_webhook_url": "critical_webhook_url","critical_json_payload": "critical_json_payload","warning_webhook_url": "warning_webhook_url","warning_json_payload": "warning_json_payload" }'
@@ -70,23 +89,23 @@ BODY:
 <pre>
 {
     "name": "Lathrop CPU",
-    "metric_name": "cf.system.cpu",
-    "metric_type": "gauge",
-    "metric_unit": "percentage",
-    "snooze_time_in_minutes": 15,
-    "threshold_comparator": ">=",
-    "critical_threshold": 10,
-    "warning_threshold": 5,
-    "critical_webhook_url": "",
-    "critical_json_payload": "",
-    "warning_webhook_url": "",
-    "warning_json_payload": ""
+    "metric\_name": "cf.system.cpu",
+    "metric\_type": "gauge",
+    "metric\_unit": "percentage",
+    "snooze\_time\_in\_minutes": 15,
+    "threshold\_comparator": ">=",
+    "critical\_threshold": 10,
+    "warning\_threshold": 5,
+    "critical\_webhook\_url": "",
+    "critical\_json\_payload": "",
+    "warning\_webhook\_url": "",
+    "warning\_json\_payload": ""
 }
 </pre>
 
 ##<a id='view-triggered-monitors'></a> View Triggered Monitors
 
-PCF Metrics 1.6 also provides the ability to retrieve triggered application event and metric monitors via endpoint.
+You can use the following cURL and API commands to view triggered event and metric monitors.
 
 ### cURL 
 <pre>
@@ -108,7 +127,15 @@ GET https://monitors-api.sys.[DOMAIN]/api/v1/[APP_GUID]/triggered_monitors/
 
 ##<a id='configure-monitors-yml'></a> Configure Monitors via YAML
 
-In addition to configuring Monitors directly via API, PCF Metrics 1.6 also allows you to automate your Monitors configuration via YAML file.
+In addition to configuring monitors directly via API, you can also automate monitors configuration via YAML file. The examples below show the correct YAML file format for automating event and metric monitor configuration.
+
+The following attributes are optional and can be omitted from your YAML file if not needed:
+
+  *  `warning_threshold`
+  *  `critical_webhook_url`
+  *  `critical_json_payload`
+  *  `warning_webhook_url`
+  *  `warning_json_payload`
 
 ### Metric monitor .yml example format
 <pre>
@@ -182,6 +209,9 @@ In addition to configuring Monitors directly via API, PCF Metrics 1.6 also allow
 </pre>
 
 ### Apply .yml cURL Command
+
+To automate event and metric monitor configuration via YAML file, run the following cURL command.
+
 <pre>
 curl -H "Authorization: $(cf oauth-token)" -H "Content-Type: application/yaml" --data-binary "@/[PATH-TO-FILE.yml]" -k "https://monitors-api.sys.[DOMAIN]/api/v1/$(cf app [APP_NAME] --guid)/monitors/" -vvv -X PUT
 </pre>
@@ -189,18 +219,3 @@ curl -H "Authorization: $(cf oauth-token)" -H "Content-Type: application/yaml" -
 * Replace `[DOMAIN]` with your domain
 
 * Replace `[APP_NAME]` with the name of your app
-
-##<a id='notes'></a> Notes
-You must have the appropriate permissions to view or manage application Monitors in PCF Metrics.
-
-The following are attributes are optional and can be omitted from your commands if not needed:
-
-* `warning_threshold`
-
-* `critical_webhook_url`
-
-* `critical_json_payload`
-
-* `warning_webhook_url`
-
-* `warning_json_payload`
