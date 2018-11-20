@@ -42,7 +42,7 @@ To upgrade to PCF Metrics v1.6 from 1.4.x, Pivotal recommends that you follow th
 
 ##<a id='upgrade'></a>Upgrade from v1.5.x to v1.6.x
 
-As both 1.5 and 1.6 use the same datastore solutions, standard manual or automated upgrade paths can be applied for upgrading from PCF Metrics 1.5.x to 1.6.x. 
+As both 1.5 and 1.6 use the same datastore solutions, you can use standard manual or automated upgrade paths to upgrade from PCF Metrics 1.5.x to 1.6.x.  
 
 ## <a id='install'></a> New Install of PCF Metrics
 
@@ -125,13 +125,12 @@ This section describes how to install the PCF Metrics tile.
 1. Review the **Metrics API server instance count** value.
    You can increase this instance count at any time to accommodate deployments with more apps, metrics, and logs.
 1. Review the **Metrics Retention Window** value. 
-   You can set number of days to retain metrics data from 1 to 14 days.
-   Will retain UTC±00:00 of the current day minus the retention period plus one additional day to prevent pruning within the retention period.
+   PCF Metrics adds a day to your configured value to prevent pruning within your desired retention window. The retention window begins at UTC±00:00 of the current day and goes back the amount of days you enter in this field, plus the one more day added by PCF Metrics.
 1. Review the **Logs Retention Window** value.
-   You can set number of days to retain logs data from 1 to 14 days.
-   Will retain UTC±00:00 of the current day minus the retention period plus one additional day to prevent pruning within the retention period.
+   You can set number of days to retain logs data from `1` to `14` days.
+   PCF Metrics adds a day to your configured value to prevent pruning within your desired retention window. The retention window begins at UTC±00:00 of the current day and goes back the amount of days you enter in this field, plus the one more day added by PCF Metrics. 
 1. Review the **Logs Max Retention Percentage** value.
-   As a preventative measure, you can set the percentage of disk capacity used before triggering automatic log pruning to prevent Postgres failures. Default is 85%.
+   As a preventative measure, you can set the percentage of disk capacity used before triggering automatic log pruning to prevent Postgres failures. The Default is `85`.
 1. Review the **Logs Disk Size Pruning Interval** value.
    You can set the length of time between checking the Postgres disk capacity for automated pruning operations. Default is 1 hour.
 1. Review the **Log level for push apps** value.
@@ -198,8 +197,6 @@ This section describes how to install the PCF Metrics tile.
 1. Click **Save**.
 
 #### <a id="stemcell"></a> Import Stemcell
-
-**For Ops Manager v2.1 and later:**
 
 <p class='note'><strong>Note:</strong> PCF Metrics 1.6 requires the Xenial stemcell line.</p>
 
