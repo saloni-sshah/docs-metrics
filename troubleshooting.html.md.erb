@@ -99,12 +99,22 @@ This topic describes how to resolve common issues experienced while operating or
   </tr>
   <tr>
     <th>Cause</th>
-    <td>PostgreSQL VM does not have enough space allocated for storage.</td>
+    <td>The PostgreSQL VM does not have enough CPU allocated or enough space allocated for storage.</td>
   </tr>
   <tr>
     <th>Solution</th>
-    <td>Increase the storage space allocated for the PostgreSQL VM. The CPU may remain high for a period of time after the upgrade
-</td>
+    <td>
+        Increase the size of the PostgreSQL VM
+        <br><br>
+        <ol>
+          <li>
+              If the disk storage is below 85%, ssh to the PostgreSQL VM and check the load average (with `uptime` or `top`).
+              If the load average is high, increase the CPU allocated for the PostgreSQL VM.
+          </li>
+          <li>If the disk storage is over 85%, increase the storage space allocated for the PostgreSQL VM.</li>
+          <li>The CPU may remain high for a period of time after the upgrade.</li>
+        </ol>
+    </td>
   </tr>
 </table>
 
