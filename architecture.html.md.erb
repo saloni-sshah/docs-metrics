@@ -24,12 +24,12 @@ This section describes how PCF Metrics fills its datastores. PCF Metrics uses th
 * The **MySQL** component stores metric and event data from the apps running on your PCF deployment. 
 	* Examples of events are `start` and `stop`. 
 	* Examples of metrics are _container metrics_ such as CPU and _network metrics_ such as Requests. 
-* The **Postgres** component stores logs from the apps running on your PCF deployment.
+* The **PostgreSQL** component stores logs from the apps running on your PCF deployment.
 * The **Redis** component caches data ingested from the Firehose and data queried by the Metrics API.
 
 ### Components
 
-The diagram below highlights the components that convey metric and log data into the Postgres and MySQL datastore.
+The diagram below highlights the components that convey metric and log data into the PostgreSQL and MySQL datastore.
 
 <%= image_tag("data-ingestion-15.png", :alt => "Ingesting firehose data into PCF Metrics 1.5 datastores") %>
 
@@ -60,7 +60,7 @@ The following table describes how the components act during each stage.
 		Each of the logqueues acts independently, writing information to the datastores:
 		<br><br>
 		
-		<b>Postgres logqueue</b>
+		<b>PostgreSQL logqueue</b>
 		<br><br>
 		The <code>postgres-logqueue</code> app reads data from Redis and checks whether the PostgreSQL datastore is available. If available, the app writes logs to the PostgreSQL datastore.
 		<br><br>
@@ -74,6 +74,7 @@ The following table describes how the components act during each stage.
 			<li>Inserts container and network metrics into MySQL with 1-minute granularity</li>
 			<li>Parses app log messages for an app event name and inserts the event into MySQL</li>
 		</ul>
+		The <code>mysql-logqueue</code> prunes data older than the <code>Metrics Retention Window</code> at UTC±00:00 every day or when the <code>mysql-logqueue</code> is restarted.
 	</tr>
 </table>
 
@@ -124,7 +125,7 @@ The following table describes how the components act during each stage.
 			<br><br>
 			<ol>
 				<li>Communicates with the UAA and Cloud Controller to confirm that the user can access data for the requested app</li>
-				<li>Fetches the data from MySQL and Postgres and then streams it to the browser</li>
+				<li>Fetches the data from MySQL and PostgreSQL and then streams it to the browser</li>
 			</ol>
 		</td>
 	</tr>
