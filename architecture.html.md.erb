@@ -62,7 +62,9 @@ The following table describes how the components act during each stage.
 		
 		<b>Postgres logqueue</b>
 		<br><br>
-		The <code>postgres-logqueue</code> app reads data from Redis and checks whether the Postgres datastore is available. If available, the app writes logs to the Postgres datastore.
+		The <code>postgres-logqueue</code> app reads data from Redis and checks whether the PostgreSQL datastore is available. If available, the app writes logs to the PostgreSQL datastore.
+		<br><br>
+		The <code>postgres-logqueue</code> prunes data older than the <code>Logs Retention Window</code> at UTC±00:00 every day or when the <code>postgres-logqueue</code> is restarted.
 		<br><br>
 		
 		<b>MySQL logqueue</b>
