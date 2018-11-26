@@ -143,6 +143,8 @@ While the default configurations in [Suggested Sizing by Deployment Size](#confi
 they do not take into account the additional load from custom metrics.
 Pivotal recommends evaluating performance over a period of time and scaling upwards as necessary.
 As long as persistent disk is scaled up, you won't not lose any data from scaling.
+Please note PCF Metrics adds a day to your configured <code>Metrics Retention Window</code> to prevent pruning within your desired retention window.
+The retention window begins at UTC±00:00 of the current day and goes back the amount of days you enter in this field, plus the one more day added by PCF Metrics.
 
 
 ###<a id='metrics-procedures'></a> Procedure for Scaling
@@ -180,6 +182,8 @@ The following calculation attempts to measure Postgres resource requirements mor
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _R_ &times; _S_ &times; 336 &times; _B_ = _D_<br>
 1. The formula assumes that a log retention period is 336 hours (2 weeks), and the number of Postgres instances is 1 (not configurable). For example:<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1,000,000 logs/hr &times; 2,174 bytes &times; 336 hr &times; 1.2 &asymp; 877 GB
+1. Please note PCF Metrics adds a day to your configured <code>Logs Retention Window</code> to prevent pruning within your desired retention window. The retention window begins at UTC±00:00 of the current day and goes back the amount of days you enter in this field, plus the one more day added by PCF Metrics.
+
 
 ###<a id='log-procedures'></a> Procedure for Scaling
 
