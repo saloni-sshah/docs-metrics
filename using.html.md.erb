@@ -149,6 +149,29 @@ In addition, Spring Boot apps with actuators implemented emit [Spring Boot Actua
 
 <%= image_tag("1-5-spring-boot-metric-chart.png", :alt => "Create Spring Boot metric charts") %>
 
+###<a id='metrics-data'></a> Access Metrics Data Through MySQL
+You can access metrics data through the PCF Metrics datastore.
+
+The table below provides login information.
+
+|----------|-----------------------------------------------------------------------------------------|
+| URL      |    MySQL VM IP                                                                          |
+| Port     |    3306                                                                                 |
+| Username |    MYSQL_USER defined in the environment of the `metrics-queue` app                     |
+| Password |    MYSQL_PASSWORD defined in the environment of the `metrics-queue` app                 |
+| Database |    metrics                                                                              |
+| Tables   |    app_event and app_metric                                                             |
+|----------|-----------------------------------------------------------------------------------------|
+
+To access the MySQL datastore, you can do the following:
+
+**Method 1.** Use BOSH to SSH into the MySQL VM and run the `/var/vcap/packages/pxc/bin/mysql -u<Username> -P<Port> -h<URL> -p` command.
+
+**Method 2.** Assign an external IP to the MySQL VM and a firewall rule to open ports 3306 and 3308 and access MySQL externally.
+
+**Method 3.** Open a tunnel into your IaaS network and connect that way externally.
+
+
 ### <a id="logs"></a>Logs
 
 The **Logs** view displays app log data ingested from the Loggregator Firehose:
@@ -166,6 +189,26 @@ You can interact with the **Logs** view in the following ways:
 * **Copy**: Click the copy icon to copy the text of the log.
 * **View in Trace Explorer**: Open a window to see the trace of the request associated with the log. See [Trace App Requests](#trace).
 
+###<a id='logs-data'></a> Access Logs Data Through PostgreSQL
+You can access logs data through the PCF Metrics datastore.
+
+The table below provides login information.
+
+|----------|-----------------------------------------------------------------------------------------|
+| URL      |    PostgreSQL VM IP                                                                     |
+| Port     |    5524                                                                                 |
+| Username |    POSTGRES_USERNAME defined in the environment of the `logs-queue` app                 |
+| Password |    POSTGRES_PASSWORD defined in the environment of the `logs-queue` app                 |
+| Database |    metrics                                                                              |
+| Tables   |    app_log                                                                              |
+|----------|-----------------------------------------------------------------------------------------|
+
+To access the PostgreSQL datastore, you can do the following:
+
+**Method 1.** Use BOSH to SSH into the PostgreSQL VM and run the `/var/vcap/packages/postgres-9.6.8/bin/psql -U<Username> -p<Port> <Database>` command.
+
+**Method 2.** Open a tunnel into your IaaS network and connect that way externally.
+	
 ## <a id="monitors"></a>Monitors (Beta)
 
 PCF Metrics 1.6 includes the Monitors Beta which allows users to create monitors on container, network, and custom metrics, as well as events. Users can also set trigger thresholds on these monitors to be notified via the PCF Metrics UI and webhooks when their criteria is met.
