@@ -68,7 +68,7 @@ The PCF Metrics dashboard allows users to add, edit, and delete charts.
 1. Select an aggregation type. This determines how to combine the data from multiple instances.
 <%= image_tag("1-5-metrics-chart-options.png", :alt => "Aggregation and option selection for new chart") %>
 
-**Edit Chart**: To change how instances are aggregated for an existing metric, click the pencil icon on the header of the metric chart. When the **Edit Chart** modal window appears, you can choose the aggregation type and click **Save** to apply changes.
+**Edit Chart**: To change how instances are aggregated for an existing metric, click the pencil icon on the header of the metric chart. When the **Edit Chart** modal window appears, choose the aggregation type and click **Save** to apply changes.
 
 <%= image_tag("1-5-chart-edit.png", :alt => "Edit chart") %>
 
@@ -163,7 +163,7 @@ The table below provides login information.
 | Database |    metrics                                                                              |
 | Tables   |    app_event and app_metric                                                             |
 
-To access the MySQL datastore, you can do the following:
+To access the MySQL datastore, do the following:
 
 **Method 1.** Use BOSH to SSH into the MySQL VM and run the `/var/vcap/packages/pxc/bin/mysql -u<Username> -P<Port> -h<URL> -p` command.
 
@@ -203,7 +203,7 @@ The table below provides login information.
 | Tables   |    app_log                                                                              |
 
 
-To access the PostgreSQL datastore, you can do the following:
+To access the PostgreSQL datastore, do the following:
 
 **Method 1.** Use BOSH to SSH into the PostgreSQL VM and run the `/var/vcap/packages/postgres-9.6.8/bin/psql -U<Username> -p<Port> <Database>` command.
 
