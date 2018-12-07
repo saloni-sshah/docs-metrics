@@ -20,6 +20,7 @@ The following list describes what's new in PCF Metrics v1.5.1:
 * Now verifying that the `accept-encoding` header exists before checking its value to prevent crashes while using firewall compression
 * Bug fix: Log Search was not returning matching search terms in results
 * Bug fix: Reduced overly-chatty log level
+* Bug fix: `logs-queue` custom metrics issue (mentioned below in Known Issues)
 
 ## <a id='150'></a>v1.5.0
 
@@ -53,6 +54,10 @@ In order to successfully run both PCF Metrics 1.4 and 1.5 simultaneously during 
 
 More information on the upgrade to 1.5 can be found [here](/pcf-metrics/1-5/installing.html#upgrade).
 
+#### Ingestor Count Configuration
+
+In PCF Metrics Tile v1.5.0 & v1.5.1 you have the ability to configure the `Ingestor Count` under Settings and Metrics App Components Settings. Due to a bug in the Metrics manifest file any change to this value is not applied after an Apply Changes and running the Push PCF Metrics Components Errand. The expectation is the `metrics-ingestor` app instance count under the `system` org and `metrics-v1-5` space would scale to match the "Ingestor Count" number configured in the Tile.  
+
 #### Using Custom App Metrics
 
 To use custom app metrics in PCF Metrics, you must install the Metrics Forwarder tile and bind your apps to the Metrics Forwarder service. You can use PCF Metrics without Metrics Forwarder, but you will be able to view only default container metrics, network metrics, and app events.
@@ -77,7 +82,7 @@ Due to security, call pagination, and resource constraints, downloaded logs are 
 
 #### Custom Metrics for `logs-queue` Not Currently Emitted
 
-Custom metrics for `logs-queue` used for monitoring PCF Metrics are not available in the 1.5.0-build.15 version. A patch will be released soon to address this issue.
+Custom metrics for `logs-queue` used for monitoring PCF Metrics are not available in the 1.5.0-build.15 version. A fix was released in 1.5.1-build.28.
 
 #### Smoke Test Failures Due to User Authentication
 
