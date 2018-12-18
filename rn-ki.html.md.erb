@@ -77,7 +77,7 @@ instance count under the `system` org and `metrics-v1-5` space would scale to ma
 
 #### Conflict with sysctl Job in Runtime Config
 
-Installing PCF Metrics 1.5 might fail with error messages like below one.
+Installing PCF Metrics 1.5 might fail with error messages like the following:
 
 <code>
 Task 31134 | 20:01:24 | Preparing deployment: Preparing deployment (00:00:01)
@@ -110,7 +110,7 @@ Use "include" or "exclude" `runtime-config` placement rules to address the confl
 
 You can also use "exclude" rule to exclude PCF metrics deployment if `sysctl` job in `runtime-config` should be applied to all other deployments. 
 
-Refer to [BOSH doc](https://bosh.io/docs/runtime-config/#placement-rules) for more details.
+Please refer to the [BOSH documentation](https://bosh.io/docs/runtime-config/#placement-rules) for more details.
 
 #### Using Custom App Metrics
 
