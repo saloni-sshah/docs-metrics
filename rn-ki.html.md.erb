@@ -6,6 +6,16 @@ list_style_none: true
 
 This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
+## <a id='151'></a>v1.5.2
+
+**Release Date: December 18, 2018**
+
+### Notes
+
+The following list describes what's new in PCF Metrics v1.5.2:
+
+* Bug fix: PCF Metrics manifest corrected to allow Ingestor Counts to be increased or decreased under the Metrics Components Config within the tile.
+
 ## <a id='151'></a>v1.5.1
 
 **Release Date: November 26, 2018**
@@ -64,6 +74,8 @@ the **Push PCF Metrics Components** errand.
 The expected behavior is the `metrics-ingestor` app
 instance count under the `system` org and `metrics-v1-5` space would scale to match the
 **Ingestor Count** number configured in the tile.
+
+Fix released in v1.5.2
 
 #### Using Custom App Metrics
 
