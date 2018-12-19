@@ -10,11 +10,11 @@ This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
 **Release Date: December 18, 2018**
 
-### Notes
+### Fixed Issues
 
-The following list describes what's new in PCF Metrics v1.5.2:
+This release fixes the following issue:
 
-* Bug fix: PCF Metrics manifest corrected to allow Ingestor Counts to be increased or decreased under the Metrics Components Config within the tile.
+* Changes to the **Ingestor Count** field in the **Metrics Components Config** pane are applied after clicking **Apply Changes** and running the **Push PCF Metrics Components** errand. Previously, a bug in the PCF Metrics manifest file prevented changes to **Ingestor Count**.
 
 ## <a id='151'></a>v1.5.1
 
@@ -64,7 +64,7 @@ In order to successfully run both PCF Metrics 1.4 and 1.5 simultaneously during 
 
 More information on the upgrade to 1.5 can be found [here](/pcf-metrics/1-5/installing.html#upgrade).
 
-#### (Resolved in v1.5.2) Ingestor Count Configuration
+#### Ingestor Count Configuration
 
 In PCF Metrics v1.5.0 and v1.5.1, you can configure the **Ingestor
 Count** in the **Metrics Components Config** pane. Due to a bug in the Metrics
@@ -77,22 +77,26 @@ instance count under the `system` org and `metrics-v1-5` space would scale to ma
 
 #### Conflict with sysctl Job in Runtime Config
 
-Installing PCF Metrics 1.5 might fail with error messages like the following:
+Installing PCF Metrics 1.5 might fail with an error message like the following:
 
-<code>
+<pre>
 Task 31134 | 20:01:24 | Preparing deployment: Preparing deployment (00:00:01)
 L Error: Colocated job 'sysctl' is already added to the instance group 'postgres'.
 Task 31134 | 20:01:25 | Error: Colocated job 'sysctl' is already added to the instance group 'postgres'.
-</code>
+</pre>
 
-By default, PCF Metrics contains a `sysctl` job in its manifest. There will be conflict if `sysctl` job is also included in `runtime-config`. Run "bosh runtime-config" to show if `sysctl` job is contained and will be applied to all deployments.
+This error occurs because, by default, PCF Metrics contains a `sysctl` job in its manifest file. There is a conflict if the `sysctl` job is also included in the BOSH `runtime-config` file. 
 
-Use "include" or "exclude" `runtime-config` placement rules to address the conflict. For example, if `sysctl` job in `runtime-config` is supposed to only be applied to PAS deployment, use "include" rule as illustrated below.
+To prevent this error when installing PCF Metrics 1.5, first confirm that the `sysctl` job is included in the `runtime-config` file by running `bosh runtime-config`.
 
-<code>
+If the `sysctl` job is included in the `runtime-config` file, add an `include` or `exclude` rule to the `runtime-config` file to ensure the `sysctl` job is not applied to PCF Metrics deployments. 
+
+In the example below, an `include` rule applies the `sysctl` job to the PAS tile deployment only:
+
+<pre>
 - include:
     deployments:
-    - cf-xxxx
+    - PAS-TILE-DEPLOYMENT-NAME
     stemcell:
     - os: ubuntu-trusty
     - os: ubuntu-xenial
@@ -104,13 +108,15 @@ Use "include" or "exclude" `runtime-config` placement rules to address the confl
       sysctl_conf_prefix: 60
     release: os-conf
   name: os-conf
-</code>
+</pre>
 
-"cf-xxxx" is the deployment name of PAS tile. 
+Where:
 
-You can also use "exclude" rule to exclude PCF metrics deployment if `sysctl` job in `runtime-config` should be applied to all other deployments. 
+- `PAS-TILE-DEPLOYMENT-NAME` is the name of the PAS tile deployment. 
 
-Please refer to the [BOSH documentation](https://bosh.io/docs/runtime-config/#placement-rules) for more details.
+Alternatively, to apply the `sysctl` job to all tile deployments except PCF Metrics, add an `exclude` rule to the `runtime-config` file to exclude PCF Metrics deployments. 
+
+For more information, see the [BOSH documentation](https://bosh.io/docs/runtime-config/#placement-rules).
 
 #### Using Custom App Metrics
 
