@@ -22,27 +22,27 @@ Note: Configuring a syslog endpoint requires Operations Manager 2.4 or greater.
 
 To configure a syslog endpoint, click on the PCF Metrics tile from within the Operations Manager dashboard
 
-pic
+<%= image_tag("syslog1.png", :alt => "PCF Metrics Tile") %>
 
 From the Settings tab, select Syslog. 
 
-pic
+<%= image_tag("syslog2.png", :alt => "Syslog Settings") %>
 
 Enable the configuration form by clicking "Yes" under "Do you want to configure Syslog forwarding?"
 
-pic
+<%= image_tag("syslog3.png", :alt => "Enable Syslog Form") %>
 
 Provide the necessary syslog configuration details.
 
-pic
+<%= image_tag("syslog4.png", :alt => "Syslog Config") %>
 
 You can also optionally enable TLS if desired. Details can be entered after clicking the Enable TLS checkbox.
 
-pic
+<%= image_tag("syslog5.png", :alt => "Syslog TLS Settings") %>
 
 Set the syslog queue size. This sets the number of log messages the buffer holds before dropping messages. A larger buffer size might overload the system. Default is 100000.
 
-pic
+<%= image_tag("syslog6.png", :alt => "Syslog Queue Settings") %>
 
 Click the Save button and return to the Installation Dashboard. You must re-run the PCF MEtrics errands for the syslog changes to bbe applied.
 
