@@ -14,6 +14,38 @@ Once installed, navigate to the JobHealth dashboard to view the PCF Metrics depl
 Healthwatch also supports [alerting](https://docs.pivotal.io/pcf-healthwatch/api/alerts.html) based on VM persistent
 disk percentage `system.disk.persistent.percent` and VM health `system.healthy`.
 
+## <a id="syslog"></a>Forward PCF Metrics Logs to a Syslog Endpoint
+
+The PCF Metrics 1.6 tile can be configured to forward its process and VM logs to the logging solution of your choice via a syslog endpoint.
+
+Note: Configuring a syslog endpoint requires Operations Manager 2.4 or greater.
+
+To configure a syslog endpoint, click on the PCF Metrics tile from within the Operations Manager dashboard
+
+pic
+
+From the Settings tab, select Syslog. 
+
+pic
+
+Enable the configuration form by clicking "Yes" under "Do you want to configure Syslog forwarding?"
+
+pic
+
+Provide the necessary syslog configuration details.
+
+pic
+
+You can also optionally enable TLS if desired. Details can be entered after clicking the Enable TLS checkbox.
+
+pic
+
+Set the syslog queue size. This sets the number of log messages the buffer holds before dropping messages. A larger buffer size might overload the system. Default is 100000.
+
+pic
+
+Click the Save button and return to the Installation Dashboard. You must re-run the PCF MEtrics errands for the syslog changes to bbe applied.
+
 ## <a id="kpi"></a>Key Performance Indicators
 
 KPIs for PCF Metrics are the metrics that operators find most useful for monitoring their PCF Metrics service. KPIs are high-signal-value metrics that can indicate emerging issues.
