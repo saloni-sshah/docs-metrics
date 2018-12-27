@@ -4,7 +4,7 @@ owner: PCF Metrics
 ---
 This topic explains how to monitor the health of the Pivotal Cloud Foundry (PCF) Metrics service using the logs, metrics, and Key Performance Indicators (KPIs) emitted by Cloud Foundry and the Metrics application itself.
 
-For general information about monitoring PCF, see [Monitoring Pivotal Cloud Foundry](https://docs.pivotal.io/pivotalcf/monitoring/index.html).
+For more information about monitoring PCF, see [Monitoring Pivotal Cloud Foundry](https://docs.pivotal.io/pivotalcf/monitoring/index.html).
 
 ## <a id="healthwatch"></a>Healthwatch
 
@@ -16,35 +16,31 @@ disk percentage `system.disk.persistent.percent` and VM health `system.healthy`.
 
 ## <a id="syslog"></a>Forward PCF Metrics Logs to a Syslog Endpoint
 
-The PCF Metrics 1.6 tile can be configured to forward its process and VM logs to the logging solution of your choice via a syslog endpoint.
+Operators can configure PCF Metrics to forward its process and VM logs to a logging solution via a syslog endpoint.
 
-<p class='note'><strong>Note:</strong> Configuring a syslog endpoint requires Operations Manager 2.4 or greater.</p>
+<p class='note'><strong>Note</strong>: Ops Manager 2.4 or later is required to configure PCF Metrics to forward logs to a syslog endpoint. For information about upgrading Ops Manager, see <a href='https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/opsmanager-rn.html#how-to-upgrade'>PCF Ops Manager 2.4 Release Notes</a>.</p>
 
-To configure a syslog endpoint, click on the PCF Metrics tile from within the Operations Manager dashboard
+To configure PCF Metrics to forward logs to a syslog endpoint, do the following:
 
-<%= image_tag("syslog1.png", :alt => "PCF Metrics Tile") %>
+1. In the PCF Metrics tile, click **Settings**, then click **Syslog**. 
+   <%= image_tag("syslog2.png", :alt => "Syslog Settings") %>
 
-From the Settings tab, select Syslog. 
+1. For **Do you want to configure Syslog forwarding?**, select **Yes**.
+   <%= image_tag("syslog3.png", :alt => "Enable Syslog Form") %>
 
-<%= image_tag("syslog2.png", :alt => "Syslog Settings") %>
+1. For **Address** and **Port**, enter the address and port of the syslog server. For **Transportation Protocol**, select the desired transportation protocol. 
+   <%= image_tag("syslog4.png", :alt => "Syslog Config") %>
 
-Enable the configuration form by clicking "Yes" under "Do you want to configure Syslog forwarding?"
+1. Optionally, select the **Enable TLS** checkbox to enable TLS. If you enable TLS, enter the **Permitted Peer** and **SSL Certificate**. 
+   <%= image_tag("syslog5.png", :alt => "Syslog TLS Settings") %>
 
-<%= image_tag("syslog3.png", :alt => "Enable Syslog Form") %>
+1. For **Queue Size**, enter the number of log messages the syslog server buffer holds before dropping messages. By default, the queue size is 100000. 
+   <p class='note'><b>Note</b>: Pivotal recommends a queue size of 100000 or less. A queue size larger than 100000 may cause performance issues.</p>
+   <%= image_tag("syslog6.png", :alt => "Syslog Queue Settings") %>
 
-Provide the necessary syslog configuration details.
+1. Click **Save**. 
 
-<%= image_tag("syslog4.png", :alt => "Syslog Config") %>
-
-You can also optionally enable TLS if desired. Details can be entered after clicking the Enable TLS checkbox.
-
-<%= image_tag("syslog5.png", :alt => "Syslog TLS Settings") %>
-
-Set the syslog queue size. This sets the number of log messages the buffer holds before dropping messages. A larger buffer size might overload the system. Default is 100000.
-
-<%= image_tag("syslog6.png", :alt => "Syslog Queue Settings") %>
-
-Click the Save button and return to the Installation Dashboard. You must re-run the PCF MEtrics errands for the syslog changes to bbe applied.
+1. Navigate to the **Installation Dashboard** and run the PCF Metrics errands to apply your changes. 
 
 ## <a id="kpi"></a>Key Performance Indicators
 
