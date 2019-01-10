@@ -8,7 +8,7 @@ This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
 ## <a id='160'></a>v1.6.0
 
-**Release Date: December 3, 2018**
+**Release Date: January 10, 2019**
 
 ### <a id="new-features"></a>New Features in PCF Metrics v1.6
 
@@ -25,7 +25,7 @@ The following sections describe the known issues in PCF Metrics v1.6.
 
 #### Compatibility with Pivotal Application Service (formerly Elastic Runtime)
 
-PCF Metrics v1.6.x requires the following versions of Pivotal Application Service: 
+PCF Metrics v1.6.x requires the following versions of Pivotal Application Service:
 
 * v2.2.2 and later
 * v2.3: all patches within minor
@@ -43,7 +43,7 @@ To use custom app metrics in PCF Metrics, you must install the Metrics Forwarder
 
 #### Delay in Ingesting Metrics
 
-To prevent metrics data backup in Redis, ensure that each app does not emit more than 400 metrics per minute. For deployments with a high number of apps, you may still experience a delay of up to 1-2 hours before metrics data appears on the dashboard. 
+To prevent metrics data backup in Redis, ensure that each app does not emit more than 400 metrics per minute. For deployments with a high number of apps, you may still experience a delay of up to 1-2 hours before metrics data appears on the dashboard.
 
 #### Logs Data Availability During Postgres Scaling
 
