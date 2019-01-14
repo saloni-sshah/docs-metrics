@@ -212,8 +212,8 @@ This topic describes how to resolve common issues experienced while operating or
   <th>Solution</th>
   <td>
   <ol>
-  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-5</code> space of your PCF deployment:</li>
-    <pre class="terminal">$ cf target -o system -s metrics-v1-5</pre>
+  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-6</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-6</pre>
     <li>Run <code>cf apps</code> to see if these apps are running:
       <ul>
         <li><code>metrics-ingestor</code></li>
@@ -255,8 +255,8 @@ This topic describes how to resolve common issues experienced while operating or
     Check the logs of the MySQL Server and MySQL Proxy jobs for errors.  
       <ul><li>You can download the logs from the PCF Metrics tile under the <b>Status</b> tab.</li></ul>
     </li>
-    <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-5</code> space of your PCF deployment:</li>
-    <pre class="terminal">$ cf target -o system -s metrics-v1-5</pre>
+    <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-6</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-6</pre>
     <li>
     Run the following command and ensure the security group can access the MySQL jobs:
     <p class="note"><strong>Note</strong>: PCF Metrics creates a default security group to allow all traffic to its apps.</p>
@@ -282,8 +282,8 @@ This topic describes how to resolve common issues experienced while operating or
   <th>Solution</th>
   <td>
   <ol>
-  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-5</code> space of your PCF deployment:</li>
-    <pre class="terminal">$ cf target -o system -s metrics-v1-5</pre>
+  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-6</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-6</pre>
     <li>Run <code>cf apps</code> to see if these apps are running:
       <ul>
         <li><code>metrics-ingestor</code></li>
@@ -325,8 +325,8 @@ This topic describes how to resolve common issues experienced while operating or
   <th>Solution</th>
   <td> 
   <ol>
-  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-5</code> space of your PCF deployment:</li>
-    <pre class="terminal">$ cf target -o system -s metrics-v1-5</pre>
+  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-6</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-6</pre>
     <li>
       Run the following command to check the app logs and investigate the error:
     </li>
@@ -354,8 +354,8 @@ This topic describes how to resolve common issues experienced while operating or
   <th>Solution</th>
   <td> 
   <ol>
-  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-5</code> space of your PCF deployment:</li>
-    <pre class="terminal">$ cf target -o system -s metrics-v1-5</pre>
+  <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-6</code> space of your PCF deployment:</li>
+    <pre class="terminal">$ cf target -o system -s metrics-v1-6</pre>
     <li>
       Run the following command to check the app logs and investigate the error:
     </li>
@@ -403,7 +403,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 1. Log in to the Cloud Foundry Command Line Interface (cf CLI) using the credentials from the previous step. 
   <pre class="terminal">$ cf login -a http<span>s</span>://api.YOUR-SYSTEM-DOMAIN -u admin -p PASSWORD</pre> 
 
-1. When prompted, select the `system` org and the `metrics-v1-5` space.
+1. When prompted, select the `system` org and the `metrics-v1-6` space.
 
 1. Ensure that the output displays the following apps, each in a `started` state:
   * `metrics-ingestor`
@@ -465,7 +465,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD` 
   <p class="note"><strong>Note</strong>: If you do not know the username and password,
-    you can run `cf env metrics-queue` with the <code>system</code> org and the <code>metrics-v1-5</code> space targeted.</p>
+    you can run `cf env metrics-queue` with the <code>system</code> org and the <code>metrics-v1-6</code> space targeted.</p>
 
 1. Verify that the database was bootstrapped correctly:
   1. Run `show databases` and check for a `metrics` database.
@@ -560,7 +560,7 @@ Follow the steps below to resolve the issue.
 #### Resolve
 
 1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD` 
-  <p class="note"><strong>Note</strong>: If you do not know the username and password, you can run `cf env metrics-queue` with the <code>system</code> org and the <code>metrics-v1-5</code> space targeted.</p>
+  <p class="note"><strong>Note</strong>: If you do not know the username and password, you can run `cf env metrics-queue` with the <code>system</code> org and the <code>metrics-v1-6</code> space targeted.</p>
 1. Run `use metrics;`.
 1. Run the following command:
 <pre class="terminal">mysql> PURGE BINARY LOGS BEFORE 'YYYY-MM-DD HH:MM:SS'; </pre>
