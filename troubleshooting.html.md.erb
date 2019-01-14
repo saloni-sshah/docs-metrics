@@ -301,11 +301,13 @@ This topic describes how to resolve common issues experienced while operating or
      <p class="note"><strong>Note</strong>: In some cases, you might discover a failure to communicate with Loggregator in the form of a bad handshake error.
          <br><br>Ensure the <b>Loggregator Port</b> setting in the PAS tile <b>Networking</b> pane is set to the correct value.
          For AWS, it is <code>4443</code>. For all other IaaSes, it is <code>443</code>.
+         <br><br>
+         If the <b>metrics-ingestor</br> logs shows <b>Aggregation Stored Procedures key is not in redis</b>,
+         stop the <b>metrics-ingestor</b> application, restart Redis, and start the <b>metrics-ingestor</b> application again.
+         <br><br>
+         Redis is used for metrics and logs aggregation.
+         If there is an error loading the stored procedure, the ingestor will fail to ingest both logs and metrics.
       </p>
-     <p class="note"><strong>Note</strong>: If the `metrics-ingestor` is reporting <b>Aggregation Stored Procedures key is not in redis</b>,
-          stop the `metrics-ingestor` app, restart Redis, and start the `metrics-ingestor` app again.
-          Redis is used for metrics and logs aggregation and if there is an error loading the procedure, the ingestor will ingest logs or metrics.
-     </p>
   </ol>
   </td>
 </tr>
@@ -432,12 +434,12 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. Run the following command to stream logs:
   <pre class="terminal">$ cf logs metrics-ingestor</pre>
   1. Watch the logs emitted by the `metrics-ingestor` app for errors. See the list below for common errors:
-      * **Aggregation Stored Procedures key is not in redis**: Redis may have been restarted or in a bad state.
-          Stop the `metrics-ingestor` app. Restart redis. Start the `metrics-ingestor` app.
+      * **Aggregation Stored Procedures key is not in redis**: Redis may have been restarted or is in a bad state.
+          Stop the `metrics-ingestor` app. Restart redis. Start the `metrics-ingestor` app again.
       * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the Firehose.
           This user must have the `doppler.firehose` authority.
-      * **Could not get metrics forwarder credentials: could not find service with name: metrics-forwarder**: The Metrics Forwarder Tile is not installed.
-          Metrics will not display custom metrics without the Metrics Forwarder but will otherwise function normally.
+      * **Could not find service with name: metrics-forwarder**: The Metrics Forwarder Tile is not installed.
+          Metrics will not display custom metrics without the Metrics Forwarder Tile but will otherwise function normally.
       * **WebSocket Disconnects**: If you see WebSocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances.
           The Firehose might be dropping the Ingestor connection to avoid back pressure.
       * **Redis errors**: Investigate redis logs, for instructions see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
@@ -460,8 +462,8 @@ If you do not use a load balancer, or this issue does not apply to your deployme
         You can run `cf security-group metrics-api` to see if the ASG exists. 
         If the ASG is not present, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html)
         to recreate it.
-      * **Could not get metrics forwarder credentials: could not find service with name: metrics-forwarder**: The Metrics Forwarder Tile is not installed.
-          Metrics will not display custom metrics without the Metrics Forwarder but will otherwise function normally.
+      * **Could not find service with name: metrics-forwarder**: The Metrics Forwarder Tile is not installed.
+          Metrics will not display custom metrics without the Metrics Forwarder Tile but will otherwise function normally.
 
 1. If the app is started and you do not find any errors, proceed to the next step.
 
@@ -520,8 +522,8 @@ If you do not use a load balancer, or this issue does not apply to your deployme
         You can run `cf security-group metrics-api` to see if the ASG exists.
         If the ASG is not present, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html)
         to recreate it.
-      * **Could not get metrics forwarder credentials: could not find service with name: metrics-forwarder**: The Metrics Forwarder Tile is not installed.
-          Metrics will not display custom metrics without the Metrics Forwarder but will otherwise function normally.
+      * **Could not find service with name: metrics-forwarder**: The Metrics Forwarder Tile is not installed.
+          Metrics will not display custom metrics without the Metrics Forwarder Tile but will otherwise function normally.
 
 1. If the app is started and you do not find any errors, proceed to the next step.
 
