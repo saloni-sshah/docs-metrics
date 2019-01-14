@@ -301,8 +301,13 @@ This topic describes how to resolve common issues experienced while operating or
      <p class="note"><strong>Note</strong>: In some cases, you might discover a failure to communicate with Loggregator in the form of a bad handshake error.
          <br><br>Ensure the <b>Loggregator Port</b> setting in the PAS tile <b>Networking</b> pane is set to the correct value.
          For AWS, it is <code>4443</code>. For all other IaaSes, it is <code>443</code>.
-      </p></td>
+      </p>
+     <p class="note"><strong>Note</strong>: If the `metrics-ingestor` is reporting <b>Aggregation Stored Procedures key is not in redis</b>,
+          stop the `metrics-ingestor` app, restart Redis, and start the `metrics-ingestor` app again.
+          Redis is used for metrics and logs aggregation and if there is an error loading the procedure, the ingestor will ingest logs or metrics.
+     </p>
   </ol>
+  </td>
 </tr>
 </table>
 
@@ -417,7 +422,30 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   <pre class="terminal">$ cf logs APP-NAME --recent</pre>
   If you do not see any output, or if you did not find any errors, proceed to the next step.
 
-### Step 3: Check the log-queue
+
+### Step 3: Check the Metrics Ingestor
+
+  1. To get a higher level of detail from the metrics-ingestor application, set the LOG_LEVEL env variable:
+  <pre class="terminal">$ cf set-env metrics-ingestor LOG_LEVEL DEBUG</pre>
+  1. To apply this setting, restage the application:
+  <pre class="terminal">$ cf restage metrics-ingestor</pre>
+  1. Run the following command to stream logs:
+  <pre class="terminal">$ cf logs metrics-ingestor</pre>
+  1. Watch the logs emitted by the `metrics-ingestor` app for errors. See the list below for common errors:
+      * **Aggregation Stored Procedures key is not in redis**: Redis may have been restarted or in a bad state.
+          Stop the `metrics-ingestor` app. Restart redis. Start the `metrics-ingestor` app.
+      * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the Firehose.
+          This user must have the `doppler.firehose` authority.
+      * **Could not get metrics forwarder credentials: could not find service with name: metrics-forwarder**: The Metrics Forwarder Tile is not installed.
+          Metrics will not display custom metrics without the Metrics Forwarder but will otherwise function normally.
+      * **WebSocket Disconnects**: If you see WebSocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances.
+          The Firehose might be dropping the Ingestor connection to avoid back pressure.
+      * **Redis errors**: Investigate redis logs, for instructions see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
+           Many possible solutions start with restarting redis.
+
+1. If the app is started and you do not find any errors, proceed to the next step.
+
+### Step 4: Check the log-queue
 
   1. To get a higher level of detail from the logs-queue application, set the LOG_LEVEL env variable:
   <pre class="terminal">$ cf set-env logs-queue LOG_LEVEL DEBUG</pre>
@@ -432,27 +460,11 @@ If you do not use a load balancer, or this issue does not apply to your deployme
         You can run `cf security-group metrics-api` to see if the ASG exists. 
         If the ASG is not present, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html)
         to recreate it.
-
-
-1. If the app is started and you do not find any errors, proceed to the next step.
-
-### Step 4: Check the Metrics Ingestor
-
-  1. To get a higher level of detail from the metrics-ingestor application, set the LOG_LEVEL env variable:
-  <pre class="terminal">$ cf set-env metrics-ingestor LOG_LEVEL DEBUG</pre>
-  1. To apply this setting, restage the application:
-  <pre class="terminal">$ cf restage metrics-ingestor</pre>
-  1. Run the following command to stream logs:
-  <pre class="terminal">$ cf logs metrics-ingestor</pre>
-  1. Watch the logs emitted by the `metrics-ingestor` app for errors. See the list below for common errors:
-      * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the Firehose.
-          This user must have the `doppler.firehose` authority.
-      * **WebSocket Disconnects**: If you see WebSocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances.
-          The Firehose might be dropping the Ingestor connection to avoid back pressure.
-      * **Redis errors**: Investigate redis logs, for instructions see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
-           Many possible solutions start with restarting redis.
+      * **Could not get metrics forwarder credentials: could not find service with name: metrics-forwarder**: The Metrics Forwarder Tile is not installed.
+          Metrics will not display custom metrics without the Metrics Forwarder but will otherwise function normally.
 
 1. If the app is started and you do not find any errors, proceed to the next step.
+
 
 ### Step 5: Check MySQL
 
@@ -508,6 +520,8 @@ If you do not use a load balancer, or this issue does not apply to your deployme
         You can run `cf security-group metrics-api` to see if the ASG exists.
         If the ASG is not present, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html)
         to recreate it.
+      * **Could not get metrics forwarder credentials: could not find service with name: metrics-forwarder**: The Metrics Forwarder Tile is not installed.
+          Metrics will not display custom metrics without the Metrics Forwarder but will otherwise function normally.
 
 1. If the app is started and you do not find any errors, proceed to the next step.
 
