@@ -589,3 +589,20 @@ Follow the steps below to resolve the issue.
 ##<a id='syslog'></a> Forward PCF Metrics Logs to a Syslog Endpoint
 
 When using PCF Metrics 1.6 or higher on PCF 2.4 and beyond, you can configure the tile to forward its logs to a syslog endpoint for troubleshooting. Please see the [Configure a Syslog Endpoint](#) docs for more details.
+
+## <a id="push-apps-red-herring"></a>Service metrics-forwarder does not exist
+<table>
+  <tr>
+      <th>Error</th>
+      <td>Service metrics-forwarder does not exist.</td>
+  </tr>
+  <tr>
+      <th>Cause</th>
+      <td>The Metrics Forwarder Tile is not installed.</td>
+  </tr>
+  <tr>
+      <th>Solution</th>
+      <td>Install the Metrics Fowarder Tile if you would like custom metrics, otherwise the error can be ignored.
+      The service is optional.</td>
+  </tr>
+</table>
