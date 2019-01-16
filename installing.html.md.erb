@@ -220,10 +220,10 @@ To configure PCF Metrics to forward logs to a syslog endpoint, do the following:
 1. For **Do you want to configure Syslog forwarding?**, select **Yes**.
    <%= image_tag("syslog3.png", :alt => "Enable Syslog Form") %>
 
-1. For **Address** and **Port**, enter the address and port of the syslog server. For **Transportation Protocol**, select the desired transportation protocol. 
+1. For **Address** and **Port**, enter the address and port of the syslog server. For **Transport Protocol**, select the desired transport protocol. 
    <%= image_tag("syslog4.png", :alt => "Syslog Config") %>
 
-1. Optionally, select the **Enable TLS** checkbox to enable TLS. If you enable TLS, enter the **Permitted Peer** and **SSL Certificate**. 
+1. (Optional) Select the **Enable TLS** checkbox to enable TLS. If you enable TLS, enter the **Permitted Peer** and **SSL Certificate**. 
    <%= image_tag("syslog5.png", :alt => "Syslog TLS Settings") %>
 
 1. For **Queue Size**, enter the number of log messages the syslog server buffer holds before dropping messages. By default, the queue size is 100000. 
