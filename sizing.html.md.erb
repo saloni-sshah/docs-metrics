@@ -184,7 +184,6 @@ The following calculation attempts to measure Postgres resource requirements mor
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1,000,000 logs/hr &times; 2,174 bytes &times; 336 hr &times; 1.2 &asymp; 877 GB
 1. Please note PCF Metrics adds a day to your configured <code>Logs Retention Window</code> to prevent pruning within your desired retention window. The retention window begins at UTC±00:00 of the current day and goes back the amount of days you enter in this field, plus the one more day added by PCF Metrics.
 
-
 ###<a id='log-procedures'></a> Procedure for Scaling
 
 <p class="note warning">
@@ -196,6 +195,33 @@ After determining the desired size for the Postgres instance needed for your dep
 1. From the **Settings** tab of the **Metrics** tile, click **Resource Config**.
 1. Locate the **PostgreSQL** job and select the values for the **Persistent Disk Type** and **VM Type**. 
 1. Click **Save**.  
+
+##<a id='temp-datastore'></a> Scale the Temporary Datastore (Redis)
+
+PCF Metrics uses Redis to temporarily store ingested data from the Loggregator Firehose
+as well as cache data queried by the Metrics API.
+The former use case is to prevent major metrics and logs loss when the data stores (Postgres and MySQL) are unavailable.
+The latter is to potentially speed up front-end queries. See [PCF Metrics Product Architecture](./architecture.html) for more information.
+
+###<a id='temp-considerations'></a> Considerations for Scaling
+
+The default Redis configuration specified in [Suggested Sizing by Deployment Size](#configs-by-size) above
+that fits your deployment size should work for most cases.
+Redis stores all data in memory, so if your deployment size requires it,
+you can also consider scaling up the RAM for your Redis instance.
+
+###<a id='temp-procedures'></a> Procedure for Scaling
+
+Follow these steps to configure the size of the Redis VM for the temporary datastore based on your calculations.
+
+<p class="note"><strong>Note</strong>: In the case that the temporary datastore becomes full,
+Redis uses the <code>volatile-ttl</code> eviction policy to continue storing incoming logs.
+For more information, see <i>Eviction policies</i> in <a href="https://redis.io/topics/lru-cache">Using Redis as an LRU cache</a>.</p>
+
+1. Navigate to the Ops Manager Installation Dashboard and click the **Metrics** tile.
+1. From the **Settings** tab, click **Resource Config**. 
+1. Locate the **Redis** job and select the dropdown menus under **Persistent Disk Type** and **VM Type** to scale Redis up or down.
+1. Click **Save**. 
 
 ##<a id='ingestor'></a> Scale the Ingestor, Logqueues, Alerting, and Metrics API
 
