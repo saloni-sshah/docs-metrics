@@ -45,6 +45,10 @@ In order to successfully run both PCF Metrics 1.4 and 1.6 simultaneously during 
 
 For more information about upgrading to PCF Metrics v1.6, see [Installing PCF Metrics](/pcf-metrics/1-6/installing.html#upgrade).
 
+#### Triggered Monitor Notifications via Webhook with Proxy Settings
+
+Metric and Event monitors will currently not send notifications to configured webhook URLs while `http_proxy` settings are enabled.
+
 #### Using Custom App Metrics
 
 To use custom app metrics in PCF Metrics, you must install the Metrics Forwarder tile and bind your apps to the Metrics Forwarder service. You can use PCF Metrics without Metrics Forwarder, but you will be able to view only default container metrics, network metrics, and app events.
