@@ -300,7 +300,7 @@ This topic describes how to resolve common issues experienced while operating or
      <pre class="terminal">$ cf logs metrics-ingestor --recent<br>$ cf logs logs-queue --recent</pre>
      <p class="note"><strong>Note</strong>: In some cases, you might discover a failure to communicate with Loggregator in the form of a bad handshake error.
          <br><br>Ensure the <b>Loggregator Port</b> setting in the PAS tile <b>Networking</b> pane is set to the correct value.
-         For AWS, it is <code>4443</code>. For all other IaaSes, it is <code>443</code>.
+         For deployments on AWS not using an ALB, it is <code>4443</code>. Otherwise, it is <code>443</code>.
          <br><br>
          If the <b>metrics-ingestor</b> logs shows <b>Aggregation Stored Procedures key is not in redis</b>,
          stop the <b>metrics-ingestor</b> application, restart Redis, and start the <b>metrics-ingestor</b> application again.
