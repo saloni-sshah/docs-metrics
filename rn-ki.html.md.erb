@@ -23,6 +23,18 @@ The following list describes what's new in PCF Metrics v1.6:
 
 The following sections describe the known issues in PCF Metrics v1.6.
 
+#### Push Apps Errand Doesn't Complete
+
+We are currently investigating an issue in PCF Metrics where the push apps errand does not complete, stalling the installation of PCF Metrics.
+
+If the errand hangs on new installations of PCF Metrics 1.6, please kill the errand and attempt your installation again.
+
+Once PCF Metrics 1.6 has been successfully installed, this errand can be disabled for subsequent builds of PCF Metrics.
+
+#### Triggered Monitor Notifications (Beta) via Webhook with Proxy Settings
+
+Metric and Event Monitors (Beta) will currently not send notifications to configured webhook URLs while `http_proxy` settings are enabled.
+
 #### Compatibility with Pivotal Application Service (formerly Elastic Runtime)
 
 PCF Metrics v1.6.x requires the following versions of Pivotal Application Service:
@@ -44,10 +56,6 @@ PCF Metrics v1.6.x requires the following versions of Pivotal Cloud Foundry Oper
 In order to successfully run both PCF Metrics 1.4 and 1.6 simultaneously during the upgrade period, ensure the 1.4 tile is updated to 1.4.6 or later. 1.4.5 and older will not support the secondary metrics URL `metrics-previous.YOUR-SYSTEM-DOMAIN` that allows the 1.4 dashboard to be viewed.
 
 For more information about upgrading to PCF Metrics v1.6, see [Installing PCF Metrics](/pcf-metrics/1-6/installing.html#upgrade).
-
-#### Triggered Monitor Notifications (Beta) via Webhook with Proxy Settings
-
-Metric and Event Monitors (Beta) will currently not send notifications to configured webhook URLs while `http_proxy` settings are enabled.
 
 #### Using Custom App Metrics
 
