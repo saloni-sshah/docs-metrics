@@ -49,7 +49,7 @@ For more information about upgrading to PCF Metrics v1.6, see [Installing PCF Me
 
 If you have upgraded to PCF Metrics 1.6.0 from 1.5.2, you may discover that your Postgres logs data store will fill up unexpectedly (even with pruning enabled).
 
-In this scenario, you will need to delete the following volumes to allow the data pruning service to keep your Postgres disk operational:
+In this scenario, you will need to delete the following volumes to allow the data pruning service to keep your Postgres instance operational:
 
 ```
 /var/vcap/store/postgres/postgres-previous
