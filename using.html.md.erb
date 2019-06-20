@@ -141,7 +141,11 @@ See the following topics for more information about app events:
 
 ### <a id='custom'></a> Custom Metrics
 
-Users can configure their apps to emit custom metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the PCF Metrics dashboard. For steps on how to set up your apps to emit custom metrics, refer to the [Metrics Forwarder Documentation](https://docs.pivotal.io/metrics-forwarder/index.html). If you have configured the apps correctly, you should be able to automatically see custom metrics on the PCF Metrics dashboard when you add a chart.
+Users can configure their apps to emit custom metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the PCF Metrics dashboard.
+
+For steps on how to set up your apps to emit custom metrics on PCF 2.2 - 2.4, refer to the [Metrics Forwarder Documentation](https://docs.pivotal.io/metrics-forwarder/index.html). For steps on how to set up your apps to emit custom metrics on PCF 2.4 and beyond, refer to the [Metric Registrar Documentation](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
+
+If you have configured the apps correctly, you should be able to automatically see custom metrics on the PCF Metrics dashboard when you add a chart.
 
 <%= image_tag("1-5-custom-metric-chart.png", :alt => "Create custom metric charts") %>
 
