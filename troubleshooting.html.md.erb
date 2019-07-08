@@ -1,10 +1,10 @@
 ---
-title: Troubleshooting PCF Metrics
-owner: PCF Metrics
+title: Troubleshooting PCF App Metrics
+owner: PCF App Metrics
 list_style_none: true
 ---
 
-This topic describes how to resolve common issues experienced while operating or using Pivotal Cloud Foundry (PCF) Metrics.
+This topic describes how to resolve common issues experienced while operating or using Pivotal Cloud Foundry (PCF) App Metrics.
 
 ## <a id='insufficient-resources'></a> Insufficient Resources
 
@@ -16,9 +16,9 @@ This topic describes how to resolve common issues experienced while operating or
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Your PCF deployment has insufficient Diego resources to handle the apps pushed as part of a PCF Metrics installation. 
+  <td>Your PCF deployment has insufficient Diego resources to handle the apps pushed as part of a PCF App Metrics installation. 
   <br><br>
-  The PCF Metrics tile deploys the following apps:
+  The PCF App Metrics tile deploys the following apps:
   <table>
     <tr>
       <th>App</th>
@@ -62,7 +62,7 @@ This topic describes how to resolve common issues experienced while operating or
 </tr>
 <tr>
   <th>Solution</th>
-  <td>Increase the number of Diego cells so that your PCF deployment can support the apps pushed as part of the PCF Metrics installation:
+  <td>Increase the number of Diego cells so that your PCF deployment can support the apps pushed as part of the PCF App Metrics installation:
   <br>
   <br>
   <ol>
@@ -81,7 +81,7 @@ This topic describes how to resolve common issues experienced while operating or
   </tr>
   <tr>
     <th>Cause</th>
-    <td>PCF Metrics does not store logs with messages containing non-UTF-8 characters or logs with application GUIDs that are not standard UUID.</td>
+    <td>PCF App Metrics does not store logs with messages containing non-UTF-8 characters or logs with application GUIDs that are not standard UUID.</td>
   </tr>
   <tr>
     <th>Solution</th>
@@ -123,7 +123,7 @@ This topic describes how to resolve common issues experienced while operating or
 <table>
   <tr>
       <th>Error</th>
-      <td>You encounter <code>sorry, too many clients already</code> errors when accessing the PCF Metrics UI in your browser.</td>
+      <td>You encounter <code>sorry, too many clients already</code> errors when accessing the PCF App Metrics UI in your browser.</td>
   </tr>
   <tr>
       <th>Cause</th>
@@ -134,9 +134,9 @@ This topic describes how to resolve common issues experienced while operating or
       <td>Decrease the Logs Retention Window and increase the PostgreSQL Persistent Disk
       <br><br>
       <ol>
-        <li>Navigate to the <b>Metrics Components Config</b> section of the PCF Metrics Tile.</li>
+        <li>Navigate to the <b>Metrics Components Config</b> section of the PCF App Metrics Tile.</li>
         <li>Decrease the Logs Retention Window to a smaller number to free up space in PostgreSQL.</li>
-        <li>Navigate to the <b>Resource Config</b> section of the PCF Metrics Tile.</li>
+        <li>Navigate to the <b>Resource Config</b> section of the PCF App Metrics Tile.</li>
         <li>Increase the Persistent Disk size of PostgreSQL Server to at least twice the current size.</li>
       </ol>
 
@@ -253,13 +253,13 @@ This topic describes how to resolve common issues experienced while operating or
   <ol>
     <li>
     Check the logs of the MySQL Server and MySQL Proxy jobs for errors.  
-      <ul><li>You can download the logs from the PCF Metrics tile under the <b>Status</b> tab.</li></ul>
+      <ul><li>You can download the logs from the PCF App Metrics tile under the <b>Status</b> tab.</li></ul>
     </li>
     <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-6</code> space of your PCF deployment:</li>
     <pre class="terminal">$ cf target -o system -s metrics-v1-6</pre>
     <li>
     Run the following command and ensure the security group can access the MySQL jobs:
-    <p class="note"><strong>Note</strong>: PCF Metrics creates a default security group to allow all traffic to its apps.</p>
+    <p class="note"><strong>Note</strong>: PCF App Metrics creates a default security group to allow all traffic to its apps.</p>
     </li>
     <pre class="terminal">$ cf security-group metrics-api</pre>
   </ol></td>
@@ -326,7 +326,7 @@ This topic describes how to resolve common issues experienced while operating or
 </tr>
 <tr>
   <th>Cause</th>
-  <td>PCF Metrics is misconfigured and the frontend API does not receive logs from MySQL.</td>
+  <td>PCF App Metrics is misconfigured and the frontend API does not receive logs from MySQL.</td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -355,7 +355,7 @@ This topic describes how to resolve common issues experienced while operating or
 </tr>
 <tr>
   <th>Cause</th>
-  <td>PCF Metrics is misconfigured and the frontend API does not receive logs from PostgreSQL.</td>
+  <td>PCF App Metrics is misconfigured and the frontend API does not receive logs from PostgreSQL.</td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -374,7 +374,7 @@ This topic describes how to resolve common issues experienced while operating or
 
 ##<a id='ui'></a> No Logs or Metrics in the UI
 
-In some cases, the PCF Metrics UI might not display metrics and logs after successfully deploying.
+In some cases, the PCF App Metrics UI might not display metrics and logs after successfully deploying.
 
 Follow the steps in this section to help locate the app or component causing the problem. 
 
@@ -400,7 +400,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   </tr>
 </table>
   
-### Step 2: Check the PCF Metrics Apps
+### Step 2: Check the PCF App Metrics Apps
 
 1. From Ops Manager, click the PAS Tile.
   1. Click the **Credentials** tab.
@@ -436,7 +436,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   1. Watch the logs emitted by the `metrics-ingestor` app for errors. See the list below for common errors:
       * **Aggregation Stored Procedures key is not in redis**: Redis may have been restarted or is in a bad state.
           Stop the `metrics-ingestor` app. Restart redis. Start the `metrics-ingestor` app again.
-      * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the Firehose.
+      * **Cannot connect to the firehose**: PCF App Metrics creates a UAA user to authenticate the connection to the Firehose.
           This user must have the `doppler.firehose` authority.
       * **Could not find service with name: metrics-forwarder**: The Metrics Forwarder Tile is not installed.
           Metrics will not display custom metrics without the Metrics Forwarder Tile but will otherwise function normally.
@@ -470,7 +470,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 ### Step 5: Check MySQL
 
-1. From Ops Manager, select the PCF Metrics tile. 
+1. From Ops Manager, select the PCF App Metrics tile. 
 
 1. Under the **Status** tab, record the IP of a **MySQL Server** node.  
 
@@ -483,7 +483,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 1. Verify that the database was bootstrapped correctly:
   1. Run `show databases` and check for a `metrics` database.
-      1. If there is no `metrics` database, the `Push PCF Metrics Components Errand` errand of the BOSH release might not have run or succeeded.
+      1. If there is no `metrics` database, the `Push PCF App Metrics Components Errand` errand of the BOSH release might not have run or succeeded.
          Ensure the errand is selected in the tile configuration and update the tile.
 
 1. Run `use metrics` to select the `metrics` database:
@@ -582,13 +582,13 @@ Follow the steps below to resolve the issue.
 <pre class="terminal">mysql> PURGE BINARY LOGS BEFORE 'YYYY-MM-DD HH:MM:SS'; </pre>
 
 #### Edit Your MySQL Server Configuration
-1. From Ops Manager, click the PCF Metrics Tile.
-1. Navigate to the Resource Config section of the PCF Metrics Tile.
+1. From Ops Manager, click the PCF App Metrics Tile.
+1. Navigate to the Resource Config section of the PCF App Metrics Tile.
 1. Increase the Persistent Disk size of MySQL Server to at least twice the current size.
 
-##<a id='syslog'></a> Forward PCF Metrics Logs to a Syslog Endpoint
+##<a id='syslog'></a> Forward PCF App Metrics Logs to a Syslog Endpoint
 
-When using PCF Metrics 1.6 or higher on PCF 2.4 and beyond, you can configure the tile to forward its logs to a syslog endpoint for troubleshooting. Please see the "Forward PCF Metrics Logs to a Syslog Endpoint" section under the [Configure the PCF Metrics Tile](./installing.html#step2) docs for more details.
+When using PCF App Metrics 1.6 or higher on PCF 2.4 and beyond, you can configure the tile to forward its logs to a syslog endpoint for troubleshooting. Please see the "Forward PCF App Metrics Logs to a Syslog Endpoint" section under the [Configure the PCF App Metrics Tile](./installing.html#step2) docs for more details.
 
 ## <a id="push-apps-red-herring"></a>Service metrics-forwarder does not exist
 <table>
