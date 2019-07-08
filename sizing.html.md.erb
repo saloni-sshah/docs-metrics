@@ -1,16 +1,16 @@
 ---
-breadcrumb: PCF Metrics Documentation
-title: Sizing PCF Metrics for Your System 
-owner: PCF Metrics
+breadcrumb: PCF App Metrics Documentation
+title: Sizing PCF App Metrics for Your System 
+owner: PCF App Metrics
 list_style_none: true
 ---
 
-This topic describes how operators configure Pivotal Cloud Foundry (PCF) Metrics depending on their deployment size. 
-Operators can use these procedures to optimize PCF Metrics for high capacity or to reduce resource usage for smaller deployment sizes.
+This topic describes how operators configure Pivotal Cloud Foundry (PCF) App Metrics depending on their deployment size. 
+Operators can use these procedures to optimize PCF App Metrics for high capacity or to reduce resource usage for smaller deployment sizes.
 
 After your deployment has been running for a while, use the information in this topic to scale your running deployment. 
 
-If you are not familiar with the PCF Metrics components, review [PCF Metrics Product Architecture](./architecture.html) before reading this topic.
+If you are not familiar with the PCF App Metrics components, review [PCF App Metrics Product Architecture](./architecture.html) before reading this topic.
 
 For how to configure resources for a running deployment, see the procedures below:
 
@@ -41,229 +41,65 @@ by following the steps in <a href="#metrics-datastore">Configuring the Metrics D
 
 Example resource configuration to store approximately 14 days of data for a small deployment, about 100 application instances:
 
-<table>
-  <tr>
-    <th>Job</th>
-    <th>Instances</th>
-    <th>Persistent Disk Type</th>
-    <th width=40%>VM Type</th>
-  </tr>
-  <tr>
-    <td>PostgreSQL Data</td>
-    <td>1 (not configurable)</td>
-    <td>1 TB</td>
-    <td>xlarge (cpu: 4, ram: 16 GB, disk: 8 GB)</td>
-  </tr>
-  <tr>
-    <td>Redis</td>
-    <td>1 (not configurable)</td>
-    <td>5 GB</td>
-    <td>micro (cpu: 1, ram: 4 GB, disk: 8 GB)</td>
-  </tr>
-  <tr>
-    <td>MySQL Server</td>
-    <td>1 (not configurable)</td>
-    <td>500 GB</td>
-    <td>small (cpu: 1, ram: 4 GB, disk: 8 GB)</td>
-  </tr>
-</table>
+
 
 ###<a id='medium'></a>Deployment Resources for a Medium Deployment
 
 Example resource configuration to store approximately 14 days of data for a medium deployment, about 5000 application instances:
 
-<table>
-  <tr>
-    <th>Job</th>
-    <th>Instances</th>
-    <th>Persistent Disk Type</th>
-    <th width=40%>VM Type</th>
-  </tr>
-  <tr>
-    <td>PostgreSQL Data</td>
-    <td>1 (not configurable)</td>
-    <td>12 TB</td>
-    <td>2xlarge (cpu: 8, ram: 32 GB, disk: 16 GB)</td>
-  </tr>
-  <tr>
-    <td>Redis</td>
-    <td>1 (not configurable)</td>
-    <td>20 GB</td>
-    <td>medium (cpu: 4, ram: 16 GB, disk: 8 GB)</td>
-  </tr>
-  <tr>
-    <td>MySQL Server</td>
-    <td>1 (not configurable)</td>
-    <td>2 TB</td>
-    <td>medium (cpu: 4, ram: 16 GB, disk: 8 GB)</td>
-  </tr>
-</table>
+
 
 ###<a id='large'></a>Deployment Resources for a Large Deployment
 
 Example resource configuration to store approximately 14 days of data for a large deployment, about 15,000 application instances:
 
-<table>
-  <tr>
-    <th>Job</th>
-    <th>Instances</th>
-    <th>Persistent Disk Type</th>
-    <th width=40%>VM Type</th>
-  </tr>
-  <tr>
-    <td>PostgreSQL Data</td>
-    <td>1 (not configurable)</td>
-    <td>32 TB</td>
-    <td>4xlarge (cpu: 16, ram: 64 GB, disk: 32 GB)</td>
-  </tr>
-  <tr>
-    <td>Redis</td>
-    <td>1 (not configurable)</td>
-    <td>60 GB</td>
-    <td>2xlarge (cpu: 8, ram: 64 GB, disk: 16 GB)</td>
-  </tr>
-  <tr>
-    <td>MySQL Server</td>
-    <td>1 (not configurable)</td>
-    <td>4 TB</td>
-    <td>2xlarge (cpu: 8, ram: 32 GB, disk: 16 GB)</td>
-  </tr>
-</table>
+
 
 
 ##<a id='metrics-datastore'></a> Scale the Metrics Datastore
 
 
-PCF Metrics stores metrics in a single MySQL node.
+PCF App Metrics stores metrics in a single MySQL node.
 For PCF deployments with high app logs load, you can add memory and persistent disk to the MySQL server node.
 
 ###<a id='metrics-considerations'></a> Considerations for Scaling the Metrics Datastore
-
-While the default configurations in [Suggested Sizing by Deployment Size](#configs-by-size) above are a good starting point for your MySQL server node, 
-they do not take into account the additional load from custom metrics.
-Pivotal recommends evaluating performance over a period of time and scaling upwards as necessary.
-As long as persistent disk is scaled up, you won't not lose any data from scaling.
-Please note PCF Metrics adds a day to your configured <code>Metrics Retention Window</code> to prevent pruning within your desired retention window.
-The retention window begins at UTC±00:00 of the current day and goes back the amount of days you enter in this field, plus the one more day added by PCF Metrics.
 
 
 ###<a id='metrics-procedures'></a> Procedure for Scaling
 
 Do the following to scale up the MySQL server node: 
 
-To scale up the MySQL server node, do the following:
-
-1. Determine how much memory and persistent disk are required for the MySQL server node.
-1. Navigate to the Ops Manager Installation Dashboard and click the **Metrics** tile.
-1. From the **Settings** tab of the **Metrics** tile, click **Resource Config**.
-1. Select the values for the **Persistent Disk Type** and **VM Type**.
-1. Click **Save**.
-
-<p class="note warning"><strong>WARNING!</strong> If you are using PCF v1.9.x and earlier,
-   there might be issues Ops Manager BOSH Director using persistent disks larger than 2&nbsp;TB.</p>
 
 ##<a id='log-datastore'></a> Scale the Log Datastore
 
-PCF Metrics uses Postgres to store logs.
+PCF App Metrics uses Postgres to store logs.
 
 ###<a id='log-considerations'></a> Considerations for Scaling
 
-Pivotal suggests estimating your Logs data storage needs using the equation below before configuring your Postgres instance.
-
-The following calculation attempts to measure Postgres resource requirements more precisely depending on your logs load. This formula is only an approximation, and Pivotal suggests rounding the numbers up as a safety measure against undersizing Postgres:
-
-1. Determine how many logs the apps in your deployment emit per hour (_R_). To do this, Pivotal recommends multiplying your app instances' _loggregator.doppler.ingress_ rate by the number of doppler instances. More information on _loggregator.doppler.ingress_ can be found at https://docs.pivotal.io/pivotalcf/2-2/monitoring/key-cap-scaling.html#doppler-message-rate-ksi
-1. Determine the average size of each log (_S_). As an estimation tool, logs inserted into Postgres have been determined to be approximately 224 bytes plus _roughly_ two times the logline length in bytes.<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 224 bytes + (logline in bytes x 2) =  _S_<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; or <br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 224 bytes + (975 bytes x 2) =  2,174 bytes<br>
-1. As we don't want to max out the Postgres logs data storage disk, we're including a 20% buffer (_B_). Please feel free to remove this figure if you prefer.
-1. Calculate the persistent disk size for the instance (_D_) you need to scale to using the following formula:<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _R_ &times; _S_ &times; 336 &times; _B_ = _D_<br>
-1. The formula assumes that a log retention period is 336 hours (2 weeks), and the number of Postgres instances is 1 (not configurable). For example:<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1,000,000 logs/hr &times; 2,174 bytes &times; 336 hr &times; 1.2 &asymp; 877 GB
-1. Please note that PCF Metrics adds one buffer day to your configured `Logs Retention Window` to prevent pruning within your desired retention window. The retention window begins at UTC±00:00 of the current day and goes back the amount of days you enter in this field, plus the one buffer day added by PCF Metrics.
 
 
 ###<a id='log-procedures'></a> Procedure for Scaling
 
-<p class="note warning">
-<strong>WARNING!</strong> When you vertically scale your Postgres instance, Postgres enters an unhealthy period during which it does not ingest any new logs data until the scaling operation has completed.</p>
 
-After determining the desired size for the Postgres instance needed for your deployment, perform the following steps to scale your nodes:
-
-1. Navigate to the Ops Manager Installation Dashboard and click the **Metrics** tile.
-1. From the **Settings** tab of the **Metrics** tile, click **Resource Config**.
-1. Locate the **PostgreSQL** job and select the values for the **Persistent Disk Type** and **VM Type**. 
-1. Click **Save**.  
 
 ##<a id='temp-datastore'></a> Scale the Temporary Datastore (Redis)
 
-PCF Metrics uses Redis to temporarily store ingested data from the Loggregator Firehose
+PCF App Metrics uses Redis to temporarily store ingested data from the Loggregator Firehose
 as well as cache data queried by the Metrics API.
 The former use case is to prevent major metrics and logs loss when the data stores (Postgres and MySQL) are unavailable.
-The latter is to potentially speed up front-end queries. See [PCF Metrics Product Architecture](./architecture.html) for more information.
+The latter is to potentially speed up front-end queries. See [PCF App Metrics Product Architecture](./architecture.html) for more information.
 
 ###<a id='temp-considerations'></a> Considerations for Scaling
 
-The default Redis configuration specified in [Suggested Sizing by Deployment Size](#configs-by-size) above
-that fits your deployment size should work for most cases.
-Redis stores all data in memory, so if your deployment size requires it,
-you can also consider scaling up the RAM for your Redis instance.
 
 ###<a id='temp-procedures'></a> Procedure for Scaling
 
 Follow these steps to configure the size of the Redis VM for the temporary datastore based on your calculations.
 
-<p class="note"><strong>Note</strong>: In the case that the temporary datastore becomes full,
-Redis uses the <code>volatile-ttl</code> eviction policy to continue storing incoming logs.
-For more information, see <i>Eviction policies</i> in <a href="https://redis.io/topics/lru-cache">Using Redis as an LRU cache</a>.</p>
-
-1. Navigate to the Ops Manager Installation Dashboard and click the **Metrics** tile.
-1. From the **Settings** tab, click **Resource Config**. 
-1. Locate the **Redis** job and select the dropdown menus under **Persistent Disk Type** and **VM Type** to scale Redis up or down.
-1. Click **Save**. 
 
 ##<a id='ingestor'></a> Scale the Ingestor, Logqueues, Alerting, and Metrics API
 
-The procedures for scaling the Metrics Ingestor, Logs Queue, Metrics Queue, and Metrics API instances are similar.
 
-+ **Metrics Ingestor** — PCF Metrics deploys the Ingestor as an app, `metrics-ingestor`, within PCF.
-The Ingestor consumes logs and metrics from the Loggregator Firehose, sending metrics and logs to their respective Logqueue apps.
-
-    To customize PCF Metrics for high capacity, you can scale the number of Ingestor app instances and increase the amount of memory per instance.
-
-+ **Logs Queue** — PCF Metrics deploys a **Metrics Queue** and an **Logs Queue** as apps,
-    `metrics-queue` and `logs-queue`, within PCF.
-  The Metrics Queue consumes metrics from the Ingestor and forwards them to MySQL. The Logs Queue consumes logs from the Ingestor and forwards them to Postgres.
-
-    To customize PCF Metrics for high capacity, you can scale the number of queue app instances and increase the amount of memory per instance.
-
-    The number of Metrics and Logs Queues needed is dependent on the frequency that logs and metrics are forwarded by the Ingestor.
-    As a general rule:
-    +  For every 45,000 logs per minute, add 2 Logs Queues.
-    +  For every 17,000 metrics per minute, add 1 Metrics Queue.
-
-    The above is a general estimate. You might need fewer instances depending on your deployment.
-    To optimize resource allocation, provision fewer instances initially and increase instances until you achieve desired performance.
-
-+ **Metrics Alerting API** — PCF Metrics deploys the app, `metrics-alerting`, within PCF. The Metrics Alerting app is reposnsible for creating notifications for the user-created metrics and events monitors.<br><br>
-Please note that PCF Metrics 1.6 only supports one instance of this API per installation.
-
-+ **Metrics API** — PCF Metrics deploys the app, `metrics`, within PCF. 
-
-Refer to this table to determine how many instances you need for each component.
-
-
-| Item | Small | Medium | Large |
-|----------------------------------------|--------------------------------|-------------------------------|--------------------------------|
-| Ingestor instance count                | Number of Doppler servers      | Number of Doppler servers     | Number of Doppler servers      |
-| Metrics Queue instance count           | 1                              | 2                             | 8                              |
-| Logs Queue instance count              | 1                              | 4                             | 11                             |
-| Metrics API instance count             | 1                              | 2                             | 6                              |
-| Metrics Alerting API instance count    | 1                              | 1                             | 1                              |
-
-Find the number of Doppler servers in the Resource Config pane of the Pivotal Application Service tile.
 
 ###<a id='ingestor-considerations'></a> Considerations for Scaling
 
@@ -272,117 +108,6 @@ and then evaluating performance over a period of time and scaling upwards if per
 
 ###<a id='ingestor-procedures'></a> Procedure for Scaling
 
-<p class="note warning"><strong>WARNING! </strong> If you decrease the number of instances,
-   you might lose data currently being processed on the instances you eliminate.</p>
 
-After determining the number of instances needed for your deployment, 
-perform the following steps to scale:
-
-1. Target your Cloud Controller with the Cloud Foundry Command Line Interface (cf CLI).
-   If you have not installed the cf CLI, see [Installing the cf CLI](http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html).
-	<pre class="terminal">
-	$ cf api api.YOUR-SYSTEM-DOMAIN
-	Setting api endpoint to api.YOUR-SYSTEM-DOMAIN...
-	OK
-	API endpoint:   <span>https:</span>//api.YOUR-SYSTEM-DOMAIN (API version: 2.54.0)
-	Not logged in. Use 'cf login' to log in.
-	</pre>
-
-2. Log in with your UAA administrator credentials.
-   To retrieve these credentials, navigate to the **Pivotal Application Service** tile in the Ops Manager Installation Dashboard and click **Credentials**.
-   Under **UAA**, click **Link to Credential** next to **Admin Credentials** and record the password.
-	<pre class="terminal">
-	$ cf login
-	API endpoint: <span>https:</span>//api.YOUR-SYSTEM-DOMAIN
-
-	Email> admin
-	Password>
-	Authenticating...
-	OK
-
-3. When prompted, target the `metrics-v1-6` space.
-	<pre class="terminal">
-	Targeted org system
-
-	Select a space (or press enter to skip):
-	<span>1</span>. system
-	<span>2</span>. notifications-with-ui
-	<span>3</span>. autoscaling
-	<span>4</span>. metrics-v1-6
-
-	Space> 4
-	Targeted space metrics-v1-6
-
-	API endpoint:   <span>https:</span>//api.YOUR-SYSTEM-DOMAIN (API version: 2.54.0)
-	User:           admin
-	Org:            system
-	Space:          metrics-v1-6
-	</pre>
-
-4. List the apps that are running in the `metrics-v1-6` space.
-	<pre class="terminal">
-$ cf apps
-Getting apps in org system / space metrics-v1-6 as admin...
-OK<br>
-name                    requested state   instances   memory   disk   urls
-metrics-queue-blue      stopped           0/1         512M     1G
-metrics-blue            stopped           0/1         1G       2G
-metrics-ui-blue         stopped           0/1         256M     1G
-metrics-alerting-blue   stopped           0/1         1G       2G
-metrics-ingestor-blue   stopped           0/2         384M     1G
-logs-queue-blue         stopped           0/1         256M     1G
-metrics-ingestor        started           2/2         384M     1G
-metrics-queue           started           1/1         512M     1G
-logs-queue              started           1/1         256M     1G
-metrics-ui              started           1/1         256M     1G     metrics.YOUR-SYSTEM-DOMAIN
-metrics-alerting        started           1/1         1G       2G
-metrics                 started           1/1         1G       2G     metrics.YOUR-SYSTEM-DOMAIN/api/v1
-</pre>
-
-
-5. Scale the app to the desired number of instances:
-
-    <code>cf scale APP-NAME -i INSTANCE-NUMBER</code>
-
-    Where the `APP-NAME` is `logs-queue`, `metrics`, `metrics-ingestor`, or `metrics-queue`.<br>
-    For example, to scale all the apps: 
-	<pre class="terminal">$ cf scale logs-queue -i 2
-    $ cf scale metrics -i 2
-    $ cf scale metrics-ingestor -i 2
-    $ cf scale metrics-queue -i 2</pre>
-
-1. Evaluate the CPU and memory load on the instances:
-
-    <code>cf app APP-NAME</code>
-
-    For example, 
-	<pre class="terminal">
-	$ cf app metrics-ingestor
-	Showing health and status for app metrics-ingestor in org system / space metrics as admin...
-	OK
-	<br>
-	requested state: started
-	instances: 1/1
-	usage: 1G x 1 instances
-	urls: 
-	last uploaded: Sat Apr 23 16:11:29 UTC 2016
-	stack: cflinuxfs2
-	buildpack: binary_buildpack 
-	<br>	
-	     state     since                    cpu    memory        disk           details
-	<span>#</span>0   running   2016-07-21 03:49:58 PM   2.9%   13.5M of 1G   12.9M of 1G
-	</pre>
-
-1. If your average memory usage exceeds 50% or your CPU consistently averages over 85%,
-   add more instances with `cf scale APP-NAME -i INSTANCE-NUMBER`.
-   <br><br>
-   In general, you should scale the app by adding additional instances.
-   However, you can also scale the app by increasing the amount of memory per instance:
-
-        cf scale APP-NAME -m NEW-MEMORY-LIMIT
-
-    For example, 
-	<pre class="terminal">$ cf scale metrics-ingestor -m 2G</pre>
-
-	For more information about scaling app instances, see [Scaling an Application Using cf scale](http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/cf-scale.html).
+For more information about scaling app instances, see [Scaling an Application Using cf scale](http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/cf-scale.html).
 
