@@ -10,7 +10,7 @@ No content at this time.
 <!-- 
 This topic describes how developers can monitor and troubleshoot their apps using Pivotal Cloud Foundry (PCF) App Metrics. 
 
-## <a id="overview"></a> Overview
+##  Overview
 
 PCF App Metrics helps you understand and troubleshoot the health and performance of your apps.
 
@@ -21,31 +21,31 @@ The following sections describe a standard workflow for using PCF App Metrics to
 In a browser, navigate to `metrics.YOUR-SYSTEM-DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Choose an app for which you want to view metrics or logs. PCF App Metrics respects UAA permissions such that you can view any app that runs in a space that you have access to. 
 
 
-## <a id="time"></a>Change the Time Frame
+## Change the Time Frame
 
 The graphs show time along the horizontal axis. You can change the time frame for all graphs and the logs by using the time selector at the top of the window. Adjust either end of the selector or click and drag.
 
-## <a id="streaming"></a>Stream Metrics
+## Stream Metrics
 
 Streaming Metrics mode allows the metrics charts on your dashboard to be updated in real-time as metrics data is ingested.
 
 
-##<a id='metrics'></a> Add, Edit, and Delete Charts
+## Add, Edit, and Delete Charts
 
 
-## <a id="time"></a> View and Reorder Metric Charts
+##  View and Reorder Metric Charts
 
 
-## <a id="app-instance"></a>View Metrics at App-Instance Level
+## View Metrics at App-Instance Level
 
 PCF App Metrics relays metric data at the app-instance level to allow for an in-depth troubleshooting experience. Users are able to view the app metrics related to a specific instance index, which correlates directly with the app instance indices shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
 
 
-##<a id='metrics'></a> Interpret Metrics
+## Interpret Metrics
 
 See the following sections to understand how to use each of the views on the dashboard to monitor and troubleshoot your app.
 
-### <a id='container'></a> Container Metrics
+###  Container Metrics
 
 Three **Container Metrics** charts are available on the PCF App Metrics dashboard:
 
@@ -55,7 +55,7 @@ Three **Container Metrics** charts are available on the PCF App Metrics dashboar
 
 * Disk usage percentage:<br><br>A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing large sessions to disk.
 
-### <a id='network'></a> Network Metrics
+###  Network Metrics
 
 Three **Network Metrics** charts are available on the PCF App Metrics dashboard:
 
@@ -65,7 +65,7 @@ Three **Network Metrics** charts are available on the PCF App Metrics dashboard:
 
 * Average latency of a request in milliseconds:<br><br>A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
 
-### <a id='events'></a> Events 
+### Events 
 
 The **Events** graph shows the following app events: **Crash**, **Fail** (staging failures), **Update**, **Stop**, **Start**, and **SSH**. 
 
@@ -78,7 +78,7 @@ See the following topics for more information about app events:
 * [About Starting Applications](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html)
 * [Troubleshooting Application Deployment and Health](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/troubleshoot-app-health.html)
 
-### <a id='custom'></a> Custom Metrics
+### Custom Metrics
 
 Users can configure their apps to emit custom metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the PCF App Metrics dashboard.
 
@@ -92,7 +92,7 @@ In addition, Spring Boot apps with actuators implemented emit [Spring Boot Actua
 
 <%= image_tag("1-5-spring-boot-metric-chart.png", :alt => "Create Spring Boot metric charts") %>
 
-###<a id='metrics-data'></a> Access Metrics Data Through MySQL
+### Access Metrics Data Through MySQL
 You can access metrics data through the PCF App Metrics datastore.
 
 The table below provides login information.
@@ -115,14 +115,14 @@ To access the MySQL datastore, you can do the following:
 **Method 3.** Open a tunnel into your IaaS network and connect that way externally.
 
 
-### <a id="logs"></a>Logs
+### Logs
 
 The **Logs** view displays app log data ingested from the Loggregator Firehose:
 
 <p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non-standard UUID application GUIDs are not stored.</p>
 
 
-###<a id='logs-data'></a> Access Logs Data Through PostgreSQL
+### Access Logs Data Through PostgreSQL
 You can access logs data through the PCF App Metrics datastore.
 
 The table below provides login information.
@@ -144,13 +144,13 @@ To access the PostgreSQL datastore, you can do the following:
 **Method 2.** Open a tunnel into your IaaS network and connect that way externally.
 
 
-## <a id="trace"></a>Trace App Requests
+## Trace App Requests
 
 A request to one of your apps initiates a workflow within the app or system of apps. The record of this workflow is a _trace_, which you can use to troubleshoot app failures and latency issues. In the Trace Explorer view, PCF App Metrics displays an interactive graph of a trace and its corresponding logs. See the sections below to understand how to use the Trace Explorer.
 
 For more information about traces, see [What is a Trace?](http://opentracing.io/documentation/#what-is-a-trace) in the _Open Tracing_ documentation. 
 
-###<a id="before"></a> Prerequisites
+### Prerequisites
 
 PCF App Metrics constructs the Trace Explorer view using trace IDs shared across app logs. Before you [use the Trace Explorer](#trace-explorer), examine the following list to ensure PCF App Metrics can extract the necessary data from your app logs for your specific app type. 
 
@@ -164,7 +164,7 @@ compile "org.springframework.cloud:spring-cloud-starter-sleuth"
 * **Node.js**, **Go**, and **Python**: Ensure that the servers associated with your app do not modify HTTP requests in a way that removes the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers from a request. You also need to add Trace ID, Span ID, and Parent Span ID to the SLF4J MDC in your app logs to correlate logs within the Trace Explorer.
 * **Ruby**: Ruby servers that use a library depending on Rack modify HTTP request headers in a way that is incompatible with PCF App Metrics. If you want to trace app requests for your Ruby apps, ensure that your framework does not rely on Rack. You may need to write a raw Ruby server that preserves the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers in the request. You also need to add Trace ID, Span ID, and Parent Span ID to the SLF4J MDC in your app logs to correlate logs within the Trace Explorer.
 
-###<a id="trace-explorer"></a> Use the Trace Explorer
+### Use the Trace Explorer
 
 This section explains how to view the trace for a request received by your app and interact with the Trace Explorer.
  -->

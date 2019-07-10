@@ -10,14 +10,14 @@ This topic explains how to monitor the health of the Pivotal Cloud Foundry (PCF)
 
 For more information about monitoring Pivotal Application Service (PAS), see [Monitoring Pivotal Application Service](https://docs.pivotal.io/pivotalcf/monitoring/index.html).
 
-## <a id="healthwatch"></a>Healthwatch
+## Healthwatch
 
 Pivotal recommends that you use PCF Healthwatch to monitor PCF App Metrics. For more information about PCF Healthwatch, see [PCF Healthwatch](https://docs.pivotal.io/pcf-healthwatch/installing.html).
 
 After you install PCF Healthwatch, navigate to the JobHealth dashboard to view the PCF App Metrics deployment which is named `apmPostgres`.
 
 
-## <a id="kpi"></a>Key Performance Indicators
+## Key Performance Indicators
 
 KPIs for PCF App Metrics are the metrics that operators find most useful for monitoring their PCF App Metrics service. KPIs are high-signal-value metrics that can indicate emerging issues.
 
@@ -26,19 +26,19 @@ Pivotal recommends that operators continue to fine-tune the alert measures to th
 Pivotal also recommends that operators expand beyond this guidance and create new, installation-specific monitoring
 metrics, thresholds, and alerts based on learning from their own installations.
 
-### <a id="bosh-metrics"></a> BOSH Metrics
+### BOSH Metrics
 
 All BOSH-deployed components generate the following metrics. Monitor them to ensure that they are not consuming excess resources.
 
 
-### <a id="component-metrics"></a> Component Metrics
+###  Component Metrics
 
 All applications pushed using Cloud Foundry automatically emit the following application component metrics.
 PCF App Metrics is a collection of applications like any other CF applications, and thus can be monitored by PCF App Metrics (among other monitoring services).
 The following KPIs can indicate problems with your installation.
 
 
-### <a id="custom-metrics"></a> Custom Metrics
+### Custom Metrics
 
 Installing the [Metrics Forwarder tile](https://docs.pivotal.io/metrics-forwarder/installing.html) will allow one to
 gather more fine-grained metrics from the PCF App Metrics deployment.

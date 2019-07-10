@@ -21,7 +21,7 @@ For how to configure resources for a running deployment, see the procedures belo
 + [Procedure for Scaling the Temporary Datastore](#temp-procedures)
 + [Procedure for Scaling the Ingestor, Logqueues, and Metrics API](#ingestor-procedures)
 
-##<a id='configs-by-size'></a> Suggested Sizing by Deployment Size
+## Suggested Sizing by Deployment Size
 
 Use the following tables as a guide for configuring resources for your deployment. 
 
@@ -39,76 +39,76 @@ more than indicated in the tables below.
 Pivotal recommends you start with the one of the following configurations and scale up as necessary 
 by following the steps in <a href="#metrics-datastore">Configuring the Metrics Datastore</a>.
 
-###<a id='small'></a>Deployment Resources for a Small Deployment
+###Deployment Resources for a Small Deployment
 
 Example resource configuration to store approximately 14 days of data for a small deployment, about 100 application instances:
 
 
 
-###<a id='medium'></a>Deployment Resources for a Medium Deployment
+###Deployment Resources for a Medium Deployment
 
 Example resource configuration to store approximately 14 days of data for a medium deployment, about 5000 application instances:
 
 
 
-###<a id='large'></a>Deployment Resources for a Large Deployment
+###Deployment Resources for a Large Deployment
 
 Example resource configuration to store approximately 14 days of data for a large deployment, about 15,000 application instances:
 
 
 
 
-##<a id='metrics-datastore'></a> Scale the Metrics Datastore
+## Scale the Metrics Datastore
 
 
 PCF App Metrics stores metrics in a single MySQL node.
 For PCF deployments with high app logs load, you can add memory and persistent disk to the MySQL server node.
 
-###<a id='metrics-considerations'></a> Considerations for Scaling the Metrics Datastore
+### Considerations for Scaling the Metrics Datastore
 
 
-###<a id='metrics-procedures'></a> Procedure for Scaling
+###Procedure for Scaling
 
 Do the following to scale up the MySQL server node: 
 
 
-##<a id='log-datastore'></a> Scale the Log Datastore
+## Scale the Log Datastore
 
 PCF App Metrics uses Postgres to store logs.
 
-###<a id='log-considerations'></a> Considerations for Scaling
+###Considerations for Scaling
 
 
 
-###<a id='log-procedures'></a> Procedure for Scaling
+###Procedure for Scaling
 
 
 
-##<a id='temp-datastore'></a> Scale the Temporary Datastore (Redis)
+## Scale the Temporary Datastore (Redis)
 
 PCF App Metrics uses Redis to temporarily store ingested data from the Loggregator Firehose
 as well as cache data queried by the Metrics API.
 The former use case is to prevent major metrics and logs loss when the data stores (Postgres and MySQL) are unavailable.
 The latter is to potentially speed up front-end queries. See [PCF App Metrics Product Architecture](./architecture.html) for more information.
 
-###<a id='temp-considerations'></a> Considerations for Scaling
+###Considerations for Scaling
 
 
-###<a id='temp-procedures'></a> Procedure for Scaling
+### Procedure for Scaling
 
 Follow these steps to configure the size of the Redis VM for the temporary datastore based on your calculations.
 
 
-##<a id='ingestor'></a> Scale the Ingestor, Logqueues, Alerting, and Metrics API
+## Scale the Ingestor, Logqueues, Alerting, and Metrics API
 
 
 
-###<a id='ingestor-considerations'></a> Considerations for Scaling
+### Considerations for Scaling
 
 Pivotal recommends starting with the configuration in [Suggested Sizing by Deployment Size](#configs-by-size) above, for your deployment size
 and then evaluating performance over a period of time and scaling upwards if performance degrades. 
 
-###<a id='ingestor-procedures'></a> Procedure for Scaling
+###Procedure for Scaling
 
 
 For more information about scaling app instances, see [Scaling an Application Using cf scale](http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/cf-scale.html).

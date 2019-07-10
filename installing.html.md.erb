@@ -16,27 +16,23 @@ However, the PCF App Metrics tile can be installed without the Metrics Forwarder
 For information about the components deployed as part of this install procedure,
 see [PCF App Metrics Product Architecture](./architecture.html).
 
-##<a id='upgrade'></a>Upgrade from v1.6.x to v2.0
+##Upgrade from v1.6.x to v2.0
 
 This section describes upgrading from v1.6.x to v2.0.
 
-###<a id='upgrade-overview'></a> Overview 
+### Overview 
 
 
-###<a id='upgrade-procedure'></a> Procedure 
+### Procedure 
 
 To upgrade to PCF App Metrics v2.0 from 1.6.x, do the following:
-
-1.
-
-1.
   
 
-## <a id='install'></a> New Install of PCF App Metrics
+## New Install of PCF App Metrics
 
 This section describes how to install the PCF App Metrics tile. 
 
-### <a id='step1'></a> Add the PCF App Metrics Tile to Ops Manager
+### Add the PCF App Metrics Tile to Ops Manager
 
 To add the PCF App Metrics tile to Ops Manager, do the following: 
 
@@ -46,7 +42,7 @@ To add the PCF App Metrics tile to Ops Manager, do the following:
 1. Click  **Add** next to the uploaded product description in the **Available Products**
    view to add PCF App Metrics to the Ops Manager **Installation Dashboard**.
 
-### <a id='step2'></a>Configure the PCF App Metrics Tile
+### Configure the PCF App Metrics Tile
 
 This section describes how to configure the PCF App Metrics tile. 
 
@@ -60,7 +56,7 @@ This section describes how to configure the PCF App Metrics tile.
   + [Optional: Forward PCF App Metrics Logs to a Syslog Endpoint](#syslog-config)
   + [Import Stemcell](#stemcell)
 
-#### <a id='az'></a> Assign Availability Zones (AZs) and Networks
+#### Assign Availability Zones (AZs) and Networks
 
 To configure the **Assign AZs and Networks** pane, do the following: 
 
@@ -104,7 +100,7 @@ To configure the **Assign AZs and Networks** pane, do the following:
     
 1. Click **Save**.
 
-#### <a id="mc-config"></a> Configure Metrics Components
+#### Configure Metrics Components
 
 To configure the **Metrics Components Config** pane, do the following: 
 
@@ -133,7 +129,7 @@ To configure the **Metrics Components Config** pane, do the following:
    You can set the log level for the `push-apps` errand to suit your troubleshooting needs. The options are `error`, `warning`, `info`, `debug`, or `trace`. Default level is `error`.
 1. Click **Save**.
 
-#### <a id="resource-config"></a> Configure Resources
+#### Configure Resources
 
 To configure the **Resource Config** pane, do the following:
 
@@ -194,7 +190,7 @@ To configure the **Resource Config** pane, do the following:
 
 1. Click **Save**.
 
-#### <a id="syslog-config"></a>Optional: Forward PCF App Metrics Logs to a Syslog Endpoint
+#### Optional: Forward PCF App Metrics Logs to a Syslog Endpoint
 
 Operators can configure PCF App Metrics to forward its process and VM logs to a logging solution through a syslog endpoint.
 
@@ -222,13 +218,13 @@ To configure PCF App Metrics to forward logs to a syslog endpoint, do the follow
 
 1. Navigate to the Ops Manager **Installation Dashboard** and run the PCF App Metrics errands to apply your changes. 
 
-#### <a id="stemcell"></a> Import Stemcell
+####  Import Stemcell
 
 To import the correct stemcell, follow the procedure in [Importing and Managing Stemcells](https://docs.pivotal.io/pivotalcf/opsguide/managing-stemcells.html).  
 
 <p class='note'><strong>Note:</strong> PCF App Metrics 1.6 requires the Xenial stemcell line.</p>
 
-### <a id='step3'></a>Deploy PCF App Metrics
+### Deploy PCF App Metrics
 
 To deploy PCF App Metrics, do the following:  
 
