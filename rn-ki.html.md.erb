@@ -6,6 +6,24 @@ list_style_none: true
 
 This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
+## <a id='161'></a>v1.6.1
+
+**Release Date: August 5, 2019**
+
+### Fixed Issues
+
+This release fixes the following issues:
+
+* We have addressed the issue in which the pushapps errand does not complete, stalling the installation of PCF Metrics.
+
+### Maintenance Updates
+
+This release includes the following component version upgrades:
+
+* Upgrade metrics data store to PXC version v0.15.0
+* Upgrade GoLang version v1.12.4
+* Upgrade to CF CLI v1.16.0
+
 ## <a id='160'></a>v1.6.0
 
 **Release Date: January 10, 2019**
@@ -65,6 +83,8 @@ If the errand hangs on new installations of PCF Metrics 1.6, please kill the err
 
 Once PCF Metrics 1.6 has been successfully installed, this errand can be disabled for subsequent builds of PCF Metrics.
 
+<p class="note"><strong>Note</strong>: This issue is resolved in the PCF Metrics 1.6.1 release.</p>
+
 #### Triggered Monitor Notifications (Beta) via Webhook with Proxy Settings
 
 Metric and Event Monitors (Beta) will currently not send notifications to configured webhook URLs while `http_proxy` settings are enabled.
@@ -76,7 +96,6 @@ To use visualize custom app metrics in PCF Metrics, you must take additional ste
 For more information about how to configure apps to emit custom metrics on PCF v2.2 through v2.4, see [Metrics Forwarder for PCF](https://docs.pivotal.io/metrics-forwarder/index.html). 
 
 For more information about how to configure apps to emit custom metrics on PCF v2.5 and later, see [Configuring the Metric Registrar](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
-
 
 #### Delay in Ingesting Metrics
 
