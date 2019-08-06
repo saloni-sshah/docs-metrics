@@ -16,7 +16,7 @@ You can use the following cURL and API commands to view event and metric monitor
 To view monitors using cURL, run the following command:
 
 <pre>
-curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.DOMAIN/api/v1/$(cf app APP_NAME --guid)/monitors/" | jq
+curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.DOMAIN/api/v1/$(cf app APP_NAME --guid)/monitors" | jq
 </pre>
 
 Where: 
@@ -30,7 +30,7 @@ Where:
 To view monitors via API, run the following command:
 
 <pre>
-GET https://monitors-api.sys.DOMAIN/api/v1/APP_GUID/monitors/
+GET https://monitors-api.sys.DOMAIN/api/v1/APP_GUID/monitors
 </pre>
 
 Where:
@@ -106,7 +106,7 @@ Where:
 To create monitors via API, run the following command:
 
 <pre>
-POST https://monitors-api.sys.DOMAIN/api/v1/APP_GUID/monitors/
+POST https://monitors-api.sys.DOMAIN/api/v1/APP_GUID/monitors
 </pre>
     
 Where:
@@ -142,7 +142,7 @@ You can use the following cURL and API commands to view triggered event and metr
 To view triggered monitors using cURL, run the following command:
 
 <pre>
-curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.DOMAIN/api/v1/$(cf app APP_NAME --guid)/triggered_monitors/" | jq
+curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.DOMAIN/api/v1/$(cf app APP_NAME --guid)/triggered_monitors" | jq
 </pre>
 
 Where:
@@ -156,7 +156,7 @@ Where:
 To view triggered monitors via API, run the following command:
 
 <pre>
-GET https://monitors-api.sys.DOMAIN/api/v1/APP_GUID/triggered_monitors/
+GET https://monitors-api.sys.DOMAIN/api/v1/APP_GUID/triggered_monitors
 </pre>
 
 Where:
@@ -172,7 +172,7 @@ In addition to configuring monitors directly via API, you can also automate moni
 To automate monitor configuration via YAML file, create a YAML file using the <a href="#yml-examples">YAML File Format Examples</a> below, then run the following command:
 
 <pre>
-curl -H "Authorization: $(cf oauth-token)" -H "Content-Type: application/yaml" --data-binary "@/PATH-TO-FILE.yml" -k "https://monitors-api.sys.DOMAIN/api/v1/$(cf app APP_NAME --guid)/monitors/" -vvv -X PUT
+curl -H "Authorization: $(cf oauth-token)" -H "Content-Type: application/yaml" --data-binary "@/PATH-TO-FILE.yml" -k "https://monitors-api.sys.DOMAIN/api/v1/$(cf app APP_NAME --guid)/monitors" -vvv -X PUT
 </pre>
 
 Where:
