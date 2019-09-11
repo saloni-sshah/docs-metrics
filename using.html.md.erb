@@ -63,11 +63,11 @@ The following sections explain how to use each of the charts on the dashboard to
 
 ### <a id='traffic'></a> Traffic
 
-* Number of network requests per minute:<br><br>A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.<br><br>
+* Number of network requests per minute:<br><br>A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.
 
 ### <a id='errors'></a> Errors
 
-* Number of network request errors per minute:<br><br>A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.<br><br>
+* Number of network request errors per minute:<br><br>A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.
 
 ### <a id='saturation'></a> Saturation (Container Metrics)
 
@@ -108,11 +108,6 @@ For more information about how to configure apps to emit custom metrics on PCF v
 
 ### Automating Custom Metric Chart Inclusion 
 
-##<a id='metrics-data'></a> Access Metrics Data Through Metric Store
-You can access metrics data through the Pivotal Metric Store datastore.
-
-Link to Metric Store docs....
-
 ##<a id="logs"></a>Logs
 
 The **Logs** view displays app log data ingested from the Loggregator Firehose:
@@ -127,5 +122,12 @@ You can interact with the **Logs** view in the following ways:
 * **Download**: Download a file containing logs for the current search. 
 * **Copy**: Click the copy icon to copy the text of the log.
 
-##<a id='logs-data'></a> Access Logs Data Through LogStore
+##<a id='data-access'></a> Direct Access to Metrics and Logs Data
+
+###<a id='metrics-data'></a> Access Metrics Data Through Metric Store
+You can access metrics data through the Pivotal Metric Store datastore.
+
+Link to Metric Store docs....
+
+###<a id='logs-data'></a> Access Logs Data Through LogStore
 Will this be a thing??
