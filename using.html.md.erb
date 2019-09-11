@@ -25,11 +25,7 @@ The following sections describe a standard workflow for using Pivotal App Metric
 
 In a browser, navigate to `appmetrics.YOUR-SYSTEM-DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Choose an app from the search bar for which you want to view metrics and/or logs. Pivotal App Metrics respects UAA permissions such that you can view any app that runs in a space that you have access to. 
 
-<%= image_tag("1-5-app-search.png", :alt => "Search for an app") %>
-
 Pivotal App Metrics displays app data for a given time frame. See the sections below to [Change the Time Frame](#time) for the dashboard.
-
-<%= image_tag("1-5-metrics-dashboard.png", :alt => "Metrics 1.5 dashboard") %>
 
 ## <a id="time"></a>Change the Time Frame
 
@@ -37,15 +33,11 @@ The graphs show time along the horizontal axis. You can change the time frame fo
 
 **Zoom**: From within any graph, click and drag to zoom in on areas of interest. This adjusts all of the graphs, and the logs, to show data from that time frame.
 
-<%= image_tag("1-5-chart-zoom.png", :alt => "Drag to select time frame on charts") %>
-
 ## <a id="auto-refresh"></a>Auto-Refreshing the Dashboard
 
 Auto-refresh mode allows the metrics charts and logs on your dashboard to be updated in real-time as data is ingested.
 
 To enable auto-refresh, click the **REFRESH** button next to the time selection options on the top right of the dashboard. This will enable live updating of metrics and logs data for the currently selected timeframe.
-
-<%= image_tag("stream-start-button.png", :alt => "Metrics Stream Start Button") %>
 
 **Note**: The default auto-refresh interval is set to one minute and is currently not configurable.
 
@@ -57,11 +49,7 @@ Pivotal App Metrics relays metric data at the app-instance level to allow for an
 
 To view a specific app instance, select the desired instance from the **instance filter** dropdown menu at the top right of the dashboard.
 
-<%= image_tag("1-5-instance-select.png", :alt => "Select individual app instances") %>
-
 Alternatively, you can click on an instance line on the metric chart that interests you while All Instances is selected in the dropdown.
-
-<%= image_tag("1-5-instance-select-line.png", :alt => "Select specific app instance") %>
 
 ##<a id='metrics'></a> Interpret Metrics
 
@@ -90,8 +78,6 @@ Three **Network Metrics** charts are available on the Pivotal App Metrics dashbo
 ### <a id='events'></a> Events 
 
 The **Events** graph shows the following app events: **Crash**, **Fail** (staging failures), **Update**, **Stop**, **Start**, and **SSH**. 
-
-<%= image_tag("1-5-events-chart.png", :alt => "Events chart") %>
 
 <p class="note"><strong>Note</strong>: The <b>SSH</b> event corresponds to someone successfully using SSH to access a container that runs an instance of the app.</p>
 
@@ -129,8 +115,6 @@ Link to Metric Store docs....
 The **Logs** view displays app log data ingested from the Loggregator Firehose:
 
 <p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non-standard UUID application GUIDs are not stored.</p>
-
-<%= image_tag("1-5-logs-drawer.png", :alt => "Pivotal App Metrics Logs drawer") %>
 
 You can interact with the **Logs** view in the following ways:
 
