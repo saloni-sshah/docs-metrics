@@ -1,9 +1,11 @@
-# Documentation for PCF Metrics
+# Documentation for Pivotal App Metrics
 
-This is the source repo for documentation for PCF Metrics. Our team can be
-found in the `pcf-metrics` channel on slack.
+This is the source repo for documentation for Pivotal App Metrics. Our team can be
+found in the `pivotal-app-metrics` channel on slack.
 
 The source documents are located in the docs-content folder. 
+
+UPDATE ALL OF THE FOLLOWING
 
 If you want to know how to view a local version of these docs as they will appear on docs.pivotal.io, see https://github.com/pivotal-cf/docs-partners-template/blob/master/README.md. 
 
