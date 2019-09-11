@@ -43,11 +43,15 @@ To enable auto-refresh, click the **REFRESH** button next to the time selection 
 
 ## <a id="app-instance"></a>View Metrics at the Process and Application Instance Level
 
-Pivotal App Metrics relays metric data at the process level to allow for an in-depth troubleshooting experience, even across rolling deployment. Users are able to view the app metrics related to a specific process and further drill down into specific instances within those processes, which correlates directly with the processes and app instances shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
+Pivotal App Metrics relays metric data at the app process level to allow for an in-depth troubleshooting experience, even across rolling deployment. Users are able to view the app metrics related to a specific process and further drill down into specific instances within those processes, which correlates directly with the processes and app instances shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
 
-!! The following needs updating !!
+The dashboard will display metrics aggregated across all processes by default. To view metrics by specific process, select a process type from the dropdown near the upper-left of the dashboard.
 
-To view a specific app instance, select the desired instance from the **instance filter** dropdown menu at the top right of the dashboard.
+With a specific process type selected, the metrics charts will display aggregate data from all instances within the selected process type.
+
+To view metrics for the individual instances within the selected process, select the "Instances" radio button at the upper-right of the dashboard.
+
+To view a specific app instance or selection of specific instances, select the desired instance(s) from the legend along the bottom of any chart on the dashboard whole the "Instances" radio is selected.
 
 ##<a id='metrics'></a> Interpreting Metrics
 
