@@ -5,4 +5,141 @@ owner: Pivotal App Metrics
 list_style_none: true 
 ---
 
-2.0 usage details TBD.
+!! 2.0 documentation work-in-progress !!
+
+This topic describes how developers can monitor and troubleshoot their apps using Pivotal App Metrics. 
+
+## <a id="overview"></a> Overview
+
+Pivotal App Metrics helps you understand and troubleshoot the health and performance of your apps by offering the following:
+
+* [Container Metrics](#container): Three graphs measuring CPU, memory, and disk usage percentages 
+* [Network Metrics](#network): Three graphs measuring requests, HTTP errors, and response times
+* [Custom Metrics](#custom): User-customizable graphs for measuring app performance, such as Spring Boot Actuator and Micrometer metrics
+* [App Events](#events): A graph of update, start, stop, crash, SSH, and staging failure events
+* [Logs](#logs): A list of app logs that you can search, filter, and download
+
+The following sections describe a standard workflow for using Pivotal App Metrics to monitor or troubleshoot your apps.
+
+##<a id='get-started'></a> View an App
+
+In a browser, navigate to `appmetrics.YOUR-SYSTEM-DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Choose an app from the search bar for which you want to view metrics and/or logs. Pivotal App Metrics respects UAA permissions such that you can view any app that runs in a space that you have access to. 
+
+<%= image_tag("1-5-app-search.png", :alt => "Search for an app") %>
+
+Pivotal App Metrics displays app data for a given time frame. See the sections below to [Change the Time Frame](#time) for the dashboard.
+
+<%= image_tag("1-5-metrics-dashboard.png", :alt => "Metrics 1.5 dashboard") %>
+
+## <a id="time"></a>Change the Time Frame
+
+The graphs show time along the horizontal axis. You can change the time frame for all graphs and the logs by using the time selector options at the top of the window. You can select from several pre-set timescales or select a custom date range.
+
+**Zoom**: From within any graph, click and drag to zoom in on areas of interest. This adjusts all of the graphs, and the logs, to show data from that time frame.
+
+<%= image_tag("1-5-chart-zoom.png", :alt => "Drag to select time frame on charts") %>
+
+## <a id="auto-refresh"></a>Auto-Refreshing the Dashboard
+
+Auto-refresh mode allows the metrics charts and logs on your dashboard to be updated in real-time as data is ingested.
+
+To enable auto-refresh, click the **REFRESH** button next to the time selection options on the top right of the dashboard. This will enable live updating of metrics and logs data for the currently selected timeframe.
+
+<%= image_tag("stream-start-button.png", :alt => "Metrics Stream Start Button") %>
+
+**Note**: The default auto-refresh interval is set to one minute and is currently not configurable.
+
+## <a id="app-instance"></a>View Metrics at the Process and Application Instance Level
+
+All of this needs updating
+
+Pivotal App Metrics relays metric data at the app-instance level to allow for an in-depth troubleshooting experience. Users are able to view the app metrics related to a specific instance index, which correlates directly with the app instance indices shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
+
+To view a specific app instance, select the desired instance from the **instance filter** dropdown menu at the top right of the dashboard.
+
+<%= image_tag("1-5-instance-select.png", :alt => "Select individual app instances") %>
+
+Alternatively, you can click on an instance line on the metric chart that interests you while All Instances is selected in the dropdown.
+
+<%= image_tag("1-5-instance-select-line.png", :alt => "Select specific app instance") %>
+
+##<a id='metrics'></a> Interpret Metrics
+
+See the following sections to understand how to use each of the views on the dashboard to monitor and troubleshoot your app.
+
+### <a id='container'></a> Container Metrics
+
+Three **Container Metrics** charts are available on the Pivotal App Metrics dashboard:
+
+* CPU usage percentage:<br><br>A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but you need to investigate the app to better understand and fix the root cause.<br><br>
+
+* Memory usage percentage:<br><br>A consistent, gradual increase in memory might mean a resource leak in the code. Scaling app memory can relieve the immediate pressure, but you need to find and resolve the underlying issue so that it does not occur again.<br><br>
+
+* Disk usage percentage:<br><br>A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing large sessions to disk.
+
+### <a id='network'></a> Network Metrics
+
+Three **Network Metrics** charts are available on the Pivotal App Metrics dashboard:
+
+* Number of network requests per minute:<br><br>A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.<br><br>
+
+* Number of network request errors per minute:<br><br>A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.<br><br>
+
+* Average latency of a request in milliseconds:<br><br>A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
+
+### <a id='events'></a> Events 
+
+The **Events** graph shows the following app events: **Crash**, **Fail** (staging failures), **Update**, **Stop**, **Start**, and **SSH**. 
+
+<%= image_tag("1-5-events-chart.png", :alt => "Events chart") %>
+
+<p class="note"><strong>Note</strong>: The <b>SSH</b> event corresponds to someone successfully using SSH to access a container that runs an instance of the app.</p>
+
+See the following topics for more information about app events:
+
+* [About Starting Applications](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html)
+* [Troubleshooting Application Deployment and Health](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/troubleshoot-app-health.html)
+
+###<a id='custom-metrics'></a> Adding Custom Metrics Charts
+
+You can add custom metrics charts to your dashboard, including Spring Boot Actuator and Micrometer metrics, by creating and including an indicator document for your application. 
+
+Users can configure their apps to emit custom metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the Pivotal App Metrics dashboard.
+
+In addition, Spring Boot apps with actuators or Micrometer metrics implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code.
+
+For more information about how to configure apps to emit custom metrics on PCF v2.2 through v2.4, see [Metrics Forwarder for PCF](https://docs.pivotal.io/metrics-forwarder/index.html). 
+
+For more information about how to configure apps to emit custom metrics on PCF v2.5 and later, see [Configuring the Metric Registrar](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
+
+#### Creating an Indicator Document
+
+#### cURLing Your Indicator Document to Pivotal App Metrics (Beta)
+
+#### Automating Custom Metric Chart Inclusion 
+
+###<a id='metrics-data'></a> Access Metrics Data Through Metric Store
+You can access metrics data through the Pivotal Metric Store datastore.
+
+Link to Metric Store docs....
+
+
+### <a id="logs"></a>Logs
+
+The **Logs** view displays app log data ingested from the Loggregator Firehose:
+
+<p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non-standard UUID application GUIDs are not stored.</p>
+
+<%= image_tag("1-5-logs-drawer.png", :alt => "Pivotal App Metrics Logs drawer") %>
+
+You can interact with the **Logs** view in the following ways:
+
+* **Keyword**: Perform a keyword search. While searching for a keyword, a histogram that shows matching log frequency for the current time frame will be displayed at the top of the Logs drawer. The histogram updates with blue bars based on what you enter. Hover over a histogram bar to view the number of logs for a specific time.
+* **Highlight**: Enter a term to visually highlight within your search. While searching for a keyword and highlighting terms, the histogram updates with yellow bars to indicate where the highlighted terms appear within the Keyword search results. Hover over a histogram bar to view the number of logs for a specific time that contain the highlighted term.
+* **Sources**: Choose which sources to display logs from. For more information, see [Log Types and Their Messages](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/streaming-logs.html#format).
+* **Download**: Download a file containing logs for the current search. 
+* **Copy**: Click the copy icon to copy the text of the log.
+* **View in Trace Explorer**: Open a window to see the trace of the request associated with the log. See [Trace App Requests](#trace).
+
+###<a id='logs-data'></a> Access Logs Data Through PostgreSQL
+Will this be a thing??
