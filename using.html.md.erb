@@ -96,7 +96,7 @@ See the following topics for more information about app events:
 
 You can add custom metrics charts to your dashboard, including Spring Boot Actuator and Micrometer metrics, by defining the custom metrics you want to monitor and including them in an indicator document for your application. 
 
-Users can configure their apps to emit custom metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the Pivotal App Metrics dashboard.
+If you want to view custom metrics, you can configure your apps to emit those metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the Pivotal App Metrics dashboard.
 
 In addition, Spring Boot apps with actuators or Micrometer metrics implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code.
 
@@ -105,14 +105,48 @@ For more information about how to configure apps to emit custom metrics on PCF v
 For more information about how to configure apps to emit custom metrics on PCF v2.5 and later, see [Configuring the Metric Registrar](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
 
 ### Creating an Indicator Document
+The first step to adding a custom metric chart to your dashboard after verifying that the metrics are being emitted to the firehose will be to verify its name for the indicator document. You can do so by hitting your app's metrics endpoint at `app.domain/metrics` and looking for the desired metric.
 
-* Finding what metric to measure
-* PromQL
-* Creating indicators
+Once you have the metric name you can create your indicator document that will define the indicator for the metric you want to observe. The following is an example of the YAML for an indicator document:
+
+<pre>
+---
+apiVersion: indicatorprotocol.io/v1
+
+spec:
+  product:
+    name: org,space,app-name
+    version: 0.0.1
+
+  metadata:
+    deployment: "custom app metrics"
+
+  indicators:
+    - name: "Custom 500 Error Indicator"
+      promql: "sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))"
+      documentation:
+        title: "Custom Metric 500 Errors"
+      presentation:
+        units: "none"
+
+</pre>
+
+Please note that the `spec:/product:/name:` field above is reponsible for defining which application these indicators will be applied to.
+
+For more information about indicator formatting, please see the [Indicator Protocol Repo](https://github.com/pivotal/monitoring-indicator-protocol).
+
+**NOTE:** At this time, only the `name`, `promql`, `documentation`, and `presentation` fields are supported for application indicators.
+
+Additional example PromQL can also be found for any of the default charts on the dashboard by clicking the `Info` menu in the upper-right of any chart, or by visiting the [PromQL Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
 
 ### cURLing Your Indicator Document to Pivotal App Metrics (Beta)
+Once you have your indicator document prepared, you can push it to App Metrics via cURL:
 
-### Automating Custom Dashboard Configuration 
+<pre>curl -vvv https://appmetrics.sys.DOMAIN/indicator-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"</pre>
+
+**NOTE:** You can only push indicators for applications that run in a space that you have access to.
+
+Once you have your indicator document created, you can also automate the deployment of application indicator documents within your deployment pipeline.
 
 ##<a id="logs"></a>Logs
 
@@ -130,10 +164,10 @@ You can interact with the **Logs** view in the following ways:
 
 ##<a id='data-access'></a> Direct Access to Metrics and Logs Data
 
-###<a id='metrics-data'></a> Access Metrics Data Through Metric Store
+###<a id='metrics-data'></a> Direct Access to Metrics Data
 You can access metrics data through the Pivotal Metric Store datastore.
 
 Link to Metric Store docs....
 
-###<a id='logs-data'></a> Access Logs Data Through LogStore
+###<a id='logs-data'></a> Direct Access to Logs Data
 Will this be a thing??
