@@ -39,7 +39,7 @@ Auto-refresh mode allows the metrics charts and logs on your dashboard to be upd
 
 To enable auto-refresh, click the **REFRESH** button next to the time selection options on the top right of the dashboard. This will enable live updating of metrics and logs data for the currently selected timeframe.
 
-**Note**: The default auto-refresh interval is set to one minute and is currently not configurable.
+<p class="note"><strong>Note</strong>: The default auto-refresh interval is set to one minute and is currently not configurable.</p>
 
 ## <a id="app-instance"></a>View Metrics at the Process and Application Instance Level
 
@@ -135,7 +135,7 @@ Please note that the `spec:/product:/name:` field above is reponsible for defini
 
 For more information about indicator formatting, please see the [Indicator Protocol Repo](https://github.com/pivotal/monitoring-indicator-protocol).
 
-**NOTE:** At this time, only the `name`, `promql`, `documentation`, and `presentation` fields are supported for application indicators.
+<p class="note"><strong>Note</strong>: At this time, only the `name`, `promql`, `documentation`, and `presentation` fields are supported for application indicators.</p>
 
 Additional example PromQL can also be found for any of the default charts on the dashboard by clicking the `Info` menu in the upper-right of any chart, or by visiting the [PromQL Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
 
@@ -144,7 +144,7 @@ Once you have your indicator document prepared, you can push it to App Metrics v
 
 <pre>curl -vvv https://appmetrics.sys.DOMAIN/indicator-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"</pre>
 
-**NOTE:** You can only push indicators for applications that run in a space that you have access to.
+<p class="note"><strong>Note</strong>: You can only push indicators for applications that run in a space that you have access to.</p>
 
 Once you have your indicator document created, you can also automate the deployment of application indicator documents within your deployment pipeline.
 
