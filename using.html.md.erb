@@ -94,18 +94,22 @@ See the following topics for more information about app events:
 
 ##<a id='custom-metrics'></a> Adding Custom Metrics Charts
 
-You can add custom metrics charts to your dashboard, including Spring Boot Actuator and Micrometer metrics, by defining the custom metrics you want to monitor and including them in an indicator document for your application. 
+You can add custom metrics charts to your dashboard, including Spring Boot Actuator and Micrometer metrics, by defining the custom metrics you want to monitor and including them in an indicator document for your application.
+
+In order to get custom, Actuator, or Micrometer metrics into the Metrics Store, you will need to bind Metric Registrar to your app and register your endpoint. For more information, see [Configuring the Metric Registrar](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
 
 If you want to view custom metrics, you can configure your apps to emit those metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the Pivotal App Metrics dashboard.
 
 In addition, Spring Boot apps with actuators or Micrometer metrics implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code.
 
-For more information about how to configure apps to emit custom metrics on PCF v2.2 through v2.4, see [Metrics Forwarder for PCF](https://docs.pivotal.io/metrics-forwarder/index.html). 
-
-For more information about how to configure apps to emit custom metrics on PCF v2.5 and later, see [Configuring the Metric Registrar](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
-
 ### Creating an Indicator Document
-The first step to adding a custom metric chart to your dashboard after verifying that the metrics are being emitted to the firehose will be to verify its name for the indicator document. You can do so by hitting your app's metrics endpoint at `app.domain/metrics` and looking for the desired metric.
+The first step to adding a custom metric chart to your dashboard after verifying that the metrics are being emitted to the firehose will be to verify its name for the indicator document.
+
+If you are using a Prometheus-style metrics endpoint, you can do so by hitting your app's metrics endpoint at `app.domain/metrics` and looking for the desired metric.
+
+For Spring Boot Actuator metrics, you can see your app's metrics at `app.domain/actuator/metrics`
+
+For Spring Boot Micrometer metrics, you can see your app's metrics at `app.domain/MICROMETER/metrics`
 
 Once you have the metric name you can create your indicator document that will define the chart you want to add to your dashboard. The following is an example of the YAML for an indicator document:
 
@@ -156,8 +160,8 @@ The **Logs** view displays app log data ingested from the Loggregator Firehose:
 
 You can interact with the **Logs** view in the following ways:
 
-* **Keyword**: Perform a keyword search. While searching for a keyword, a histogram that shows matching log frequency for the current time frame will be displayed at the top of the Logs drawer. The histogram updates with blue bars based on what you enter. Hover over a histogram bar to view the number of logs for a specific time.
-* **Highlight**: Enter a term to visually highlight within your search. While searching for a keyword and highlighting terms, the histogram updates with yellow bars to indicate where the highlighted terms appear within the Keyword search results. Hover over a histogram bar to view the number of logs for a specific time that contain the highlighted term.
+* **Keyword**: Perform a keyword search. While filtering on keywords, logs results will be reduced to only disaply log lines that contain the matching criteria. Matching terms will also be highlited in blue.
+* **Highlight**: Enter a term to visually highlight within your search. The terms will be highlighted in orange within the current filter results.
 * **Sources**: Choose which sources to display logs from. For more information, see [Log Types and Their Messages](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/streaming-logs.html#format).
 * **Download**: Download a file containing logs for the current search. 
 * **Copy**: Click the copy icon to copy the text of the log.
