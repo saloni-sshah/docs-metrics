@@ -107,9 +107,7 @@ The first step to adding a custom metric chart to your dashboard after verifying
 
 If you are using a Prometheus-style metrics endpoint, you can do so by hitting your app's metrics endpoint at `app.domain/metrics` and looking for the desired metric.
 
-For Spring Boot Actuator metrics, you can see your app's metrics at `app.domain/actuator/metrics`
-
-For Spring Boot Micrometer metrics, you can see your app's metrics at `app.domain/MICROMETER/metrics`
+To validate Spring Boot Actuator and Micrometer metrics, please see the [Spring Boot documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html).
 
 Once you have the metric name you can create your indicator document that will define the chart you want to add to your dashboard. The following is an example of the YAML for an indicator document:
 
