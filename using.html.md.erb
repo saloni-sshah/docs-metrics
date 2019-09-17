@@ -152,7 +152,7 @@ Once you have your indicator document created, you can also automate the deploym
 
 ##<a id="logs"></a>Logs
 
-The **Logs** view displays app log data ingested from the Loggregator Firehose:
+The **Logs** view displays app log data ingested from the Loggregator Reverse Log Proxy (RLP):
 
 <p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non-standard UUID application GUIDs are not stored.</p>
 
@@ -163,6 +163,8 @@ You can interact with the **Logs** view in the following ways:
 * **Sources**: Choose which sources to display logs from. For more information, see [Log Types and Their Messages](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/streaming-logs.html#format).
 * **Download**: Download a file containing logs for the current search. 
 * **Copy**: Click the copy icon to copy the text of the log.
+
+By default, the most recent 1,000 log lines will be displayed in the logs drawer. You can click `SHOW 1000 MORE LOGS` to load more.
 
 ##<a id='data-access'></a> Accessing Metrics and Logs Data Directly
 
