@@ -30,4 +30,30 @@ Pivotal App Metrics v2.0 includes the following new features:
 
 ### <a id="issues"></a>Known Issues
 
-This release has no known issues.
+The following sections describe the known issues in Pivotal App Metrics v2.0.
+
+#### Compatibility with Pivotal Application Service (formerly Elastic Runtime)
+
+Pivotal App Metrics v2.0 requires the following versions of Pivotal Application Service:
+
+* v2.4: v2.4.x and later
+* v2.5: v2.5.x and later
+* v2.6: v2.6.x and later
+* v2.7: all patches within minor
+
+#### Compatibility with Pivotal Cloud Foundry Operations Manager
+
+Pivotal App Metrics v2.0 requires the following versions of Pivotal Cloud Foundry Operations Manager:
+
+* v2.4: v2.4.x and later
+* v2.5: v2.5.x and later
+* v2.6: v2.6.x and later
+* v2.7: all patches within minor
+
+#### Custom Metric Process Labels
+
+Pivotal App Metrics v2.0 introduces a new application hierarchy to support multiple process types from CAPI v3. Processes that contain apporpriately tagged envelopes will be available for metric filtering, and will be labled accordingly within the charts.
+
+There are some metrics, including custom and network metrics, that may not have proper process tagging available. In these cases, the process will be labeled `unknown`.
+
+This will improve as additional support for multi-process tagging is backported to previous PAS versions.
