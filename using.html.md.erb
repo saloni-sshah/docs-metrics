@@ -114,23 +114,24 @@ Once you have the metric name you can create your indicator document that will d
 <pre>
 ---
 apiVersion: indicatorprotocol.io/v1
+kind: IndicatorDocument
+
+metadata:
+  labels:
+    deployment: "my deployment name"
 
 spec:
   product:
     name: org,space,app-name
     version: 0.0.1
 
-  metadata:
-    deployment: "custom app metrics"
-
-  indicators:
-    - name: "Custom 500 Error Indicator"
-      promql: "sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))"
-      documentation:
-        title: "Custom Metric 500 Errors"
-      presentation:
-        units: "none"
-
+indicators:
+  - name: "Custom 500 Error Indicator"
+    promql: "sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))"
+    documentation:
+      title: "Custom Metric 500 Errors
+    presentation:
+      units: "none"
 </pre>
 
 Please note that `org,space,app-name` above is reponsible for defining which application these indicators will be applied to. Please replace this with the org, space, and app name of the application dashboard you wish to customize.
