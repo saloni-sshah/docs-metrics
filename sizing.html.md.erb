@@ -175,7 +175,7 @@ The following calculation attempts to measure Postgres resource requirements mor
 1. Determine how many logs the apps in your deployment emit per hour (_R_). To do this, Pivotal recommends multiplying your app instances' _loggregator.doppler.ingress_ rate by the number of doppler instances. More information on _loggregator.doppler.ingress_ can be found at https://docs.pivotal.io/pivotalcf/2-2/monitoring/key-cap-scaling.html#doppler-message-rate-ksi
 1. Determine the average size of each log (_S_). As an estimation tool, logs inserted into Postgres have been determined to be approximately 224 bytes plus _roughly_ two times the logline length in bytes.<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 224 bytes + (logline in bytes x 2) =  _S_<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; or <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For example, for an average log line size of 975 bytes, this would be <br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 224 bytes + (975 bytes x 2) =  2,174 bytes<br>
 1. As we don't want to max out the Postgres logs data storage disk, we're including a 20% buffer (_B_). Please feel free to remove this figure if you prefer.
 1. Calculate the persistent disk size for the instance (_D_) you need to scale to using the following formula:<br><br>
@@ -229,7 +229,7 @@ For more information, see <i>Eviction policies</i> in <a href="https://redis.io/
 The procedures for scaling the Metrics Ingestor, Logs Queue, Metrics Queue, and Metrics API instances are similar.
 
 + **Metrics Ingestor** — PCF Metrics deploys the Ingestor as an app, `metrics-ingestor`, within PCF.
-The Ingestor consumes logs and metrics from the Loggregator Firehose, sending metrics and logs to their respective Logqueue apps.
+The Ingestor consumes logs and metrics from the Loggregator Firehose at the rate of _loggregator.doppler.ingress_, sending metrics and logs to their respective Logqueue apps.
 
     To customize PCF Metrics for high capacity, you can scale the number of Ingestor app instances and increase the amount of memory per instance.
 
