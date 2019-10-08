@@ -69,17 +69,19 @@ In order to successfully run both PCF Metrics 1.4 and 1.6 simultaneously during 
 
 For more information about upgrading to PCF Metrics v1.6, see [Installing PCF Metrics](/pcf-metrics/1-6/installing.html#upgrade).
 
-#### Postgres Logs Data Store Capacity Issue when Upgrading from 1.5.2 to 1.6.0
+#### Postgres Logs Data Store Capacity Issue when Upgrading from 1.5.2 or 1.5.1 to 1.6.0
 
-If you have upgraded to PCF Metrics 1.6.0 from 1.5.2, you may discover that your Postgres logs data store will fill up unexpectedly (even with pruning enabled).
+If you upgrade to PCF Metrics 1.6.0 from 1.5.2 or 1.5.1, the Postgres logs data store may fill up unexpectedly. This issue occurs even if pruning is enabled on the data store.
 
-In this scenario, you will need to delete the following volumes to allow the data pruning service to keep your Postgres instance operational:
+To resolve this issue, delete the following volumes:
 
 ```
 /var/vcap/store/postgres/postgres-previous
 /var/vcap/store/postgres/postgres-11.1
 /var/vcap/store/postgres/pg_upgrade_tmp
 ```
+
+This allows the data pruning service to ensure the Postgres data store is operational.
 
 #### Push Apps Errand Doesn't Complete
 
