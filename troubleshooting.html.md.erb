@@ -127,18 +127,32 @@ This topic describes how to resolve common issues experienced while operating or
   </tr>
   <tr>
       <th>Cause</th>
-      <td>Your PostgreSQL is undersized for your logs load.</td>
+      <td>Your PostgreSQL is running out of disk space, causing reduced performance and a spike of open connections.
+          Possible causes:
+      <br><br>
+      <ol>
+        <li>If you are on <code>1.6.0</code>, your PostgreSQL instance does not have automatic pruning configured. This was introduced in <code>1.6.1</code></li>
+        <li>Your app emits a lot of logs and is taking up disk space very quickly.</li>       
+      </ol>
+    </td>
   </tr>
   <tr>
       <th>Solution</th>
-      <td>Decrease the Logs Retention Window and increase the PostgreSQL Persistent Disk
-      <br><br>
-      <ol>
-        <li>Navigate to the <b>Metrics Components Config</b> section of the PCF Metrics Tile.</li>
-        <li>Decrease the Logs Retention Window to a smaller number to free up space in PostgreSQL.</li>
-        <li>Navigate to the <b>Resource Config</b> section of the PCF Metrics Tile.</li>
-        <li>Increase the Persistent Disk size of PostgreSQL Server to at least twice the current size.</li>
-      </ol>
+      <td>
+        <ol>
+          <li>Upgrade your version to <code>1.6.1</code> and configure your automatic pruning threshold.</li>
+          <li>
+            Decrease the Logs Retention Window and increase the PostgreSQL Persistent Disk
+            <br><br>
+            <ol>
+              <li>Navigate to the <b>Metrics Components Config</b> section of the PCF Metrics Tile.</li>
+              <li>Decrease the Logs Retention Window to a smaller number to free up space in PostgreSQL.</li>
+              <li>Navigate to the <b>Resource Config</b> section of the PCF Metrics Tile.</li>
+              <li>Increase the Persistent Disk size of PostgreSQL Server to at least twice the current size.</li>
+            </ol>
+          </li>
+        </ol>
+      
 
       </td>
   </tr>
