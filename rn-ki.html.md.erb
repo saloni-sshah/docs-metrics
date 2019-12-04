@@ -48,6 +48,10 @@ Pivotal App Metrics v2.0 requires the following versions of Pivotal Cloud Foundr
 * v2.6: v2.6.x and later
 * v2.7: all patches within minor
 
+#### Network Metrics
+
+Please note that if the application you are monitoring is not configured to accept HTTP traffic, no data will be displayed on the HTTP Request Count, HTTP Request Latency, or HTTP Request Errors charts.
+
 #### Custom Metric Process Labels
 
 Pivotal App Metrics v2.0 introduces a new application hierarchy to support multiple process types from CAPI v3. Processes that contain apporpriately tagged envelopes will be available for metric filtering, and will be labled accordingly within the charts.
