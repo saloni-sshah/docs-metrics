@@ -43,6 +43,12 @@ The following list describes what's new in PCF Metrics v1.6:
 
 The following sections describe the known issues in PCF Metrics v1.6.
 
+#### Postgres Pruning Failure in v1.6.1
+
+The Postgreslog store disk size errand is not being set on fresh installs of PCF Metrics 1.6.1 causing the auto-pruning feature to fail. A fix will be released in PCF Metrics 1.6.2.
+
+Please note that this issue only applies to fresh installs of PCF Metrics 1.6.1. Upgrades to 1.6.1 from 1.5 or 1.6 versions will function correctly.
+
 #### Compatibility with Pivotal Application Service (formerly Elastic Runtime)
 
 PCF Metrics v1.6.x requires the following versions of Pivotal Application Service:
