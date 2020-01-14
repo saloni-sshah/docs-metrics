@@ -151,8 +151,10 @@ Linux/Mac:
 <pre>curl -vvv https://appmetrics.sys.DOMAIN/indicator-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"</pre>
 
 Windows:
-1. Copy your cf oath token to the clipboard: `cf oauth-token`
-2. Paste your oauth token into the following command: 
+<ol>
+<li> Copy your cf oath token to the clipboard: `cf oauth-token`
+<li> Paste your oauth token into the following command:
+</ol>
 <pre>curl -vvv https://appmetrics.sys.DOMAIN/indicator-documents -H "Authorization: [YOUR TOKEN]" --data-binary "@[YourDoc.yml]"</pre>
 
 <p class="note"><strong>Note</strong>: You can only push indicators for applications that run in a space that you have access to.</p>
