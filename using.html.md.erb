@@ -147,7 +147,7 @@ Additional example PromQL can also be found for any of the default charts on the
 ### cURLing Your Indicator Document to Pivotal App Metrics (Beta)
 Once you have your indicator document prepared, you can push it to App Metrics via cURL.
 
-Unix:
+Linux/Mac:
 <pre>curl -vvv https://appmetrics.sys.DOMAIN/indicator-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"</pre>
 
 Windows:
