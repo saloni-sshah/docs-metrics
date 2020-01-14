@@ -145,8 +145,15 @@ For more information about indicator formatting, please see the [Indicator Proto
 Additional example PromQL can also be found for any of the default charts on the dashboard by clicking the `Info` menu in the upper-right of any chart, or by visiting the [PromQL Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
 
 ### cURLing Your Indicator Document to Pivotal App Metrics (Beta)
-Once you have your indicator document prepared, you can push it to App Metrics via cURL:
+Once you have your indicator document prepared, you can push it to App Metrics via cURL.
 
+You will need a `cf oauth-token` for the `Authorization` header.
+
+1. Run `cf oauth-token` to get an oauth token. Copy the output and put it in the 
+2. <pre>curl -vvv https://appmetrics.sys.DOMAIN/indicator-documents -H "Authorization: CF_OAUTH_TOKEN" --data-binary "@[YourDoc.yml]"</pre>
+
+
+Note: On Linux, you can do this in a single command using command substitution `$(cf oauth-token)`:
 <pre>curl -vvv https://appmetrics.sys.DOMAIN/indicator-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"</pre>
 
 <p class="note"><strong>Note</strong>: You can only push indicators for applications that run in a space that you have access to.</p>
