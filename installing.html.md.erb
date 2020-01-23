@@ -34,8 +34,8 @@ Here you can configure the settings for Pivotal App Metrics components, includin
 <li>Click the Pivotal App Metrics tile on the Ops Manager Installation Dashboard.</li>
 <li>Navigate to the Pivotal App Metrics Components Config pane.</li>
 <li>To disable the Logs Drawer on the Pivotal App Metrics dashboard, deselect the "Pivotal App Metrics Enable Logs" checkbox (enabled by default).</li>
-<li>Set the Pivotal App Metrics Logs Prune Threshold disk capacity percentage (set to 80% by default). This is the disk percentage at which Log Store will start to prune old logs.</li>
-<li>Set the Pivotal App Metrics Logs Prune Interval (set to two minutes by default). This is the interval at which Log Store will check the disk capacity.</li>
+<li>Set the Pivotal App Metrics Logs Prune Threshold disk capacity percentage (set to 80% by default). This is the disk percentage at which Log Store will start to prune the oldest logs first.</li>
+<li>Set the Pivotal App Metrics Logs Prune Interval (set to two minutes by default). This is the frequency at which Log Store will check the disk capacity to make the pruning decision.</li>
 </ol>
 
 ## <a id='ConfigureSyslog'></a>(Optional) Configure Syslog Forwarding
