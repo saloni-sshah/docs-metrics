@@ -5,4 +5,50 @@ owner: Pivotal App Metrics
 list_style_none: true 
 ---
 
-2.0 installation details TBD.
+<p class="note warning"><b>Warning:</b> Pivotal App Metrics v2.0 is in Beta. To provide feedback on Pivotal App Metrics v2.0, email <a href="mailto:pivotal-app-metrics@pivotal.io">pivotal-app-metrics@pivotal.io</a>.</p>
+
+<p class="note"><b>Note:</b> Pivotal App Metrics v2.0 requires [Metric Store](https://docs.pivotal.io/metric-store) as its metrics datastore. You will need to install this tile before installing Pivotal App Metrics.</p>
+
+## <a id='AddTile'></a>Download Pivotal App Metrics
+<ol>
+<li>Once you have installed the [Metric Store](https://docs.pivotal.io/metric-store) tile in Ops Manager, download the Pivotal App Metrics product file from [Pivotal Network](https://network.pivotal.io/products/apm)</li>
+<li>Navigate to the Ops Manager Installation Dashboard and click Import a Product to upload the product file.</li>
+<li>Under the Import a Product button, click + next to the version number of Pivotal App Metrics. This adds the tile to your staging area.</li>
+</ol>
+
+## <a id='ConfigureAzs'></a>Configure AZs and Networks
+To start using Pivotal App Metrics, you need to configure the Pivotal App Metrics tile by performing the following steps:
+<ol>
+<li>Click the Pivotal App Metrics tile on the Ops Manager Installation Dashboard.</li>
+<li>Navigate to Assign AZs and Networks and do the following:</li>
+<ul>
+<li>Select an Availability Zone (AZ) for placing singleton jobs.</li>
+<li>Select one or more AZs for balancing other jobs. (Note: To create a highly available environment, Pivotal recommends selecting multiple AZs.)</li>
+<li>Select Network for installing Pivotal App Metrics.</li>
+</ul>
+</ol>
+
+## <a id='ConfigureFeatures'></a>(Optional) Configure App Metrics Features
+Here you can configure the settings for Pivotal App Metrics components, including Log Store.
+<ol>
+<li>Click the Pivotal App Metrics tile on the Ops Manager Installation Dashboard.</li>
+<li>Navigate to the Pivotal App Metrics Components Config pane.</li>
+<li>To disable the Logs Drawer on the Pivotal App Metrics dashboard, deselect the "Pivotal App Metrics Enable Logs" checkbox (enabled by default).</li>
+<li>Set the Pivotal App Metrics Logs Prune Threshold disk capacity percentage (set to 80% by default). This is the disk percentage at which Log Store will start to prune old logs.</li>
+<li>Set the Pivotal App Metrics Logs Prune Interval (set to two minutes by default). This is the interval at which Log Store will check the disk capacity.</li>
+</ol>
+
+## <a id='ConfigureSyslog'></a>(Optional) Configure Syslog Forwarding
+Pivotal App Metrics supports forwarding syslog to an external log management service such as Papertrail, Splunk, or a custom enterprise log sink. You may find the VM logs useful for debugging problems in the system.
+
+To enable remote syslog forwarding for PCF Healthwatch, do the following:
+<ol>
+<li>Click the Pivotal App Metrics tile on the Ops Manager Installation Dashboard.</li>
+<li>Navigate to the Syslog pane.</li>
+<li>Select Yes without encryption or Yes with TLS encryption to enable syslog forwarding.</li>
+<li>For External Syslog Host, enter the address of syslog server where you want logs sent, such as [logs.example.com].</li>
+<li>For External Syslog Port, enter the port of your syslog server, such as [29279].</li>
+<li>For External Syslog Protocol, select the protocol for sending the logs.</li>
+<li>(TLS only) For External Syslog Permitted Peer, enter the fingerprint or name of the remote peer, such as [*.example.com].</li>
+<li>(TLS only) For External Syslog TLS CA Certificate, enter the CA certificate of the syslog destination.</li>
+</ol>
