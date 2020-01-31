@@ -39,6 +39,15 @@ This release includes the following component version upgrades:
 
 **Release Date: August 5, 2019**
 
+### Known Issues
+
+#### Postgres Pruning Failure in v1.6.1
+
+The Postgreslog store disk size errand is not being set on fresh installs of PCF Metrics 1.6.1 causing the auto-pruning feature to fail. A fix has been released in PCF Metrics 1.6.2.
+
+Please note that this issue only applies to fresh installs of PCF Metrics 1.6.1. Upgrades to 1.6.1 from 1.5 or 1.6 versions will function correctly.
+
+
 ### Fixed Issues
 
 <ul>
@@ -79,7 +88,7 @@ Upgrading the buildpack will prevent portions of PCF Metrics responsible for the
 
 #### Postgres Pruning Failure in v1.6.1
 
-The Postgreslog store disk size errand is not being set on fresh installs of PCF Metrics 1.6.1 causing the auto-pruning feature to fail. A fix will be released in PCF Metrics 1.6.2.
+The Postgreslog store disk size errand is not being set on fresh installs of PCF Metrics 1.6.1 causing the auto-pruning feature to fail. A fix has been released in PCF Metrics 1.6.2.
 
 Please note that this issue only applies to fresh installs of PCF Metrics 1.6.1. Upgrades to 1.6.1 from 1.5 or 1.6 versions will function correctly.
 
