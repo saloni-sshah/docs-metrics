@@ -40,7 +40,6 @@ The Postgreslog store disk size errand is not being set on fresh installs of PCF
 
 Please note that this issue only applies to fresh installs of PCF Metrics 1.6.1. Upgrades to 1.6.1 from 1.5 or 1.6 versions will function correctly.
 
-
 ### Fixed Issues
 
 <ul>
@@ -72,38 +71,21 @@ The following list describes what's new in PCF Metrics v1.6:
 
 ### <a id="issues"></a>Known Issues
 
-The following sections describe the known issues in PCF Metrics v1.6.
+The following sections describe the known issues in PCF Metrics v1.6.x.
 
-#### NodeJs Buildpack Incompatibility 
+#### PCF Metrics v1.6.x Incompatibility with Node.js Buildpack
 
-PCF Metrics depends on Node 8.X which is removed in NodeJS buildpacks after [v1.7.8](https://github.com/cloudfoundry/nodejs-buildpack/releases/tag/v1.7.8). 
-Upgrading the buildpack will prevent portions of PCF Metrics responsible for the UI, API, and alerting from successfully deploying.
+PCF Metrics v1.6.x depends on Node.js 8.x, which is removed in Node.js buildpacks after [v1.7.8](https://github.com/cloudfoundry/nodejs-buildpack/releases/tag/v1.7.8). 
+
+Upgrading to PAS v2.6.15 and later, PAS v2.7.9 and later, or PAS v2.8.3 and later prevents the portions of PCF Metrics responsible for the UI, API, and alerting from successfully deploying.
+
+For more information and potential workarounds, see [PCF Metrics v1.6.x is not compatible with PAS 2.6.15+, 2.7.9+ & 2.8.3+](https://community.pivotal.io/s/article/PCF-Metrics-not-compatible-with-PAS).
 
 #### Postgres Pruning Failure in v1.6.1
 
 The Postgreslog store disk size errand is not being set on fresh installs of PCF Metrics 1.6.1 causing the auto-pruning feature to fail. A fix has been released in PCF Metrics 1.6.2.
 
 Please note that this issue only applies to fresh installs of PCF Metrics 1.6.1. Upgrades to 1.6.1 from 1.5 or 1.6 versions will function correctly.
-
-#### Compatibility with Pivotal Application Service (formerly Elastic Runtime)
-
-PCF Metrics v1.6.x requires the following versions of Pivotal Application Service:
-
-* v2.2: v2.2.2 and later
-* v2.3: all patches within minor
-* v2.4: all patches within minor
-* v2.5: all patches within minor
-* v2.6: all patches within minor
-
-#### Compatibility with Pivotal Cloud Foundry Operations Manager
-
-PCF Metrics v1.6.x requires the following versions of Pivotal Cloud Foundry Operations Manager:
-
-* v2.2: v2.2.9 and later
-* v2.3: v2.3.3: and later
-* v2.4: all patches within minor
-* v2.5: all patches within minor
-* v2.6: all patches within minor
 
 #### Upgrade Compatibility with PCF Metrics 1.4
 
