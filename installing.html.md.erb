@@ -7,14 +7,19 @@ list_style_none: true
 
 This document describes how to install and configure Pivotal Cloud Foundry (PCF) Metrics.
 
-PCF Metrics version 1.6.3+ required the use of the 1.7.8 version of the Nodejs Buildpack.
-Because of this, custom buildpacks must be [enabled in Ops Manager](https://docs.pivotal.io/platform/application-service/adminguide/buildpacks.html) to install this verison of the tile.
-
-To use the [Custom Metrics](./monitoringpcfmetrics.html#custom-metrics) feature of the PCF Metrics tile, you must have the Metrics Forwarder tile installed.
-However, the PCF Metrics tile can be installed without the Metrics Forwarder tile. 
-
 For information about the components deployed as part of this install procedure,
 see [PCF Metrics Product Architecture](./architecture.html).
+
+
+##<a id='prerequisites'></a>Prerequisites
+
+PCF Metrics v1.6.3 and later requires Nodejs buildpack v1.7.8.
+Therefore, to install these versions of the tile, you must add the Node.js buildpack v1.7.8 as a custom buildpack in Ops Manager.
+For how to add a custom buildpack, see [Managing Custom Buildpacks](https://docs.pivotal.io/platform/application-service/adminguide/buildpacks.html).
+
+To use the [Custom Metrics](./monitoringpcfmetrics.html#custom-metrics) feature of the PCF Metrics tile,
+you must have the Metrics Forwarder tile installed.
+However, the PCF Metrics tile can be installed without the Metrics Forwarder tile.
 
 ##<a id='upgrade'></a>Upgrade from v1.4.x to v1.6.x
 
