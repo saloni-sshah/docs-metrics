@@ -13,9 +13,10 @@ see [PCF Metrics Product Architecture](./architecture.html).
 
 ##<a id='prerequisites'></a>Prerequisites
 
-PCF Metrics v1.6.3 and later requires Nodejs buildpack v1.7.8.
-Therefore, to install these versions of the tile, you must add the Node.js buildpack v1.7.8 as a custom buildpack in Ops Manager.
-For how to add a custom buildpack, see [Managing Custom Buildpacks](https://docs.pivotal.io/platform/application-service/adminguide/buildpacks.html).
+PCF Metrics v1.6.3 and later requires and is packaged with the custom Nodejs buildpack v1.7.8.
+When you install PCF Metrics,  you must have the **Enable custom buildpacks** checkbox
+selected in the **App Containers** pane in Ops Manager.
+This checkbox is enabled by default.
 
 To use the [Custom Metrics](./monitoringpcfmetrics.html#custom-metrics) feature of the PCF Metrics tile,
 you must have the Metrics Forwarder tile installed.
