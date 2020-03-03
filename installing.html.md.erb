@@ -13,13 +13,20 @@ see [PCF Metrics Product Architecture](./architecture.html).
 
 ##<a id='prerequisites'></a>Prerequisites
 
-PCF Metrics v1.6.3 and later requires and is packaged with the custom Nodejs buildpack v1.7.8.
+Before you install or upgrade PCF Metrics, you must do the following:
+
++ **For PCF Metrics v1.6.3:** 
 When you install PCF Metrics,  you must have the **Enable custom buildpacks** checkbox
 selected in the **App Containers** pane in the Pivotal Application Service (PAS) tile.
-This checkbox is enabled by default.
-PCF Metrics v1.6.3 did not package the offline buildpack, so will not work in air-gapped environments.
 
-To use the [Custom Metrics](./monitoringpcfmetrics.html#custom-metrics) feature of the PCF Metrics tile,
+    This checkbox is enabled by default.
+You need custom buildpacks enabled because PCF Metrics v1.6.3 and later requires,
+and is packaged with, the custom Nodejs buildpack v1.7.8.
+<p class="note"><strong>Note:</strong> PCF Metrics v1.6.3 does not work in air-gapped environments
+because it does not have the offline buildpack packaged with it.
+</p>
+
++ **For custom metrics:** To use the [Custom Metrics](./monitoringpcfmetrics.html#custom-metrics) feature of the PCF Metrics tile,
 you must have the Metrics Forwarder tile installed.
 However, the PCF Metrics tile can be installed without the Metrics Forwarder tile.
 
