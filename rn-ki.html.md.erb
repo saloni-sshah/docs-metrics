@@ -6,14 +6,28 @@ list_style_none: true
 
 This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 
-## <a id='163'></a>v1.6.3
+## <a id='1-6-4'></a>v1.6.4
+
+**Release Date: March 3, 2020**
+
+### Fixed Issues
+
+<ul>
+  <li> 
+    Resolves the <a href="#issues">Packaged Non-Offline Buildpack</a> issue.<br>
+    PCF Metrics v1.6.4 can be used in air-gapped environments because it packages the offline Node.js buildpack v1.7.8.
+    For more information, see <a href="./installing.html#prereqs">Prerequisites</a> in <em>Installing PCF Metrics</em>.
+  </li>
+</ul>
+
+## <a id='1-6-3'></a>v1.6.3
 
 **Release Date: Feburary 28, 2020**
-### Known Issues
+### <a name="1-6-3-issues"></a>Known Issues
 
-#### Packaged non-offline buildpack
+#### Packaged Non-Offline Buildpack
 
-The Node.js Buildpack requires the internet and will not work for air-gapped environments.
+The Node.js buildpack requires the internet and does not work for air-gapped environments.
 
 ### Fixed Issues
 
@@ -25,7 +39,7 @@ The Node.js Buildpack requires the internet and will not work for air-gapped env
   </li>
 </ul>
 
-## <a id='162'></a>v1.6.2
+## <a id='1-6-2'></a>v1.6.2
 
 **Release Date: January 16, 2020**
 
@@ -47,7 +61,7 @@ This release includes the following component version upgrades:
 <li>Locked os-conf to version 20.0.0</li>
 </ul>
 
-## <a id='161'></a>v1.6.1
+## <a id='1-6-1'></a>v1.6.1
 
 **Release Date: August 5, 2019**
 
@@ -75,7 +89,7 @@ This release includes the following component version upgrades:
 <li>Upgrade to CF CLI v1.16.0</li>
 </ul>
 
-## <a id='160'></a>v1.6.0
+## <a id='1-6-0'></a>v1.6.0
 
 **Release Date: January 10, 2019**
 
