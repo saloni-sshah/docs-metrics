@@ -5,8 +5,12 @@ owner: Pivotal App Metrics
 list_style_none: true 
 ---
 
-<p class="note warning"><b>Warning:</b> Pivotal App Metrics v2.0 is in Beta. To provide feedback on Pivotal App Metrics v2.0, email <a href="mailto:pivotal-app-metrics@pivotal.io">pivotal-app-metrics@pivotal.io</a>.</p>
-This topic explains how to monitor the health of the App Metrics service using the logs, metrics, and Key Performance Indicators (KPIs) emitted by Cloud Foundry and the Metrics application itself.
+<p class="note warning"><b>Warning:</b> Pivotal App Metrics v2.0 is in beta.
+To provide feedback on Pivotal App Metrics v2.0, email <a href="mailto:pivotal-app-metrics@pivotal.io">pivotal-app-metrics@pivotal.io</a>.
+</p>
+
+This topic explains how to monitor the health of the App Metrics service using the logs, metrics,
+and Key Performance Indicators (KPIs) emitted by Cloud Foundry and the Metrics application itself.
 
 For more information about monitoring PCF, see [Monitoring Pivotal Cloud Foundry](https://docs.pivotal.io/pivotalcf/monitoring/index.html).
 
@@ -22,14 +26,18 @@ disk percentage `system.disk.persistent.percent` and VM health `system.healthy`.
 
 KPIs for App Metrics are the metrics that operators find most useful for monitoring their App Metrics service. KPIs are high-signal-value metrics that can indicate emerging issues.
 
-Pivotal provides the following KPIs as general alerting and response guidance for typical App Metrics installations.
-Pivotal recommends that operators continue to fine-tune the alert measures to their installation by observing historical trends.
-Pivotal also recommends that operators expand beyond this guidance and create new, installation-specific monitoring
-metrics, thresholds, and alerts based on learning from their own installations.
+VMware provides the following KPIs as general alerting and response guidance
+for typical App Metrics installations.
+VMware recommends that operators continue to fine-tune the alert measures to their installation
+by observing historical trends.
+VMware also recommends that operators expand beyond this guidance and create new,
+installation-specific monitoring metrics, thresholds, and alerts based on learning
+from their own installations.
 
 ### <a id="bosh-metrics"></a> BOSH Metrics
 
-All BOSH-deployed components generate the following metrics. Monitor them to ensure that they are not consuming excess resources.
+All BOSH-deployed components generate the following metrics.
+Monitor them to ensure that they are not consuming excess resources.
 
 <table>
    <tr><th colspan="3" style="text-align: center;"><br> system.mem.percent<br><br></th></tr>
