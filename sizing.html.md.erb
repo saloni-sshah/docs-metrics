@@ -9,36 +9,51 @@ list_style_none: true
 
 ##<a id='metrics-datastore'></a> Scale the Metrics Datastore
 
-App Metrics retrieves metrics from Metric Store, which has its own configuration for resizing. See [Metric Store documentation](https://docs.pivotal.io/metric-store/0-3/installing.html#-metric-store-for-pcf-resources)
-for more information. Currently, it is suggested to scale vertically rather than horizontally, per [their documentation of Metric Store's limitations](https://docs.pivotal.io/metric-store/0-3/index.html#limitations).
+App Metrics retrieves metrics from Metric Store, which has its own configuration for resizing.
+For information, see [Metric Store documentation](https://docs.pivotal.io/metric-store/0-3/installing.html#-metric-store-for-pcf-resources).
+
+Currently, VMware recommends that you scale vertically rather than horizontally.
+See [Limitations](https://docs.pivotal.io/metric-store/0-3/index.html#limitations)
+in the _Metric Store_ documentation.
 
 ##<a id='log-datastore'></a> Scale the Log Datastore
 
 App Metrics retrieves logs from Log Store. 
 
-By default, App Metrics ships with 3 xlarge VMs with 500GB of persistent disk. They can be configured in the App Metrics tile Resource Config.
+By default, App Metrics ships with three xlarge VMs with 500&nbsp;GB of persistent disk.
+They can be configured in the App Metrics tile Resource Config.
 
 ###<a id='log-considerations'></a> Considerations for Scaling
 
 Scaling information copied from [Log Store release](https://github.com/pivotal/log-store-release):
 
-The scaling of an individual log-store deployment is subject to many variables: desired retention time, replication factor, log ingress volume, and the average size of log messages among them.
+The scaling of an individual log-store deployment is subject to many variables, including:
+
++ Required retention time
++ Replication factor
++ Log ingress volume
++ The average size of log messages
 
 **Scaling Baseline**
 
-6x VMs at 4 core, 30GB RAM, 1TB persistent disk provides ~30 days of log retention for an environment emitting 40,000 logs per second.
+6x VMs at 4 core, 30&nbsp;GB RAM, 1&nbsp;TB persistent disk provides approximately 30 days
+of log retention for an environment emitting 40,000 logs per second.
 
 **Scaling Recommendations**
 
-Maximum ingress throughput is primarily dependent on the number of VMs, with secondary consideration to CPU and Memory resources.
+Maximum ingress throughput is primarily dependent on the number of VMs,
+with secondary consideration to CPU and Memory resources.
 Retention and Replication Factor primarily depend on the size of persistent disks attached to the VMs.
-Abnormally high cardinality of indexed information (particularly source_id and instance_id) can place pressure on VM Memory. This is possible even in the absence of high log volume.
+Abnormally high cardinality of indexed information (particularly source_id and instance_id) can place pressure
+on VM Memory.
+This is possible even in the absence of high log volume.
 
 ##<a id='indicators-datastore'></a> Scale the Indicators Datastore
 
-App Metrics stores indicator files, monitors documents, and a history of triggered alerts in Postgres.
+App Metrics stores indicator files, monitors documents, and a history of triggered alerts in PostgreSQL.
 
-There is one VM for this database, and the number of instances cannot be scaled. By default this VM is xlarge.cpu with 10 GB of persistent disk.
+There is one VM for this database, and the number of instances cannot be scaled.
+By default this VM is xlarge.cpu with 10&nbsp;GB of persistent disk.
 The sizing can be configured in the App Metrics tile Resource Config.
 
 
