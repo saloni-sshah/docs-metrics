@@ -62,6 +62,11 @@ When a monitor threshold is surpassed, the Metric Store tile sends a request to 
 receives this request, App Metrics stores a record of the alert in the Postgres datastore. These stored alerts
 then display on the charts in the App Metrics dashboard.
 
-The Postgres datastore doesn't store any sensitive information, so by default it is not encrypted. If you would like
-to encrypt it, you can follow the
+##### Security
+
+**In Transit**: All communication with the Postgres datastore is over TLS, following the guidelines in
+[the Postgres documentation](https://www.postgresql.org/docs/11/ssl-tcp.html)
+
+**At Rest**: The Postgres datastore doesn't store any sensitive information, so by default it is not encrypted.
+If you would like to encrypt it, you can follow the
 [steps for disk encryption](https://docs.pivotal.io/platform/2-8/security/pcf-infrastructure/disk-encrypt.html).
