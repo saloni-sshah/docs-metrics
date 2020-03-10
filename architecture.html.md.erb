@@ -30,6 +30,18 @@ App Metrics uses the Metric Store tile for two purposes:
 
 Read more about the Metric Store tile in [their documentation](https://docs.pivotal.io/metric-store/0-3/index.html).
 
+### Custom Metrics
+Metrics Registrar can be used to collect custom application metrics.
+Metrics Registrar is bundled alongside PAS which is already a dependency of App Metrics 2.0
+
+To see custom application metrics in App Metrics 2.0, Metrics Registrar
+needs to be configured to scrape Prometheus-style metrics from your applications.
+These custom metrics will then be available inside Metrics Store to be visualized by App Metrics 2.0.
+
+Please see the following two documentation links for further information.
+* [Metric Registrar and Custom App Metrics](https://docs.pivotal.io/platform/application-service/2-8/metric-registrar/index.html)
+* [How to use metrics registrar](https://docs.pivotal.io/platform/application-service/2-8/metric-registrar/using.html)
+
 ### Logs
 The Log Store is a time series database for storing and querying Cloud Foundry application logs.
 
@@ -46,6 +58,6 @@ The Postgres database stores the indicator documents, monitors documents, and th
 When a client uploads an indicator document or monitor document, App Metrics stores it in the database. These documents
 then display on the charts in the App Metrics dashboard.
 
-When a monitor threshold is surpassed, the metric store tile sends a request to App Metrics. When App Metrics
+When a monitor threshold is surpassed, the Metric Store tile sends a request to App Metrics. When App Metrics
 receives this request, App Metrics stores a record of the alert in the Postgres datastore. These stored alerts
 then display on the charts in the App Metrics dashboard.
