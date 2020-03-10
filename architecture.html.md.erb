@@ -7,4 +7,45 @@ list_style_none: true
 
 <p class="note warning"><b>Warning:</b> Pivotal App Metrics v2.0 is in Beta. To provide feedback on Pivotal App Metrics v2.0, email <a href="mailto:pivotal-app-metrics@pivotal.io">pivotal-app-metrics@pivotal.io</a>.</p>
 
-2.0 architectural details TBD.
+## <a id="overview"></a>Overview
+
+The diagram below shows the components of App Metrics and the Cloud Foundry components that the App Metrics system interacts with.
+
+Understanding the diagram
+* The cornered rectangles represent Pivotal Cloud Foundry tiles that App Metrics 2.0 depends on.
+* The rounded rectangles represent customer interaction points.
+* The cylinders represent the data storage components of App Metrics 2.0.
+* The <span style="background:#9AC0CD">blue</span> components are packaged with App Metrics 2.0.
+
+<%= image_tag("app-metrics-2-0-architecture.svg", :alt => "App Metrics 2.0 architecture") %>
+
+## <a id="data-flow"></a>Data Flow
+
+### Metrics
+Metrics are ingested and stored by the Metric Store tile.
+
+App Metrics uses the Metric Store tile for two purposes:
+* querying for metrics
+* registering monitors to receive alerts when the metrics surpass the monitor thresholds
+
+Read more about the Metric Store tile in [their documentation](https://docs.pivotal.io/metric-store/0-3/index.html).
+
+### Logs
+The Log Store is a time series database for storing and querying Cloud Foundry application logs.
+
+Logs are streamed into the store via the Loggregator V2 endpoint and stored via the Influx Storage Engine.
+Log Store provides the capability for distributed configurations, scaled out to use multiple nodes.
+Each node in a Log Store deployment manages disk usage to maximize stored logs without exceeding a
+configured maximum disk utilization.
+
+App Metrics queries the Log Store for logs, log searches, and search density histograms.
+
+### Postgres datastore
+The Postgres database stores the indicator documents, monitors documents, and the triggered alerts for the monitors.
+
+When a client uploads an indicator document or monitor document, App Metrics stores it in the database. These documents
+then display on the charts in the App Metrics dashboard.
+
+When a monitor threshold is surpassed, the metric store tile sends a request to App Metrics. When App Metrics
+receives this request, App Metrics stores a record of the alert in the Postgres datastore. These stored alerts
+then display on the charts in the App Metrics dashboard.
