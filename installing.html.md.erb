@@ -11,7 +11,8 @@ list_style_none: true
 
 ## <a id='AddTile'></a>Download Pivotal App Metrics
 <ol>
-<li>Once you have installed the <a href="https://docs.pivotal.io/metric-store" target="_blank">Metric Store</a> tile in Ops Manager, download the Pivotal App Metrics 2.0 product file from <a href="https://network.pivotal.io/products/apm" target="_blank">Pivotal Network</a>.</li>
+<li>After you have installed the <a href="https://docs.pivotal.io/metric-store" target="_blank">Metric Store</a> tile in Ops Manager,
+    download the Pivotal App Metrics 2.0 product file from <a href="https://network.pivotal.io/products/apm" target="_blank">Pivotal Network</a>.</li>
 <li>Navigate to the Ops Manager Installation Dashboard and click Import a Product to upload the product file.</li>
 <li>Under the Import a Product button, click + next to the version number of Pivotal App Metrics. This adds the tile to your staging area.</li>
 </ol>
@@ -36,8 +37,10 @@ Here you can configure the settings for Pivotal App Metrics components, includin
 <li>To disable the Logs Drawer on the Pivotal App Metrics dashboard, deselect the "Pivotal App Metrics Enable Logs" checkbox (enabled by default).</li>
 <li>Set the Pivotal App Metrics Logs Prune Threshold disk capacity percentage (set to 80% by default). This is the disk percentage at which Log Store will start to prune the oldest logs first.</li>
 <li>Set the Pivotal App Metrics Logs Prune Interval (set to two minutes by default). This is the frequency at which Log Store will check the disk capacity to make the pruning decision.</li>
-<li>To enable the use of a SOCKS proxy, select the "Enable Socks Proxy" checkbox, and set the `HTTP_PROXY` or `HTTPS_PROXY` environment variable to the url of your proxy.
-    This checkbox sets the `USE_SOCKS_PROXY` environment variable, which will override the protocol to use for the proxy, using SOCKS instead of HTTP/HTTPS.</li>
+<li>To enable a SOCKS proxy, select **Enable Socks Proxy** and set the `HTTP_PROXY`
+    or `HTTPS_PROXY` environment variable to the URL of your proxy.
+    This checkbox sets the `USE_SOCKS_PROXY` environment variable, which overrides the protocol for the proxy
+    to use SOCKS instead of HTTP/HTTPS.</li>
 </ol>
 
 ## <a id='ConfigureSyslog'></a>(Optional) Configure Syslog Forwarding
