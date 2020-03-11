@@ -12,6 +12,7 @@ list_style_none: true
 The diagram below shows the components of App Metrics and the Cloud Foundry components that the App Metrics system interacts with.
 
 Understanding the diagram
+
 * The cornered rectangles represent Pivotal Cloud Foundry tiles that App Metrics 2.0 depends on.
 * The rounded rectangles represent customer interaction points.
 * The cylinders represent the data storage components of App Metrics 2.0.
@@ -25,6 +26,7 @@ Understanding the diagram
 Metrics are ingested and stored by the Metric Store tile.
 
 App Metrics uses the Metric Store tile for two purposes:
+
 * querying for metrics
 * registering monitors to receive alerts when the metrics surpass the monitor thresholds
 
@@ -39,6 +41,7 @@ needs to be configured to scrape Prometheus-style metrics from your applications
 These custom metrics will then be available inside Metrics Store to be visualized by App Metrics 2.0.
 
 Please see the following two documentation links for further information.
+
 * [Metric Registrar and Custom App Metrics](https://docs.pivotal.io/platform/application-service/2-8/metric-registrar/index.html)
 * [How to use metrics registrar](https://docs.pivotal.io/platform/application-service/2-8/metric-registrar/using.html)
 
