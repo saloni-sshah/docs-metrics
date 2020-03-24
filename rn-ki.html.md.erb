@@ -1,19 +1,19 @@
 ---
-breadcrumb: Pivotal App Metrics Documentation
-title: Pivotal App Metrics Release Notes and Known Issues
-owner: Pivotal App Metrics
+breadcrumb: App Metrics Documentation
+title: App Metrics Release Notes and Known Issues
+owner: App Metrics
 list_style_none: true 
 ---
 
-This topic contains release notes for Pivotal App Metrics 2.0 and beyond.
+This topic contains release notes for App Metrics 2.0 and beyond.
 
 ## <a id='20'></a>v2.0
 
 **Release Date: Not yet released.**
 
-### <a id="new-features"></a>New Features in Pivotal App Metrics v2.0
+### <a id="new-features"></a>New Features in App Metrics v2.0
 
-Pivotal App Metrics v2.0 includes the following new features:
+App Metrics v2.0 includes the following new features:
 
 <ul>
 <li>Spring Boot Micrometer and tagged metrics support</li>
@@ -30,19 +30,19 @@ Pivotal App Metrics v2.0 includes the following new features:
 
 ### <a id="issues"></a>Known Issues
 
-The following sections describe the known issues in Pivotal App Metrics v2.0.
+The following sections describe the known issues in App Metrics v2.0.
 
-#### Compatibility with Pivotal Application Service (formerly Elastic Runtime)
+#### Compatibility with VMware Tanzu Application Service
 
-Pivotal App Metrics v2.0 requires the following versions of Pivotal Application Service:
+App Metrics v2.0 requires the following versions of VMware Tanzu Application Service:
 
 * v2.6: v2.6.x and later
 * v2.7: all patches within minor
 * v2.8: all patches within minor
 
-#### Compatibility with Pivotal Cloud Foundry Operations Manager
+#### Compatibility with Operations Manager
 
-Pivotal App Metrics v2.0 requires the following versions of Pivotal Cloud Foundry Operations Manager:
+App Metrics v2.0 requires the following versions of Operations Manager:
 
 * v2.6: v2.6.x and later
 * v2.7: all patches within minor
@@ -54,8 +54,8 @@ Please note that if the application you are monitoring is not configured to acce
 
 #### Custom Metric Process Labels
 
-Pivotal App Metrics v2.0 introduces a new application hierarchy to support multiple process types from CAPI v3. Processes that contain apporpriately tagged envelopes will be available for metric filtering, and will be labled accordingly within the charts.
+App Metrics v2.0 introduces a new application hierarchy to support multiple process types from CAPI v3. Processes that contain apporpriately tagged envelopes will be available for metric filtering, and will be labled accordingly within the charts.
 
 There are some metrics, including custom and network metrics, that may not have proper process tagging available. In these cases, the process will be labeled `unknown`.
 
-This will improve as additional support for multi-process tagging is backported to previous PAS versions.
+This will improve as additional support for multi-process tagging is backported to previous TAS versions.

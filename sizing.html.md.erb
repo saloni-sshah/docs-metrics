@@ -1,7 +1,7 @@
 ---
-breadcrumb: Pivotal App Metrics Documentation
-title: Sizing Pivotal App Metrics for Your System 
-owner: Pivotal App Metrics
+breadcrumb: App Metrics Documentation
+title: Sizing App Metrics for Your System
+owner: App Metrics
 list_style_none: true 
 ---
 
@@ -10,7 +10,7 @@ Operators can use these procedures to optimize App Metrics for high capacity or 
 
 After your deployment has been running for a while, use the information in this topic to scale your running deployment.
 
-If you are not familiar with the App Metrics components, review [PCF Metrics Product Architecture](./architecture.html) before reading this topic.
+If you are not familiar with the App Metrics components, review [App Metrics Product Architecture](./architecture.html) before reading this topic.
 
 App Metrics depends on 3 datastores, the Metric Store, the Log Store, and the Postgres database.
 
@@ -20,10 +20,10 @@ are part of the App Metrics tile, and so their scaling will be discussed more in
 ##<a id='metrics-datastore'></a> Scale the Metrics Datastore
 
 App Metrics retrieves metrics from Metric Store, which has its own configuration for resizing.
-For information, see [Metric Store documentation](https://docs.pivotal.io/metric-store/0-3/installing.html#-metric-store-for-pcf-resources).
+For information, see [Metric Store documentation](https://docs.pivotal.io/metric-store/installing.html#-metric-store-for-pcf-resources).
 
 Currently, VMware recommends that you scale vertically rather than horizontally.
-See [Limitations](https://docs.pivotal.io/metric-store/0-3/index.html#limitations)
+See [Limitations](https://docs.pivotal.io/metric-store/index.html#limitations)
 in the _Metric Store_ documentation.
 
 
