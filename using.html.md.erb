@@ -1,15 +1,15 @@
 ---
-breadcrumb: Pivotal App Metrics Documentation
-title: Monitoring and Troubleshooting Apps with Pivotal App Metrics
-owner: Pivotal App Metrics
+breadcrumb: App Metrics Documentation
+title: Monitoring and Troubleshooting Apps with App Metrics
+owner: App Metrics
 list_style_none: true 
 ---
 
-This topic describes how developers can monitor and troubleshoot their apps using Pivotal App Metrics.
+This topic describes how developers can monitor and troubleshoot their apps using App Metrics.
 
 ## <a id="overview"></a> Overview
 
-Pivotal App Metrics helps you understand and troubleshoot the health and performance of your apps by offering the following indicators, data, and visualizations:
+App Metrics helps you understand and troubleshoot the health and performance of your apps by offering the following indicators, data, and visualizations:
 
 * [Latency](#latency): Response times for your application
 * [Traffic](#traffic): Number of requests made for your application
@@ -19,13 +19,13 @@ Pivotal App Metrics helps you understand and troubleshoot the health and perform
 * [App Events](#events): A chart of update, start, stop, crash, SSH, and staging failure events
 * [Logs](#logs): A list of app logs that you can search, filter, and download
 
-The following sections describe a standard workflow for using Pivotal App Metrics to monitor or troubleshoot your apps.
+The following sections describe a standard workflow for using App Metrics to monitor or troubleshoot your apps.
 
 ##<a id='get-started'></a> View an App
 
-In a browser, navigate to `appmetrics.YOUR-SYSTEM-DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Choose an app from the search bar for which you want to view metrics and/or logs. Pivotal App Metrics respects UAA permissions such that you can view any app that runs in a space that you have access to. 
+In a browser, navigate to `appmetrics.YOUR-SYSTEM-DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Choose an app from the search bar for which you want to view metrics and/or logs. App Metrics respects UAA permissions such that you can view any app that runs in a space that you have access to.
 
-Pivotal App Metrics displays app data for a given time frame. See the sections below to [Change the Time Frame](#time) for the dashboard.
+App Metrics displays app data for a given time frame. See the sections below to [Change the Time Frame](#time) for the dashboard.
 
 ## <a id="time"></a>Change the Time Frame
 
@@ -43,7 +43,7 @@ To enable auto-refresh, click the **REFRESH** button next to the time selection 
 
 ## <a id="app-instance"></a>View Metrics at the Process and Application Instance Level
 
-Pivotal App Metrics relays metric data at the app process level to allow for an in-depth troubleshooting experience, even across rolling deployment. Users are able to view the app metrics related to a specific process and further drill down into specific instances within those processes, which correlates directly with the processes and app instances shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
+App Metrics relays metric data at the app process level to allow for an in-depth troubleshooting experience, even across rolling deployment. Users are able to view the app metrics related to a specific process and further drill down into specific instances within those processes, which correlates directly with the processes and app instances shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
 
 The dashboard will display metrics aggregated across all processes by default. To view metrics by specific process, select a process type from the dropdown near the upper-left of the dashboard.
 
@@ -55,7 +55,7 @@ To view metrics for a specific app instance (or selection of specific instances)
 
 ##<a id='metrics'></a> Interpreting Metrics
 
-The default metrics charts included with Pivotal App Metrics provide high-level indicators of the Four Golden Signals for monitoring the health of applications running on distributed systems: Latency, Traffic, Errors, Saturation.
+The default metrics charts included with App Metrics provide high-level indicators of the Four Golden Signals for monitoring the health of applications running on distributed systems: Latency, Traffic, Errors, Saturation.
 
 The following sections explain how to use each of the charts on the dashboard to monitor and troubleshoot your app.
 
@@ -77,7 +77,7 @@ they show No Data or zeros for the default Latency, Traffic, and Errors metrics.
 
 ### <a id='saturation'></a> Saturation (Container Metrics)
 
-The following **Container Metrics** charts are available on the Pivotal App Metrics dashboard to help monitor resource saturation:
+The following **Container Metrics** charts are available on the App Metrics dashboard to help monitor resource saturation:
 
 * CPU usage percentage:<br><br>A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but you need to investigate the app to better understand and fix the root cause.<br><br>
 
@@ -102,7 +102,7 @@ You can add custom metrics charts to your dashboard, including Spring Boot Actua
 
 In order to get custom, Actuator, or Micrometer metrics into the Metrics Store, you will need to bind Metric Registrar to your app and register your endpoint. For more information, see [Configuring the Metric Registrar](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
 
-If you want to view custom metrics, you can configure your apps to emit those metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the Pivotal App Metrics dashboard.
+If you want to view custom metrics, you can configure your apps to emit those metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the App Metrics dashboard.
 
 In addition, Spring Boot apps with actuators or Micrometer metrics implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code.
 
@@ -148,7 +148,7 @@ For more information about indicator formatting, please see the [Indicator Proto
 
 Additional example PromQL can also be found for any of the default charts on the dashboard by clicking the `Info` menu in the upper-right of any chart, or by visiting the [PromQL Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
 
-### cURLing Your Indicator Document to Pivotal App Metrics
+### cURLing Your Indicator Document to App Metrics
 Once you have your indicator document prepared, you can push it to App Metrics via cURL.
 
 Linux/Mac:

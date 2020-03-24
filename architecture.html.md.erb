@@ -1,13 +1,13 @@
 ---
-breadcrumb: Pivotal App Metrics Documentation
-title: Pivotal App Metrics Product Architecture
-owner: Pivotal App Metrics
+breadcrumb: App Metrics Documentation
+title: App Metrics Product Architecture
+owner: App Metrics
 list_style_none: true 
 ---
 
 ## <a id="overview"></a>Overview
 
-The diagram below shows the components of App Metrics and the Cloud Foundry components
+The diagram below shows the components of App Metrics and the Pivotal Cloud Foundry components
 that the App Metrics system interacts with.
 
 <%= image_tag("app-metrics-2-0-architecture.svg", :alt => "App Metrics 2.0 architecture") %>
@@ -33,7 +33,7 @@ App Metrics uses the Metric Store tile for two purposes:
 * Registering monitors to receive alerts when the metrics surpass the monitor thresholds
 
 For more information about the Metric Store tile,
-see [Metric Store for PCF](https://docs.pivotal.io/metric-store/0-3/index.html).
+see [Metric Store for PCF](https://docs.pivotal.io/metric-store).
 
 ## <a id="custom-metrics"></a> Custom Metrics
 
@@ -80,4 +80,4 @@ the [PostgreSQL documentation](https://www.postgresql.org/docs/11/ssl-tcp.html).
 
 **At Rest**: The PostgreSQL datastore does not store any sensitive information,
 so by default it is not encrypted.
-If you want to encrypt it, see [Disk Encryption](https://docs.pivotal.io/platform/2-8/security/pcf-infrastructure/disk-encrypt.html).
+If you want to encrypt it, see [Disk Encryption](https://docs.pivotal.io/platform/security/pcf-infrastructure/disk-encrypt.html).
