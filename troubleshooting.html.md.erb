@@ -5,4 +5,63 @@ owner: Pivotal App Metrics
 list_style_none: true 
 ---
 
-2.0 troubleshooting details TBD.
+## <a id="integration-errors"></a> Integration Errors
+
+App Metrics is a nexus of four integration points:
+
+* CF API
+* UAA
+* Metric Store
+* Log Store
+
+To monitor the status of these dependencies, check out the `/integration-status` endpoint.
+It is a quick way to see if the app is able to communicate with each dependency,
+`true` if accessible and `false` if not. For example:
+
+```
+{"Log Store":true,"CF API":true,"UAA":true,"Metric Store":true}
+```
+
+If there is an issue with one of the dependencies,
+it may be worth investigating what is wrong with that particular component.
+
+### <a id="troubleshooting-cf-api"></a> Troubleshooting CF API
+
+See the [Cloud Controller documentation](https://docs.pivotal.io/platform/application-service/2-8/concepts/architecture/cloud-controller.html).
+
+### <a id="troubleshooting-uaa"></a> Troubleshooting UAA
+
+See the [UAA documentation](https://docs.pivotal.io/platform/application-service/2-8/concepts/architecture/uaa.html).
+
+### <a id="troubleshooting-metric-store"></a> Troubleshooting Metric Store
+
+See [Metric Store documentation](https://docs.pivotal.io/metric-store).
+
+### <a id="troubleshooting-log-store"></a> Troubleshooting Log Store
+
+Check out the log store VMs on the `appMetrics` deployment to investigate.
+
+1. Are the VMs running? If any of them aren't running, start them and prioritize examining those.
+    - `bosh -d <appMetrics-deployment> vms --vitals`
+    - Take note of the memory and disk usage.
+1. Check Log Store CPU, Memory Usage, and Disk Usage on the App Metrics dashboard for App Metrics
+1. Are the processes running?
+    - `monit summary`
+1. Are logs being stored?
+    - `ssh` into the VM and check `/var/vcap/sys/log` to look at the logs for each process using `du -h /var/vcap/sys/log`
+1. Are logs failing to write to disk? Check the following metrics
+    - `queued_log_count` -- backup of attempts to write to disk
+    - `replayed_log_count` -- attempting to replay logs to catch up from a backup
+
+### <a id="troubleshooting-database"></a> Troubleshooting Postgres Database
+
+Check out the `db-and-errand-runner` VM on the `appMetrics` deployment to investigate.
+
+1. Look at Postgres charts for on the App Metrics dashboard for App Metrics
+    - Database CPU
+    - Database Memory Usage
+    - Database Disk Usage
+1. Is the VM running?
+    - `bosh -d <appMetrics-deployment> vms --vitals`
+1. Is the database functioning as expected? Investigate by getting into the VM and using `psql` locally
+    - `bosh ssh` in and find the appropriate `psql` to query locally, which will always be in `/var/vcap/data/packages`: `/var/vcap/data/packages/postgres-11.7/.../bin/psql`

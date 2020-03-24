@@ -5,4 +5,144 @@ owner: Pivotal App Metrics
 list_style_none: true 
 ---
 
-2.0 sizing details TBD.
+This topic describes how operators configure App Metrics depending on their deployment size.
+Operators can use these procedures to optimize App Metrics for high capacity or to reduce resource usage for smaller deployment sizes.
+
+After your deployment has been running for a while, use the information in this topic to scale your running deployment.
+
+If you are not familiar with the App Metrics components, review [PCF Metrics Product Architecture](./architecture.html) before reading this topic.
+
+App Metrics depends on 3 datastores, the Metric Store, the Log Store, and the Postgres database.
+
+Metric Store tile is separate, and will mostly be discussed elsewhere. The Log Store and Postgres database
+are part of the App Metrics tile, and so their scaling will be discussed more in detail here.
+
+##<a id='metrics-datastore'></a> Scale the Metrics Datastore
+
+App Metrics retrieves metrics from Metric Store, which has its own configuration for resizing.
+For information, see [Metric Store documentation](https://docs.pivotal.io/metric-store/0-3/installing.html#-metric-store-for-pcf-resources).
+
+Currently, VMware recommends that you scale vertically rather than horizontally.
+See [Limitations](https://docs.pivotal.io/metric-store/0-3/index.html#limitations)
+in the _Metric Store_ documentation.
+
+
+##<a id='configs-by-size'></a> Suggested Sizing by Deployment Size
+
+Use the following tables as a guide for configuring resources for your deployment.
+
+Estimate the size of your deployment according to how many apps are expected to be deployed.
+
+<table style='nice'>
+   <tr><th>Size</th><th>Purpose</th><th>Approximate number of app instances</th></tr>
+   <tr><td><a href="#small">Small</a></td><td>Test use</td><td>100</td></tr>
+   <tr><td><a href="#medium">Medium</a></td><td>Production use</td><td>5,000</td></tr>
+   <tr><td><a href="#large">Large</a></td><td>Production use</td><td>15,000</td></tr>
+</table>
+
+###<a id='small'></a>Deployment Resources for a Small Deployment
+
+Example resource configuration to store approximately 14 days of data for a small deployment, about 100 application instances:
+
+<table>
+  <tr>
+    <th>Job</th>
+    <th>Instances</th>
+    <th>Persistent Disk Type</th>
+    <th width=40%>VM Type</th>
+  </tr>
+  <tr>
+    <td>PostgreSQL</td>
+    <td>1 (not configurable)</td>
+    <td>10GB</td>
+    <td>xlarge.cpu (cpu: 8, ram: 8 GB, disk: 32 GB)</td>
+  </tr>
+  <tr>
+    <td>Log Store</td>
+    <td>3</td>
+    <td>200GB</td>
+    <td>r4.xlarge (cpu: 4, ram: 16 GB, disk: 32 GB)</td>
+  </tr>
+</table>
+
+###<a id='medium'></a>Deployment Resources for a Medium Deployment
+
+Example resource configuration to store approximately 6 weeks of data for a medium deployment, about 5000 application instances:
+
+<table>
+  <tr>
+    <th>Job</th>
+    <th>Instances</th>
+    <th>Persistent Disk Type</th>
+    <th width=40%>VM Type</th>
+  </tr>
+  <tr>
+    <td>PostgreSQL</td>
+    <td>1 (not configurable)</td>
+    <td>10GB</td>
+    <td>r4.xlarge (cpu: 4, ram: 30.5 GB, disk: 32 GB)</td>
+  </tr>
+  <tr>
+    <td>Log Store</td>
+    <td>3</td>
+    <td>500GB</td>
+    <td>r4.xlarge (cpu: 4, ram: 30.5 GB, disk: 32 GB)</td>
+  </tr>
+</table>
+
+
+###<a id='large'></a>Deployment Resources for a Large Deployment
+
+Example resource configuration to store approximately 6 weeks of data for a large deployment, about 15,000 application instances:
+
+<table>
+  <tr>
+    <th>Job</th>
+    <th>Instances</th>
+    <th>Persistent Disk Type</th>
+    <th width=40%>VM Type</th>
+  </tr>
+  <tr>
+    <td>PostgreSQL</td>
+    <td>1 (not configurable)</td>
+    <td>10GB</td>
+    <td>r4.xlarge (cpu: 4, ram: 30.5 GB, disk: 32 GB)</td>
+  </tr>
+  <tr>
+    <td>Log Store</td>
+    <td>6</td>
+    <td>500GB</td>
+    <td>r4.xlarge (cpu: 4, ram: 30.5 GB, disk: 32 GB)</td>
+  </tr>
+</table>
+
+
+##<a id='log-datastore'></a> Scale the Log Datastore
+
+App Metrics retrieves logs from Log Store.
+
+By default, App Metrics ships with three xlarge VMs with 500&nbsp;GB of persistent disk.
+They can be configured in the App Metrics tile Resource Config.
+
+###<a id='log-considerations'></a> Considerations for Scaling
+
+The scaling of an individual log-store deployment is subject to many variables, including:
+
++ Required retention time
++ Replication factor
++ Log ingress volume
++ The average size of log messages
+
+**Scaling Baseline**
+
+6x VMs at 4 core, 30&nbsp;GB RAM, 1&nbsp;TB persistent disk provides approximately 30 days
+of log retention for an environment emitting 40,000 logs per second.
+
+**Scaling Recommendations**
+
+Maximum ingress throughput is primarily dependent on the number of VMs,
+with secondary consideration to CPU and Memory resources.
+Retention and Replication Factor primarily depend on the size of persistent disks attached to the VMs.
+Abnormally high cardinality of indexed information (particularly source_id and instance_id) can place pressure
+on VM Memory.
+This is possible even in the absence of high log volume.

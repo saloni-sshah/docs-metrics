@@ -5,4 +5,148 @@ owner: Pivotal App Metrics
 list_style_none: true 
 ---
 
-2.0 monitoring details and SLIs TBD.
+This topic explains how to monitor the health of the App Metrics service using the logs, metrics,
+and Key Performance Indicators (KPIs) emitted by Cloud Foundry and the Metrics application itself.
+
+For more information about monitoring PCF, see [Monitoring Pivotal Cloud Foundry](https://docs.pivotal.io/pivotalcf/monitoring/index.html).
+
+## <a id="healthwatch"></a>Healthwatch
+
+The premier way to monitor App Metrics is using [Healthwatch](https://docs.pivotal.io/platform/healthwatch/1-8/installing.html).
+Once installed, navigate to the JobHealth dashboard to view the App Metrics deployment which is named `appMetrics`.
+
+Healthwatch also supports [alerting](https://docs.pivotal.io/platform/healthwatch/1-8/api/alerts.html) based on VM persistent
+disk percentage `system.disk.persistent.percent` and VM health `system.healthy`.
+
+## <a id="kpi"></a>Key Performance Indicators
+
+KPIs for App Metrics are the metrics that operators find most useful for monitoring their App Metrics service. KPIs are high-signal-value metrics that can indicate emerging issues.
+
+VMware provides the following KPIs as general alerting and response guidance
+for typical App Metrics installations.
+VMware recommends that operators continue to fine-tune the alert measures to their installation
+by observing historical trends.
+VMware also recommends that operators expand beyond this guidance and create new,
+installation-specific monitoring metrics, thresholds, and alerts based on learning
+from their own installations.
+
+### <a id="bosh-metrics"></a> BOSH Metrics
+
+All BOSH-deployed components generate the following metrics.
+Monitor them to ensure that they are not consuming excess resources.
+
+<table>
+   <tr><th colspan="3" style="text-align: center;"><br> system.mem.percent<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>Percentage used of the VM Memory for MySQL, Redis, and PostgreSQL.<br><br>
+      <strong>Use</strong>: Too much VM Memory usage will likely negatively impact data storage and access performance.
+      <br><br>
+      <strong>Origin</strong>:bosh-system-metrics-forwarder<br>
+      <strong>Type</strong>: percent<br>
+      <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 10 minutes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>: &gt; 80% <br>
+      <strong>Red critical</strong>: &gt; 85%</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>Scale up as appropriate.
+      </td>
+   </tr>
+</table>
+
+<table>
+   <tr><th colspan="3" style="text-align: center;"><br> disk.persistent.percent<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>Percentage used of the VM persistent disk for MySQL, Redis, and PostgreSQL.<br><br>
+      <strong>Use</strong>: It is important to make sure that the system disks of data services do not fill up and cause data loss and performance degradation.
+      <br><br>
+      <strong>Origin</strong>:bosh-system-metrics-forwarder<br>
+      <strong>Type</strong>: percent<br>
+      <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 10 minutes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>: &gt; 70% <br>
+      <strong>Red critical</strong>: &gt; 80%</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>Scale up as appropriate.
+      </td>
+   </tr>
+</table>
+
+### <a id="component-metrics"></a> Component Metrics
+
+All applications pushed using Cloud Foundry automatically emit the following application component metrics.
+App Metrics is a collection of applications like any other CF applications, and thus can be monitored by App Metrics (among other monitoring services).
+The following KPIs can indicate problems with your installation.
+
+<table>
+   <tr><th colspan="3" style="text-align: center;"><br> CPU Usage<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>Percentage used of the application container CPU for App Metrics applications.<br><br>
+      <strong>Use</strong>: App Metrics applications running with very high CPU usage will likely negatively impact performance.
+      <br><br>
+      <strong>Origin</strong>: rep<br>
+      <strong>Type</strong>: percent<br>
+      <strong>Frequency</strong>: Every minute<br>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 10 minutes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>: &gt; 80% <br>
+      <strong>Red critical</strong>: &gt; 90%</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>Scale up as appropriate.
+      </td>
+   </tr>
+</table>
+
+<table>
+   <tr><th colspan="3" style="text-align: center;"><br> Memory Percent Used<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>Percentage used of the application container memory for App Metrics applications.<br><br>
+      <strong>Use</strong>: App Metrics applications running out of memory will likely negatively impact performance.
+      <br><br>
+      <strong>Origin</strong>: rep<br>
+      <strong>Type</strong>: percent<br>
+      <strong>Frequency</strong>: Every minute<br>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 10 minutes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>: &gt; 80% <br>
+      <strong>Red critical</strong>: &gt; 90%</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>Scale up as appropriate.
+      </td>
+   </tr>
+</table>
+
+
