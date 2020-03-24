@@ -1,86 +1,109 @@
 ---
-breadcrumb: Pivotal App Metrics Documentation
-title: Monitoring Pivotal App Metrics
-owner: Pivotal App Metrics
-list_style_none: true 
+breadcrumb: App Metrics Documentation
+title: Monitoring App Metrics
+owner: App Metrics
+list_style_none: true
 ---
 
 This topic explains how to monitor the health of the App Metrics service using the logs, metrics,
-and Key Performance Indicators (KPIs) emitted by Cloud Foundry and the Metrics application itself.
+and Key Performance Indicators (KPIs) emitted by Cloud Foundry and the App Metrics application itself.
 
-For more information about monitoring PCF, see [Monitoring Pivotal Cloud Foundry](https://docs.pivotal.io/pivotalcf/monitoring/index.html).
+For more information about monitoring PCF, see [Monitoring Cloud Foundry](https://docs.pivotal.io/pivotalcf/monitoring/index.html).
 
 ## <a id="healthwatch"></a>Healthwatch
 
-The premier way to monitor App Metrics is using [Healthwatch](https://docs.pivotal.io/platform/healthwatch/1-8/installing.html).
+The premier way to monitor App Metrics is using [Healthwatch](https://docs.pivotal.io/platform/healthwatch/installing.html).
 Once installed, navigate to the JobHealth dashboard to view the App Metrics deployment which is named `appMetrics`.
 
-Healthwatch also supports [alerting](https://docs.pivotal.io/platform/healthwatch/1-8/api/alerts.html) based on VM persistent
+Healthwatch also supports [alerting](https://docs.pivotal.io/platform/healthwatch/api/alerts.html) based on VM persistent
 disk percentage `system.disk.persistent.percent` and VM health `system.healthy`.
+
+## <a id="appmetrics"></a>App Metrics
+
+App Metrics dashboard for the app metrics application also displays its the platform indicators as custom metrics. 
+App Metrics also supports [alerting](https://docs.pivotal.io/platform/healthwatch/api/alerts.html) based on dashboard indicators.
 
 ## <a id="kpi"></a>Key Performance Indicators
 
-KPIs for App Metrics are the metrics that operators find most useful for monitoring their App Metrics service. KPIs are high-signal-value metrics that can indicate emerging issues.
+KPIs for App Metrics are the metrics that operators find most useful for monitoring their App Metrics service.
+KPIs are high-signal-value metrics that can indicate emerging issues.
 
-VMware provides the following KPIs as general alerting and response guidance
-for typical App Metrics installations.
-VMware recommends that operators continue to fine-tune the alert measures to their installation
-by observing historical trends.
-VMware also recommends that operators expand beyond this guidance and create new,
-installation-specific monitoring metrics, thresholds, and alerts based on learning
-from their own installations.
+VMware provides the following KPIs as general alerting and response guidance for typical App Metrics installations.
+VMware recommends that operators continue to fine-tune the alert measures to their installation by observing historical trends.
+VMware also recommends that operators expand beyond this guidance and create new, installation-specific monitoring metrics, thresholds, and alerts based on learning from their own installations.
 
 ### <a id="bosh-metrics"></a> BOSH Metrics
 
 All BOSH-deployed components generate the following metrics.
 Monitor them to ensure that they are not consuming excess resources.
-
 <table>
-   <tr><th colspan="3" style="text-align: center;"><br> system.mem.percent<br><br></th></tr>
+   <tr><th colspan="3" style="text-align: center;"><br> Log Store VMs (log-store-vms) <br><br></th></tr>
+   <tr>
+     <th>Metric</th>
+     <td>disk_persistent_percent</td>
+   </tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Percentage used of the VM Memory for MySQL, Redis, and PostgreSQL.<br><br>
-      <strong>Use</strong>: Too much VM Memory usage will likely negatively impact data storage and access performance.
+      <td>Percentage of VM persistent disk used for Log Store.<br><br>
+      <strong>Use</strong>: It is important to make sure that the system disks of the data services do not fill up and cause data loss and performance degradation.
       <br><br>
-      <strong>Origin</strong>:bosh-system-metrics-forwarder<br>
       <strong>Type</strong>: percent<br>
-      <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
-   </tr>
-   <tr>
-      <th>Recommended measurement</th>
-      <td>Average over last 10 minutes</td>
-   </tr>
-   <tr>
-      <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: &gt; 80% <br>
-      <strong>Red critical</strong>: &gt; 85%</td>
-   </tr>
-   <tr>
-      <th>Recommended response</th>
-      <td>Scale up as appropriate.
-      </td>
-   </tr>
-</table>
-
-<table>
-   <tr><th colspan="3" style="text-align: center;"><br> disk.persistent.percent<br><br></th></tr>
-   <tr>
-      <th width="25%">Description</th>
-      <td>Percentage used of the VM persistent disk for MySQL, Redis, and PostgreSQL.<br><br>
-      <strong>Use</strong>: It is important to make sure that the system disks of data services do not fill up and cause data loss and performance degradation.
-      <br><br>
-      <strong>Origin</strong>:bosh-system-metrics-forwarder<br>
-      <strong>Type</strong>: percent<br>
-      <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
-   </tr>
-   <tr>
-      <th>Recommended measurement</th>
-      <td>Average over last 10 minutes</td>
+      <strong>PromQl Used</strong>: avg(avg_over_time(system_mem_percent{deployment=~'log-store-prod',job='log-store',source_id='bosh-system-metrics-forwarder'}[60s])) by (index)<br>
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
       <td><strong>Yellow warning</strong>: &gt; 70% <br>
-      <strong>Red critical</strong>: &gt; 80%</td>
+      <strong>Red critical</strong>: &gt; 85%</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>Log Store disks should be scale up <strong>vertically</strong> as needed to prevent data loss. Scaling horizontally will result in data loss.
+      </td>
+   </tr>
+</table>
+<table>
+   <tr><th colspan="3" style="text-align: center;"><br> PostgreSQL VM (db-and-errand-runner) <br><br></th></tr>
+    <tr>
+        <th>Metric</th>
+        <td>disk_persistent_percent</td>
+      </tr>
+   <tr>
+         <th width="25%">Description</th>
+         <td>Percentage of VM persistent disk used for PostgreSQL.<br><br>
+         <strong>Use</strong>: This stores custom indicator files, configured monitors and triggered alerts.
+         The disk filling up will prevent further customization of dashboards and monitors and will prevent new alert triggers from being displayed on metrics graphs.
+         <br><br>
+         <strong>PromQl Used</strong>: avg(avg_over_time(system_disk_persistent_percent{deployment=~'appMetrics-.*',job='db-and-errand-runner',source_id='bosh-system-metrics-forwarder'}[60s]))<br>
+         <strong>Type</strong>: percent<br>
+      </tr>
+      <tr>
+         <th>Recommended alert thresholds</th>
+         <td><strong>Yellow warning</strong>: &gt; 90% <br>
+         <strong>Red critical</strong>: &gt; 95%</td>
+      </tr>
+      <tr>
+         <th>Recommended response</th>
+         <td>Scale up disk as appropriate. Further customization will not be available while scaling is occuring.
+         </td>
+      </tr>
+</table>
+
+### <a id="application-metrics"></a> Application Metrics
+
+All applications pushed using Cloud Foundry automatically emit the following application metrics.
+App Metrics is a single application and thus can be monitored by App Metrics or another application monitoring services.
+The following KPIs can indicate problems with App Metrics and are useful for monitoring any application.
+Non-routed applications will return no data or all zeros for Latency, Errors and Traffic metrics.
+
+<table>
+   <tr><th colspan="3" style="text-align: center;"><br>Latency<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>The Amount of time to service a request.<br><br>
+      <strong>Use</strong>: Slow feedback is a symptom of degraded performance.
+      <br><br>
+      <strong>PromQl Used</strong>: (sum(rate(http_duration_seconds_sum{source_id="$sourceId"}[60s])) by (process_type, source_id) / sum(rate(http_duration_seconds_count{source_id="$sourceId"}[60s])) by (process_type, source_id) * 1000)<br>
+      <strong>Type</strong>: milliseconds <br>
    </tr>
    <tr>
       <th>Recommended response</th>
@@ -88,65 +111,59 @@ Monitor them to ensure that they are not consuming excess resources.
       </td>
    </tr>
 </table>
-
-### <a id="component-metrics"></a> Component Metrics
-
-All applications pushed using Cloud Foundry automatically emit the following application component metrics.
-App Metrics is a collection of applications like any other CF applications, and thus can be monitored by App Metrics (among other monitoring services).
-The following KPIs can indicate problems with your installation.
-
 <table>
-   <tr><th colspan="3" style="text-align: center;"><br> CPU Usage<br><br></th></tr>
+   <tr><th colspan="3" style="text-align: center;"><br>Traffic<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Percentage used of the application container CPU for App Metrics applications.<br><br>
-      <strong>Use</strong>: App Metrics applications running with very high CPU usage will likely negatively impact performance.
+      <td>The Amount of time to service a request.<br><br>
+      <strong>Use</strong>: Slow feedback is a symptom of degraded performance.
       <br><br>
-      <strong>Origin</strong>: rep<br>
-      <strong>Type</strong>: percent<br>
-      <strong>Frequency</strong>: Every minute<br>
+      <strong>PromQl Used</strong>: (sum(rate(http_duration_seconds_sum{source_id="$sourceId"}[60s])) by (process_type, source_id) / sum(rate(http_duration_seconds_count{source_id="$sourceId"}[60s])) by (process_type, source_id) * 1000)<br>
+      <strong>Type</strong>: milliseconds <br>
    </tr>
    <tr>
-      <th>Recommended measurement</th>
-      <td>Average over last 10 minutes</td>
+      <th>Recommended response</th>
+      <td>Scale up as appropriate.
+      </td>
+   </tr>
+</table>
+<table>
+   <tr><th colspan="3" style="text-align: center;"><br>Errors<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>The rate of failed requests i.e. number of 500 status responses.<br><br>
+      <strong>Use</strong>: Any number of failures indicate a problem with the application or underlying infrastructure.
+      <br><br>
+      <strong>PromQl Used</strong>: sum((rate(http_total{source_id="$sourceId",status_code="500"}[60s:30s])) * 60) by (process_type, source_id)<br>
+      <strong>Type</strong>: count <br>
    </tr>
    <tr>
-      <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: &gt; 80% <br>
+      <th>Recommended response</th>
+      <td>Investigate application metrics and logs as well as the appmetrics.<i>system domain</i>/integration-status endpoint.</td>
+   </tr>
+</table>
+<table>
+   <tr><th colspan="3" style="text-align: center;"><br>Saturation<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>The amount of resources being utilized by the application.<br><br>
+      <strong>Use</strong>: This is made up of CPU, Memory and Disk.
+      Performance may degrade as the amount of resource used approach the Saturation
+      <br><br>
+      <strong>CPU PromQl Used</strong>: avg(avg_over_time(cpu{source_id="sourceId"}[60s])) by (process_type, source_id)<br>
+      <strong>CPU Type</strong>: percent <br>
+      <strong>Memory PromQl Used</strong>: avg(memory{source_id="sourceId"} / memory_quota{source_id="sourceId"}) by (process_type, source_id) * 100<br>
+      <strong>Memory Type</strong>: percent <br>
+      <strong>Disk PromQl Used</strong>: avg(disk{source_id="sourceId"} / disk_quota{source_id="sourceId"}) by (process_type, source_id) * 100<br>
+      <strong>Disk Type</strong>: percent <br>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds for App Metrics</th>
+      <td><strong>Yellow warning</strong>: &gt; 80%<br>
       <strong>Red critical</strong>: &gt; 90%</td>
    </tr>
    <tr>
       <th>Recommended response</th>
-      <td>Scale up as appropriate.
-      </td>
+      <td>Scale up memory and disk quota on the app as appropriate and turn off the push-apps errand on the tile.</td>
    </tr>
 </table>
-
-<table>
-   <tr><th colspan="3" style="text-align: center;"><br> Memory Percent Used<br><br></th></tr>
-   <tr>
-      <th width="25%">Description</th>
-      <td>Percentage used of the application container memory for App Metrics applications.<br><br>
-      <strong>Use</strong>: App Metrics applications running out of memory will likely negatively impact performance.
-      <br><br>
-      <strong>Origin</strong>: rep<br>
-      <strong>Type</strong>: percent<br>
-      <strong>Frequency</strong>: Every minute<br>
-   </tr>
-   <tr>
-      <th>Recommended measurement</th>
-      <td>Average over last 10 minutes</td>
-   </tr>
-   <tr>
-      <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: &gt; 80% <br>
-      <strong>Red critical</strong>: &gt; 90%</td>
-   </tr>
-   <tr>
-      <th>Recommended response</th>
-      <td>Scale up as appropriate.
-      </td>
-   </tr>
-</table>
-
-
