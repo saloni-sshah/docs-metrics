@@ -18,10 +18,21 @@ the health and performance of their apps.
 | Persistent, sharable dashboard customizations | [Adding Custom Metrics Charts](./using.html#custom-metrics) |
 | Improved time selection experience | [Time Selection](./using.html#time) |
 | Improved data ingestion performance for live metrics and logs observation | [Live Metrics and Logs](./using.html#auto-refresh) |
-| Fault-tolerant, scalable logs and metrics data storage | [Data Storage (TBD)](./using.html#data-access) |
-| Increased metrics data retention | [Data Storage (TBD)](./using.html#data-access) |
-| Increased logs data retention | [Data Storage (TBD)](./using.html#data-access) |
-| Improved data ingestion performance | [Ingestion (TBD)](./using.html#data-access) |
+| Fault-tolerant, scalable logs with increased data retention | [Log Store](./index.html#log-store) |
+| Fault-tolerant, scalable metrics with increased data retention | [Metric Store](https://docs.pivotal.io/metric-store/index.html#-about-metric-store-for-pcf) |
+
+##<a id='log-store'></a> About the Log Store
+
+App Metrics packages the Log Store to provide a persistent storage layer for logs sent through the Loggregator subsystem.
+It is multi-tenant aware (the auth proxy ensures that you only have access to logs from your apps),
+easy to query, and has a powerful storage engine (the [InfluxDB storage engine](https://docs.influxdata.com/influxdb)
+has built-in compression and a memory-efficient series index).
+
+- **Multi-tenant aware** Application Developers have access to their own logs.
+- **Ubiquitous Query Language** Log Store uses PromQL-style label selector query for filtering logs.
+- **Powerful Storage Engine** The InfluxDB storage engine has built-in compression and a memory-efficient series index.
+
+Log Store offers multi-node deployments, data replication, and load balancing in a highly-available configuration.
 
 
 ##<a id='snapshot'></a> Product Snapshot
