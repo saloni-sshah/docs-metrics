@@ -5,7 +5,20 @@ owner: App Metrics
 list_style_none: true 
 ---
 
+##<a id='prerequisites'></a>Prerequisites
+
+Before you install App Metrics:
+
 <p class="note"><b>Note:</b> App Metrics v2.0 requires <a href="https://docs.pivotal.io/metric-store" target="_blank">Metric Store</a> as its metrics datastore. You will need to install this tile before installing App Metrics.</p>
+
++ **If upgrading from PCF Metrics v1.x line:** 
+The App Metrics tile will install as a seperate tile and will not install over the v1.x version of the tile. 
+There is no data migration from the v1.x line to the v2 line of the product. 
+To maintain historical data please install both side-by-side for two weeks before uninstalling the PCF Metrics v1.x line.
+    <p class="note"><strong>Note:</strong> App Metrics will take over the metrics.<code>system_domain</code>. 
+        Please turn off the Push Apps errand for the Metrics v1.x tile to avoid install errors.
+        PCF Metrics v1.x will be accessible at metrics-previous.<code>system_domain</code>.
+    </p>
 
 ## <a id='AddTile'></a>Download App Metrics
 <ol>
