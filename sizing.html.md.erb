@@ -124,14 +124,18 @@ App Metrics retrieves logs from Log Store.
 By default, App Metrics ships with three xlarge VMs with 500&nbsp;GB of persistent disk.
 They can be configured in the App Metrics tile Resource Config.
 
-###<a id='log-considerations'></a> Considerations for Scaling
-
 The scaling of an individual log-store deployment is subject to many variables, including:
 
 + Required retention time
 + Replication factor
 + Log ingress volume
 + The average size of log messages
+
+<p class="note"><strong>Note</strong>: 
+Horizontally scaling Log Store currently results in data loss. Vertical scaling is recommended at this time
+</p>
+
+###<a id='log-considerations'></a> Considerations for Scaling
 
 **Scaling Baseline**
 
