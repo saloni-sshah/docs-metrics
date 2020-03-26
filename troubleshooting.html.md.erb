@@ -16,29 +16,39 @@ App Metrics is a nexus of four integration points:
 
 To monitor the status of these dependencies, check out the `/integration-status` endpoint.
 It is a quick way to see if the app is able to communicate with each dependency,
-`true` if accessible and `false` if not. For example:
+`true` if accessible and `false` if not. 
+
+For example when all integrations are accessible the output would be:
 
 ```
 {"Log Store":true,"CF API":true,"UAA":true,"Metric Store":true}
 ```
 
 If there is an issue with one of the dependencies,
-it may be worth investigating what is wrong with that particular component.
+first investigate what is wrong with that particular component.
 
 ### <a id="troubleshooting-cf-api"></a> Troubleshooting CF API
-
+```
+"CF API":false
+```
 See the [Cloud Controller documentation](https://docs.pivotal.io/platform/application-service/concepts/architecture/cloud-controller.html).
 
 ### <a id="troubleshooting-uaa"></a> Troubleshooting UAA
-
+```
+"UAA":false
+```
 See the [UAA documentation](https://docs.pivotal.io/platform/application-service/concepts/architecture/uaa.html).
 
 ### <a id="troubleshooting-metric-store"></a> Troubleshooting Metric Store
-
+```
+"Metric Store":false
+```
 See [Metric Store documentation](https://docs.pivotal.io/metric-store).
 
 ### <a id="troubleshooting-log-store"></a> Troubleshooting Log Store
-
+```
+"Log Store":false
+```
 Check out the log store VMs on the `appMetrics` deployment to investigate.
 
 1. Are the VMs running? If any of them aren't running, start them and prioritize examining those.
