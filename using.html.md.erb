@@ -58,22 +58,22 @@ To view metrics for a specific app instance (or selection of specific instances)
 The default metrics charts included with App Metrics provide high-level indicators of the Four Golden Signals for monitoring the health of applications running on distributed systems: Latency, Traffic, Errors, Saturation.
 
 The following sections explain how to use each of the charts on the dashboard to monitor and troubleshoot your app.
-
-### <a id='latency'></a> Latency
-
-* Average latency of a request in milliseconds:<br><br>A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
-
-### <a id='traffic'></a> Traffic
-
-* Number of network requests per minute:<br><br>A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.
-
-### <a id='errors'></a> Errors
-
-* Number of network request errors per minute:<br><br>A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.
-
+### <a id='networkMetrics'></a> Network Metrics
 <p class="note"><strong>Note</strong>: If apps are not configured for network traffic,
 they show No Data or zeros for the default Latency, Traffic, and Errors metrics.
 </p>
+#### <a id='latency'></a> Latency
+
+* Average latency of a request in milliseconds:<br><br>A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
+
+#### <a id='traffic'></a> Traffic
+
+* Number of network requests per minute:<br><br>A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.
+
+#### <a id='errors'></a> Errors
+
+* Number of network request errors per minute:<br><br>A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.
+
 
 ### <a id='saturation'></a> Saturation (Container Metrics)
 
@@ -253,6 +253,6 @@ curl -XGET -H "Authorization: $(cf oauth-token)" \
       "source_type": "APP/PROC/WEB",
       "timestamp": "2020-03-24T06:57:29.788299446Z"
     }
-  }
+  ]
 }
 ```
