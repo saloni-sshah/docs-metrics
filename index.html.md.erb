@@ -19,20 +19,18 @@ the health and performance of their apps.
 | Improved time selection experience | [Time Selection](./using.html#time) |
 | Improved data ingestion performance for live metrics and logs observation | [Live Metrics and Logs](./using.html#auto-refresh) |
 | Metrics: Fault-tolerant, scalable metrics with increased data retention | [Metric Store](https://docs.pivotal.io/metric-store/index.html#-about-metric-store-for-pcf) |
-| Metrics: Easy querying | TBD (.using.html#metric-store-api) |
+| Metrics: Easy querying | [Metric Store API](.using.html#metric-store-api) |
 | Logs: Fault-tolerant, scalable logs with increased data retention | [Log Store](./index.html#log-store) |
-| Logs: Easy querying | TBD (./using.html#log-store-api) |
+| Logs: Easy querying | [Log Store API](./using.html#log-store-api) |
 
 ##<a id='log-store'></a> About the Log Store
 
-App Metrics packages the Log Store to provide a persistent storage layer for logs sent through the Loggregator subsystem.
-It is multi-tenant aware (the auth proxy ensures that you only have access to logs from your apps),
-easy to query, and has a powerful storage engine (the [InfluxDB storage engine](https://docs.influxdata.com/influxdb)
-has built-in compression and a memory-efficient series index).
+App Metrics packages Log Store to provide a persistent storage layer for logs sent through the Loggregator subsystem.
+It is multi-tenant aware, is easy to query, and has a powerful storage engine.
 
-- **Multi-tenant aware** Application Developers have access to their own logs.
+- **Multi-tenant aware** Using the auth proxy to ensure Application Developers have access only to their own logs.
 - **Ubiquitous Query Language** Log Store uses PromQL-style label selector query for filtering logs.
-- **Powerful Storage Engine** The InfluxDB storage engine has built-in compression and a memory-efficient series index.
+- **Powerful Storage Engine** The [InfluxDB storage engine](https://docs.influxdata.com/influxdb) has built-in compression and a memory-efficient series index.
 
 Log Store offers multi-node deployments, data replication, and load balancing in a highly-available configuration.
 
