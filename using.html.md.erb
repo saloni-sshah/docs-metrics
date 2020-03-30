@@ -187,7 +187,7 @@ You can interact with the **Logs** view in the following ways:
 
 By default, the most recent 1,000 log lines will be displayed in the logs drawer. You can click `SHOW 1000 MORE LOGS` to load more.
 
-##<a id="direct-data-access></a> Direct Data Access
+##<a id="direct-data-access"></a> Direct Data Access
 
 You can query Metric Store and Log Store directly to access the raw data.
   
@@ -209,7 +209,7 @@ header set with a UAA provided token.
 
 #### <a id='querying'></a> Querying via HTTP Endpoints
 
-##### **GET** `/v1/sources/{sourceID}/logs`
+**GET** `/v1/sources/{sourceID}/logs`
 
 Issues a query against Log Store data. 
 
@@ -237,7 +237,8 @@ curl -XGET -H "Authorization: $(cf oauth-token)" \
      --data-urlencode 'query={message=~"Error.*"}'
 ```
 
-###### Response Body
+**Response Body**
+
 ```json
 {
   "metadata": {
