@@ -2,7 +2,7 @@
 breadcrumb: App Metrics Documentation
 title: Monitoring and Troubleshooting Apps with App Metrics
 owner: App Metrics
-list_style_none: true 
+list_style_none: true
 ---
 
 This topic describes how developers can monitor and troubleshoot their apps using App Metrics.
@@ -14,7 +14,7 @@ App Metrics helps you understand and troubleshoot the health and performance of 
 * [Latency](#latency): Response times for your application
 * [Traffic](#traffic): Number of requests made for your application
 * [Errors](#errors): HTTP errors thrown by your application
-* [Saturation (Container Metrics)](#saturation): Three charts measuring CPU, memory, and disk consumption percentages 
+* [Saturation (Container Metrics)](#saturation): Three charts measuring CPU, memory, and disk consumption percentages
 * [Custom Metrics](#custom-metrics): User-customizable charts for measuring app performance, such as Spring Boot Actuator and Micrometer metrics, or user-defined custom business metrics
 * [App Events](#events): A chart of update, start, stop, crash, SSH, and staging failure events
 * [Logs](#logs): A list of app logs that you can search, filter, and download
@@ -85,9 +85,9 @@ The following **Container Metrics** charts are available on the App Metrics dash
 
 * Disk usage percentage:<br><br>A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing large sessions to disk.
 
-### <a id='events'></a> Events 
+### <a id='events'></a> Events
 
-In addition, the **Events** chart helps to correllate these metrics to events for your app, including: **Crash**, **Fail** (staging failures), **Update**, **Stop**, **Start**, and **SSH**. 
+In addition, the **Events** chart helps to correllate these metrics to events for your app, including: **Crash**, **Fail** (staging failures), **Update**, **Stop**, **Start**, and **SSH**.
 
 <p class="note"><strong>Note</strong>: The <b>SSH</b> event corresponds to someone successfully using SSH to access a container that runs an instance of the app.</p>
 
@@ -138,9 +138,9 @@ spec:
         units: "none"
 </pre>
 
-Please note that `org,space,app-name` above is reponsible for defining which application these indicators will be applied to. Please replace this with the org, space, and app name of the application dashboard you wish to customize.
+Please note that `org,space,app-name` above is responsible for defining which application these indicators will be applied to. Please replace this with the org, space, and app name of the application dashboard you wish to customize.
 
-For more information about indicator formatting, please see the [Indicator Protocol Repo](https://github.com/pivotal/monitoring-indicator-protocol).
+For more information about indicator formatting, please see the [Indicator Protocol Document Reference](https://github.com/pivotal/monitoring-indicator-protocol/wiki/Indicator-Document-Reference).
 
 <p class="note"><strong>Note</strong>: At this time, only the <code>name</code>, <code>promql</code>,
    <code>documentation</code>, and <code>presentation</code> fields are supported for application indicators.
@@ -165,6 +165,69 @@ Windows:
 
 Once you have your indicator document created, you can also automate the deployment of application indicator documents within your deployment pipeline.
 
+##<a id='monitoring'></a> Adding Monitoring and Alerting
+
+You can add custom monitoring to your dashboard's indicators by creating a custom monitor document for your application.
+
+### Creating a Monitor Document
+The first step to adding custom monitoring and alerting to your application will be to verify the names of the indicators you would like to monitor.
+
+On your application's dashboard you can view the indicator names of each chart, by hovering on the desired chart, clicking on the kabobs in the right-hand corner and selecting Info.
+
+The default Indicator names supported by monitoring and alerting are as follows: RequestCount, HttpLatency, ErrorCount, CPU, MemoryPercentage, and DiskPercentage.
+
+Once you have the indicator names you can create your monitor document that will define threshold for your indicator and the webhook to send alerts to.
+The following is an example of the YAML for an monitor document:
+
+<pre>
+---
+product: org,space,app-name
+
+slack_webhook_url: some_slack_webhook_URL
+
+monitors:
+  - name: 500 Errors For Application
+    indicator: ErrorCount
+    warning:
+       operator: gte
+       threshold: 1.0
+       duration: 1m
+       only_every: 1h
+    critical:
+       operator: gte
+       threshold: 2.0
+       duration: 1m
+       only_every: 15m
+---
+
+Please note that `org,space,app-name` above is responsible for defining which application these indicators will be applied to.
+Please replace this with the org, space, and app name of the application you wish to monitor.
+
+Please also note that the `some_slack_webhook_URL` should be where alerts are sent when a threshold is surpassed.
+Slack is the only known supported use case, but other webhook platforms may work.
+
+#### Monitor Document Schema
+For more information about indicator formatting, please see the [Indicator Protocol Repo](https://github.com/pivotal/monitoring-indicator-protocol).
+
+
+### cURLing Your Monitor Document to App Metrics
+Once you have your monitor document prepared, you can push it to App Metrics via cURL.
+The flow is the same as the indicator document flow but curling to the `/monitor-documents` endpoint.
+
+Linux/Mac:
+<pre>curl -vvv https://appmetrics.sys.DOMAIN/monitor-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"</pre>
+
+Windows:
+<ol>
+  <li> Copy your cf oath token to the clipboard: `cf oauth-token`</li>
+  <li> Paste your oauth token into the following command:</li>
+</ol>
+<pre>curl -vvv https://appmetrics.sys.DOMAIN/monitor-documents -H "Authorization: [YOUR TOKEN]" --data-binary "@[YourDoc.yml]"</pre>
+
+<p class="note"><strong>Note</strong>: You can only push monitors for applications that run in a space that you have access to.</p>
+
+Once you have your monitor document created, you can also automate the deployment of application monitor documents within your deployment pipeline.
+
 ### Custom Metric Demos
 
 * [Adding custom application metric charts using Indicator Protocol](https://www.youtube.com/watch?v=KKed-LwJ0BM)
@@ -182,7 +245,7 @@ You can interact with the **Logs** view in the following ways:
 * **Keyword**: Perform a keyword search. While filtering on keywords, logs results will be reduced to only display log lines that contain the matching criteria. Matching terms will also be highlighted in blue.
 * **Highlight**: Enter a term to visually highlight within your search. The terms will be highlighted in orange within the current filter results.
 * **Sources**: Choose which sources to display logs from. For more information, see [Log Types and Their Messages](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/streaming-logs.html#format).
-* **Download**: Download a file containing logs for the current search. 
+* **Download**: Download a file containing logs for the current search.
 * **Copy**: Click the copy icon to copy the text of the log.
 
 By default, the most recent 1,000 log lines will be displayed in the logs drawer. You can click `SHOW 1000 MORE LOGS` to load more.
@@ -190,11 +253,11 @@ By default, the most recent 1,000 log lines will be displayed in the logs drawer
 ##<a id="direct-data-access"></a> Direct Data Access
 
 You can query Metric Store and Log Store directly to access the raw data.
-  
+
 ### <a id="metric-store-api"></a> Metric Store API
 
 To query Metric Store, consult the documentation for [Using Metric Store](https://docs.pivotal.io/metric-store/using.html)
-  
+
 ### <a id="log-store-api"></a> Log Store API
 
 #### <a id='prerequisites'></a> Prerequisites
@@ -211,7 +274,7 @@ header set with a UAA provided token.
 
 **GET** `/v1/sources/{sourceID}/logs`
 
-Issues a query against Log Store data. 
+Issues a query against Log Store data.
 
 Path Parameters:
 - **sourceID** -- The application or component source ID. Application source ID is the same as application GUID.
