@@ -107,14 +107,46 @@ If you want to view custom metrics, you can configure your apps to emit those me
 In addition, Spring Boot apps with actuators or Micrometer metrics implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code.
 
 ### Creating an Indicator Document
-The first step to adding a custom metric chart to your dashboard after verifying that the metrics are being emitted to the firehose will be to verify its name for the indicator document.
+An indicator document is a YAML document that specifies which application you want to monitor and the indicators
+you want to use to monitor it.
 
-If you are using a Prometheus-style metrics endpoint, you can do so by hitting your app's metrics endpoint at `app.domain/metrics` and looking for the desired metric.
+There are 3 steps to creating an indicator document:
+1. Finding the metric you want to monitor
+1. Writing the PromQL query
+1. Adding the PromQL to your Indicator Document
 
-To validate Spring Boot Actuator and Micrometer metrics, please see the [Spring Boot documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html).
+#### Finding the metric name
+First verify that the metrics are being emitted. Once you have configured Metrics Registrar to scrape your metrics
+endpoint, you can check your respective endpoint for metric names.
 
-Once you have the metric name you can create your indicator document that will define the chart you want to add to your dashboard. The following is an example of the YAML for an indicator document:
+If you are using a Prometheus-style metrics endpoint, you can do so by hitting your app's metrics endpoint at
+`app.domain/metrics` and looking for the desired metric.
 
+To validate Spring Boot Actuator and Micrometer metrics, please see the
+[Spring Boot documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html).
+
+#### Writing the PromQL
+Once you have the metric name, you want to write a PromQL query that is useful for visualizing the metric.
+
+Additional example PromQL can in the upper-right of any chart, or by visiting the
+also be found for any of the default charts on the dashboard by clicking the `Info` menu
+[PromQL Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
+
+To test out PromQL before putting it in an indicator document, there is a PromQL Explorer that is accessible by
+the + button at the bottom right of the dashboard. With the PromQL Explorer, you can test out queries and see what
+the resulting graph would look like before placing it in an indicator document for more permanent persistence.
+
+<p class="note"><strong>Note</strong>: PromQL should always have the <code>source_id</code> tag for non-admin users.
+  App Metrics supports using a <code>$sourceId</code> parameter in the PromQL which will automatically refer to the sourceId of
+  the current application. Example: <code>cpu{source_id="$sourceId"}</code>
+</p>
+
+#### Adding the PromQL to your Indicator Document
+Once you have the PromQL ready, you're ready to put it in an Indicator Document.
+
+For example, say you had a custom metric `customMetricName500` and wanted to graph the amount of errors over a 1 minute
+period, so your PromQL query is `sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))`.
+The following is an example of the YAML for an indicator document:
 <pre>
 ---
 apiVersion: indicatorprotocol.io/v1
@@ -130,60 +162,44 @@ spec:
     version: 0.0.1
 
   indicators:
-    - name: "Custom 500 Error Indicator"
-      promql: "sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))"
+    - name: CustomErrorCount500
+      promql: "sum(rate(customMetricName500{source_id='$sourceId'}[1m]))"
       documentation:
-        title: "Custom Metric 500 Errors
+        title: "Custom Metric 500 Errors"
       presentation:
         units: "none"
 </pre>
 
-Please note that `org,space,app-name` above is responsible for defining which application these indicators will be applied to. Please replace this with the org, space, and app name of the application dashboard you wish to customize.
+Please note that `org,space,app-name` above is responsible for defining which application these indicators will be
+applied to. Please replace this with the org, space, and app name of the application dashboard you wish to customize.
 
-For more information about indicator formatting, please see the [Indicator Protocol Document Reference](https://github.com/pivotal/monitoring-indicator-protocol/wiki/Indicator-Document-Reference).
+#### Indicator Document Schema
 
-<p class="note"><strong>Note</strong>: At this time, only the <code>name</code>, <code>promql</code>,
-   <code>documentation</code>, and <code>presentation</code> fields are supported for application indicators.
-</p>
-
-Additional example PromQL can also be found for any of the default charts on the dashboard by clicking the `Info` menu in the upper-right of any chart, or by visiting the [PromQL Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
-
-### cURLing Your Indicator Document to App Metrics
-Once you have your indicator document prepared, you can push it to App Metrics via cURL.
-
-Linux/Mac:
-<pre>curl -vvv https://appmetrics.sys.DOMAIN/indicator-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"</pre>
-
-Windows:
-<ol>
-  <li> Copy your cf oath token to the clipboard: `cf oauth-token`</li>
-  <li> Paste your oauth token into the following command:</li>
-</ol>
-<pre>curl -vvv https://appmetrics.sys.DOMAIN/indicator-documents -H "Authorization: [YOUR TOKEN]" --data-binary "@[YourDoc.yml]"</pre>
-
-<p class="note"><strong>Note</strong>: You can only push indicators for applications that run in a space that you have access to.</p>
-
-Once you have your indicator document created, you can also automate the deployment of application indicator documents within your deployment pipeline.
+App Metrics uses a derivative version of the Indicator Protocol. For more information on the App Metrics-supported
+indicator document schema, see [Indicator Document Template Reference](./indicator-document-reference.html).
 
 ##<a id='monitoring'></a> Adding Monitoring and Alerting
 
 You can add custom monitoring to your dashboard's indicators by creating a custom monitor document for your application.
 
-### Creating a Monitor Document
-The first step to adding custom monitoring and alerting to your application will be to verify the names of the indicators you would like to monitor.
+### Creating a Monitor Documents
+Monitors are linked to specific indicators, so the first step to adding custom monitoring and alerting to your
+application is to verify the names of the indicators you would like to monitor.
 
-On your application's dashboard you can view the indicator names of each chart, by hovering on the desired chart, clicking on the kabobs in the right-hand corner and selecting Info.
+You can view the indicator names of each chart on your application's dashboard by hovering on the desired chart,
+clicking on the kabobs in the right-hand corner and selecting Info.
 
-The default Indicator names supported by monitoring and alerting are as follows: RequestCount, HttpLatency, ErrorCount, CPU, MemoryPercentage, and DiskPercentage.
+The indicator name can correspond to one of your custom indicators or to one of the default indicator names:
+RequestCount, HttpLatency, ErrorCount, CPU, MemoryPercentage, and DiskPercentage.
 
-Once you have the indicator names you can create your monitor document that will define threshold for your indicator and the webhook to send alerts to.
-The following is an example of the YAML for an monitor document:
+Once you have the indicator names you can create your monitor document that will define threshold for your indicator
+and the webhook to send alerts to. The following is an example of the YAML for an monitor document:
 
 <pre>
 ---
 product: org,space,app-name
 
-slack_webhook_url: some_slack_webhook_URL
+slack_webhook_url: https://my-slack-webhook.com
 
 monitors:
   - name: 500 Errors For Application
@@ -198,36 +214,16 @@ monitors:
        threshold: 2.0
        duration: 1m
        only_every: 15m
----
 </pre>
 
 Please note that `org,space,app-name` above is responsible for defining which application these indicators will be applied to.
 Please replace this with the org, space, and app name of the application you wish to monitor.
 
-Please also note that the `some_slack_webhook_URL` should be where alerts are sent when a threshold is surpassed.
-Slack is the only known supported use case, but other webhook platforms may work.
+Please also note that the `https://my-slack-webhook.com` should be where alerts are sent when a threshold is surpassed.
+Slack is the currently the only supported use case, but other webhook platforms may work if they accept a "text" payload.
 
 #### Monitor Document Schema
-For more information about indicator formatting, please see the [Indicator Protocol Repo](https://github.com/pivotal/monitoring-indicator-protocol).
-
-
-### cURLing Your Monitor Document to App Metrics
-Once you have your monitor document prepared, you can push it to App Metrics via cURL.
-The flow is the same as the indicator document flow but curling to the `/monitor-documents` endpoint.
-
-Linux/Mac:
-<pre>curl -vvv https://appmetrics.sys.DOMAIN/monitor-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"</pre>
-
-Windows:
-<ol>
-  <li> Copy your cf oath token to the clipboard: `cf oauth-token`</li>
-  <li> Paste your oauth token into the following command:</li>
-</ol>
-<pre>curl -vvv https://appmetrics.sys.DOMAIN/monitor-documents -H "Authorization: [YOUR TOKEN]" --data-binary "@[YourDoc.yml]"</pre>
-
-<p class="note"><strong>Note</strong>: You can only push monitors for applications that run in a space that you have access to.</p>
-
-Once you have your monitor document created, you can also automate the deployment of application monitor documents within your deployment pipeline.
+For more detailed information on the monitor document schema, see the [Monitor Document Template Reference](./monitor-document-reference.html).
 
 ### Custom Metric Demos
 
