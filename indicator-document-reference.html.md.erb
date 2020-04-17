@@ -7,7 +7,7 @@ list_style_none: true
 
 This topic describes how developers can customize their dashboards for monitoring their apps using App Metrics.
 
-## Indicator Document Template Reference
+## <a id='indicator-document-reference'></a> Indicator Document Template Reference
 
 This contains detailed information about the schema and API for indicator documents.
 
@@ -22,7 +22,7 @@ For more information about the full schema of indicator documents, please see th
    <code>documentation</code>, and <code>presentation</code> fields are supported for application indicators.
 </p>
 
-### <a id="curling-indicator-document"></a> cURLing Your Indicator Document to App Metrics
+### <a id='curling-indicator-document'></a> cURLing Your Indicator Document to App Metrics
 Once you have created your indicator document, you can push it to App Metrics via cURL.
 
 Linux/Mac:
@@ -39,7 +39,7 @@ Windows:
 
 Once you have your indicator document created, you can also automate the deployment of application indicator documents within your deployment pipeline.
 
-#### <a id="indicator-document-api-spec"></a> Indicator Document API spec
+#### <a id='indicator-document-api-spec'></a> Indicator Document API spec
 In short, there is a `/indicator-documents` path that supports `POST` and an `/indicator-documents/{org,space,app}` that
 supports deleting an indicator document for a specific `org,space,app`.
 
