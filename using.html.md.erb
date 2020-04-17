@@ -58,10 +58,13 @@ To view metrics for a specific app instance (or selection of specific instances)
 The default metrics charts included with App Metrics provide high-level indicators of the Four Golden Signals for monitoring the health of applications running on distributed systems: Latency, Traffic, Errors, Saturation.
 
 The following sections explain how to use each of the charts on the dashboard to monitor and troubleshoot your app.
+
 ### <a id='networkMetrics'></a> Network Metrics
+
 <p class="note"><strong>Note</strong>: If apps are not configured for network traffic,
 they show No Data or zeros for the default Latency, Traffic, and Errors metrics.
 </p>
+
 #### <a id='latency'></a> Latency
 
 * Average latency of a request in milliseconds:<br><br>A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
@@ -107,15 +110,18 @@ If you want to view custom metrics, you can configure your apps to emit those me
 In addition, Spring Boot apps with actuators or Micrometer metrics implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code.
 
 ### Creating an Indicator Document
+
 An indicator document is a YAML document that specifies which application you want to monitor and the indicators
 you want to use to monitor it.
 
 There are 3 steps to creating an indicator document:
+
 1. Finding the metric you want to monitor
-1. Writing the PromQL query
-1. Adding the PromQL to your Indicator Document
+2. Writing the PromQL query
+3. Adding the PromQL to your Indicator Document
 
 #### Finding the metric name
+
 First verify that the metrics are being emitted. Once you have configured Metrics Registrar to scrape your metrics
 endpoint, you can check your respective endpoint for metric names.
 
@@ -126,6 +132,7 @@ To validate Spring Boot Actuator and Micrometer metrics, please see the
 [Spring Boot documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html).
 
 #### Writing the PromQL
+
 Once you have the metric name, you want to write a PromQL query that is useful for visualizing the metric.
 
 Additional example PromQL can in the upper-right of any chart, or by visiting the
@@ -142,11 +149,13 @@ the resulting graph would look like before placing it in an indicator document f
 </p>
 
 #### Adding the PromQL to your Indicator Document
+
 Once you have the PromQL ready, you're ready to put it in an Indicator Document.
 
 For example, say you had a custom metric `customMetricName500` and wanted to graph the amount of errors over a 1 minute
 period, so your PromQL query is `sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))`.
 The following is an example of the YAML for an indicator document:
+
 <pre>
 ---
 apiVersion: indicatorprotocol.io/v1
@@ -173,7 +182,7 @@ spec:
 Please note that `org,space,app-name` above is responsible for defining which application these indicators will be
 applied to. Please replace this with the org, space, and app name of the application dashboard you wish to customize.
 
-#### Indicator Document Schema
+### <a id="indicator-document-schema"></a> Indicator Document Schema
 
 App Metrics uses a derivative version of the Indicator Protocol. For more information on the App Metrics-supported
 indicator document schema, see [Indicator Document Template Reference](./indicator-document-reference.html).
@@ -182,7 +191,8 @@ indicator document schema, see [Indicator Document Template Reference](./indicat
 
 You can add custom monitoring to your dashboard's indicators by creating a custom monitor document for your application.
 
-### Creating a Monitor Documents
+### Creating a Monitor Document
+
 Monitors are linked to specific indicators, so the first step to adding custom monitoring and alerting to your
 application is to verify the names of the indicators you would like to monitor.
 
@@ -222,10 +232,11 @@ Please replace this with the org, space, and app name of the application you wis
 Please also note that the `https://my-slack-webhook.com` should be where alerts are sent when a threshold is surpassed.
 Slack is the currently the only supported use case, but other webhook platforms may work if they accept a "text" payload.
 
-#### Monitor Document Schema
+### <a id="monitor-document-schema"></a> Monitor Document Schema
+
 For more detailed information on the monitor document schema, see the [Monitor Document Template Reference](./monitor-document-reference.html).
 
-### Custom Metric Demos
+## <a id="custom-metric-demos"></a> Custom Metric Demos
 
 * [Adding custom application metric charts using Indicator Protocol](https://www.youtube.com/watch?v=KKed-LwJ0BM)
 * [Creating a custom dashboard to monitor multiple applications](https://www.youtube.com/watch?v=d1gtLtdiOa4)

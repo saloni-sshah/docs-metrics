@@ -17,6 +17,7 @@ For more information on the schema and API, see [Monitor Document API spec](#mon
 contains an example monitor document at the end, named `MonitorDocumentExample`.
 
 ### <a id='curling-monitor-document'></a> cURLing Your Monitor Document to App Metrics
+
 Once you have your monitor document prepared, you can push it to App Metrics via cURL.
 The flow is the same as the indicator document flow but curling to the `/monitor-documents` endpoint.
 
@@ -34,7 +35,8 @@ Windows:
 
 Once you have your monitor document created, you can also automate the deployment of application monitor documents within your deployment pipeline.
 
-#### <a id='monitor-document-api-spec'></a> Monitor Document API spec
+### <a id='monitor-document-api-spec'></a> Monitor Document API spec
+
 In short, there is a `/monitors-documents` path that supports `POST` and an `/monitor-documents/{org,space,app}` that
 supports `GET` a monitor document for a specific `org,space,app`. There is currently no `DELETE` supported for a single
 monitors document. However, a monitors document will get deleted when a new indicator file is uploaded for that
