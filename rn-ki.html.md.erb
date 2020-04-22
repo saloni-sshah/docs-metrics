@@ -11,10 +11,12 @@ This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 **Release Date: March 3, 2020**
 ### <a name="1-6-4-issues"></a>Known Issues
 
-#### Install Error if Upgrading from 1.6.3 in Offline Environment
+#### Install Error if Upgrading in Offline Environment
 
 If you are upgrading from Metrics 1.6.3, the buildpack is not replaced with the offline version.
-Before installing 1.6.4, delete the appmetrics_nodejs8_buildpack with the cf cli. 
+Before installing 1.6.4, delete the appmetrics_nodejs8_buildpack with the cf cli.
+
+Sometimes upgrading from other versions of Metrics will also run into an error with the buildpack.   
 If already installed, delete the appmetrics_nodejs8_buildpack with the cf cli and rerun the Push App Metrics Component Errand.
 
 ### Fixed Issues
