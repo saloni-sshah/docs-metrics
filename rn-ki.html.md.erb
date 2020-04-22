@@ -43,14 +43,14 @@ This is due to the `UAA_URL` environment variable in the `appmetrics` applicatio
 App Metrics is unable to connect to its underlying postgres database and will hang until the app is killed by CF if application security groups are in use.
   
 Creating a security group with the below configuration and assigning it to the app metrics org (system) and space (app-metrics-v2) should allow the `appmetrics` application to start. 
-  ```json
-  [
-    {
-      "destination": "0.0.0.0-255.255.255.255",
-      "protocol": "all"
-    }
-  ]
-  ```
+```json
+[
+  {
+    "destination": "0.0.0.0-255.255.255.255",
+    "protocol": "all"
+  }
+]
+```
   
 #### CF Admin users unable to view all applications in App Metrics
 
