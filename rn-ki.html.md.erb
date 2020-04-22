@@ -32,6 +32,48 @@ App Metrics v2.0 includes the following new features:
 
 The following sections describe the known issues in App Metrics v2.0.
 
+#### Single Sign-On not allowing user login
+
+Users attempting to log into App Metrics via Single Sign-On will be redirected to the login page without actually being logged into App Metrics.
+
+This is due to the `UAA_URL` environment variable in the `appmetrics` application being set to `https://uaa.<system_domain>` instead of `https://login.<system_domain>`.
+
+#### App Metrics failing to start when application security groups are in use
+
+App Metrics is unable to connect to its underlying postgres database and will hang until the app is killed by CF if application security groups are in use.
+  
+Creating a security group with the below configuration and assigning it to the app metrics org (system) and space (app-metrics-v2) should allow the `appmetrics` application to start. 
+  ```json
+  [
+    {
+      "destination": "0.0.0.0-255.255.255.255",
+      "protocol": "all"
+    }
+  ]
+  ```
+  
+#### CF Admin users unable to view all applications in App Metrics
+
+The App Metrics client requests the `cloud_controller.admin_read_only` scope.
+
+The App Metrics client does not have admin level permissions at this time and will require an update to TAS to add this.
+
+For the time being, please add `cloud_controller.admin_read_only` to your admin users.
+
+Any users logged into to App Metrics will need to log out and log back in after the change is made in UAA.
+
+#### View in PCF Metrics link missing in Apps Manager
+
+App Metrics removed the path that Apps Manager checks to determine if App Metrics is installed on TAS.
+
+#### Smoke Tests Fail on Environments with skip ssl verify set to true
+
+The smoke tests did not take the ssl verify configuration into account.
+
+The smoke test errand can be turned off for affected environments.
+
+The status of App Metrics can be checked by visiting https://appmetrics.<system_domain>/integration-status
+
 #### Compatibility with VMware Tanzu Application Service
 
 App Metrics v2.0 requires the following versions of VMware Tanzu Application Service:
