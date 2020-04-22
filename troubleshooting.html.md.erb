@@ -95,7 +95,7 @@ This topic describes how to resolve common issues experienced while operating or
 <table>
   <tr>
     <th>Error</th>
-    <td>PostgreSQL VM CPU is over 80%.</td>
+    <td>PostgreSQL VM CPU is over 80% for an extended period of time.</td>
   </tr>
   <tr>
     <th>Cause</th>
@@ -110,6 +110,7 @@ This topic describes how to resolve common issues experienced while operating or
           <li>
               If the disk storage is below 85%, ssh to the PostgreSQL VM and check the load average (with `uptime` or `top`).
               If the load average is high, increase the CPU allocated for the PostgreSQL VM.
+              Spikes in CPU may occur during higher than normal traffic load. This is normal.
           </li>
           <li>If the disk storage is over 85%, increase the storage space allocated for the PostgreSQL VM.</li>
           <li>The CPU may remain high for a period of time after the upgrade.</li>
