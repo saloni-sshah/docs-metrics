@@ -5,26 +5,25 @@ owner: App Metrics
 list_style_none: true
 ---
 
-This topic describes how developers can customize their dashboards for monitoring their apps using App Metrics.
+This topic contains detailed information about the schema and API for indicator documents.
 
-## <a id='indicator-document-reference'></a> Indicator Document Template Reference
+This topic is for developers who want to customize their dashboards for monitoring their apps using App Metrics.
 
-This contains detailed information about the schema and API for indicator documents.
+For uploading an indicator document, see [cURLing Your Indicator Document to App Metrics](#curling-indicator-document) below.
 
-For uploading a indicator document, see [cURLing Your Indicator Document to App Metrics](#curling-indicator-document).
+For more information on the schema and API, see [Indicator Document API Specification](#indicator-document-api-spec) below.
+This also contains an example indicator document, named `IndicatorDocumentExample`.
 
-For more information on the schema and API, see [Indicator Document API spec](#indicator-document-api-spec). This also
-contains an example indicator document at the end, named `IndicatorDocumentExample`.
-
-For more information about the full schema of indicator documents, please see the [Indicator Protocol Document Reference](https://github.com/pivotal/monitoring-indicator-protocol/wiki/Indicator-Document-Reference).
+For more information about the full schema of indicator documents,
+see the [Indicator Protocol Document Reference](https://github.com/pivotal/monitoring-indicator-protocol/wiki/Indicator-Document-Reference).
 
 <p class="note"><strong>Note</strong>: At this time, only the <code>name</code>, <code>promql</code>,
-   <code>documentation</code>, and <code>presentation</code> fields are supported for application indicators.
+   <code>documentation</code>, and <code>presentation</code> fields are supported for app indicators.
 </p>
 
-### <a id='curling-indicator-document'></a> cURLing Your Indicator Document to App Metrics
+## <a id='curling-indicator-document'></a> cURLing Your Indicator Document to App Metrics
 
-Once you have created your indicator document, you can push it to App Metrics via cURL.
+After you have created your indicator document, you can push it to App Metrics with cURL.
 
 Linux/Mac:
 <pre>curl -vvv https://appmetrics.sys.DOMAIN/indicator-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"</pre>
@@ -34,21 +33,21 @@ Windows:
   <li> Copy your cf oath token to the clipboard: `cf oauth-token`</li>
   <li> Paste your oauth token into the following command:</li>
 </ol>
-<pre>curl -vvv https://appmetrics.sys.DOMAIN/indicator-documents -H "Authorization: [YOUR TOKEN]" --data-binary "@[YourDoc.yml]"</pre>
+<pre>curl -vvv https://appmetrics.sys.DOMAIN/indicator-documents -H "Authorization: [YOUR-TOKEN]" --data-binary "@[YourDoc.yml]"</pre>
 
-<p class="note"><strong>Note</strong>: You can only push indicators for applications that run in a space that you have access to.</p>
+<p class="note"><strong>Note</strong>: You can only push indicators for apps that run in a space that you have access to.</p>
 
-Once you have your indicator document created, you can also automate the deployment of application indicator documents within your deployment pipeline.
+After you have your indicator document created, you can also automate the deployment of app indicator documents within your deployment pipeline.
 
-### <a id='indicator-document-api-spec'></a> Indicator Document API spec
+## <a id='indicator-document-api-spec'></a> Indicator Document API Specification
 
 In short, there is a `/indicator-documents` path that supports `POST` and an `/indicator-documents/{org,space,app}` that
 supports deleting an indicator document for a specific `org,space,app`.
 
-Deleting or uploading an indicator document will clear all associated monitors and recorded alerts associated with
-that application.
+Deleting or uploading an indicator document clears all associated monitors and recorded alerts associated with
+that app.
 
-For more details on the indicator document API, consult the following Open API specification. To use demos and
+For more details about the indicator document API, consult the following Open API specification. To use demos and
 examples, you can test it out in the [Swagger Editor](https://editor.swagger.io/).
 
 <pre>
