@@ -111,51 +111,55 @@ If you want to view custom metrics, you can configure your apps to emit those me
 
 In addition, Spring Boot apps with actuators or Micrometer metrics implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code.
 
-### Create an Indicator Document
+###<a id='create-indicator-doc'></a> Create an Indicator Document
 
 An indicator document is a YAML document that specifies which app you want to monitor and the indicators
 you want to use to monitor it.
 
-There are 3 steps to creating an indicator document:
+There are three steps to creating an indicator document:
 
-1. Finding the metric you want to monitor
-2. Writing the PromQL query
-3. Adding the PromQL to your Indicator Document
+1. Find the metric you want to monitor
+2. Writ the PromQL query
+3. Adding the PromQL to your indicator document
 
-#### Finding the metric name
+#### Find the Metric Name
 
-First verify that the metrics are being emitted. Once you have configured Metrics Registrar to scrape your metrics
-endpoint, you can check your respective endpoint for metric names.
+First verify that the metrics are being emitted.
+After you have configured Metrics Registrar to scrape your metrics
+endpoint, you can verify your respective endpoint for metric names.
 
 If you are using a Prometheus-style metrics endpoint, you can do so by hitting your app's metrics endpoint at
 `app.domain/metrics` and looking for the desired metric.
 
-To validate Spring Boot Actuator and Micrometer metrics, please see the
-[Spring Boot documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html).
+To validate Spring Boot Actuator and Micrometer metrics,
+see [Metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html)
+in _Spring Boot Actuator: Production-ready Features_ in the Spring Boot documentation.
 
-#### Writing the PromQL
+#### Write a PromQL Query
 
-Once you have the metric name, you want to write a PromQL query that is useful for visualizing the metric.
+After you have the metric name, write a PromQL query for visualizing the metric.
 
-Additional example PromQL can in the upper-right of any chart, or by visiting the
-also be found for any of the default charts on the dashboard by clicking the `Info` menu
-[PromQL Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
+1. Find additional example PromQL for any of the default charts on the dashboard
+   by clicking **Info** in the upper-right of any chart or visit the
+   [PromQL Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
 
-To test out PromQL before putting it in an indicator document, there is a PromQL Explorer that is accessible by
-the + button at the bottom right of the dashboard. With the PromQL Explorer, you can test out queries and see what
-the resulting graph would look like before placing it in an indicator document for more permanent persistence.
+2. Use the PromQL Explorer to test out PromQL before putting it in an indicator document:
 
-<p class="note"><strong>Note</strong>: PromQL should always have the <code>source_id</code> tag for non-admin users.
-  App Metrics supports using a <code>$sourceId</code> parameter in the PromQL which will automatically refer to the sourceId of
+    1. Click the **+** button at the bottom right of the dashboard.
+
+    2. Test out queries to see how the graph looks before placing it in an indicator document.
+
+    <p class="note"><strong>Note</strong>: PromQL should always have the <code>source_id</code> tag for non-admin users.
+  App Metrics supports using a <code>$sourceId</code> parameter in the PromQL which automatically refers to the sourceId of
   the current app. Example: <code>cpu{source_id="$sourceId"}</code>
 </p>
 
-#### Adding the PromQL to your Indicator Document
+#### Add the PromQL to Your Indicator Document
 
-Once you have the PromQL ready, you're ready to put it in an Indicator Document.
+After you have the PromQL ready, put it in an indicator document.
 
-For example, say you had a custom metric `customMetricName500` and wanted to graph the amount of errors over a 1 minute
-period, so your PromQL query is `sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))`.
+For example, if you have a custom metric `customMetricName500` and want to graph the amount of errors over a 1 minute
+period, then your PromQL query is `sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))`.
 The following is an example of the YAML for an indicator document:
 
 <pre>
@@ -181,13 +185,14 @@ spec:
         units: "none"
 </pre>
 
-Please note that `org,space,app-name` above is responsible for defining which app these indicators will be
-applied to. Please replace this with the org, space, and app name of the app dashboard you wish to customize.
+The  `org,space,app-name` in the example above determines which app these indicators are applied to.
+Replace `org,space,app-name` with the org, space, and app name of the app dashboard that you want to customize.
 
 ### <a id="indicator-document-schema"></a> Indicator Document Schema
 
-App Metrics uses a derivative version of the Indicator Protocol. For more information on the App Metrics-supported
-indicator document schema, see [Indicator Document Template Reference](./indicator-document-reference.html).
+App Metrics uses a derivative version of the Indicator Protocol.
+For more information about the App Metrics-supported indicator document schema,
+see [Indicator Document Template Reference](./indicator-document-reference.html).
 
 ##<a id='monitoring'></a> Adding Monitoring and Alerting
 
