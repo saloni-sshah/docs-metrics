@@ -11,9 +11,9 @@ This topic describes how developers can monitor and troubleshoot their apps usin
 
 App Metrics helps you understand and troubleshoot the health and performance of your apps by offering the following indicators, data, and visualizations:
 
-* [Latency](#latency): Response times for your application
-* [Traffic](#traffic): Number of requests made for your application
-* [Errors](#errors): HTTP errors thrown by your application
+* [Latency](#latency): Response times for your app
+* [Traffic](#traffic): Number of requests made for your app
+* [Errors](#errors): HTTP errors thrown by your app
 * [Saturation (Container Metrics)](#saturation): Three charts measuring CPU, memory, and disk consumption percentages
 * [Custom Metrics](#custom-metrics): User-customizable charts for measuring app performance, such as Spring Boot Actuator and Micrometer metrics, or user-defined custom business metrics
 * [App Events](#events): A chart of update, start, stop, crash, SSH, and staging failure events
@@ -41,7 +41,7 @@ To enable auto-refresh, click the **REFRESH** button next to the time selection 
 
 <p class="note"><strong>Note</strong>: The default auto-refresh interval is set to one minute and is currently not configurable.</p>
 
-## <a id="app-instance"></a>View Metrics at the Process and Application Instance Level
+## <a id="app-instance"></a>View Metrics at the Process and App Instance Level
 
 App Metrics relays metric data at the app process level to allow for an in-depth troubleshooting experience, even across rolling deployment. Users are able to view the app metrics related to a specific process and further drill down into specific instances within those processes, which correlates directly with the processes and app instances shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
 
@@ -55,7 +55,9 @@ To view metrics for a specific app instance (or selection of specific instances)
 
 ##<a id='metrics'></a> Interpreting Metrics
 
-The default metrics charts included with App Metrics provide high-level indicators of the Four Golden Signals for monitoring the health of applications running on distributed systems: Latency, Traffic, Errors, Saturation.
+The default metrics charts included with App Metrics provide high-level indicators
+of the Four Golden Signals for monitoring the health of apps running on distributed systems:
+Latency, Traffic, Errors, and Saturation.
 
 The following sections explain how to use each of the charts on the dashboard to monitor and troubleshoot your app.
 
@@ -96,12 +98,12 @@ In addition, the **Events** chart helps to correllate these metrics to events fo
 
 See the following topics for more information about app events:
 
-* [About Starting Applications](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html)
-* [Troubleshooting Application Deployment and Health](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/troubleshoot-app-health.html)
+* [Starting, Restarting, and Restaging Apps](https://docs.pivotal.io/platform/application-service/devguide/deploy-apps/start-restart-restage.html)
+* [Troubleshooting App Deployment and Health](https://docs.pivotal.io/platform/application-service/devguide/deploy-apps/troubleshoot-app-health.html)
 
 ##<a id='custom-metrics'></a> Adding Custom Metrics Charts
 
-You can add custom metrics charts to your dashboard, including Spring Boot Actuator and Micrometer metrics, by defining the custom metrics you want to monitor and including them in an indicator document for your application.
+You can add custom metrics charts to your dashboard, including Spring Boot Actuator and Micrometer metrics, by defining the custom metrics you want to monitor and including them in an indicator document for your app.
 
 In order to get custom, Actuator, or Micrometer metrics into the Metrics Store, you will need to bind Metric Registrar to your app and register your endpoint. For more information, see [Configuring the Metric Registrar](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
 
@@ -109,9 +111,9 @@ If you want to view custom metrics, you can configure your apps to emit those me
 
 In addition, Spring Boot apps with actuators or Micrometer metrics implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code.
 
-### Creating an Indicator Document
+### Create an Indicator Document
 
-An indicator document is a YAML document that specifies which application you want to monitor and the indicators
+An indicator document is a YAML document that specifies which app you want to monitor and the indicators
 you want to use to monitor it.
 
 There are 3 steps to creating an indicator document:
@@ -145,7 +147,7 @@ the resulting graph would look like before placing it in an indicator document f
 
 <p class="note"><strong>Note</strong>: PromQL should always have the <code>source_id</code> tag for non-admin users.
   App Metrics supports using a <code>$sourceId</code> parameter in the PromQL which will automatically refer to the sourceId of
-  the current application. Example: <code>cpu{source_id="$sourceId"}</code>
+  the current app. Example: <code>cpu{source_id="$sourceId"}</code>
 </p>
 
 #### Adding the PromQL to your Indicator Document
@@ -179,8 +181,8 @@ spec:
         units: "none"
 </pre>
 
-Please note that `org,space,app-name` above is responsible for defining which application these indicators will be
-applied to. Please replace this with the org, space, and app name of the application dashboard you wish to customize.
+Please note that `org,space,app-name` above is responsible for defining which app these indicators will be
+applied to. Please replace this with the org, space, and app name of the app dashboard you wish to customize.
 
 ### <a id="indicator-document-schema"></a> Indicator Document Schema
 
@@ -189,14 +191,14 @@ indicator document schema, see [Indicator Document Template Reference](./indicat
 
 ##<a id='monitoring'></a> Adding Monitoring and Alerting
 
-You can add custom monitoring to your dashboard's indicators by creating a custom monitor document for your application.
+You can add custom monitoring to your dashboard's indicators by creating a custom monitor document for your app.
 
 ### Creating a Monitor Document
 
 Monitors are linked to specific indicators, so the first step to adding custom monitoring and alerting to your
-application is to verify the names of the indicators you would like to monitor.
+app is to verify the names of the indicators you would like to monitor.
 
-You can view the indicator names of each chart on your application's dashboard by hovering on the desired chart,
+You can view the indicator names of each chart on your app's dashboard by hovering on the desired chart,
 clicking on the kabobs in the right-hand corner and selecting Info.
 
 The indicator name can correspond to one of your custom indicators or to one of the default indicator names:
@@ -226,8 +228,8 @@ monitors:
        only_every: 15m
 </pre>
 
-Please note that `org,space,app-name` above is responsible for defining which application these indicators will be applied to.
-Please replace this with the org, space, and app name of the application you wish to monitor.
+Please note that `org,space,app-name` above is responsible for defining which app these indicators will be applied to.
+Please replace this with the org, space, and app name of the app you wish to monitor.
 
 Please also note that the `https://my-slack-webhook.com` should be where alerts are sent when a threshold is surpassed.
 Slack is the currently the only supported use case, but other webhook platforms may work if they accept a "text" payload.
@@ -246,7 +248,7 @@ For more detailed information on the monitor document schema, see the [Monitor D
 
 The **Logs** view displays app log data ingested from the Loggregator Reverse Log Proxy (RLP):
 
-<p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non-standard UUID application GUIDs are not stored.</p>
+<p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non-standard UUID app GUIDs are not stored.</p>
 
 You can interact with the **Logs** view in the following ways:
 
@@ -285,7 +287,7 @@ header set with a UAA provided token.
 Issues a query against Log Store data.
 
 Path Parameters:
-- **sourceID** -- The application or component source ID. Application source ID is the same as application GUID.
+- **sourceID** -- The app or component source ID. App source ID is the same as app GUID.
 
 Query Parameters:
 
@@ -293,7 +295,7 @@ Query Parameters:
   - `message` -- RegEx to search the log message body
   - `message_type` -- The file descriptor the log was written to, `OUT` or `ERR`
   - `source_type` -- The source of the log, any subset of `{"API","APP","CELL","HEALTH","LGR","RTR","SSH","STG"}` connected by pipes, e.g. `"APP|API"`.
-  - `instance_id` -- Filter based on the instance ID of the application or component that wrote the log
+  - `instance_id` -- Filter based on the instance ID of the app or component that wrote the log
 - **startTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to 10 minutes ago. Must be before end time.
 - **endTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to now. Must be after start time.
 - **limit** is an optional maximum number of logs to return. Defaults to 100.
