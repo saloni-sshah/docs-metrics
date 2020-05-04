@@ -66,6 +66,12 @@ Any users logged into to App Metrics will need to log out and log back in after 
 
 App Metrics removed the path that Apps Manager checks to determine if App Metrics is installed on TAS.
 
+#### Log Store is unavailable for only certain applications
+
+Log Store may experience this when a particular source id has millions of logs and the connection times out.
+
+This requires and update of the log store release packaged in App Metrics.
+
 #### Smoke Tests Fail on Environments with skip ssl verify set to true
 
 The smoke tests did not take the ssl verify configuration into account.
