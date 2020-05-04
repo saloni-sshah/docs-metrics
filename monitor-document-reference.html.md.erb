@@ -20,14 +20,14 @@ After you have your monitor document prepared, you can push it to App Metrics us
 The flow is the same as the indicator document flow but curling to the `/monitor-documents` endpoint.
 
 Linux/Mac:
-<pre>curl -vvv https://appmetrics.sys.DOMAIN/monitor-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"</pre>
+<pre>curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"</pre>
 
 Windows:
 <ol>
   <li> Copy your cf oath token to the clipboard: `cf oauth-token`</li>
   <li> Paste your oauth token into the following command:</li>
 </ol>
-<pre>curl -vvv https://appmetrics.sys.DOMAIN/monitor-documents -H "Authorization: [YOUR TOKEN]" --data-binary "@[YourDoc.yml]"</pre>
+<pre>curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: [YOUR TOKEN]" --data-binary "@[YourDoc.yml]"</pre>
 
 <p class="note"><strong>Note</strong>: You can only push monitors for apps that run in a space that you have access to.</p>
 
