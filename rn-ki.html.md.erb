@@ -7,6 +7,48 @@ list_style_none: true
 
 This topic contains release notes for App Metrics 2.0 and beyond.
 
+## <a id='2-0-1'></a>v2.0.1
+
+**Release Date: May 5, 2020**
+### <a name="2-0-1-issues"></a>Known Issues
+
+#### CF Admin users unable to view all applications in App Metrics
+
+The App Metrics client requests the `cloud_controller.admin_read_only` scope.
+
+The App Metrics client does not have admin level permissions at this time and will require an update to TAS to add this.
+
+For the time being, please add `cloud_controller.admin_read_only` to your admin users.
+
+Any users logged into to App Metrics will need to log out and log back in after the change is made in UAA.
+
+#### Log Store is unavailable for only certain applications
+
+Log Store may experience this when a particular source id has millions of logs and the connection times out.
+
+This requires and update of the log store release packaged in App Metrics.
+
+### Fixed Issues
+
+<ul>
+  <li>
+    Single Sign-On not allowing user login
+  </li>
+  <li>
+    App Metrics failing to start when application security groups are in use
+  </li>
+  <li>
+    View in PCF Metrics link missing in Apps Manager
+  </li>
+  <li>
+    Smoke Tests Fail on Environments with skip ssl verify set to true
+  </li>
+</ul>
+
+### Maintenance Updates
+
+This release moves App Metrics back to metrics.sys.DOMAIN
+
 ## <a id='20'></a>v2.0
 
 **Release Date: April 3rd 2020.**
