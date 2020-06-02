@@ -18,6 +18,9 @@ This topic contains release notes for App Metrics 2.0 and beyond.
   <li>
     Log Store is unavailable for only certain applications
   </li>
+  <li>
+    Non-admin users unable to create Monitors
+  </li>
 </ul>
 
 ### Fixed Issues
@@ -93,6 +96,14 @@ The App Metrics client requests the `cloud_controller.admin_read_only` scope.
 The App Metrics client does not have admin level permissions at this time and will require an update to TAS to add this.
 
 For the time being, please add `cloud_controller.admin_read_only` to your admin users.
+
+Any users logged into to App Metrics will need to log out and log back in after the change is made in UAA.
+
+#### Non-admin users unable to create Monitors
+
+The monitors endpoint requires a user to have admin level permissions, specifically `doppler.firehose`.
+
+For the time being, please use a user with the `doppler.firehose` scope to create monitors.
 
 Any users logged into to App Metrics will need to log out and log back in after the change is made in UAA.
 
