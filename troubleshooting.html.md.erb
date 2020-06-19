@@ -519,7 +519,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
    </pre>
 
 1. Enter the following query several times to verify that the value returned does not decrease over time:
-  <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_identifier where timestamp > ((UNIX\_TIMESTAMP() - 60) * POW(10, 3));</pre>
+  <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_identifier where timestamp_minute > ((UNIX\_TIMESTAMP() - 60) * POW(10, 3));</pre>
   This command displays the rate at which metrics flow in over the last minute.
       1. If the command returns `0` or a consistently decreasing value, the problem is likely further up in ingestion;
          proceed to the next step.
