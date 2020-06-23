@@ -5,61 +5,74 @@ owner: App Metrics
 list_style_none: true 
 ---
 
-This topic contains release notes for App Metrics 2.0 and beyond.
+This topic contains release notes for App Metrics 2.0 and later.
 
 ## <a id='2-0-2'></a>v2.0.2
 
 **Release Date: June 22, 2020**
 ### <a name="2-0-2-issues"></a>Known Issues
+
+This release has the following issue:
+
 <ul>
   <li>
-    CF Admin users unable to view all applications in App Metrics
+    <a href="#unable-to-view">CF Admin users are unable to view all apps in App Metrics</a>
   </li>
 </ul>
 
-### Fixed Issues
+### Resolved Issues
+ 
+This release has the following fixes:
 
 <ul>
   <li>
-    Log Store is unavailable for only certain applications
+   Log Store is available for all apps.
+   This addresses the known issue <a href="#log-store-issue">Log Store is unavailable for
+   only certain apps</a>.
   </li>
   <li>
-    Non-admin users unable to create Monitors
+    Non-admin users are able to create monitors.
+    This addresses the known issue <a href="#monitors">Non-admin users unable to create monitors</a>.
   </li>
 </ul>
 
 ### Maintenance Updates
 
-This release bumps the following releases:
+This release updates the following releases:
 
 <ul>
-  <li>Log Store release to 3.0.0</li>
+  <li>Log Store release to v3.0.0</li>
 </ul>
 
 ## <a id='2-0-1'></a>v2.0.1
 
 **Release Date: May 5, 2020**
 ### <a name="2-0-1-issues"></a>Known Issues
+
+This release has the following issues:
+
 <ul>
   <li>
-    CF Admin users unable to view all applications in App Metrics
+    CF Admin users unable to view all apps in App Metrics
   </li>
   <li>
-    Log Store is unavailable for only certain applications
+    Log Store is unavailable for only certain apps
   </li>
   <li>
-    Non-admin users unable to create Monitors
+    Non-admin users unable to create monitors
   </li>
 </ul>
 
-### Fixed Issues
+### Resolved Issues
+
+This release has the following fixes:
 
 <ul>
   <li>
     Single Sign-On not allowing user login
   </li>
   <li>
-    App Metrics failing to start when application security groups are in use
+    App Metrics failing to start when app security groups are in use
   </li>
   <li>
     View in PCF Metrics link missing in Apps Manager
@@ -73,9 +86,9 @@ This release bumps the following releases:
 
 This release moves App Metrics back to metrics.sys.DOMAIN
 
-## <a id='20'></a>v2.0
+## <a id='20'></a>v2.0.0
 
-**Release Date: April 3rd 2020.**
+**Release Date: April 3, 2020**
 
 ### <a id="new-features"></a>New Features in App Metrics v2.0
 
@@ -96,19 +109,19 @@ App Metrics v2.0 includes the following new features:
 
 ### <a id="issues"></a>Known Issues
 
-The following sections describe the known issues in App Metrics v2.0.
+The following sections describe the known issues in App Metrics v2.0.0.
 
 #### Single Sign-On not allowing user login
 
 Users attempting to log into App Metrics via Single Sign-On will be redirected to the login page without actually being logged into App Metrics.
 
-This is due to the `UAA_URL` environment variable in the `appmetrics` application being set to `https://uaa.<system_domain>` instead of `https://login.<system_domain>`.
+This is due to the `UAA_URL` environment variable in the `appmetrics` app being set to `https://uaa.<system_domain>` instead of `https://login.<system_domain>`.
 
-#### App Metrics failing to start when application security groups are in use
+#### App Metrics failing to start when app security groups are in use
 
-App Metrics is unable to connect to its underlying postgres database and will hang until the app is killed by CF if application security groups are in use.
+App Metrics is unable to connect to its underlying postgres database and will hang until the app is killed by CF if app security groups are in use.
   
-Creating a security group with the below configuration and assigning it to the app metrics org (system) and space (app-metrics-v2) should allow the `appmetrics` application to start. 
+Creating a security group with the below configuration and assigning it to the app metrics org (system) and space (app-metrics-v2) should allow the `appmetrics` app to start. 
 ```json
 [
   {
@@ -118,7 +131,7 @@ Creating a security group with the below configuration and assigning it to the a
 ]
 ```
   
-#### CF Admin users unable to view all applications in App Metrics
+####<a name="unable-to-view"></a> CF Admin users unable to view all apps in App Metrics
 
 The App Metrics client requests the `cloud_controller.admin_read_only` scope.
 
@@ -128,7 +141,7 @@ For the time being, please add `cloud_controller.admin_read_only` to your admin 
 
 Any users logged into to App Metrics will need to log out and log back in after the change is made in UAA.
 
-#### Non-admin users unable to create Monitors
+####<a name="monitors"></a> Non-admin users unable to create monitors
 
 The monitors endpoint requires a user to have admin level permissions, specifically `doppler.firehose`.
 
@@ -140,7 +153,7 @@ Any users logged into to App Metrics will need to log out and log back in after 
 
 App Metrics removed the path that Apps Manager checks to determine if App Metrics is installed on TAS.
 
-#### Log Store is unavailable for only certain applications
+####<a name="log-store-issue"></a> Log Store is unavailable for only certain apps
 
 Log Store may experience this when a particular source id has millions of logs and the connection times out.
 
@@ -172,10 +185,10 @@ App Metrics v2.0 requires the following versions of Operations Manager:
 
 #### Network Metrics
 
-Please note that if the application you are monitoring is not configured to accept HTTP traffic, no data will be displayed on the HTTP Request Count, HTTP Request Latency, or HTTP Request Errors charts.
+Please note that if the app you are monitoring is not configured to accept HTTP traffic, no data will be displayed on the HTTP Request Count, HTTP Request Latency, or HTTP Request Errors charts.
 
 #### Custom Metric Process Labels
 
-App Metrics v2.0 introduces a new application hierarchy to support multiple process types from CAPI v3. Processes that contain apporpriately tagged envelopes will be available for metric filtering, and will be labled accordingly within the charts.
+App Metrics v2.0 introduces a new app hierarchy to support multiple process types from CAPI v3. Processes that contain apporpriately tagged envelopes will be available for metric filtering, and will be labled accordingly within the charts.
 
 There are some metrics, including custom and network metrics, that may not have proper process tagging available. In these cases, the process will be labeled `sourceId={'YOUR_APP_ID'}`.
