@@ -90,7 +90,7 @@ This release moves App Metrics back to metrics.sys.DOMAIN
 
 **Release Date: April 3, 2020**
 
-### <a id="new-features"></a>New Features in App Metrics v2.0
+## <a id="new-features"></a>New Features in App Metrics v2.0
 
 App Metrics v2.0 includes the following new features:
 
@@ -107,17 +107,27 @@ App Metrics v2.0 includes the following new features:
 <li>Improved data ingestion performance</li>
 </ul>
 
-### <a id="issues"></a>Known Issues
+## <a id="deprecated-features"></a>Deprecated Features in App Metrics v2.0
+
+App Metrics v2.0 removed the following features:
+
+<ul>
+  <li>Trace Explorer</li>
+  <li>App Event Monitoring and Alerting Removed </li>
+  <li>CF Staging Failed Event Removed</li>
+</ul> 
+
+## <a id="issues"></a>Known Issues
 
 The following sections describe the known issues in App Metrics v2.0.0.
 
-#### Single Sign-On not allowing user login
+### Single Sign-On not allowing user login
 
 Users attempting to log into App Metrics via Single Sign-On will be redirected to the login page without actually being logged into App Metrics.
 
 This is due to the `UAA_URL` environment variable in the `appmetrics` app being set to `https://uaa.<system_domain>` instead of `https://login.<system_domain>`.
 
-#### App Metrics failing to start when app security groups are in use
+### App Metrics failing to start when app security groups are in use
 
 App Metrics is unable to connect to its underlying postgres database and will hang until the app is killed by CF if app security groups are in use.
   
@@ -131,7 +141,7 @@ Creating a security group with the below configuration and assigning it to the a
 ]
 ```
   
-####<a name="unable-to-view"></a> CF Admin users unable to view all apps in App Metrics
+### <a name="unable-to-view"></a> CF Admin users unable to view all apps in App Metrics
 
 The App Metrics client requests the `cloud_controller.admin_read_only` scope.
 
@@ -141,7 +151,7 @@ For the time being, please add `cloud_controller.admin_read_only` to your admin 
 
 Any users logged into to App Metrics will need to log out and log back in after the change is made in UAA.
 
-####<a name="monitors"></a> Non-admin users unable to create monitors
+### <a name="monitors"></a> Non-admin users unable to create monitors
 
 The monitors endpoint requires a user to have admin level permissions, specifically `doppler.firehose`.
 
@@ -149,17 +159,17 @@ For the time being, please use a user with the `doppler.firehose` scope to creat
 
 Any users logged into to App Metrics will need to log out and log back in after the change is made in UAA.
 
-#### View in PCF Metrics link missing in Apps Manager
+### <a name="apps-manager-link-issue"></a>View in PCF Metrics link missing in Apps Manager
 
 App Metrics removed the path that Apps Manager checks to determine if App Metrics is installed on TAS.
 
-####<a name="log-store-issue"></a> Log Store is unavailable for only certain apps
+### <a name="log-store-issue"></a> Log Store is unavailable for only certain apps
 
 Log Store may experience this when a particular source id has millions of logs and the connection times out.
 
 This requires and update of the log store release packaged in App Metrics.
 
-#### Smoke Tests Fail on Environments with skip ssl verify set to true
+### <a name="smoke-test-issue"></a>Smoke Tests Fail on Environments with skip ssl verify set to true
 
 The smoke tests did not take the ssl verify configuration into account.
 
@@ -167,7 +177,7 @@ The smoke test errand can be turned off for affected environments.
 
 The status of App Metrics can be checked by visiting `https://metrics.sys.DOMAIN/integration-status`
 
-#### Compatibility with VMware Tanzu Application Service
+## <a name="tas-compatibility"></a> Compatibility with VMware Tanzu Application Service
 
 App Metrics v2.0 requires the following versions of VMware Tanzu Application Service:
 
@@ -175,7 +185,7 @@ App Metrics v2.0 requires the following versions of VMware Tanzu Application Ser
 * v2.7: all patches within minor
 * v2.8: all patches within minor
 
-#### Compatibility with Operations Manager
+## <a name="ops-manager-compatibility"></a> Compatibility with Operations Manager
 
 App Metrics v2.0 requires the following versions of Operations Manager:
 
@@ -183,12 +193,21 @@ App Metrics v2.0 requires the following versions of Operations Manager:
 * v2.7: all patches within minor
 * v2.8: all patches within minor
 
-#### Network Metrics
+## <a name="things-to-note"></a> Additional Items to Note
+  
+### Network Metrics
 
 Please note that if the app you are monitoring is not configured to accept HTTP traffic, no data will be displayed on the HTTP Request Count, HTTP Request Latency, or HTTP Request Errors charts.
 
-#### Custom Metric Process Labels
+### Promql source_id tag
+
+PromQL should always have the `source_id` tag for non-admin users.
+The `source_id` tag is used to verify access to the requested application and without it non-admin users will not recieve data back from the metric store.
+App Metrics supports using a $sourceId parameter in PromQL which automatically refers to the sourceId of the current app. 
+Example: cpu{source_id="$sourceId"}
+  
+### Custom Metric Process Labels
 
 App Metrics v2.0 introduces a new app hierarchy to support multiple process types from CAPI v3. Processes that contain apporpriately tagged envelopes will be available for metric filtering, and will be labled accordingly within the charts.
 
-There are some metrics, including custom and network metrics, that may not have proper process tagging available. In these cases, the process will be labeled `sourceId={'YOUR_APP_ID'}`.
+There are some metrics, including custom and network metrics, that may not have proper process tagging available. In these cases, `sourceId={'YOUR_APP_ID'}` may be used.
