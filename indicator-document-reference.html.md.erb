@@ -17,7 +17,7 @@ This also contains an example indicator document, named `IndicatorDocumentExampl
 For more information about the full schema of indicator documents,
 see the [Indicator Protocol Document Reference](https://github.com/pivotal/monitoring-indicator-protocol/wiki/Indicator-Document-Reference).
 
-<p class="note"><strong>Note</strong>: At this time, only the <code>name</code>, <code>promql</code>,
+<p class="note"><strong>Note</strong>: At this time, only the below subset of the <code>name</code>, <code>promql</code>,
    <code>documentation</code>, and <code>presentation</code> fields are supported for app indicators.
 </p>
 
@@ -112,13 +112,6 @@ components:
           type: string
           enum:
             - IndicatorDocument
-        metadata:
-          type: object
-          properties:
-            name:
-              type: string
-            labels:
-              type: object
         spec:
           type: object
           required:
@@ -157,17 +150,7 @@ components:
                         type: string
                         enum:
                           - step
-                          - bar
-                          - status
                           - quota
-                      currentValue:
-                        type: boolean
-                      frequency:
-                        type: integer
-                      labels:
-                        type: array
-                        items:
-                          type: string
                       units:
                         type: string
                         enum:
@@ -211,10 +194,6 @@ components:
         ---
         apiVersion: indicatorprotocol.io/v1
         kind: IndicatorDocument
-
-        metadata:
-          labels:
-            deployment: "my deployment name"
 
         spec:
           product:
