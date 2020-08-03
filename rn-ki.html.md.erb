@@ -7,16 +7,59 @@ list_style_none: true
 
 This topic contains release notes for App Metrics 2.0 and later.
 
+## <a id='2-0-3'></a>v2.0.3
+
+**Release Date: August 3, 2020**
+
+### <a name="2-0-3-issues"></a>Known Issues
+
+This release has no known issues at this time.
+
+### Resolved Issues
+ 
+This release has the following fixes:
+
+<ul>
+  <li>
+   CF Admin users can view all apps.
+   This addresses the known issue <a href="#unable-to-view">CF Admin users are unable to view all apps in App Metrics</a>.
+  </li>
+  <li>
+    Log Store release update to fix an issue with high CPU.
+    This addresses the known issue <a name="log-store-cpu-issue"></a> Log Store is reporting high CPU
+  </li>
+  <li>
+    Hostname Verification is now ignored with skip-ssl-validation is true.
+    This addresses the known issue <a name="hostname-verification"></a> Hostname Verification is not ignored when skip-ssl-validation is true
+  </li>
+</ul>
+
+### Maintenance Updates
+
+This release updates the following release:
+
+<ul>
+  <li>Log Store release to v3.0.2</li>
+</ul>
+
+
 ## <a id='2-0-2'></a>v2.0.2
 
 **Release Date: June 22, 2020**
+
 ### <a name="2-0-2-issues"></a>Known Issues
 
-This release has the following issue:
+This release has the following issues:
 
 <ul>
   <li>
     <a href="#unable-to-view">CF Admin users are unable to view all apps in App Metrics</a>
+  </li>
+  <li>
+    <a name="log-store-cpu-issue"></a> Log Store is reporting high CPU
+  </li>
+  <li>
+    <a name="hostname-verification"></a> Hostname Verification is not ignored when skip-ssl-validation is true
   </li>
 </ul>
 
@@ -53,13 +96,19 @@ This release has the following issues:
 
 <ul>
   <li>
-    CF Admin users unable to view all apps in App Metrics
+    <a href="#unable-to-view">CF Admin users are unable to view all apps in App Metrics</a>
   </li>
   <li>
-    Log Store is unavailable for only certain apps
+    <a name="log-store-issue"></a> Log Store is unavailable for only certain apps
   </li>
   <li>
-    Non-admin users unable to create monitors
+    <a name="log-store-cpu-issue"></a> Log Store is reporting high CPU
+  </li>
+  <li>
+    <a name="monitors"></a> Non-admin users unable to create monitors
+  </li>
+  <li>
+    <a name="hostname-verification"></a> Hostname Verification is not ignored when skip-ssl-validation is true
   </li>
 </ul>
 
@@ -151,6 +200,10 @@ For the time being, please add `cloud_controller.admin_read_only` to your admin 
 
 Any users logged into to App Metrics will need to log out and log back in after the change is made in UAA.
 
+### <a name="hostname-verification"></a> Hostname Verification is not ignored when skip-ssl-validation is true
+
+The App Metrics client was still verifying cert hostname when skip-ssl-validation was true
+
 ### <a name="monitors"></a> Non-admin users unable to create monitors
 
 The monitors endpoint requires a user to have admin level permissions, specifically `doppler.firehose`.
@@ -166,6 +219,12 @@ App Metrics removed the path that Apps Manager checks to determine if App Metric
 ### <a name="log-store-issue"></a> Log Store is unavailable for only certain apps
 
 Log Store may experience this when a particular source id has millions of logs and the connection times out.
+
+This required and update of the log store release packaged in App Metrics.
+  
+### <a name="log-store-cpu-issue"></a> Log Store is reporting high CPU
+
+Log Store was hitting a time out incertain circumstances leading to a time out and panic.
 
 This requires and update of the log store release packaged in App Metrics.
 
