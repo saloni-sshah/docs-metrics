@@ -2,7 +2,7 @@
 breadcrumb: App Metrics Documentation
 title: App Metrics Release Notes and Known Issues
 owner: App Metrics
-list_style_none: true 
+list_style_none: true
 ---
 
 This topic contains release notes for App Metrics 2.0 and later.
@@ -16,7 +16,7 @@ This topic contains release notes for App Metrics 2.0 and later.
 This release has no known issues at this time.
 
 ### Resolved Issues
- 
+
 This release has the following fixes:
 
 <ul>
@@ -25,8 +25,8 @@ This release has the following fixes:
    This addresses the known issue <a href="#unable-to-view">CF Admin users are unable to view all apps in App Metrics</a>.
   </li>
   <li>
-    Log Store release update to fix an issue with high CPU.
-    This addresses the known issue <a href="#log-store-cpu-issue"> Log Store is reporting high CPU</a>
+    Log Store release update to fix an issue with high resource usage.
+    This addresses the known issue <a href="#log-store-resource-issue"> Log Store is reporting high resource usage</a>
   </li>
   <li>
     Hostname Verification is now ignored with skip-ssl-validation is true.
@@ -56,7 +56,7 @@ This release has the following issues:
     <a href="#unable-to-view">CF Admin users are unable to view all apps in App Metrics</a>
   </li>
   <li>
-    <a href="#log-store-cpu-issue"> Log Store is reporting high CPU</a>
+    <a href="#log-store-resource-issue"> Log Store is reporting high resource usage</a>
   </li>
   <li>
     <a href="#hostname-verification"> Hostname Verification is not ignored when skip-ssl-validation is true</a>
@@ -64,7 +64,7 @@ This release has the following issues:
 </ul>
 
 ### Resolved Issues
- 
+
 This release has the following fixes:
 
 <ul>
@@ -99,10 +99,10 @@ This release has the following issues:
     <a href="#unable-to-view">CF Admin users are unable to view all apps in App Metrics</a>
   </li>
   <li>
-   <a href="#log-store-issue">Log Store is unavailable for only certain apps</a>
+   <a href="#log-store-issue">Log Store is unavailable for some apps</a>
   </li>
   <li>
-    <a href="#log-store-cpu-issue">Log Store is reporting high CPU</a>
+    <a href="#log-store-resource-issue">Log Store is reporting high resource usage</a>
   </li>
   <li>
     <a href="#monitors">Non-admin users unable to create monitors</a>
@@ -164,7 +164,7 @@ App Metrics v2.0 removed the following features:
   <li>Trace Explorer</li>
   <li>App Event Monitoring and Alerting Removed </li>
   <li>CF Staging Failed Event Removed</li>
-</ul> 
+</ul>
 
 ## <a id="issues"></a>Known Issues
 
@@ -179,8 +179,8 @@ This is due to the `UAA_URL` environment variable in the `appmetrics` app being 
 ### App Metrics failing to start when app security groups are in use
 
 App Metrics is unable to connect to its underlying postgres database and will hang until the app is killed by CF if app security groups are in use.
-  
-Creating a security group with the below configuration and assigning it to the app metrics org (system) and space (app-metrics-v2) should allow the `appmetrics` app to start. 
+
+Creating a security group with the below configuration and assigning it to the app metrics org (system) and space (app-metrics-v2) should allow the `appmetrics` app to start.
 ```json
 [
   {
@@ -189,7 +189,7 @@ Creating a security group with the below configuration and assigning it to the a
   }
 ]
 ```
-  
+
 ### <a name="unable-to-view"></a> CF Admin users unable to view all apps in App Metrics
 
 The App Metrics client requests the `cloud_controller.admin_read_only` scope.
@@ -216,15 +216,16 @@ Any users logged into to App Metrics will need to log out and log back in after 
 
 App Metrics removed the path that Apps Manager checks to determine if App Metrics is installed on TAS.
 
-### <a name="log-store-issue"></a> Log Store is unavailable for only certain apps
+### <a name="log-store-issue"></a> Log Store is unavailable for some apps
 
 Log Store may experience this when a particular source id has millions of logs and the connection times out.
 
 This required and update of the log store release packaged in App Metrics.
-  
-### <a name="log-store-cpu-issue"></a> Log Store is reporting high CPU
 
-Log Store was hitting a time out in certain circumstances leading to a time out and panic.
+### <a name="log-store-resource-issue"></a> Log Store is reporting high resource usage
+
+Log Store 3.0.2 fixes an issue with the hinted hand-off that was causing high resource usage 
+(memory, CPU, and/or disc usage) depending on the customer environment and machine size.
 
 This requires and update of the log store release packaged in App Metrics.
 
@@ -253,7 +254,7 @@ App Metrics v2.0 requires the following versions of Operations Manager:
 * v2.8: all patches within minor
 
 ## <a name="things-to-note"></a> Additional Items to Note
-  
+
 ### Network Metrics
 
 Please note that if the app you are monitoring is not configured to accept HTTP traffic, no data will be displayed on the HTTP Request Count, HTTP Request Latency, or HTTP Request Errors charts.
@@ -262,9 +263,9 @@ Please note that if the app you are monitoring is not configured to accept HTTP 
 
 PromQL should always have the `source_id` tag for non-admin users.
 The `source_id` tag is used to verify access to the requested application and without it non-admin users will not recieve data back from the metric store.
-App Metrics supports using a $sourceId parameter in PromQL which automatically refers to the sourceId of the current app. 
+App Metrics supports using a $sourceId parameter in PromQL which automatically refers to the sourceId of the current app.
 Example: cpu{source_id="$sourceId"}
-  
+
 ### Custom Metric Process Labels
 
 App Metrics v2.0 introduces a new app hierarchy to support multiple process types from CAPI v3. Processes that contain apporpriately tagged envelopes will be available for metric filtering, and will be labled accordingly within the charts.
