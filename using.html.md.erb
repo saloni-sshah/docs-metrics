@@ -111,6 +111,12 @@ If you want to view custom metrics, you can configure your apps to emit those me
 
 In addition, Spring Boot apps with actuators or Micrometer metrics implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code.
 
+###<a id='metric-registrar-settings'></a> Metric Registrar Configuration for Spring Metrics
+
+In order for Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in the Tanzu Application Service Tile.
+
+The `id` tag will need to be removed from the list of Blocked tags in the Metric Registrar settings withing the Tanzu Application Service Tile.
+
 ###<a id='create-indicator-doc'></a> Create an Indicator Document
 
 An indicator document is a YAML document that specifies which app you want to monitor and the indicators
