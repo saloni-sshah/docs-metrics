@@ -73,3 +73,15 @@ To enable remote syslog forwarding for Healthwatch, do the following:
 <li>(TLS only) For External Syslog Permitted Peer, enter the fingerprint or name of the remote peer, such as [*.example.com].</li>
 <li>(TLS only) For External Syslog TLS CA Certificate, enter the CA certificate of the syslog destination.</li>
 </ol>
+
+
+## <a id='ConfigureMetricRegistrar'></a>(Optional) Configure Metric Registrar for Spring Boot Metrics
+
+In order for Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in the Tanzu Application Service Tile.
+
+To update the Metric Registrar configuration, do the following:
+<ol>
+<li>Click the Pivotal Application Service tile on the Ops Manager Installation Dashboard.</li>
+<li>Navigate to the Metric Registrar pane.</li>
+<li>Update the Blocked tags list and remove the `id` tag from the list of Blocked tags.</li>
+</ol>
