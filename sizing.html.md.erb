@@ -42,7 +42,7 @@ Estimate the size of your deployment according to how many apps are expected to 
 
 ###<a id='small'></a>Deployment Resources for a Small Deployment
 
-Example resource configuration to store approximately 14 days of data for a small deployment, about 100 application instances:
+Example resource configuration to store approximately 6 weeks of data for a small deployment, about 100 application instances:
 
 <table>
   <tr>
@@ -55,13 +55,13 @@ Example resource configuration to store approximately 14 days of data for a smal
     <td>PostgreSQL</td>
     <td>1 (not configurable)</td>
     <td>10GB</td>
-    <td>xlarge.cpu (cpu: 8, ram: 8 GB, disk: 32 GB)</td>
+    <td>CPU Optimized with &gte;4 cpus and &gte;8GB of memory</td>
   </tr>
   <tr>
     <td>Log Store</td>
     <td>3</td>
     <td>200GB</td>
-    <td>r4.xlarge (cpu: 4, ram: 16 GB, disk: 32 GB)</td>
+    <td>Memory Optimized with &gte;2 cpus and &gte;16GB of memory</td>
   </tr>
 </table>
 
@@ -80,13 +80,13 @@ Example resource configuration to store approximately 6 weeks of data for a medi
     <td>PostgreSQL</td>
     <td>1 (not configurable)</td>
     <td>10GB</td>
-    <td>r4.xlarge (cpu: 4, ram: 30.5 GB, disk: 32 GB)</td>
+    <td>CPU Optimized with &gte;8 cpus and &gte;16GB of memory</td>
   </tr>
   <tr>
     <td>Log Store</td>
     <td>3</td>
     <td>500GB</td>
-    <td>r4.xlarge (cpu: 4, ram: 30.5 GB, disk: 32 GB)</td>
+    <td>Memory Optimized with &gte;4 cpus and &gte;32GB of memory</td>
   </tr>
 </table>
 
@@ -106,13 +106,13 @@ Example resource configuration to store approximately 6 weeks of data for a larg
     <td>PostgreSQL</td>
     <td>1 (not configurable)</td>
     <td>10GB</td>
-    <td>r4.xlarge (cpu: 4, ram: 30.5 GB, disk: 32 GB)</td>
+    <td>CPU Optimized with &gte;8 cpus and &gte;16GB of memory</td>
   </tr>
   <tr>
     <td>Log Store</td>
     <td>6</td>
     <td>500GB</td>
-    <td>r4.xlarge (cpu: 4, ram: 30.5 GB, disk: 32 GB)</td>
+    <td>Memory Optimized with &gte;8 cpus and &gte;64GB of memory</td>
   </tr>
 </table>
 
@@ -139,7 +139,7 @@ Horizontally scaling Log Store currently results in data loss. Vertical scaling 
 
 **Scaling Baseline**
 
-6x VMs at 4 core, 30&nbsp;GB RAM, 1&nbsp;TB persistent disk provides approximately 30 days
+6x VMs at 8 core, 64&nbsp;GB RAM, 500&nbsp;GB persistent disk provides approximately 42 days
 of log retention for an environment emitting 40,000 logs per second.
 
 **Scaling Recommendations**
