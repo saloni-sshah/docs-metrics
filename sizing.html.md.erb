@@ -26,7 +26,6 @@ Currently, VMware recommends that you scale vertically rather than horizontally.
 See [Limitations](https://docs.pivotal.io/metric-store/index.html#limitations)
 in the _Metric Store_ documentation.
 
-
 ##<a id='configs-by-size'></a> Suggested Sizing by Deployment Size
 
 Use the following tables as a guide for configuring resources for your deployment.
@@ -39,6 +38,9 @@ Estimate the size of your deployment according to how many apps are expected to 
    <tr><td><a href="#medium">Medium</a></td><td>Production use</td><td>5,000</td></tr>
    <tr><td><a href="#large">Large</a></td><td>Production use</td><td>15,000</td></tr>
 </table>
+
++ **Metrics App** — App Metrics deploys the app, `appmetrics`. This app is responsible for serving the UI, proxying requests from the browser to metric & log store and creating notifications for the user-created monitors.<br><br>
+Please keep this app scaled to 1 instance.
 
 ###<a id='small'></a>Deployment Resources for a Small Deployment
 
