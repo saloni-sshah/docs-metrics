@@ -39,8 +39,8 @@ Estimate the size of your deployment according to how many apps are expected to 
    <tr><td><a href="#large">Large</a></td><td>Production use</td><td>15,000</td></tr>
 </table>
 
-+ **Metrics App** — App Metrics deploys the app, `appmetrics`. This app is responsible for serving the UI, proxying requests from the browser to metric & log store and creating notifications for the user-created monitors.<br><br>
-Please keep this app scaled to 1 instance.
++ **Metrics App** — App Metrics deploys the app, `appmetrics`. This app is responsible for serving the UI, proxying requests from the browser to metric and log store, and creating notifications for the user-created monitors.<br><br>
+The `appmetrics` app should be scaled to 1 instance.
 
 ###<a id='small'></a>Deployment Resources for a Small Deployment
 
