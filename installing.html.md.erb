@@ -74,14 +74,46 @@ To enable remote syslog forwarding for Healthwatch, do the following:
 <li>(TLS only) For External Syslog TLS CA Certificate, enter the CA certificate of the syslog destination.</li>
 </ol>
 
-
 ## <a id='ConfigureMetricRegistrar'></a>(Optional) Configure Metric Registrar for Spring Boot Metrics
 
-In order for Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in the Tanzu Application Service Tile.
+In order for Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in the VMware Tanzu Application Service for VMs (TAS for VMs) or Pivotal Application Service (PAS) tile.
 
 To update the Metric Registrar configuration, do the following:
 <ol>
-<li>Click the Pivotal Application Service tile on the Ops Manager Installation Dashboard.</li>
+<li>Click the TAS for VMs or PAS tile on the Ops Manager Installation Dashboard.</li>
 <li>Navigate to the Metric Registrar pane.</li>
 <li>Update the Blocked tags list and remove the `id` tag from the list of Blocked tags.</li>
 </ol>
+
+## <a id='AppManagerLinkConfig'></a> (Optional) Enable the App Metrics Link in Apps Manager
+
+This step only applies when the **View in App Metrics** link does not appear in Apps Manager and App Metrics is deployed with one the following:
+
+- TAS for VMs v2.10.x
+- TAS for VMs v2.9.x
+- PAS v2.8.4 or later
+- PAS v2.7.10 or later
+- PAS v2.6.16 or later
+
+The **View in App Metrics** link may not appear in Apps Manager if your <%= vars.app_runtime_abbr %> deployment has restrictive networking policies around request proxying.
+
+To enable the App Metrics link in Apps Manager:
+
+1. Using the cf CLI, log in to the system org and system space.
+2. Locate the `search-server` app.
+3. Update the `no_proxy` environment variable for the `search-server` app to include your system domain.
+
+    ```
+    cf set-env search-server no_proxy 'SYSTEM-DOMAIN'
+    ```
+    where `SYSTEM-DOMAIN` is the system domain configured for your <%= vars.app_runtime_abbr %> deployment.
+    For example:
+    <pre class="terminal">
+    cf set-env search-server no_proxy 'example.com'
+    </pre>
+
+4. Restage the `search-server` app.
+
+    ```
+    cf restage search-server
+    ```
