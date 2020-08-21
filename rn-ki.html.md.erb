@@ -13,7 +13,11 @@ This topic contains release notes for App Metrics 2.0 and later.
 
 ### <a name="2-0-3-issues"></a>Known Issues
 
-This release has no known issues at this time.
+<ul>
+  <li>
+    <a href="#logs-1kb">When trying to download logs for a timeframe a 1KB file is the result</a>
+  </li>
+</ul>
 
 ### Resolved Issues
 
@@ -189,7 +193,14 @@ Creating a security group with the below configuration and assigning it to the a
   }
 ]
 ```
-
+### <a name="logs-1kb"</a> When trying to download logs for a timeframe a 1KB file is the result
+  
+It is possible that an HTTP Timeout is occurring. The default timeout is 180 seconds.
+  
+Please change the environment variable `TIMEOUT_SECONDS` for the `appmetrics` application to a value above `180` and see if this resolves the issue.
+  
+The appmetrics application lives in the app metrics org (`system`) and space (`app-metrics-v2`).
+  
 ### <a name="unable-to-view"></a> CF Admin users unable to view all apps in App Metrics
 
 The App Metrics client requests the `cloud_controller.admin_read_only` scope.
