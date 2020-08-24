@@ -15,7 +15,7 @@ This topic contains release notes for App Metrics 2.0 and later.
 
 <ul>
   <li>
-    <a href="#logs-1kb">When trying to download logs for a timeframe a 1KB file is the result</a>
+    <a href="#logs-1kb">Timeframe log file download is 1&nbsp;KB</a>
   </li>
 </ul>
 
@@ -193,14 +193,16 @@ Creating a security group with the below configuration and assigning it to the a
   }
 ]
 ```
-### <a name="logs-1kb"</a> When trying to download logs for a timeframe a 1KB file is the result
-  
-It is possible that an HTTP Timeout is occurring. The default timeout is 180 seconds.
-  
-Please change the environment variable `TIMEOUT_SECONDS` for the `appmetrics` application to a value above `180` and see if this resolves the issue.
-  
-The appmetrics application lives in the app metrics org (`system`) and space (`app-metrics-v2`).
-  
+### <a name="logs-1kb"</a>Timeframe log file download is 1&nbsp;KB
+
+When you try to download logs for a given timeframe, an HTTP timeout can result in a 1&nbsp;KB log file.
+
+The default HTTP timeout is 180 seconds.
+
+To work around this issue, change the `TIMEOUT_SECONDS` environment variable for the `appmetrics` application to a value greater than `180`.
+
+The `appmetrics` application is in the `system` org and `app-metrics-v2` space.
+
 ### <a name="unable-to-view"></a> CF Admin users unable to view all apps in App Metrics
 
 The App Metrics client requests the `cloud_controller.admin_read_only` scope.
@@ -235,7 +237,7 @@ This required and update of the log store release packaged in App Metrics.
 
 ### <a name="log-store-resource-issue"></a> Log Store is reporting high resource usage
 
-Log Store 3.0.2 fixes an issue with the hinted hand-off that was causing high resource usage 
+Log Store 3.0.2 fixes an issue with the hinted hand-off that was causing high resource usage
 (memory, CPU, and/or disc usage) depending on the customer environment and machine size.
 
 This requires and update of the log store release packaged in App Metrics.
