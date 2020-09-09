@@ -7,6 +7,25 @@ list_style_none: true
 
 This topic contains release notes for App Metrics 2.0 and later.
 
+## <a id='2-0-4'></a>v2.0.4
+
+**Release Date: September 9, 2020**
+
+### Resolved Issues
+
+This release has the following fixes:
+
+<ul>
+  <li>
+   Too many routes for an app make time selection inaccessible.
+   This addresses the known issue <a href="#unable-to-timeselector">Unable to view time selector for apps with long routes</a>.
+  </li>
+  <li>
+    Promql Explorer unclickable in Firefox.
+    This addresses the known issue <a href="#firefox-promql-explorer"> Promql Explorer unclickable in Firefox</a>
+  </li>
+</ul>
+
 ## <a id='2-0-3'></a>v2.0.3
 
 **Release Date: August 3, 2020**
@@ -16,6 +35,9 @@ This topic contains release notes for App Metrics 2.0 and later.
 <ul>
   <li>
     <a href="#logs-1kb">Timeframe log file download is 1&nbsp;KB</a>
+  </li>
+  <li>
+    <a href="#firefox-promql-explorer"> Promql Explorer unclickable in Firefox</a>
   </li>
 </ul>
 
@@ -64,6 +86,9 @@ This release has the following issues:
   </li>
   <li>
     <a href="#hostname-verification"> Hostname Verification is not ignored when skip-ssl-validation is true</a>
+  </li>  
+  <li>
+    <a href="#firefox-promql-explorer"> Promql Explorer unclickable in Firefox</a>
   </li>
 </ul>
 
@@ -113,6 +138,9 @@ This release has the following issues:
   </li>
   <li>
     <a href="#hostname-verification">Hostname Verification is not ignored when skip-ssl-validation is true</a>
+  </li>  
+  <li>
+    <a href="#firefox-promql-explorer"> Promql Explorer unclickable in Firefox</a>
   </li>
 </ul>
 
@@ -193,6 +221,15 @@ Creating a security group with the below configuration and assigning it to the a
   }
 ]
 ```
+
+### <a name="unable-to-timeselector"></a>Unable to view time selector for apps with long routes
+ 
+Apps with long routes or multiple routes could make the time selector scroll off the page and be inaccessible.
+
+### <a name="firefox-promql-explorer"></a>Promql Explorer unclickable in Firefox
+ 
+The promql explorer is not clickable due to a CSS problem in Firefox.
+
 ### <a name="logs-1kb"></a>Timeframe log file download is 1&nbsp;KB
 
 When you try to download logs for a given timeframe, an HTTP timeout can result in a 1&nbsp;KB log file.
