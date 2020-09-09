@@ -13,7 +13,7 @@ PCF Metrics helps you understand and troubleshoot the health and performance of 
 
 * [Container Metrics](#container): Three graphs measuring CPU, memory, and disk usage percentages 
 * [Network Metrics](#network): Three graphs measuring requests, HTTP errors, and response times
-* [Custom Metrics](#custom): User-customizable graphs for measuring app performance, such as Spring Boot Actuator metrics
+* [Custom Metrics](#custom): User-customizable graphs for measuring app performance, such as Spring Boot Actuator gauge metrics
 * [App Events](#events): A graph of update, start, stop, crash, SSH, and staging failure events
 * [Logs](#logs): A list of app logs that you can search, filter, and download
 * [Monitors (Beta)](#monitors): User-defined monitors with configurable trigger thresholds based on app metrics and events
@@ -147,7 +147,9 @@ For more information about how to configure apps to emit custom metrics on PCF v
 
 For more information about how to configure apps to emit custom metrics on PCF v2.5 and later, see [Configuring the Metric Registrar](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
 
-If you have configured the apps correctly, you should be able to automatically see custom metrics on the PCF Metrics dashboard when you add a chart.
+If you have configured the apps correctly, you should be able to automatically see custom gauge metrics on the PCF Metrics dashboard when you add a chart. 
+
+Custom counter metrics are not supported.
 
 <%= image_tag("1-5-custom-metric-chart.png", :alt => "Create custom metric charts") %>
 
