@@ -35,8 +35,8 @@ This was done for easier correlation with the CF CLI.
 Metric Store versions 1.4.3 and prior do not parse `instance_id` as part of http metrics so an update to Metric Store will be required to view this information.
 
 Additionally this release also made a change to display all labels returned from a promQL request.
-This additional labels are needed to accurately view micrometer metrics. 
-Please also verify the <a href="https://docs.pivotal.io/app-metrics/2-0/installing.html#ConfigureMetricRegistrar">TAS configuration for label filtering with micrometer metrics.</a>
+These additional labels are needed to accurately view Spring Boot Metrics. 
+Please verify the <a href="https://docs.pivotal.io/app-metrics/2-0/installing.html#ConfigureMetricRegistrar">VMware Tanzu Application Service for VMs (TAS for VMs) or Pivotal Application Service (PAS) tile metric registrar configuration in regard to label filtering when emitting Spring Boot Metrics.</a>
 
 ### <a name="2-0-3-issues"></a>Known Issues
 
