@@ -30,6 +30,14 @@ This release has the following fixes:
 
 **Release Date: August 3, 2020**
 
+This release made a change to the default dashboards instance queries to display by `instance_id` instead of by `process_instance_id`. 
+This was done for easier correlation with the CF CLI. 
+Metric Store versions 1.4.3 and prior do not parse `instance_id` as part of http metrics so an update to Metric Store will be required to view this information.
+
+Additionally this release also made a change to display all labels returned from a promQL request.
+This additional labels are needed to accurately view micrometer metrics. 
+Please also verify the <a href="https://docs.pivotal.io/app-metrics/2-0/installing.html#ConfigureMetricRegistrar">TAS configuration for label filtering with micrometer metrics.</a>
+
 ### <a name="2-0-3-issues"></a>Known Issues
 
 <ul>
@@ -47,7 +55,7 @@ This release has the following fixes:
 
 <ul>
   <li>
-   CF Admin users can view all apps.
+   CF Admin users can view all apps. Requires TAS 2.10+, 2.9.5+, 2.8.11+, 2.7.17+ or 2.6.21+
    This addresses the known issue <a href="#unable-to-view">CF Admin users are unable to view all apps in App Metrics</a>.
   </li>
   <li>
