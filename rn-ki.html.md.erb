@@ -7,6 +7,42 @@ list_style_none: true
 
 This topic contains release notes for App Metrics 2.0 and later.
 
+## <a id='2-0-5'></a>v2.0.5
+
+**Release Date: October 9, 2020**
+
+Requires TAS 2.10+, 2.9.5+, 2.8.11+, 2.7.17+ or 2.6.21+.
+
+## New Features
+
+This release has the following new features:
+
+<ul>
+  <li>
+    When indicator documents are loaded, a test message is now sent to the defined webhook endpoints.
+  </li>
+</ul>
+
+### Resolved Issues
+
+This release has the following fixes:
+
+<ul>
+  <li>
+    Webhook endpoints are no longer required to be Slack URLs.
+    They will be sent to the webhook endpoint the format of:
+    `{"text": "[<STATUS>] <MONITOR_NAME> violated threshold\nApp: <APP_NAME>\nIndicator: <INDICATOR_NAME>\nSince: <ALERT_TIME>\nCurrent value: <VALUE>\nDetails: <METRICS_URL>"}`
+  </li>
+</ul>
+
+### Maintenance Updates
+
+This release updates the following release:
+
+<ul>
+  <li>Log Store release to v4.0.14</li>
+</ul>
+
 ## <a id='2-0-4'></a>v2.0.4
 
 **Release Date: September 9, 2020**
