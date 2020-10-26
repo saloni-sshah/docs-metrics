@@ -45,7 +45,7 @@ VMware recommends selecting multiple AZs.)</li>
 
 ## <a id='ConfigureProxy'></a>(Optional) Configure App Metrics to use a HTTP or SOCKS proxy
 
-Here you can configure the settings for App Metrics components, including Log Store.
+To configure App Metrics to use a HTTP or SOCKS proxy:
 <ol>
 <li>To enable an HTTP or HTTPS proxy, set the `HTTP_PROXY` or `HTTPS_PROXY` environment variable to point to the URL of your http proxy.
     This is typically in the format of `http://proxy_host:proxy_port`
@@ -66,10 +66,6 @@ Here you can configure the settings for App Metrics components, including Log St
 <li>To disable the Logs Drawer on the App Metrics dashboard, deselect the "App Metrics Enable Logs" checkbox (enabled by default).</li>
 <li>Set the App Metrics Logs Prune Threshold disk capacity percentage (set to 80% by default). This is the disk percentage at which Log Store will start to prune the oldest logs first.</li>
 <li>Set the App Metrics Logs Prune Interval (set to two minutes by default). This is the frequency at which Log Store will check the disk capacity to make the pruning decision.</li>
-<li>To enable a SOCKS proxy, select **Enable Socks Proxy** and set the `HTTP_PROXY`
-    or `HTTPS_PROXY` environment variable to the URL of your proxy.
-    This checkbox sets the `USE_SOCKS_PROXY` environment variable, which overrides the protocol for the proxy
-    to use SOCKS instead of HTTP/HTTPS.</li>
 </ol>
 
 ## <a id='ConfigureSyslog'></a>(Optional) Configure Syslog Forwarding
