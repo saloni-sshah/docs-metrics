@@ -43,6 +43,20 @@ VMware recommends selecting multiple AZs.)</li>
 </ul>
 </ol>
 
+## <a id='ConfigureProxy'></a>(Optional) Configure App Metrics to use a HTTP or SOCKS proxy
+
+Here you can configure the settings for App Metrics components, including Log Store.
+<ol>
+<li>To enable an HTTP or HTTPS proxy, set the `HTTP_PROXY` or `HTTPS_PROXY` environment variable to point to the URL of your http proxy.
+    This is typically in the format of `http://proxy_host:proxy_port`
+    These proxy settings can be set system wide by using
+    <a href="https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#evgroups" target="_blank">Environment Variable Groups</a>.
+    As of App Metrics 2.0.5 the http proxy environment variables must be UPPER CASE.</li>
+<li>To enable a SOCKS proxy, select **Enable Socks Proxy** and set the `HTTP_PROXY`
+    or `HTTPS_PROXY` environment variable as described above
+    This checkbox sets the `USE_SOCKS_PROXY` environment variable, which overrides the protocol for the proxy
+    to use SOCKS instead of HTTP/HTTPS.</li>
+</ol>
 ## <a id='ConfigureFeatures'></a>(Optional) Configure App Metrics Features
 
 Here you can configure the settings for App Metrics components, including Log Store.
