@@ -43,15 +43,26 @@ VMware recommends selecting multiple AZs.)</li>
 </ul>
 </ol>
 
-## <a id='ConfigureProxy'></a>(Optional) Configure App Metrics to Use an HTTP or SOCKS Proxy
+## <a id='ConfigureProxy'></a>(Optional) Configure App Metrics to Use an HTTP or
+SOCKS Proxy
 
-You can configure App Metrics to use your HTTP, HTTPS, or SOCKS proxy server for webhook alerts.
+You can configure App Metrics to use your HTTP, HTTPS, or SOCKS proxy server for
+Slack or webhook alerts.
 
 ###<a id='EnableHTTP'></a>Enable an HTTP or HTTPS Proxy Server
+Enable a HTTP or HTTPS Proxy Server through the cf CLI.
 
-1. Using the cf CLI, log in to the `system` org and `app-metrics-v2` space.
-1. Locate the `appmetrics` app.
-1. Update the `HTTP_PROXY` or `HTTPS_PROXY` environment variable:
+1. Log in to the cf CLI by running:
+
+    ```
+    cf login -a API-URL -u USERNAME -p PASSWORD -o system -s app-metrics-v2
+    ```
+    Where:
+    * `API-URL` is your API endpoint.
+    * `USERNAME` is your username.
+    * `PASSWORD` is your password.
+
+1. Update the `HTTP_PROXY` or `HTTPS_PROXY` environment variable by running:
 
     ```
     cf set-env appmetrics HTTP_PROXY "http://PROXY-HOST:PROXY-PORT"
@@ -64,8 +75,8 @@ You can configure App Metrics to use your HTTP, HTTPS, or SOCKS proxy server for
     ```
 
     Where:
-    * `PROXY-HOST` is the hostname of your HTTP/HTTPS proxy.
-    * `PROXY-PORT` is the port that your HTTP/HTTPS proxy is listening on.
+    * `PROXY-HOST` is the hostname of your HTTP or HTTPS proxy.
+    * `PROXY-PORT` is the port that your HTTP or HTTPS proxy is listening on.
 
     The HTTP proxy environment variables must be uppercase. For more information
     on setting system-wide environment variables, see [Environment Variable Groups]
@@ -73,15 +84,24 @@ You can configure App Metrics to use your HTTP, HTTPS, or SOCKS proxy server for
     in the Cloud Foundry Documentation.
 
 ###<a id='EnableSOCKS'></a>Enable a SOCKS Proxy Server
-To enable a SOCKS proxy:
+Start by enabling an HTTP or HTTPS proxy using the cf CLI, then switch it to a
+SOCKS protocol in the Ops Manager UI.
 
   1. Click the App Metrics tile on the Ops Manager Installation Dashboard.
   1. Navigate to the **App Metrics Components Config** pane.
   1. Click **Enable Socks Proxy**. This checkbox sets the `USE_SOCKS_PROXY`
-  environment variable, which overrides the protocol for the proxy to use SOCKS instead of HTTP/HTTPS.
+  environment variable, which overrides the protocol for the proxy to use SOCKS instead of HTTP or HTTPS.
 
-  1. Using the cf CLI, log in to the `system` org and `app-metrics-v2` space.
-  1. Locate the `appmetrics` app.
+  1. Even though the HTTP or HTTPS proxy will be overriden, you must set it first. To do so, log in to the cf CLI by running:
+
+      ```
+      cf login -a API-URL -u USERNAME -p PASSWORD -o system -s app-metrics-v2
+      ```
+      Where:
+      * `API-URL` is your API endpoint.
+      * `USERNAME` is your username.
+      * `PASSWORD` is your password.
+
   1. Update the `HTTP_PROXY` or `HTTPS_PROXY` environment variable:
 
       ```
@@ -95,8 +115,8 @@ To enable a SOCKS proxy:
       ```
 
       Where:
-      * `PROXY-HOST` is the hostname of your HTTP/HTTPS proxy.
-      * `PROXY-PORT` is the port that your HTTP/HTTPS proxy is listening on.
+      * `PROXY-HOST` is the hostname of your HTTP or HTTPS proxy.
+      * `PROXY-PORT` is the port that your HTTP or HTTPS proxy is listening on.
 
     The HTTP proxy environment variables must be uppercase. For more information
     on setting system-wide environment variables, see [Environment Variable Groups]
@@ -155,9 +175,17 @@ The **View in App Metrics** link may not appear in Apps Manager if your <%= vars
 
 To resolve this issue and enable the App Metrics link in Apps Manager:
 
-1. Using the cf CLI, log in to the system org and system space.
-2. Locate the `search-server` app.
-3. Update the `no_proxy` environment variable for the `search-server` app to include your system domain.
+1. Log in to the cf CLI by running:
+
+    ```
+    cf login -a API-URL -u USERNAME -p PASSWORD -o system -s system
+    ```
+    Where:
+    * `API-URL` is your API endpoint.
+    * `USERNAME` is your username.
+    * `PASSWORD` is your password.
+
+1. Update the `no_proxy` environment variable for the `search-server` app to include your system domain.
 
     ```
     cf set-env search-server no_proxy '*.SYSTEM-DOMAIN'
@@ -168,7 +196,7 @@ To resolve this issue and enable the App Metrics link in Apps Manager:
     cf set-env search-server no_proxy '*.example.com'
     </pre>
 
-4. Restage the `search-server` app.
+1. Restage the `search-server` app.
 
     ```
     cf restage search-server
