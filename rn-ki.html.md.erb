@@ -70,12 +70,12 @@ This release has the following fixes:
 
 Requires TAS 2.10+, 2.9.5+, 2.8.11+, 2.7.17+ or 2.6.21+ due to a UAA client scope change.
 
-This release made a change to the default dashboards instance queries to display by `instance_id` instead of by `process_instance_id`. 
-This was done for easier correlation with the CF CLI. 
+This release made a change to the default dashboards instance queries to display by `instance_id` instead of by `process_instance_id`.
+This was done for easier correlation with the CF CLI.
 Metric Store versions 1.4.3 and prior do not parse `instance_id` as part of http metrics so an update to Metric Store will be required to view this information.
 
 Additionally this release also made a change to display all labels returned from a promQL request.
-These additional labels are needed to accurately view Spring Boot Metrics. 
+These additional labels are needed to accurately view Spring Boot Metrics.
 Please verify the <a href="https://docs.pivotal.io/app-metrics/2-0/installing.html#ConfigureMetricRegistrar">VMware Tanzu Application Service for VMs (TAS for VMs) or Pivotal Application Service (PAS) tile metric registrar configuration in regard to label filtering when emitting Spring Boot Metrics.</a>
 
 ### <a name="2-0-3-issues"></a>Known Issues
@@ -134,7 +134,7 @@ This release has the following issues:
   </li>
   <li>
     <a href="#hostname-verification"> Hostname Verification is not ignored when skip-ssl-validation is true</a>
-  </li>  
+  </li>
   <li>
     <a href="#firefox-promql-explorer"> Promql Explorer unclickable in Firefox</a>
   </li>
@@ -186,7 +186,7 @@ This release has the following issues:
   </li>
   <li>
     <a href="#hostname-verification">Hostname Verification is not ignored when skip-ssl-validation is true</a>
-  </li>  
+  </li>
   <li>
     <a href="#firefox-promql-explorer"> Promql Explorer unclickable in Firefox</a>
   </li>
@@ -258,7 +258,7 @@ This is due to the `UAA_URL` environment variable in the `appmetrics` app being 
 
 ### App Metrics failing to start when app security groups are in use
 
-App Metrics is unable to connect to its underlying postgres database and will hang until the app is killed by CF if app security groups are in use.
+App Metrics is unable to connect to its underlying postgres database and will hang until the app is stopped by CF if app security groups are in use.
 
 Creating a security group with the below configuration and assigning it to the app metrics org (system) and space (app-metrics-v2) should allow the `appmetrics` app to start.
 ```json
@@ -271,11 +271,11 @@ Creating a security group with the below configuration and assigning it to the a
 ```
 
 ### <a name="unable-to-timeselector"></a>Unable to view time selector for apps with long routes
- 
+
 Apps with long routes or multiple routes could make the time selector scroll off the page and be inaccessible.
 
 ### <a name="firefox-promql-explorer"></a>Promql Explorer unclickable in Firefox
- 
+
 The promql explorer is not clickable due to a CSS problem in Firefox.
 
 ### <a name="logs-1kb"></a>Timeframe log file download is 1&nbsp;KB
