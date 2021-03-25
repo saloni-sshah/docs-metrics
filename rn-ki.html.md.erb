@@ -18,7 +18,7 @@ This release has the following new features:
 
 <ul>
   <li>
-    Ability to specify the Postgres SSL Cipher Suite in the tile configuration throw Ops Manager
+    Ability to specify the Postgres SSL Cipher Suite in the tile configuration through Ops Manager
   </li>
 </ul>
 
@@ -28,31 +28,31 @@ This release has the following fixes:
 
 <ul>
   <li>
-    Postgres only uses mTLS connections
+      Postgres now only uses mTLS connections
   </li>
   <li>
-      Check Postgres health via smoke tests in install
+      Added Postgres health check via smoke tests during install
   </li>
   <li>
-      Added health-check for internal Postgres
+      Added health-check for internal Postgres to the integration status endpoint
   </li>
   <li>
-      No longer send duplicate slack alerts
+      No longer send duplicate slack alerts for configured monitors
   </li>
   <li>
-      Accept http_proxy env variable with upper and lower cases
+      Accept http_proxy environment variable to detect both upper and lower cases
   </li>
   <li>
-      Application with name containing “dashboard” no longer causes an ui error
+      Applications with a name containing “dashboard” will no longer causes a UI error
   </li>
   <li>
-      Org with name containing “/” no longer causes an ui error
+      Cloud foundry organization names that contain “/” no longer causes a UI error
   </li>
   <li>
-      Displaying application and process crash events in Event chart
+      Displaying both application and process crash events in the CAPI Event chart
   </li>
   <li>
-      Clean up security-group when uninstalling App Metrics
+      Clean up security-groups created during install when uninstalling App Metrics
   </li>
 </ul>
 
@@ -68,16 +68,16 @@ Log Store has the following fixes:
 
 <ul>
   <li>
-    Fixed Log store dependency internal issue with newest version of influxdb 1.x
+      Upgraded log store to use the newest version of influxdb 1.x. This fixes a database corruption problem with a previous version of influxdb.
   </li>
   <li>
-      Missing logs for a few apps when using partition count non divisible to 3
+      Fixed an issue causing missing application logs when the partition count was not divisible by 3. Note that this only affected a small percentage of applications and was not a widespread issue.
   </li>
   <li>
-      Fixed load balancer side effect on log-store internal routing
+      Fixed an issue that would cause requests to go to the wrong log store vm which would result in an error response. This issue was caused by the X-Forwarded-Host header being set incorrectly and/or manipulated in some environments. A new header is now being used to resolve this issue.
   </li>
   <li>
-      Fix for log-store breaking after AZ scaling up
+      Fix an issue with log-store vm configuration when adding additional availability zones
   </li>
 </ul>
 
