@@ -12,6 +12,14 @@ This topic contains release notes for App Metrics 2.0 and later.
 
 Requires TAS 2.10+, 2.9.5+, 2.8.11+, 2.7.17+ or 2.6.21+.
 
+This release has the following issues:
+
+<ul>
+  <li>
+    <a href="#log-store-out-of-memory">This release can cause log store out of memory issue</a>
+  </li>
+</ul>
+
 ## New Features
 
 This release has the following new features:
@@ -343,6 +351,10 @@ Creating a security group with the below configuration and assigning it to the a
   }
 ]
 ```
+
+### <a name="log-store-out-of-memory"></a>Log store out of memory issue
+
+After upgrading, high memory and CPU resource consumption was noticed, which caused log store failure with `out of memory` error.
 
 ### <a name="unable-to-timeselector"></a>Unable to view time selector for apps with long routes
 
