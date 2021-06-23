@@ -24,7 +24,7 @@ This release has the following new features:
       Ability to specify the Log Store retention period in the tile configuration through Ops Manager
   </li>
   <li>
-      Added a new dropped_envelopes_count metric for dropped envelopes by Log Store nozzle, useful thing to detect the firehose’s slow consumers
+      Added a <code>dropped_envelopes_count</code> metric for envelopes dropped by Log Store nozzle to detect the Firehose’s slow consumers
   </li>
 </ul>
 
@@ -34,8 +34,7 @@ This release has the following fixes:
 
 <ul>
   <li>
-      Fix an out of memory issue which makes log-store unresponsive due to high memory usage by adding time based pruning (default 42 days)
-      This addresses the known issue <a href="#log-store-out-of-memory">Log store out of memory issue</a>.
+      Fixes the known issue <a href="#log-store-out-of-memory">Log Store out of memory issue</a> by adding time-based pruning with a default of 42 days.
   </li>
 </ul>
 
