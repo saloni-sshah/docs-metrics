@@ -7,6 +7,39 @@ list_style_none: true
 
 This topic contains release notes for App Metrics 2.0 and later.
 
+## <a id='2-0-7'></a>v2.0.7
+**Release Date: June 23, 2021**
+
+Requires TAS 2.11+, 2.10+, 2.9.5+, 2.8.11+, 2.7.17+ or 2.6.21+.
+
+## New Features
+
+This release has the following new features:
+
+<ul>
+  <li>
+      Ability to specify the Log Store partition count in the tile configuration through Ops Manager
+  </li>
+  <li>
+      Ability to specify the Log Store retention period in the tile configuration through Ops Manager
+  </li>
+  <li>
+      Added a new dropped_envelopes_count metric for dropped envelopes by Log Store nozzle, useful thing to detect the firehose’s slow consumers
+  </li>
+</ul>
+
+### Resolved Issues
+
+This release has the following fixes:
+
+<ul>
+  <li>
+      Fix an out of memory issue which makes log-store unresponsive due to high memory usage by adding time based pruning (default 42 days)
+      This addresses the known issue <a href="#log-store-out-of-memory">Log store out of memory issue</a>.
+  </li>
+</ul>
+
+
 ## <a id='2-0-6'></a>v2.0.6
 **Release Date: March 29, 2021**
 
@@ -28,7 +61,7 @@ This release has the following known issue:
 
 <ul>
   <li>
-    This release can cause a memory issue in the log store. See <a href="#log-store-out-of-memory">Log store out of memory issue in v2.0.6</a>.
+    This release can cause a memory issue in the log store. See <a href="#log-store-out-of-memory">Log store out of memory issue</a>.
   </li>
 </ul>
 
@@ -354,9 +387,13 @@ Creating a security group with the below configuration and assigning it to the a
 ]
 ```
 
-### <a name="log-store-out-of-memory"></a>Log store out of memory issue in v2.0.6
+### <a name="log-store-out-of-memory"></a>Log store out of memory issue
 
-After you upgrade to v2.0.6, you might notice high memory and CPU resource consumption. This causes log store failure with an `out of memory` error.
+High memory and CPU resource consumption. This causes log store failure with an `out of memory` error.
+
+The root cause of problem was related to very old shards kept from past about 1-1.5 years, which are caused the log-store executable to overcommit OS limit: max_map_count.
+
+The short time non permanent workaround is to increase max_map_count 65530 -> 2048000, but it will still work with high memory the reason of what are remaining old shards (not recommended)
 
 ### <a name="unable-to-timeselector"></a>Unable to view time selector for apps with long routes
 
