@@ -1,0 +1,305 @@
+---
+breadcrumb: App Metrics Documentation
+title: Monitoring Log Store
+owner: App Metrics
+list_style_none: true
+---
+
+This topic describes how to monitor Log Store. It includes key scaling indicators (KSIs) to guide Log Store scaling decisions.
+
+## <a id='overview'></a> Overview
+
+Log Store can be scaled vertically at this time. When disk resources are reaching complete consumption, Log Store will start dropping the oldest data first. When memory and/or CPU resources are reaching complete consumption, Log Store should be vertically scaled.
+
+## <a id='ksi'></a> Key Scaling Indicators
+
+- [nozzle_dropped](monitoring-log-store.html#dropped_envelopes_count)
+
+## <a id='metrics'></a> Metric Emitted by Log Store
+
+Log Store publishes metrics for monitoring the Log Store itself.
+You can use these metrics to observe the health of the Log Store and determine if the VMs and disks are appropriately scaled.
+
+### <a id='nozzle-metrics'></a> Nozzle Job Metrics
+
+The nozzle is the process that ingresses log envelopes from Loggregator's Reverse
+Log Proxy (RLP).
+
+<table class="nice">
+<tr>
+  <th>Reports</th>
+  <th>Metric</th>
+  <th>Type</th>
+  <th>Notes</th>
+</tr>
+<tr>
+  <td>Count of logs received since process start</td>
+  <td><code>ingress_count</code></td>
+  <td>counter</td>
+  <td>When increasing, nozzle is correctly consuming from the RLP</td>
+</tr>
+<tr>
+  <td>Count of dropped envelopes</td>
+  <td><a id='nozzle_dropped'></a><code>dropped_envelopes_count</code></td>
+  <td>counter</td>
+  <td>If this number is increasing at a steady rate, it may indicate that you need scale up the size of your VMs.
+  The reason of the non-zero value can be the noisy app</td>
+</tr>
+<tr>
+  <td>Count of bytes received since process start</td>
+  <td><code>ingress_byte_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of logs that failed to egress since process start</td>
+  <td><code>egress_failure_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of logs sent since process start</td>
+  <td><code>egress_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of errors occurred while attempting to write to the handoff queue</td>
+  <td><code>queue_error_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of logs queued for hinted handoff</td>
+  <td><code>queued_log_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of errors occurred while attempting to reply logs</td>
+  <td><code>replay_error_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of logs from successful handoff replays</td>
+  <td><code>replayed_log_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Amount of disk used by the handoff queue</td>
+  <td><code>queue_disk_usage</code></td>
+  <td>gauge</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of TCP ingress connections</td>
+  <td><code>ingress_connection_count</code></td>
+  <td>gauge</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of TCP egress connections</td>
+  <td><code>egress_connection_count</code></td>
+  <td>gauge</td>
+  <td></td>
+</tr>
+</table>
+
+### <a id='log-store-job-metrics'></a> CF Auth Proxy Job Metrics
+
+<table>
+<tr>
+  <th>Reports</th>
+  <th>Metric</th>
+  <th>Type</th>
+  <th>Notes</th>
+</tr>
+<tr>
+  <td>Duration in seconds of requests made to the auth proxy</td>
+  <td><code>metric_store_auth_proxy_request_duration_seconds</code></td>
+  <td>histogram</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Duration in seconds of external requests made to CAPI</td>
+  <td><code>metric_store_auth_proxy_capi_request_duration_seconds</code></td>
+  <td>histogram</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Summary of seconds spent in HTTP requests</td>
+  <td><code>http_request_seconds</code></td>
+  <td>summary</td>
+  <td></td>
+</tr>
+<tr>
+  <td>The number of completed HTTP requests</td>
+  <td><code>http_request_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+</table>
+
+### <a id='log-store-job-metrics'></a> Log Store Job Metrics
+
+<table>
+<tr>
+  <th>Reports</th>
+  <th>Metric</th>
+  <th>Type</th>
+  <th>Notes</th>
+</tr>
+<tr>
+  <td>Age of oldest stored log in seconds</td>
+  <td><code>retention_seconds</code></td>
+  <td>gauge</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of logs received from loggregator</td>
+  <td><code>ingress_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of logs received from loggregator</td>
+  <td><code>ingress_byte_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of prunes performed</td>
+  <td><code>prune_count</code></td>
+  <td>counter</td>
+  <td>This count is incremented by one when disk usage reaches out to the LOG_STORE_PRUNE_THRESHOLD (80%)</td>
+</tr>
+<tr>
+  <td>Count of expired shards prunes performed</td>
+  <td><code>expired_shards</code></td>
+  <td>counter</td>
+  <td>The retention period for shards is 42 days by default.The retention day can be customised to a max of
+  6 months (183 days), it can be configured via Ops Manager,
+  under the App Metrics->Components Config->Log Store retention Period</td>
+</tr>
+<tr>
+  <td>Number of bytes the log-store is using on disk</td>
+  <td><code>stored_bytes_count</code></td>
+  <td>gauge</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of TCP ingress connections</td>
+  <td><code>ingress_connection_count</code></td>
+  <td>gauge</td>
+  <td></td>
+</tr>
+<tr>
+  <td>The number of stored shards a partition has</td>
+  <td><code>shard_count</code></td>
+  <td>gauge</td>
+  <td></td>
+</tr>
+<tr>
+  <td>The number of completed HTTP requests</td>
+  <td><code>http_request_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of logs stored to disk since process started</td>
+  <td><code>stored_log_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of failures to store logs to a partition since process started</td>
+  <td><code>stored_log_failure_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Summary of seconds spent in HTTP requests</td>
+  <td><code>http_request_seconds</code></td>
+  <td>summary</td>
+  <td></td>
+</tr>
+</table>
+
+### <a id='log-store-job-metrics'></a> Router Job Metrics
+
+<table>
+<tr>
+  <th>Reports</th>
+  <th>Metric</th>
+  <th>Type</th>
+  <th>Notes</th>
+</tr>
+<tr>
+  <td>Count of logs received since process start</td>
+  <td><code>ingress_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of logs received from loggregator</td>
+  <td><code>ingress_byte_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of logs that failed to egress since process start</td>
+  <td><code>egress_failure_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of logs sent since process start</td>
+  <td><code>egress_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of errors occurred while attempting to write to the handoff queue</td>
+  <td><code>queue_error_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of logs queued for hinted handoff</td>
+  <td><code>queued_log_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of errors occurred while attempting to reply logs</td>
+  <td><code>replay_error_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of logs from successful handoff replays</td>
+  <td><code>replayed_log_count</code></td>
+  <td>counter</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Amount of disk used by the handoff queue</td>
+  <td><code>queue_disk_usage</code></td>
+  <td>gauge</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of TCP ingress connections</td>
+  <td><code>ingress_connection_count</code></td>
+  <td>gauge</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Count of TCP egress connections</td>
+  <td><code>egress_connection_count</code></td>
+  <td>gauge</td>
+  <td></td>
+</tr>
+</table>
