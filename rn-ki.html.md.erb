@@ -7,6 +7,87 @@ list_style_none: true
 
 This topic contains release notes for App Metrics 2.0 and later.
 
+## <a id='2-1-0'></a>v2.1.0
+**Release Date: November 15, 2021**
+
+Requires TAS 2.12+, 2.11+, 2.10+, 2.9.5+, 2.8.11+, 2.7.17+ or 2.6.21+.
+
+## New Features
+
+This release has the following new features:
+
+<ul>
+  <li>
+      Added triggered monitors view
+  </li>
+  <li>
+      Added TAS 2.12 support
+  </li>
+  <li>
+      Added filter logs by Task
+  </li>
+  <li>
+      Added ability to change units of PromQL Explorer
+  </li>
+  <li>
+      Changed PromQL explorer window
+  </li>
+  <li>
+      Added GET endpoint for indicator documents
+  </li>
+  <li>
+      Added DELETE endpoint for monitor documents
+  </li>
+</ul>
+
+### Resolved Issues
+
+This release has the following fixes:
+
+<ul>
+  <li>
+      Changed default query of CPU chart
+  </li>
+  <li>
+      Added spinner when downloading logs
+  </li>
+  <li>
+      Improve UI error handling for Services
+  </li>
+  <li>
+      Improve error handling on adding new monitors
+  </li>
+  <li>
+      Added spinner when loading logs
+  </li>
+  <li>
+      Fixed chart when point goes  above 100%
+  </li>
+  <li>
+      Fixed chart scrolling issue
+  </li>
+  <li>
+      Fixed bug to be able to use dot in the log "highlight" field
+  </li>
+</ul>
+
+### Maintenance Updates
+
+This release updates the following release:
+
+<ul>
+  <li>Log Store release to v4.0.152</li>
+  <li>Removed bosh-dns</li>
+</ul>
+
+Log Store has the following fixes:
+
+<ul>
+  <li>
+      Fixed the issue in the querying part which could have a negative affect on load balancing
+  </li>
+</ul>
+
 ## <a id='2-0-7'></a>v2.0.7
 **Release Date: June 23, 2021**
 
