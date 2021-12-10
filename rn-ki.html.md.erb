@@ -60,7 +60,7 @@ Once PCF Metrics 1.5 has been successfully installed, this errand can be disable
 
 #### Compatibility with Pivotal Application Service (formerly Elastic Runtime)
 
-PCF Metrics v1.5.x requires the following versions of Pivotal Application Service: 
+PCF Metrics v1.5.x requires the following versions of Pivotal Application Service:
 
 * PAS 2.0: v2.0.17 or later
 * PAS 2.1: v2.1.8 or later
@@ -71,7 +71,7 @@ PCF Metrics v1.5.x requires the following versions of Pivotal Application Servic
 
 In order to successfully run both PCF Metrics 1.4 and 1.5 simultaneously during the upgrade period, please make sure the 1.4 tile is updated to 1.4.6 or later. 1.4.5 and older will not support the secondary metrics URL (metrics-previous.YOUR-SYSTEM-DOMAIN) that allows the 1.4 dashboard to be viewed.
 
-For more information about upgrading to PCF Metrics v1.5, see [Installing PCF Metrics](/app-metrics/1-6/installing.html#upgrade).
+For more information about upgrading to PCF Metrics v1.5, see [Installing PCF Metrics](installing.html#upgrade).
 
 #### Triggered Monitor Notifications (Alpha) via Webhook with Proxy Settings
 
@@ -98,11 +98,11 @@ L Error: Colocated job 'sysctl' is already added to the instance group 'postgres
 Task 31134 | 20:01:25 | Error: Colocated job 'sysctl' is already added to the instance group 'postgres'.
 </pre>
 
-This error occurs because, by default, PCF Metrics contains a `sysctl` job in its manifest file. There is a conflict if the `sysctl` job is also included in the BOSH `runtime-config` file. 
+This error occurs because, by default, PCF Metrics contains a `sysctl` job in its manifest file. There is a conflict if the `sysctl` job is also included in the BOSH `runtime-config` file.
 
 To prevent this error when installing PCF Metrics 1.5, first confirm that the `sysctl` job is included in the `runtime-config` file by running `bosh runtime-config`.
 
-If the `sysctl` job is included in the `runtime-config` file, add an `include` or `exclude` rule to the `runtime-config` file to ensure the `sysctl` job is not applied to PCF Metrics deployments. 
+If the `sysctl` job is included in the `runtime-config` file, add an `include` or `exclude` rule to the `runtime-config` file to ensure the `sysctl` job is not applied to PCF Metrics deployments.
 
 In the example below, an `include` rule applies the `sysctl` job to the PAS tile deployment only:
 
@@ -125,9 +125,9 @@ In the example below, an `include` rule applies the `sysctl` job to the PAS tile
 
 Where:
 
-- `PAS-TILE-DEPLOYMENT-NAME` is the name of the PAS tile deployment. 
+- `PAS-TILE-DEPLOYMENT-NAME` is the name of the PAS tile deployment.
 
-Alternatively, to apply the `sysctl` job to all tile deployments except PCF Metrics, add an `exclude` rule to the `runtime-config` file to exclude PCF Metrics deployments. 
+Alternatively, to apply the `sysctl` job to all tile deployments except PCF Metrics, add an `exclude` rule to the `runtime-config` file to exclude PCF Metrics deployments.
 
 For more information, see the [BOSH documentation](https://bosh.io/docs/runtime-config/#placement-rules).
 
@@ -137,13 +137,13 @@ To use custom app metrics in PCF Metrics, you must install the Metrics Forwarder
 
 #### Delay in Ingesting Metrics
 
-To prevent metrics data backup in Redis, ensure that each app does not emit more than 400 metrics per minute. For deployments with a high number of apps, you may still experience a delay of up to 1-2 hours before metrics data appears on the dashboard. 
+To prevent metrics data backup in Redis, ensure that each app does not emit more than 400 metrics per minute. For deployments with a high number of apps, you may still experience a delay of up to 1-2 hours before metrics data appears on the dashboard.
 
 #### Logs Data Availability During Postgres Scaling
 
 When you vertically scale your Postgres instance in PCF Metrics 1.5, Postgres enters an unhealthy period during which it does not ingest any new logs data until the scaling operation has completed.
 
-For more information about scaling the Logs Postgres datastore, see [Sizing PCF Metrics for your System](/app-metrics/1-5/sizing.html#log-datastore).
+For more information about scaling the Logs Postgres datastore, see [Sizing PCF Metrics for your System](sizing.html#log-datastore).
 
 #### Data Loss During Stemcell Upgrades
 

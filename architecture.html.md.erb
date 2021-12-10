@@ -11,9 +11,9 @@ This topic describes the product architecture of Pivotal Cloud Foundry (PCF) Met
 
 The diagram below shows the components of PCF Metrics and the Cloud Foundry components that the PCF Metrics system interacts with.
 
-The bold rectangles represent Cloud Foundry apps that PCF Metrics deploys. The cylinders represent the data storage components of PCF Metrics. 
+The bold rectangles represent Cloud Foundry apps that PCF Metrics deploys. The cylinders represent the data storage components of PCF Metrics.
 
-<%= image_tag("architecture-15.png", :alt => "PCF Metrics 1.5 architecture") %>
+<%= image_tag('images/architecture-15.png', :alt => "PCF Metrics 1.5 architecture") %>
 
 The following sections explain processes that run within the PCF Metrics system.
 
@@ -21,9 +21,9 @@ The following sections explain processes that run within the PCF Metrics system.
 
 This section describes how PCF Metrics fills its datastores. PCF Metrics uses three datastores:
 
-* The **MySQL** component stores metric and event data from the apps running on your PCF deployment. 
-	* Examples of events are `start` and `stop`. 
-	* Examples of metrics are _container metrics_ such as CPU and _network metrics_ such as Requests. 
+* The **MySQL** component stores metric and event data from the apps running on your PCF deployment.
+	* Examples of events are `start` and `stop`.
+	* Examples of metrics are _container metrics_ such as CPU and _network metrics_ such as Requests.
 * The **PostgreSQL** component stores logs from the apps running on your PCF deployment.
 * The **Redis** component caches data ingested from the Firehose and data queried by the Metrics API.
 
@@ -31,9 +31,9 @@ This section describes how PCF Metrics fills its datastores. PCF Metrics uses th
 
 The diagram below highlights the components that convey metric and log data into the PostgreSQL and MySQL datastore.
 
-<%= image_tag("data-ingestion-15.png", :alt => "Ingesting firehose data into PCF Metrics 1.5 datastores") %>
+<%= image_tag('images/data-ingestion-15.png', :alt => "Ingesting firehose data into PCF Metrics 1.5 datastores") %>
 
-### Process 
+### Process
 
 The following table describes how the components act during each stage.
 
@@ -59,14 +59,14 @@ The following table describes how the components act during each stage.
 		<td>
 		Each of the logqueues acts independently, writing information to the datastores:
 		<br><br>
-		
+
 		<b>PostgreSQL logqueue</b>
 		<br><br>
 		The <code>postgres-logqueue</code> app reads data from Redis and checks whether the PostgreSQL datastore is available. If available, the app writes logs to the PostgreSQL datastore.
 		<br><br>
 		The <code>postgres-logqueue</code> prunes data older than the <code>Logs Retention Window</code> at UTC±00:00 every day or when the <code>postgres-logqueue</code> is restarted.
 		<br><br>
-		
+
 		<b>MySQL logqueue</b>
 		<br><br>
 		The <code>mysql-logqueue</code> app reads data from Redis and checks whether the MySQL datastore is available. If the datastore is available, the app does the following:<br><br>
@@ -80,14 +80,14 @@ The following table describes how the components act during each stage.
 
 ##<a id="user-flow"></a> How the PCF Metrics UI Retrieves Data from the Datastores
 
-This section describes the flow of data through the system when you interact with the PCF Metrics UI. 
+This section describes the flow of data through the system when you interact with the PCF Metrics UI.
 
 ### Components
 
 The diagram below highlights the components involved in this process.
 
 
-<%= image_tag("data-to-ui-15.png", :alt => "Displaying logs, events, and metrics data in the PCF Metrics 1.5 UI") %>
+<%= image_tag('images/data-to-ui-15.png', :alt => "Displaying logs, events, and metrics data in the PCF Metrics 1.5 UI") %>
 
 ### Process
 
@@ -97,11 +97,11 @@ The following table describes how the components act during each stage.
 	<tr><th>Stage</th><th>Description</th></tr>
 	<tr><td valign="top">1</td>
 		<td>
-			A user launches <code>metrics.SYSTEM-DOMAIN</code> in a browser and enters their UAA credentials. 
+			A user launches <code>metrics.SYSTEM-DOMAIN</code> in a browser and enters their UAA credentials.
 		</td>
 	</tr>
 	<tr><td valign="top">2</td>
-		<td>		
+		<td>
 			After the UAA authorizes the user, the browser does the following:
 			<br><br>
 			<ol>

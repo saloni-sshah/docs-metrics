@@ -2,13 +2,13 @@
 breadcrumb: PCF Metrics Documentation
 title: Installing PCF Metrics
 owner: PCF Metrics
-list_style_none: true 
+list_style_none: true
 ---
 
 This document describes how to install and configure Pivotal Cloud Foundry (PCF) Metrics.
 
 To use the [Custom Metrics](./monitoringpcfmetrics.html#custom-metrics) feature of the PCF Metrics tile, you must have the Metrics Forwarder tile installed.
-However, the PCF Metrics tile can be installed without the Metrics Forwarder tile. 
+However, the PCF Metrics tile can be installed without the Metrics Forwarder tile.
 
 For information about the components deployed as part of this install procedure,
 see [PCF Metrics Product Architecture](./architecture.html).
@@ -17,36 +17,36 @@ see [PCF Metrics Product Architecture](./architecture.html).
 
 This section describes upgrading from PCF Metrics v1.4.x to v1.5.x.
 
-###<a id='upgrade-overview'></a> Overview 
+###<a id='upgrade-overview'></a> Overview
 
 PCF Metrics v1.5 includes new data storage solutions:
 
-- For logs, v1.5 uses PostgreSQL instead of ElasticSearch. 
-- For metrics, v1.5 uses Percona instead of MariaDB. 
+- For logs, v1.5 uses PostgreSQL instead of ElasticSearch.
+- For metrics, v1.5 uses Percona instead of MariaDB.
 
-There is no effective upgrade path from ElasticSearch to PostgreSQL for logs data. For this reason, the upgrade [Procedure](#upgrade-procedure) is different from previous versions. 
+There is no effective upgrade path from ElasticSearch to PostgreSQL for logs data. For this reason, the upgrade [Procedure](#upgrade-procedure) is different from previous versions.
 
-###<a id='upgrade-procedure'></a> Procedure 
+###<a id='upgrade-procedure'></a> Procedure
 
 To upgrade to PCF Metrics v1.5, Pivotal recommends that you follow this procedure:
 
 1. Upload and install the PCF Metrics v1.5 tile alongside the v1.4 tile. Follow the instructions in the [Install PCF Metrics](#install) section below. <br>PCF Metrics v1.5 supports running both the v1.5 and v1.4 tiles simultaneously. You can install v1.5 manually or automate the installation with a deployment pipeline.
-  <%= image_tag("ops-man-metrics-tiles-image.png", :alt => "PCF Metrics 1.4 and v1.5 installed in Ops Manager") %>
-1. Keep both tiles installed and running for the duration of the logs and metrics retention window you configured in v1.5. This allows data to propagate to the new version. 
+  <%= image_tag('images/ops-man-metrics-tiles-image.png', :alt => "PCF Metrics 1.4 and v1.5 installed in Ops Manager") %>
+1. Keep both tiles installed and running for the duration of the logs and metrics retention window you configured in v1.5. This allows data to propagate to the new version.
   * During this time, you can access both dashboards. However, you can no longer access historical metrics and logs data on the v1.4 dashboard after the duration of the logs and metrics retention window you configured in v1.5 has passed.
-      * **For v1.4**: Go to `metrics-previous.YOUR-SYSTEM-DOMAIN`. 
-      * **For v1.5**: Go to `metrics.YOUR-SYSTEM-DOMAIN`. You can also click **View Metrics in Previous Versions** on the v1.5 dashboard to see metrics for the current app on the v1.4 dashboard. 
-        <%= image_tag("previous-link.png", :alt => "View Metrics in Previous Version link") %>
-    
-1. Uninstall PCF Metrics v1.4. 
+      * **For v1.4**: Go to `metrics-previous.YOUR-SYSTEM-DOMAIN`.
+      * **For v1.5**: Go to `metrics.YOUR-SYSTEM-DOMAIN`. You can also click **View Metrics in Previous Versions** on the v1.5 dashboard to see metrics for the current app on the v1.4 dashboard.
+        <%= image_tag('images/previous-link.png', :alt => "View Metrics in Previous Version link") %>
+
+1. Uninstall PCF Metrics v1.4.
 
 ## <a id='install'></a> Install PCF Metrics
 
-This section describes how to install the PCF Metrics tile. 
+This section describes how to install the PCF Metrics tile.
 
 ### <a id='step1'></a> Add the PCF Metrics Tile to Ops Manager
 
-To add the PCF Metrics tile to Ops Manager, do the following: 
+To add the PCF Metrics tile to Ops Manager, do the following:
 
 1. Download the latest PCF Metrics v1.5 tile from
    [Pivotal Network](https://network.pivotal.io/products/apm).
@@ -83,7 +83,7 @@ To add the PCF Metrics tile to Ops Manager, do the following:
    However, if you do select a different subnet network, then refer to the table below when you configure
    the subnet network in the PAS tile to make sure that you have
    the ports needed for each of the PCF Metrics data services.
-   
+
     <table border="1" class="nice">
       <thead>
         <tr>
@@ -106,26 +106,26 @@ To add the PCF Metrics tile to Ops Manager, do the following:
         </tr>
       </tbody>
     </table>
-    
+
 1. Click **Save**.
 
 #### <a id="mc-config"></a> Configure Metrics Components
 
 1. Click **Metrics Components Config**.
 1. Review the **MySQL Metrics Queue Count** value.
-   You can increase this instance count at any time to accommodate higher levels of inbound metrics traffic. 
+   You can increase this instance count at any time to accommodate higher levels of inbound metrics traffic.
 1. Review the **PostgreSQL Logs Queue Count** value.
-   You can increase this instance count at any time to accommodate higher levels of inbound log traffic. 
+   You can increase this instance count at any time to accommodate higher levels of inbound log traffic.
 1. Review the **Ingestor Count** value.
-   You can increase this instance count at any time to accommodate higher levels of Loggregator Firehose traffic. 
+   You can increase this instance count at any time to accommodate higher levels of Loggregator Firehose traffic.
 1. Review the **Metrics API server instance count** value.
    You can increase this instance count at any time to accommodate deployments with more apps, metrics, and logs.
-1. Review the **Metrics Retention Window** value. 
+1. Review the **Metrics Retention Window** value.
    You can set number of days to retain metrics data from `1` to `14` days.
    PCF Metrics adds one buffer day to your configured value to prevent pruning within your desired retention window. The retention window begins at UTC±00:00 of the current day and goes back the amount of days you enter in this field, plus the one buffer day added by PCF Metrics.
 1. Review the **Logs Retention Window** value.
    You can set number of days to retain logs data from `1` to `14` days.
-   PCF Metrics adds one buffer day to your configured value to prevent pruning within your desired retention window. The retention window begins at UTC±00:00 of the current day and goes back the amount of days you enter in this field, plus the one buffer day added by PCF Metrics. 
+   PCF Metrics adds one buffer day to your configured value to prevent pruning within your desired retention window. The retention window begins at UTC±00:00 of the current day and goes back the amount of days you enter in this field, plus the one buffer day added by PCF Metrics.
 1. Click **Save**.
 
 #### <a id="resource-config"></a> Configure Resources
@@ -178,10 +178,10 @@ To add the PCF Metrics tile to Ops Manager, do the following:
       <td>0</td>
     </tr>
     </tbody>
-  </table> 
-    If you expect a high level of use, you might need to increase the disk resources available to your instances. 
+  </table>
+    If you expect a high level of use, you might need to increase the disk resources available to your instances.
     For more information, see [Sizing PCF Metrics for Your System](./sizing.html).
-  
+
     <p class="note"><strong>Note:</strong> For Ops Manager v1.9, if you configure a job with persistent disk larger than 2&nbsp;TB,
        you might experience disk partitioning issues with the BOSH Director.</p>
 
@@ -203,8 +203,8 @@ To add the PCF Metrics tile to Ops Manager, do the following:
 
 ### <a id='step3'></a>Deploy PCF Metrics
 
-1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**. 
-For more information about this Ops Manager page, 
+1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
+For more information about this Ops Manager page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 1. Click **Apply Changes** to install the service.
 If the smoke tests fail, see [Smoke Test Errors](./troubleshooting.html#smoke-test) in _Troubleshooting PCF Metrics_.
