@@ -10,30 +10,30 @@ This topic describes how to log into, use, and interpret data from Pivotal Cloud
 
 1. <%= vars.metrics_login %>
 1. <%= vars.metrics_viewapps %>
-    <%= image_tag("images/search-bar.png") %>
+    <%= image_tag('images/search-bar.png') %>
 1. Select an app to display the **Dashboard** view. The **Dashboard** includes the following information:
 	* The **Configuration** section shows the number of **Instances**, the **Memory Limit**, and the **Disk Limit** for the app. It also shows the URL.
 	* The **Recent Events** section lists all events from the past day.
 	* **Container Metrics** and **Network Metrics** show streaming trend lines for all metrics over the past five minutes.
 
-	<%= image_tag("images/dashboard_new.png") %>
+	<%= image_tag('images/dashboard_new.png') %>
 
 1. Select **Explore** from the left menu to view detailed metrics and logs. You can toggle the following:
 	* **Container Metrics** displays CPU, memory, and disk usage.
 	* **Network Metrics** displays HTTP requests, errors, and latency.
 	* **Logs** displays application log data ingested from the [firehose](http://docs.pivotal.io/pivotalcf/1-7/loggregator/architecture.html#firehose). PCF Metrics stores application log data for 24 hours.
 
-	<%= image_tag("images/explore.png") %>
+	<%= image_tag('images/explore.png') %>
 
 
 1. Filter your log data by entering a keyword search or selecting a log source.
 
 1. Determine the scope of the historical view by clicking the one minute, one hour, or one day button. Use the left and right arrow keys to navigate adjacent time slices.
-	<%= image_tag("images/metrics-short.png") %>
+	<%= image_tag('images/metrics-short.png') %>
 
 1. Hover over either metrics graph to display a view of network and container metrics data.
 
-	<%= image_tag("images/metrics-new.png") %>
+	<%= image_tag('images/metrics-new.png') %>
 
 
 ##<a id='metrics'></a> Interpret Metrics
