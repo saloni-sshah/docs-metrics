@@ -1,6 +1,6 @@
 ---
 breadcrumb: PCF Metrics Documentation
-title: Sizing PCF Metrics for Your System 
+title: Sizing PCF Metrics for Your System
 owner: PCF Metrics
 ---
 
@@ -26,7 +26,7 @@ PCF Metrics stores metrics in a MySQL cluster.
 To customize PCF Metrics for high capacity, you can add memory and persistent disk to the MySQL server nodes.
 
 ###<a id='metrics-considerations'></a> Considerations for Scaling
-Because apps emit logs at different volumes and frequencies, you should not scale the MySQL server nodes in accordance to the number of app instances in your deployment. Because of the ease in scaling these components, we recommend starting with a minimal configuration then evaluating performance over a period of time and scaling. As long as persistent disk is being scaled up, there should not be any fear of losing data. 
+Because apps emit logs at different volumes and frequencies, you should not scale the MySQL server nodes in accordance to the number of app instances in your deployment. Because of the ease in scaling these components, we recommend starting with a minimal configuration then evaluating performance over a period of time and scaling. As long as persistent disk is being scaled up, there should not be any fear of losing data.
 
 To determine approximate starting memory and disk allocation for each MySQL server node, use the following example configurations:
 
@@ -84,9 +84,9 @@ PCF Metrics uses Elasticsearch to store logs. Each Elasticsearch node contains m
 
 To determine the number of Elasticsearch data nodes required for PCF Metrics, consider how many logs the apps in your deployment emit and the average size of each log.
 
-If your average log size is 1 kilobyte, and each node has 1 terabyte of available disk space, then each node has a maximum storage capacity of 1 billion log messages. If your apps emit 3 billion logs over a 24-hour period, you need at least 3 nodes to hold the data and 3 additional nodes for high-availability replication. 
+If your average log size is 1 kilobyte, and each node has 1 terabyte of available disk space, then each node has a maximum storage capacity of 1 billion log messages. If your apps emit 3 billion logs over a 24-hour period, you need at least 3 nodes to hold the data and 3 additional nodes for high-availability replication.
 
-This example assumes that your apps emit logs at a continuous rate over 24 hours. However, apps typically do not emit logs continuously. If your apps emit 2 billion of the 3 billion logs between 8 AM and 4 PM, you must determine the minimum node-to-shard ratio to accommodate that rate over the 8-hour period. Because your apps emit 1 billion logs over a 4 hour span, you need at least 6 nodes (24 hours/6 nodes = 4 hours worth of shards per node) to hold the data and an additional 6 nodes for high-availability replication.   
+This example assumes that your apps emit logs at a continuous rate over 24 hours. However, apps typically do not emit logs continuously. If your apps emit 2 billion of the 3 billion logs between 8 AM and 4 PM, you must determine the minimum node-to-shard ratio to accommodate that rate over the 8-hour period. Because your apps emit 1 billion logs over a 4 hour span, you need at least 6 nodes (24 hours/6 nodes = 4 hours worth of shards per node) to hold the data and an additional 6 nodes for high-availability replication.
 
 You can also use the throughput of logs per minute to help determine how many Elasticsearch data nodes to provision. As a general rule, provision one data node for every 5000 logs received in one minute.
 
@@ -103,18 +103,18 @@ After determining the number of Elasticsearch nodes needed for your deployment, 
 1. From the **Settings** tab of the **Metrics** tile, click **Resource Config**.
 1. Locate the **ElasticSearchData** job and select the dropdown menu under **Instances** to change the number of instances.
 	<br>
-	<%= image_tag('elasticsearch.png') %>
-1. Click **Save**.  
+	<%= image_tag('images/elasticsearch.png') %>
+1. Click **Save**.
 
 ##<a id='temp-datastore'></a> Configuring the Temporary Datastore
 
 <p class="note"><strong>Note</strong>: PCF Metrics uses the temporary datastore only when upgrading from v1.3 or later.</p>
 
-During Elasticsearch downtime, including upgrades, PCF Metrics stores logs from the Loggregator Firehose in a temporary Redis datastore. When the upgrade finishes, the the Elasticsearch logqueue restores data from the temporary datastore by placing it in Elasticsearch. See [PCF Metrics Product Architecture](./architecture.html) for more information. 
+During Elasticsearch downtime, including upgrades, PCF Metrics stores logs from the Loggregator Firehose in a temporary Redis datastore. When the upgrade finishes, the the Elasticsearch logqueue restores data from the temporary datastore by placing it in Elasticsearch. See [PCF Metrics Product Architecture](./architecture.html) for more information.
 
 ###<a id='temp-procedures'></a> Procedure for Scaling
 
-This procedure describes how to size the temporary datastore for your system by calculating your requirements and setting the VM size in Ops Manager. 
+This procedure describes how to size the temporary datastore for your system by calculating your requirements and setting the VM size in Ops Manager.
 
 #### Calculate Storage Requirements
 
@@ -127,7 +127,7 @@ Calculate the storage requirements of the temporary datastore using the table be
 	</tr>
 	<tr>
 		<td><code>AvgLogSize</code></td>
-		<td>Collect a sample of logs from your apps and calculate the average size of a log file in KB. 
+		<td>Collect a sample of logs from your apps and calculate the average size of a log file in KB.
 		<p class="note"><strong>Note</strong>: PCF apps run on <a href="https://docs.pivotal.io/pivotalcf/concepts/diego/diego-architecture.html">Diego</a> cells that do not emit individual logs greater than approximately 60 KB. See <a href="https://github.com/cloudfoundry/loggregator#log-message-size-constraints">Log Message Size Constraints</a>.</p></td>
 	</tr>
 	<tr>
@@ -135,7 +135,7 @@ Calculate the storage requirements of the temporary datastore using the table be
 		<td>
 			<ol>
 				<li>
-					Install the <a href="https://docs.pivotal.io/loggregator/cli-plugin.html">nozzle plugin</a> for the cf CLI if you do not already have it. 
+					Install the <a href="https://docs.pivotal.io/loggregator/cli-plugin.html">nozzle plugin</a> for the cf CLI if you do not already have it.
 				</li>
 				<li>
 					Run following command to estimate of the volume of <code>LogMessages</code> emitted from the Loggregator Firehose. Every 10 seconds, the command gives you the average number of log messages per second, averaged over the previous 10 seconds.
@@ -170,11 +170,11 @@ Follow these steps to configure the size of the Redis VM for the temporary datas
 
 1. Navigate to the Ops Manager Installation Dashboard and click the **Redis** tile.
 
-1. From the **Settings** tab, click **Resource Config**. 
+1. From the **Settings** tab, click **Resource Config**.
 
-1. In the **Dedicated Node** row, under **VM Type**, select an option with at least enough **RAM** to support the value for <code>AdjustedRedisRAM</code>. 
+1. In the **Dedicated Node** row, under **VM Type**, select an option with at least enough **RAM** to support the value for <code>AdjustedRedisRAM</code>.
 
-1. Click **Save**. 
+1. Click **Save**.
 
 
 ##<a id='ingestor'></a> Configuring the Ingestor
@@ -185,9 +185,9 @@ PCF Metrics deploys the Ingestor as an app within PCF. The Ingestor consumes log
 
 Because apps emit logs at different volumes and frequencies, you should not scale the Ingestor by matching the number of Ingestor instances to the number of app instances in your deployment.
 
-Because Ingestor performance is affected by Loggregator performance, it can be difficult to determine in advance the proper configuration. Because of the ease in scaling these components, we recommend starting with a minimal configuration then evaluating performance over a period of time and scaling 
+Because Ingestor performance is affected by Loggregator performance, it can be difficult to determine in advance the proper configuration. Because of the ease in scaling these components, we recommend starting with a minimal configuration then evaluating performance over a period of time and scaling
 
-The Ingestor app can handle relatively large loads. For high availability, you must have at least two instances of the Ingestor app running. If your deployment runs fewer than 2000 app instances, two instances of the Ingestor app are sufficient. 
+The Ingestor app can handle relatively large loads. For high availability, you must have at least two instances of the Ingestor app running. If your deployment runs fewer than 2000 app instances, two instances of the Ingestor app are sufficient.
 
 ###<a id='ingestor-procedures'></a> Procedures for Scaling
 
@@ -244,11 +244,11 @@ After determining the number of Ingestor app instances needed for your deploymen
 	requested state: started
 	instances: 1/1
 	usage: 1G x 1 instances
-	urls: 
+	urls:
 	last uploaded: Sat Apr 23 16:11:29 UTC 2016
 	stack: cflinuxfs2
-	buildpack: binary_buildpack 
-	<br>	
+	buildpack: binary_buildpack
+	<br>
 	     state     since                    CPU    memory        disk           details
 	<span>#</span>0   running   2016-07-21 03:49:58 PM   2.9%   13.5M of 1G   12.9M of 1G
 	</pre>

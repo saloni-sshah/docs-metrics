@@ -10,9 +10,9 @@ This topic describes the product architecture of Pivotal Cloud Foundry (PCF) Met
 
 The diagram below displays the components of PCF Metrics in bold, as well as the Cloud Foundry components that the PCF Metrics system interacts with.
 
-PCF Metrics deploys several Cloud Foundry apps as part of the install process. These components are the bold rectangles in the diagram. The cylinders represent the data storage components of PCF Metrics. 
+PCF Metrics deploys several Cloud Foundry apps as part of the install process. These components are the bold rectangles in the diagram. The cylinders represent the data storage components of PCF Metrics.
 
-<%= image_tag('architecture.png') %>
+<%= image_tag('images/architecture.png') %>
 
 See the following sections to understand the several processes that happen within the PCF Metrics system.
 
@@ -20,18 +20,18 @@ See the following sections to understand the several processes that happen withi
 
 This section describes how PCF Metrics fills its datastores. PCF Metrics uses two datastores:
 
-* The MySQL component stores metric and event data from the apps running on your PCF deployment. 
-	* Examples of events are `start` and `stop`. 
-	* Examples of metrics are _container metrics_ such as CPU and _network metrics_ such as Requests. 
+* The MySQL component stores metric and event data from the apps running on your PCF deployment.
+	* Examples of events are `start` and `stop`.
+	* Examples of metrics are _container metrics_ such as CPU and _network metrics_ such as Requests.
 * The Elasticsearch component stores logs from the apps running on your PCF deployment.
 
 ### Components
 
 The diagram below highlights the components involved in the process of getting metric and log data into the Elasticsearch and MySQL datastore.
 
-![process one](process1.png)
+<%= image_tag('images/process1.png') %>
 
-### Process 
+### Process
 
 The following table describes how the components act during each stage.
 
@@ -66,7 +66,7 @@ The following table describes how the components act during each stage.
 						<ul>
 							<li>Retrieves logs from the Temporary datastore in groups of 1000, buffers them, and writes them to the Elasticsearch datastore</li>
 							<li>Continues buffering logs from the ingestor and writing them to the Elasticsearch datastore</li>
-						</ul> 
+						</ul>
 					</li>
 				</ol>
 			</li>
@@ -87,7 +87,7 @@ The following table describes how the components act during each stage.
 		<ol>
 			<li>Retrieves container and network metrics from MySQL</li>
 			<li>Aggregates the data for each app over the last four minutes, grouped by one minute intervals</li>
-			<li>Inserts the aggregated data into the <code>app_metric_rollup</code> table of the MySQL component 
+			<li>Inserts the aggregated data into the <code>app_metric_rollup</code> table of the MySQL component
 			</li>
 		</ol>
 		</td>
@@ -96,13 +96,13 @@ The following table describes how the components act during each stage.
 
 ##<a id="user-flow"></a> How the PCF Metrics UI Retrieves Data from the Datastores
 
-This section describes the flow of data through the system when you interact with the PCF Metrics UI. 
+This section describes the flow of data through the system when you interact with the PCF Metrics UI.
 
 ### Components
 
 The diagram below highlights the components involved in this process.
 
-![Process 2](process2.png)
+<%= image_tag('images/process2.png') %>
 
 ### Process
 
@@ -112,11 +112,11 @@ The following table describes how the components act during each stage.
 	<tr><th>Stage</th><th>Description</th></tr>
 	<tr><td valign="top">1</td>
 		<td>
-			A user launches <code>metrics.SYSTEM-DOMAIN</code> in a browser and enters her UAA credentials. 
+			A user launches <code>metrics.SYSTEM-DOMAIN</code> in a browser and enters her UAA credentials.
 		</td>
 	</tr>
 	<tr><td valign="top">2</td>
-		<td>		
+		<td>
 			After the UAA authorizes the user, the browser does the following:
 			<br><br>
 			<ol>
@@ -193,7 +193,7 @@ The following table describes the two worker components that PCF Metrics uses to
 	</tr>
 	<tr>
 		<td><code>worker-reaper</code></td>
-		<td>The reaper worker is an app that removes orphaned connections from the <code>worker-app-dev</code> and <code>worker-app-logs</code> apps to Redis. 
+		<td>The reaper worker is an app that removes orphaned connections from the <code>worker-app-dev</code> and <code>worker-app-logs</code> apps to Redis.
 		<br><br>
 		PCF Metrics requires the reaper worker because Redis does not remove its connections to <code>worker-app-dev</code> and <code>worker-app-logs</code> if they restart.</td>
 	</tr>
