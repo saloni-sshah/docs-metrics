@@ -4,7 +4,7 @@ title: Using PCF Metrics
 owner: PCF Metrics
 ---
 
-This topic describes how to log in to, use, and interpret data from Pivotal Cloud Foundry (PCF) Metrics. 
+This topic describes how to log in to, use, and interpret data from Pivotal Cloud Foundry (PCF) Metrics.
 
 ##<a id='get-started'></a> View an App in PCF Metrics
 
@@ -18,27 +18,27 @@ PCF Metrics provides you with a graphical representation of application data for
 
 ### <a id="toggle"></a>Toggle the Data Views
 
-There are four data views: **Container Metrics**, **Network Metrics**, **Logs**, and **Events**. Select which views you want to see using the toggles in the upper left. 
+There are four data views: **Container Metrics**, **Network Metrics**, **Logs**, and **Events**. Select which views you want to see using the toggles in the upper left.
 
 ![Toggle](images/toggle.png)
 
 ### <a id="time"></a>Change the Time Frame
 
-The data views show time along the horizontal axis. You can change the time frame for all the data views by using the dropdown at the top of the page. Use the refresh button to update all views with the most current data. 
+The data views show time along the horizontal axis. You can change the time frame for all the data views by using the dropdown at the top of the page. Use the refresh button to update all views with the most current data.
 
 ![time](images/metrics-time.png)
 
 **Zoom**: From within any data view, you can also zoom in on areas of interest by clicking and dragging within the graph. This adjusts all of the views, including **Logs**, to show data from that time period.
 
-<%= image_tag("metric-zoom.png") %>
+<%= image_tag("images/metric-zoom.png") %>
 
-**Drag**: From underneath the x-axis of any data view, you can drag left or right to view data for an earlier or later time. 
+**Drag**: From underneath the x-axis of any data view, you can drag left or right to view data for an earlier or later time.
 
 
 
 ##<a id='metrics'></a> Interpret Metrics
 
-PCF Metrics displays the following data. You can hover over each view to see data for a specific time. 
+PCF Metrics displays the following data. You can hover over each view to see data for a specific time.
 
 ### <a id='container'></a> Container Metrics
 
@@ -46,9 +46,9 @@ The **Container Metrics** view displays **CPU**, **Memory**, and **Disk** usage:
 
 ![Container View](container.png)
 
-* A spike in **CPU** might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but investigate the app to better understand and fix the root cause. 
-* A spike in **Memory** might mean a resource leak in the code. Scaling app memory can also relieve the immediate pressure, but look for and resolve the underlying issue so that it does not occur again. 
-* A spike in **Disk** might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing huge sessions to disk. 
+* A spike in **CPU** might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but investigate the app to better understand and fix the root cause.
+* A spike in **Memory** might mean a resource leak in the code. Scaling app memory can also relieve the immediate pressure, but look for and resolve the underlying issue so that it does not occur again.
+* A spike in **Disk** might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing huge sessions to disk.
 
 ### <a id='network'></a> Network Metrics
 
@@ -57,17 +57,17 @@ The **Network Metric** view displays HTTP **Requests & Errors** and **Latency**:
 ![Network View](network.png)
 
 * A spike in HTTP **Requests** means more users are using your app. Scaling app instances can reduce the higher latency that may result.
-* A spike in HTTP **Errors** means one or more 5xx errors have occurred. Check your app logs for more information. 
-* A spike in **Latency** means your users are waiting longer to use your app. Scaling app instances can spread that workload over more resources and result in faster response times. 
+* A spike in HTTP **Errors** means one or more 5xx errors have occurred. Check your app logs for more information.
+* A spike in **Latency** means your users are waiting longer to use your app. Scaling app instances can spread that workload over more resources and result in faster response times.
 
 
-### <a id='events'></a> Events 
+### <a id='events'></a> Events
 
-The **Events** view shows the following app events: **Create**, **Update**, **Start**, **Stop**, and **Crash**. You can change which events you see using the checkboxes in the upper right. 
+The **Events** view shows the following app events: **Create**, **Update**, **Start**, **Stop**, and **Crash**. You can change which events you see using the checkboxes in the upper right.
 
 ![Events](events.png)
 
-See the [About Starting Applications](http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/app-startup.html) and [Troubleshooting Application Deployment and Health](http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/troubleshoot-app-health.html) topics for more information about app events. 
+See the [About Starting Applications](http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/app-startup.html) and [Troubleshooting Application Deployment and Health](http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/troubleshoot-app-health.html) topics for more information about app events.
 
 ### <a id="logs"></a>Logs
 
@@ -75,14 +75,11 @@ Logs displays application log data ingested from the [firehose](http://docs.pivo
 
 ![Logs](logs.png)
 
-PCF Metrics lists all logs by default, and the histogram displays log frequency for the current time frame. You can refine the list and histogram with the following: 
+PCF Metrics lists all logs by default, and the histogram displays log frequency for the current time frame. You can refine the list and histogram with the following:
 
-* **Filter**: Perform a keyword search. The histogram updates with blue bars based on the filter. Hover over a histogram bar to view the amount of logs for a specific time based on your filter. 
-* **Highlight**: Enter a term to highlight within your search. The histogram updates with yellow bars based on the results. Hover over a histogram bar to view the amount of logs for a specific time that contain the highlighted term. 
-* **Sources**: Choose which sources to display logs from. 
-* **Order**: Modify the order in which logs appear. 
+* **Filter**: Perform a keyword search. The histogram updates with blue bars based on the filter. Hover over a histogram bar to view the amount of logs for a specific time based on your filter.
+* **Highlight**: Enter a term to highlight within your search. The histogram updates with yellow bars based on the results. Hover over a histogram bar to view the amount of logs for a specific time that contain the highlighted term.
+* **Sources**: Choose which sources to display logs from.
+* **Order**: Modify the order in which logs appear.
 
-You can also click the **Download** button to download a file containing logs for the current search. 
-
-
-
+You can also click the **Download** button to download a file containing logs for the current search.
