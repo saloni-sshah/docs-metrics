@@ -5,49 +5,11 @@ owner: App Metrics
 list_style_none: true
 ---
 
-This topic contains release notes for App Metrics v2.0 and v2.1.
+This topic contains release notes for App Metrics v2.0.
 
 
-## <a id='2-1-0'></a> v2.1.0
+## <a id='2-0-7'></a> v2.0.7
 
-**Release Date: November 18, 2021**
-
-App Metrics v2.1.0 requires that you use TAS for VMs v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later, v2.10, v2.11, or v2.12.
-
-## New Features
-
-App Metrics v2.1.0 includes the following new features:
-
-* Added triggered monitors view
-* Added TAS for VMs v2.12 support
-* Added filter logs by Task
-* Added ability to change units of PromQL Explorer
-* Changed PromQL Explorer window
-* Added GET endpoint for indicator documents
-* Added DELETE endpoint for monitor documents
-
-### Resolved Issues
-
-App Metrics v2.1.0 includes the following fixes:
-
-* Changed default query of CPU chart
-* Added spinner when downloading logs
-* Improve UI error handling for Services
-* Improve error handling on adding new monitors
-* Added spinner when loading logs
-* Fixed chart when point goes above 100%
-* Fixed chart scrolling issue
-* Fixed bug to be able to use dot in the log "highlight" field
-
-### Maintenance Updates
-
-App Metrics v2.1.0 includes the following updates:
-
-* Log Store v4.0.152 fixes the issue in the querying part which could have a negative affect on load balancing
-* Removed `bosh-dns`
-
-
-## <a id='2-0-7'></a>v2.0.7
 **Release Date: June 23, 2021**
 
 Requires TAS 2.11+, 2.10+, 2.9.5+, 2.8.11+, 2.7.17+ or 2.6.21+.
@@ -56,30 +18,19 @@ Requires TAS 2.11+, 2.10+, 2.9.5+, 2.8.11+, 2.7.17+ or 2.6.21+.
 
 This release has the following new features:
 
-<ul>
-  <li>
-      Ability to specify the Log Store partition count in the tile configuration through Ops Manager
-  </li>
-  <li>
-      Ability to specify the Log Store retention period in the tile configuration through Ops Manager
-  </li>
-  <li>
-      Added a <code>dropped_envelopes_count</code> metric for envelopes dropped by Log Store nozzle to detect the Firehose’s slow consumers
-  </li>
-</ul>
+* Ability to specify the Log Store partition count in the tile configuration through Ops Manager
+* Ability to specify the Log Store retention period in the tile configuration through Ops Manager
+* Added a <code>dropped_envelopes_count</code> metric for envelopes dropped by Log Store nozzle to detect the Firehose’s slow consumers
 
 ### Resolved Issues
 
 This release has the following fixes:
 
-<ul>
-  <li>
-      Fixes the known issue <a href="#log-store-out-of-memory">Log Store out of memory issue</a> by adding time-based pruning with a default of 42 days.
-  </li>
-</ul>
+* Fixes the known issue <a href="#log-store-out-of-memory">Log Store out of memory issue</a> by adding time-based pruning with a default of 42 days.
 
 
-## <a id='2-0-6'></a>v2.0.6
+## <a id='2-0-6'></a> v2.0.6
+
 **Release Date: March 29, 2021**
 
 Requires TAS 2.10+, 2.9.5+, 2.8.11+, 2.7.17+ or 2.6.21+.
@@ -88,82 +39,43 @@ Requires TAS 2.10+, 2.9.5+, 2.8.11+, 2.7.17+ or 2.6.21+.
 
 This release has the following new features:
 
-<ul>
-  <li>
-    Ability to specify the Postgres SSL Cipher Suite in the tile configuration through Ops Manager
-  </li>
-</ul>
+* Ability to specify the Postgres SSL Cipher Suite in the tile configuration through Ops Manager
 
 ### Known Issues
 
 This release has the following known issue:
 
-<ul>
-  <li>
-    This release can cause a memory issue in the log store. See <a href="#log-store-out-of-memory">Log store out of memory issue</a>.
-  </li>
-</ul>
+* This release can cause a memory issue in the log store. See <a href="#log-store-out-of-memory">Log store out of memory issue</a>.
 
 ### Resolved Issues
 
 This release has the following fixes:
 
-<ul>
-  <li>
-      Postgres now only uses mTLS connections
-  </li>
-  <li>
-      Added Postgres health check via smoke tests during install
-  </li>
-  <li>
-      Added health-check for internal Postgres to the integration status endpoint
-  </li>
-  <li>
-      No longer send duplicate slack alerts for configured monitors
-  </li>
-  <li>
-      Accept http_proxy environment variable to detect both upper and lower cases
-  </li>
-  <li>
-      Applications with a name containing “dashboard” will no longer causes a UI error
-  </li>
-  <li>
-      Cloud foundry organization names that contain “/” no longer causes a UI error
-  </li>
-  <li>
-      Displaying both application and process crash events in the CAPI Event chart
-  </li>
-  <li>
-      Clean up security-groups created during install when uninstalling App Metrics
-  </li>
-</ul>
+* Postgres now only uses mTLS connections
+* Added Postgres health check via smoke tests during install
+* Added health-check for internal Postgres to the integration status endpoint
+* No longer send duplicate slack alerts for configured monitors
+* Accept http_proxy environment variable to detect both upper and lower cases
+* Applications with a name containing “dashboard” will no longer causes a UI error
+* Cloud foundry organization names that contain “/” no longer causes a UI error
+* Displaying both application and process crash events in the CAPI Event chart
+* Clean up security-groups created during install when uninstalling App Metrics
 
 ### Maintenance Updates
 
 This release updates the following release:
 
-<ul>
-  <li>Log Store release to v4.0.50</li>
-</ul>
+* Log Store release to v4.0.50
 
 Log Store has the following fixes:
 
-<ul>
-  <li>
-      Upgraded log store to use the newest version of influxdb 1.x. This fixes a database corruption problem with a previous version of influxdb.
-  </li>
-  <li>
-      Fixed an issue causing missing application logs when the partition count was not divisible by 3. Note that this only affected a small percentage of applications and was not a widespread issue.
-  </li>
-  <li>
-      Fixed an issue that would cause requests to go to the wrong log store vm which would result in an error response. This issue was caused by the X-Forwarded-Host header being set incorrectly and/or manipulated in some environments. A new header is now being used to resolve this issue.
-  </li>
-  <li>
-      Fix an issue with log-store vm configuration when adding additional availability zones
-  </li>
-</ul>
+* Upgraded log store to use the newest version of influxdb 1.x. This fixes a database corruption problem with a previous version of influxdb.
+* Fixed an issue causing missing application logs when the partition count was not divisible by 3. Note that this only affected a small percentage of applications and was not a widespread issue.
+* Fixed an issue that would cause requests to go to the wrong log store vm which would result in an error response. This issue was caused by the X-Forwarded-Host header being set incorrectly and/or manipulated in some environments. A new header is now being used to resolve this issue.
+* Fix an issue with log-store vm configuration when adding additional availability zones
 
-## <a id='2-0-5'></a>v2.0.5
+
+## <a id='2-0-5'></a> v2.0.5
 
 **Release Date: October 9, 2020**
 
@@ -173,33 +85,23 @@ Requires TAS 2.10+, 2.9.5+, 2.8.11+, 2.7.17+ or 2.6.21+.
 
 This release has the following new features:
 
-<ul>
-  <li>
-    When indicator documents are loaded, a test message is now sent to the defined webhook endpoints.
-  </li>
-</ul>
+* When indicator documents are loaded, a test message is now sent to the defined webhook endpoints.
 
 ### Resolved Issues
 
 This release has the following fixes:
 
-<ul>
-  <li>
-    Webhook endpoints are no longer required to be Slack URLs.
-    They will be sent to the webhook endpoint the format of:
+* Webhook endpoints are no longer required to be Slack URLs. They will be sent to the webhook endpoint the format of:
     `{"text": "[<STATUS>] <MONITOR_NAME> violated threshold\nApp: <APP_NAME>\nIndicator: <INDICATOR_NAME>\nSince: <ALERT_TIME>\nCurrent value: <VALUE>\nDetails: <METRICS_URL>"}`
-  </li>
-</ul>
 
 ### Maintenance Updates
 
 This release updates the following release:
 
-<ul>
-  <li>Log Store release to v4.0.14</li>
-</ul>
+* Log Store release to v4.0.14
 
-## <a id='2-0-4'></a>v2.0.4
+
+## <a id='2-0-4'></a> v2.0.4
 
 **Release Date: September 9, 2020**
 
@@ -209,18 +111,11 @@ Requires TAS 2.10+, 2.9.5+, 2.8.11+, 2.7.17+ or 2.6.21+.
 
 This release has the following fixes:
 
-<ul>
-  <li>
-   Too many routes for an app make time selection inaccessible.
-   This addresses the known issue <a href="#unable-to-timeselector">Unable to view time selector for apps with long routes</a>.
-  </li>
-  <li>
-    Promql Explorer unclickable in Firefox.
-    This addresses the known issue <a href="#firefox-promql-explorer"> Promql Explorer unclickable in Firefox</a>
-  </li>
-</ul>
+* Too many routes for an app make time selection inaccessible. This addresses the known issue <a href="#unable-to-timeselector">Unable to view time selector for apps with long routes</a>.
+* Promql Explorer unclickable in Firefox. This addresses the known issue <a href="#firefox-promql-explorer"> Promql Explorer unclickable in Firefox</a>
 
-## <a id='2-0-3'></a>v2.0.3
+
+## <a id='2-0-3'></a> v2.0.3
 
 **Release Date: August 3, 2020**
 
@@ -234,175 +129,112 @@ Additionally this release also made a change to display all labels returned from
 These additional labels are needed to accurately view Spring Boot Metrics.
 Please verify the <a href="https://docs.pivotal.io/app-metrics/2-0/installing.html#ConfigureMetricRegistrar">VMware Tanzu Application Service for VMs (TAS for VMs) or Pivotal Application Service (PAS) tile metric registrar configuration in regard to label filtering when emitting Spring Boot Metrics.</a>
 
-### <a name="2-0-3-issues"></a>Known Issues
+### <a name="2-0-3-issues"></a> Known Issues
 
-<ul>
-  <li>
-    <a href="#logs-1kb">Timeframe log file download is 1&nbsp;KB</a>
-  </li>
-  <li>
-    <a href="#firefox-promql-explorer"> Promql Explorer unclickable in Firefox</a>
-  </li>
-</ul>
+* <a href="#logs-1kb">Timeframe log file download is 1&nbsp;KB</a>
+* <a href="#firefox-promql-explorer"> Promql Explorer unclickable in Firefox</a>
 
 ### Resolved Issues
 
 This release has the following fixes:
 
-<ul>
-  <li>
-   CF Admin users can view all apps.
-   This addresses the known issue <a href="#unable-to-view">CF Admin users are unable to view all apps in App Metrics</a>.
-  </li>
-  <li>
-    Log Store release update to fix an issue with high resource usage.
-    This addresses the known issue <a href="#log-store-resource-issue"> Log Store is reporting high resource usage</a>
-  </li>
-  <li>
-    Hostname Verification is now ignored with skip-ssl-validation is true.
-    This addresses the known issue <a href="#hostname-verification"> Hostname Verification is not ignored when skip-ssl-validation is true</a>
-  </li>
-</ul>
+* CF Admin users can view all apps. This addresses the known issue <a href="#unable-to-view">CF Admin users are unable to view all apps in App Metrics</a>.
+* Log Store release update to fix an issue with high resource usage. This addresses the known issue <a href="#log-store-resource-issue"> Log Store is reporting high resource usage</a>
+* Hostname Verification is now ignored with skip-ssl-validation is true. This addresses the known issue <a href="#hostname-verification"> Hostname Verification is not ignored when skip-ssl-validation is true</a>
 
 ### Maintenance Updates
 
 This release updates the following release:
 
-<ul>
-  <li>Log Store release to v3.0.2</li>
-</ul>
+* Log Store release to v3.0.2
 
 
-## <a id='2-0-2'></a>v2.0.2
+## <a id='2-0-2'></a> v2.0.2
 
 **Release Date: June 22, 2020**
 
-### <a name="2-0-2-issues"></a>Known Issues
+### <a name="2-0-2-issues"></a> Known Issues
 
 This release has the following issues:
 
-<ul>
-  <li>
-    <a href="#unable-to-view">CF Admin users are unable to view all apps in App Metrics</a>
-  </li>
-  <li>
-    <a href="#log-store-resource-issue"> Log Store is reporting high resource usage</a>
-  </li>
-  <li>
-    <a href="#hostname-verification"> Hostname Verification is not ignored when skip-ssl-validation is true</a>
-  </li>
-  <li>
-    <a href="#firefox-promql-explorer"> Promql Explorer unclickable in Firefox</a>
-  </li>
-</ul>
+* <a href="#unable-to-view">CF Admin users are unable to view all apps in App Metrics</a>
+* <a href="#log-store-resource-issue"> Log Store is reporting high resource usage</a>
+* <a href="#hostname-verification"> Hostname Verification is not ignored when skip-ssl-validation is true</a>
+* <a href="#firefox-promql-explorer"> Promql Explorer unclickable in Firefox</a>
 
 ### Resolved Issues
 
 This release has the following fixes:
 
-<ul>
-  <li>
-   Log Store is available for all apps.
-   This addresses the known issue <a href="#log-store-issue">Log Store is unavailable for
-   only certain apps</a>.
-  </li>
-  <li>
-    Non-admin users are able to create monitors.
-    This addresses the known issue <a href="#monitors">Non-admin users unable to create monitors</a>.
-  </li>
-</ul>
+* Log Store is available for all apps. This addresses the known issue <a href="#log-store-issue">Log Store is unavailable for only certain apps</a>.
+* Non-admin users are able to create monitors. This addresses the known issue <a href="#monitors">Non-admin users unable to create monitors</a>.
 
 ### Maintenance Updates
 
 This release updates the following release:
 
-<ul>
-  <li>Log Store release to v3.0.0</li>
-</ul>
+* Log Store release to v3.0.0
 
-## <a id='2-0-1'></a>v2.0.1
+
+## <a id='2-0-1'></a> v2.0.1
 
 **Release Date: May 5, 2020**
-### <a name="2-0-1-issues"></a>Known Issues
+
+### <a name="2-0-1-issues"></a> Known Issues
 
 This release has the following issues:
 
-<ul>
-  <li>
-    <a href="#unable-to-view">CF Admin users are unable to view all apps in App Metrics</a>
-  </li>
-  <li>
-   <a href="#log-store-issue">Log Store is unavailable for some apps</a>
-  </li>
-  <li>
-    <a href="#log-store-resource-issue">Log Store is reporting high resource usage</a>
-  </li>
-  <li>
-    <a href="#monitors">Non-admin users unable to create monitors</a>
-  </li>
-  <li>
-    <a href="#hostname-verification">Hostname Verification is not ignored when skip-ssl-validation is true</a>
-  </li>
-  <li>
-    <a href="#firefox-promql-explorer"> Promql Explorer unclickable in Firefox</a>
-  </li>
-</ul>
+* <a href="#unable-to-view">CF Admin users are unable to view all apps in App Metrics</a>
+* <a href="#log-store-issue">Log Store is unavailable for some apps</a>
+* <a href="#log-store-resource-issue">Log Store is reporting high resource usage</a>
+* <a href="#monitors">Non-admin users unable to create monitors</a>
+* <a href="#hostname-verification">Hostname Verification is not ignored when skip-ssl-validation is true</a>
+* <a href="#firefox-promql-explorer"> Promql Explorer unclickable in Firefox</a>
 
 ### Resolved Issues
 
 This release has the following fixes:
 
-<ul>
-  <li>
-    Single Sign-On not allowing user login
-  </li>
-  <li>
-    App Metrics failing to start when app security groups are in use
-  </li>
-  <li>
-    View in PCF Metrics link missing in Apps Manager
-  </li>
-  <li>
-    Smoke Tests Fail on Environments with skip ssl verify set to true
-  </li>
-</ul>
+* Single Sign-On not allowing user login
+* App Metrics failing to start when app security groups are in use
+* View in PCF Metrics link missing in Apps Manager
+* Smoke Tests Fail on Environments with skip ssl verify set to true
 
 ### Maintenance Updates
 
 This release moves App Metrics back to metrics.sys.DOMAIN
 
-## <a id='20'></a>v2.0.0
+
+## <a id='20'></a> v2.0.0
 
 **Release Date: April 3, 2020**
 
-## <a id="new-features"></a>New Features in App Metrics v2.0
+## <a id="new-features"></a> New Features in App Metrics v2.0
 
 App Metrics v2.0 includes the following new features:
 
-<ul>
-<li>Spring Boot Micrometer and tagged metrics support</li>
-<li>CAPI v3 multi-process and rolling deployment support</li>
-<li>Declarative custom observability codification using Indicator Protocol</li>
-<li>Create persistent, sharable dashboard customizations using Indicator Protocol</li>
-<li>All-new, improved time selection experience</li>
-<li>Improved data ingestion performance for live metrics and logs observation</li>
-<li>Fault-tolerant, scalable logs and metrics data storage</li>
-<li>Increased metrics data retention</li>
-<li>Increased logs data retention</li>
-<li>Improved data ingestion performance</li>
-</ul>
+* Spring Boot Micrometer and tagged metrics support
+* CAPI v3 multi-process and rolling deployment support
+* Declarative custom observability codification using Indicator Protocol
+* Create persistent, sharable dashboard customizations using Indicator Protocol
+* All-new, improved time selection experience
+* Improved data ingestion performance for live metrics and logs observation
+* Fault-tolerant, scalable logs and metrics data storage
+* Increased metrics data retention
+* Increased logs data retention
+* Improved data ingestion performance
 
-## <a id="deprecated-features"></a>Deprecated Features in App Metrics v2.0
+
+## <a id="deprecated-features"></a> Deprecated Features in App Metrics v2.0
 
 App Metrics v2.0 removed the following features:
 
-<ul>
-  <li>Trace Explorer</li>
-  <li>App Event Monitoring and Alerting Removed </li>
-  <li>CF Staging Failed Event Removed</li>
-</ul>
+* Trace Explorer
+* App Event Monitoring and Alerting Removed
+* CF Staging Failed Event Removed
 
-## <a id="issues"></a>Known Issues
+
+## <a id="issues"></a> Known Issues
 
 The following sections describe the known issues in App Metrics v2.0.
 
@@ -426,7 +258,7 @@ Creating a security group with the below configuration and assigning it to the a
 ]
 ```
 
-### <a name="log-store-out-of-memory"></a>Log store out of memory issue
+### <a name="log-store-out-of-memory"></a> Log store out of memory issue
 
 High memory and CPU resource consumption. This causes log store failure with an `out of memory` error.
 
@@ -434,15 +266,15 @@ The root cause of problem was related to very old shards kept from past about 1-
 
 The short time non permanent workaround is to increase max_map_count 65530 -> 2048000, but it will still work with high memory the reason of what are remaining old shards (not recommended)
 
-### <a name="unable-to-timeselector"></a>Unable to view time selector for apps with long routes
+### <a name="unable-to-timeselector"></a> Unable to view time selector for apps with long routes
 
 Apps with long routes or multiple routes could make the time selector scroll off the page and be inaccessible.
 
-### <a name="firefox-promql-explorer"></a>Promql Explorer unclickable in Firefox
+### <a name="firefox-promql-explorer"></a> Promql Explorer unclickable in Firefox
 
 The promql explorer is not clickable due to a CSS problem in Firefox.
 
-### <a name="logs-1kb"></a>Timeframe log file download is 1&nbsp;KB
+### <a name="logs-1kb"></a> Timeframe log file download is 1&nbsp;KB
 
 When you try to download logs for a given timeframe, an HTTP timeout can result in a 1&nbsp;KB log file.
 
@@ -474,7 +306,7 @@ For the time being, please use a user with the `doppler.firehose` scope to creat
 
 Any users logged into to App Metrics will need to log out and log back in after the change is made in UAA.
 
-### <a name="apps-manager-link-issue"></a>View in PCF Metrics link missing in Apps Manager
+### <a name="apps-manager-link-issue"></a> View in PCF Metrics link missing in Apps Manager
 
 App Metrics removed the path that Apps Manager checks to determine if App Metrics is installed on TAS.
 
@@ -491,13 +323,14 @@ Log Store 3.0.2 fixes an issue with the hinted hand-off that was causing high re
 
 This requires and update of the log store release packaged in App Metrics.
 
-### <a name="smoke-test-issue"></a>Smoke Tests Fail on Environments with skip ssl verify set to true
+### <a name="smoke-test-issue"></a> Smoke Tests Fail on Environments with skip ssl verify set to true
 
 The smoke tests did not take the ssl verify configuration into account.
 
 The smoke test errand can be turned off for affected environments.
 
 The status of App Metrics can be checked by visiting `https://metrics.sys.DOMAIN/integration-status`
+
 
 ## <a name="tas-compatibility"></a> Compatibility with VMware Tanzu Application Service
 
@@ -507,6 +340,7 @@ App Metrics v2.0 requires the following versions of VMware Tanzu Application Ser
 * v2.7: all patches within minor
 * v2.8: all patches within minor
 
+
 ## <a name="ops-manager-compatibility"></a> Compatibility with Operations Manager
 
 App Metrics v2.0 requires the following versions of Operations Manager:
@@ -514,6 +348,7 @@ App Metrics v2.0 requires the following versions of Operations Manager:
 * v2.6: v2.6.x and later
 * v2.7: all patches within minor
 * v2.8: all patches within minor
+
 
 ## <a name="things-to-note"></a> Additional Items to Note
 
