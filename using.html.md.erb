@@ -293,12 +293,12 @@ This section explains how to view the trace for a request received by your app a
 
 1. Select an app on the PCF Metrics dashboard.
 1. Click the Trace Explorer icon in a log for which you want to trace the request.
-	![Hover over trace icon](click-trace.png)
+	<%= image_tag('images/click-trace.png') %>
 
 * The Trace Explorer displays the apps and endpoints involved in completing a request, along with the corresponding logs:
-	![Trace Explorer](trace-explorer.png)
+	<%= image_tag('images/trace-explorer.png') %>
 	A request corresponds to a single trace ID displayed in the top left corner. Each row includes an app in the left column and a _span_ in the right column. A span is a particular endpoint within the app and the time it took to execute in milliseconds. By default, the graph lists each app and endpoint in the order they were called.
 	<p class="note"><strong>Note</strong>: If you do not have access to the space for an app involved in the request, you cannot see the spans or logs from that app.</p>
 * You can click a span to show only logs from that span or any number of spans to toggle which logs appear. Clicking a span also creates a box with that particular span ID in the **Logs** view:
-	![Click Span](click-span.png)
+	<%= image_tag('images/click-span.png') %>
 * If you click `APP APP-NAME` within a log, PCF Metrics returns you to the dashboard view for that app, with the time frame focused on the time of the log that you clicked from.
