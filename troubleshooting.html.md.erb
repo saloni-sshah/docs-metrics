@@ -4,6 +4,8 @@ owner: PCF Metrics
 list_style_none: true
 ---
 
+<strong><%= modified_date %></strong>
+
 This topic describes how to resolve common issues experienced while operating or using Pivotal Cloud Foundry (PCF) Metrics.
 
 ## <a id='insufficient-resources'></a> Insufficient Resources
@@ -16,7 +18,7 @@ This topic describes how to resolve common issues experienced while operating or
 </tr>
 <tr>
   <th>Cause</th>
-  <td>Your PCF deployment has insufficient Diego resources to handle the apps pushed as part of a PCF Metrics installation. 
+  <td>Your PCF deployment has insufficient Diego resources to handle the apps pushed as part of a PCF Metrics installation.
   <br><br>
   The PCF Metrics tile deploys the following apps:
   <table>
@@ -56,7 +58,7 @@ This topic describes how to resolve common issues experienced while operating or
       <td>2&nbsp;GB</td>
     </tr>
   </table>
-  
+
    <sup>*</sup>Your number of instances of each of these applications depend on your <a href="./sizing.html">sizing</a> needs.
    You configure these instance counts as part of the <a href="./installing.html#data">Data Store</a> pane of the tile.</p></td></td>
 </tr>
@@ -67,7 +69,7 @@ This topic describes how to resolve common issues experienced while operating or
   <br>
   <ol>
   <li>Navigate to the <b>Resource Config</b> section of the PAS tile.</li>
-  <li>In the <b>Diego Cell</b> row, add another <b>Instance</b>.</li> 
+  <li>In the <b>Diego Cell</b> row, add another <b>Instance</b>.</li>
   </ol>
 </tr>
 </table>
@@ -133,7 +135,7 @@ This topic describes how to resolve common issues experienced while operating or
       <br><br>
       <ol>
         <li>If you are on <code>1.6.0</code>, your PostgreSQL instance does not have automatic pruning configured. This was introduced in <code>1.6.1</code></li>
-        <li>Your app emits a lot of logs and is taking up disk space very quickly.</li>       
+        <li>Your app emits a lot of logs and is taking up disk space very quickly.</li>
       </ol>
     </td>
   </tr>
@@ -141,7 +143,7 @@ This topic describes how to resolve common issues experienced while operating or
       <th>Solution</th>
       <td>
         <ol>
-          <li>Upgrade your version to <code>1.6.1</code> and configure your <b>Logs Max Retention Percentage</b> and 
+          <li>Upgrade your version to <code>1.6.1</code> and configure your <b>Logs Max Retention Percentage</b> and
             <b>Logs Disk Size Pruning Interval</b> as described in <a href="./installing.html#-configure-metrics-components">Configure Metrics Components</a></li>
           <li>
             Decrease the Logs Retention Window and increase the PostgreSQL Persistent Disk
@@ -154,7 +156,7 @@ This topic describes how to resolve common issues experienced while operating or
             </ol>
           </li>
         </ol>
-      
+
 
       </td>
   </tr>
@@ -268,7 +270,7 @@ This topic describes how to resolve common issues experienced while operating or
   <td>
   <ol>
     <li>
-    Check the logs of the MySQL Server and MySQL Proxy jobs for errors.  
+    Check the logs of the MySQL Server and MySQL Proxy jobs for errors.
       <ul><li>You can download the logs from the PCF Metrics tile under the <b>Status</b> tab.</li></ul>
     </li>
     <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-6</code> space of your PCF deployment:</li>
@@ -346,7 +348,7 @@ This topic describes how to resolve common issues experienced while operating or
 </tr>
 <tr>
   <th>Solution</th>
-  <td> 
+  <td>
   <ol>
   <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-6</code> space of your PCF deployment:</li>
     <pre class="terminal">$ cf target -o system -s metrics-v1-6</pre>
@@ -375,7 +377,7 @@ This topic describes how to resolve common issues experienced while operating or
 </tr>
 <tr>
   <th>Solution</th>
-  <td> 
+  <td>
   <ol>
   <li>From the cf CLI, target the <code>system</code> org and <code>metrics-v1-6</code> space of your PCF deployment:</li>
     <pre class="terminal">$ cf target -o system -s metrics-v1-6</pre>
@@ -392,11 +394,11 @@ This topic describes how to resolve common issues experienced while operating or
 
 In some cases, the PCF Metrics UI might not display metrics and logs after successfully deploying.
 
-Follow the steps in this section to help locate the app or component causing the problem. 
+Follow the steps in this section to help locate the app or component causing the problem.
 
 ### Step 1: Check your Load Balancer Configuration
 
-If you use a load balancer, the event-stream mechanism used by the Metrics UI might be blocked. See the table below to resolve this error. 
+If you use a load balancer, the event-stream mechanism used by the Metrics UI might be blocked. See the table below to resolve this error.
 
 If you do not use a load balancer, or this issue does not apply to your deployment, proceed to the next step.
 
@@ -415,16 +417,16 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 </td>
   </tr>
 </table>
-  
+
 ### Step 2: Check the PCF Metrics Apps
 
 1. From Ops Manager, click the PAS Tile.
   1. Click the **Credentials** tab.
-  1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**. 
-  1. Record the username and password for use in the next step. 
+  1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**.
+  1. Record the username and password for use in the next step.
 
-1. Log in to the Cloud Foundry Command Line Interface (cf CLI) using the credentials from the previous step. 
-  <pre class="terminal">$ cf login -a http<span>s</span>://api.YOUR-SYSTEM-DOMAIN -u admin -p PASSWORD</pre> 
+1. Log in to the Cloud Foundry Command Line Interface (cf CLI) using the credentials from the previous step.
+  <pre class="terminal">$ cf login -a http<span>s</span>://api.YOUR-SYSTEM-DOMAIN -u admin -p PASSWORD</pre>
 
 1. When prompted, select the `system` org and the `metrics-v1-6` space.
 
@@ -475,7 +477,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
       * A common error is that the app cannot connect to PostgreSQL
         due to the application security group (ASG) being deleted.
         This ASG allows the logs-queue application to create a network connection to the PostgreSQL VM.
-        You can run `cf security-group metrics-api` to see if the ASG exists. 
+        You can run `cf security-group metrics-api` to see if the ASG exists.
         If the ASG is not present, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html)
         to recreate it.
       * **Could not find service with name: metrics-forwarder**: The Metrics Forwarder Tile is not installed.
@@ -486,14 +488,14 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 ### Step 5: Check MySQL
 
-1. From Ops Manager, select the PCF Metrics tile. 
+1. From Ops Manager, select the PCF Metrics tile.
 
-1. Under the **Status** tab, record the IP of a **MySQL Server** node.  
+1. Under the **Status** tab, record the IP of a **MySQL Server** node.
 
 1. Use `bosh ssh` to access the VM from the previous step.
    For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
 
-1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD` 
+1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
   <p class="note"><strong>Note</strong>: If you do not know the username and password,
     you can run `cf env metrics-queue` with the <code>system</code> org and the <code>metrics-v1-6</code> space targeted.</p>
 
@@ -554,7 +556,7 @@ The following two sections describe the known conditions that cause this failure
 
 Follow these steps to see if a `monit` time-out caused the MySQL node restart to fail:
 
-1. Use `bosh ssh` to access the failing node, using the IP address in the Ops Manager Director tile **Status** tab. 
+1. Use `bosh ssh` to access the failing node, using the IP address in the Ops Manager Director tile **Status** tab.
    For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
 1. Run `monit summary` and check the status of the `galera-init` job.
 1. If the status of the `galera-init` job is `Execution Failed`, open the following file: `/var/vcap/sys/log/pxc-mysql/galera-init.log`.
@@ -577,21 +579,21 @@ Run the following commands to return the `galera-init` job to a healthy state:
 #### Diagnose
 
 1. Use `bosh ssh` to access the failing node.
-   For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare). 
+   For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
 1. Open the following log file: `/var/vcap/sys/log/pxc-mysql/mysql.err.log`.
 1. If you see log messages that indicate insufficient disk space, the [persistent disk](https://bosh.io/docs/persistent-disks.html) is likely storing too many bin logs.
    Confirm insufficient disk space by doing the following:
-  1. Run `df -h`. 
+  1. Run `df -h`.
       1. Ensure that you see the `/var/vcap/store` folder is at or over `90%` usage.
   1. Navigate to `/var/vcap/store/pxc-mysql` and run `ls -al`.
       1. Ensure that you see many files named with the format `mysql-bin.########`.
 
 In MySQL for PCF, the server node does not make use of these logs and you can remove all except the most recent bin log.
-Follow the steps below to resolve the issue. 
+Follow the steps below to resolve the issue.
 
 #### Resolve
 
-1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD` 
+1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
   <p class="note"><strong>Note</strong>: If you do not know the username and password, you can run `cf env metrics-queue` with the <code>system</code> org and the <code>metrics-v1-6</code> space targeted.</p>
 1. Run `use metrics;`.
 1. Run the following command:
