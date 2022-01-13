@@ -5,13 +5,15 @@ owner: PCF Metrics
 list_style_none: true
 ---
 
+<strong><%= modified_date %></strong>
+
 This topic describes the product architecture of Pivotal Cloud Foundry (PCF) Metrics.
 
 ## <a id="overview"></a>Overview
 
 The diagram below displays the components of PCF Metrics, as well as the Cloud Foundry components that the PCF Metrics system interacts with.
 
-PCF Metrics deploys several Cloud Foundry apps as part of the install process. These components are the bold rectangles in the diagram. The cylinders represent the data storage components of PCF Metrics. 
+PCF Metrics deploys several Cloud Foundry apps as part of the install process. These components are the bold rectangles in the diagram. The cylinders represent the data storage components of PCF Metrics.
 
 <%= image_tag('architecture.png') %>
 
@@ -21,9 +23,9 @@ See the following sections to understand the processes that happen within the PC
 
 This section describes how PCF Metrics fills its datastores. PCF Metrics uses three datastores:
 
-* The MySQL component stores metric and event data from the apps running on your PCF deployment. 
-	* Examples of events are `start` and `stop`. 
-	* Examples of metrics are _container metrics_ such as CPU and _network metrics_ such as Requests. 
+* The MySQL component stores metric and event data from the apps running on your PCF deployment.
+	* Examples of events are `start` and `stop`.
+	* Examples of metrics are _container metrics_ such as CPU and _network metrics_ such as Requests.
 * The Elasticsearch component stores logs from the apps running on your PCF deployment.
 * The Redis component is used to cache data ingested from the Firehose and data queried by the Metrics API.
 
@@ -33,7 +35,7 @@ The diagram below highlights the components involved in the process of getting m
 
 ![process one](process1.png)
 
-### Process 
+### Process
 
 The following table describes how the components act during each stage.
 
@@ -59,12 +61,12 @@ The following table describes how the components act during each stage.
 		<td>
 		Each of the logqueues acts independently, writing information to the datastores:
 		<br><br>
-		
+
 		<b>Elasticsearch logqueue</b>
 		<br><br>
 		The <code>elasticsearch-logqueue</code> app reads data from Redis and checks whether the Elasticsearch datastore is available. If available, the app writes logs to the Elasticsearch datastore.
 		<br><br>
-		
+
 		<b>MySQL logqueue</b>
 		<br><br>
 		The <code>mysql-logqueue</code> app reads data from Redis and checks whether the MySQL datastore is available. If the datastore is available, the app does the following:<br><br>
@@ -77,7 +79,7 @@ The following table describes how the components act during each stage.
 
 ##<a id="user-flow"></a> How the PCF Metrics UI Retrieves Data from the Datastores
 
-This section describes the flow of data through the system when you interact with the PCF Metrics UI. 
+This section describes the flow of data through the system when you interact with the PCF Metrics UI.
 
 ### Components
 
@@ -93,11 +95,11 @@ The following table describes how the components act during each stage.
 	<tr><th>Stage</th><th>Description</th></tr>
 	<tr><td valign="top">1</td>
 		<td>
-			A user launches <code>metrics.SYSTEM-DOMAIN</code> in a browser and enters their UAA credentials. 
+			A user launches <code>metrics.SYSTEM-DOMAIN</code> in a browser and enters their UAA credentials.
 		</td>
 	</tr>
 	<tr><td valign="top">2</td>
-		<td>		
+		<td>
 			After the UAA authorizes the user, the browser does the following:
 			<br><br>
 			<ol>
