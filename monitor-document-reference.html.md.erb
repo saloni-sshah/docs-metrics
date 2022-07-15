@@ -9,10 +9,9 @@ list_style_none: true
 
 This topic is for developers who want to monitor their apps using App Metrics.
 
-This topic contains detailed information about the schema and API for monitor documents and possibility to do the same from UI.
+This topic contains detailed information about the schema and API for monitor documents.
 
 For uploading a monitor document, see [cURL Your Monitor Document to App Metrics](#curling-monitor-document) below.
-For uploading a monitor from UI, see [Add Your Monitor Document to App Metrics from UI](#adding-monitor-document-from-ui) below.
 
 For more information about the schema and API, see [Monitor Document API Specification](#monitor-document-api-spec) below.
 This also contains an example monitor document, named `MonitorDocumentExample`.
@@ -201,42 +200,3 @@ components:
                duration: 1m
                only_every: 15m
 ```
-
-## <a id='adding-monitor-document-from-ui'></a> Add Your Monitor Document to App Metrics from UI
-
-In short, there is an ability to `ADD`, `EDIT` or `DELETE` monitor for the specific application's chart from UI.
-
-The pictures below show how to do it.
-
-## <a id='add-monitor'></a> Add Monitor to the specific chart
-
-<%= image_tag('images/choose-add-monitor.png', :alt => "Choose Add Monitor") %>
-
-<%= image_tag('images/add-monitor.png', :alt => "Add Monitor to the chart") %>
-
-Description of the pictures:
-
-* For first picture, click on the specific chart for the application and click the `sandwich` button
-  located in the upper right corner of the chart then choose `Add Monitor`.
-* For second picture fill required fields to add a monitor to the chart then
-  click the `ADD` button:
-  Where:
-
-   * `Webhook Url` is the URL of webhook to receive JSON payload when alerts are triggered.
-   * `Operator` is one of the comparison operators [lt, lte, ge, gte, eq ,neq].
-   * `Threshold` is the value parameter for `Operator`.
-   * `Duration` is how long the value has to be past the threshold before firing an alert.
-   * `Only Every` is the minimum duration between alerts. Alerts will fire only every [this duration].
-
-## <a id='edit-monitor'></a> Edit or Delete Monitor for the specific chart
-
-<%= image_tag('images/choose-edit-or-delete-monitor.png', :alt => "Edit Monitor for the specific chart") %>
-
-<%= image_tag('images/edit-or-delete-monitor.png', :alt => "Delete Monitor for the specific chart") %>
-
-Description of the pictures:
-
-* For first picture click the specific chart for the application and click the `sandwich`  button
-  located in the top right corner of chart then choose `Edit Monitor`.
-* For second picture change necessary fields to edit the monitor in the chart then
-  click `EDIT` or to delete monitor from the chart click `DELETE MONITOR` button.
