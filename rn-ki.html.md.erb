@@ -9,32 +9,6 @@ list_style_none: true
 
 This topic contains release notes for App Metrics v2.1.
 
-## <a id='2-1-4'></a> v2.1.4
-
-**Release Date: July 18, 2022**
-
-App Metrics v2.1.4 requires TAS for VMs v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later, v2.10, v2.11, v2.12 or v2.13.
-
-## New Features
-
-App Metrics v2.1.4 includes the following new features:
-
-* Added field in the Ops Manager to control Log Store replication factor
-* Added ability to create, update and delete custom charts from UI. Users have the ability to create single or multiple custom charts.
-* Added spinner due refreshing in the Dashboard page
-* Added ability to add, edit and delete monitor to the charts from UI
-* Added a new optional Event Alerting functionality in the App Metrics. It lets send alerts in the case of an event (CRASH, SSH, UPDATE, STOP, START) or find custom pattern in the app logs. For more information, see the [Event and Logs Alerting](./event-alerting-reference.html#curling-log-monitor-document) documentation.
-* Changed `plus` button position to improve user experience
-
-### Resolved Issues
-
-App Metrics v2.1.4 includes the following fixes:
-
-* Fixed SSL/TLS v1.0 by using TLS 1.2 version as a default, and used 'HIGH:+3DES:!aNULL' as a default Postgres SSL Cipher to address the CVE.Also added a new TLS_VERSION environment variable by which can change TLS version
-* Upgraded version of the jooq library to 3.16.6 to address the CVE. For more information, see CVE-2022-23221 on the CVE website.
-* Upgraded version of the PostgreSQL JDBC Driver to 42.3.6 to address the CVE. For more information, see CVE-2022-21724 on the CVE website.
-* Upgraded versions of BPM to v1.1.16 and Routing to 0.235.0 to avoid CVEs
-
 ## <a id='2-1-3'></a> v2.1.3
 
 **Release Date: February 10, 2022**
