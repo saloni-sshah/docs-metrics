@@ -12,6 +12,7 @@ This topic contains detailed information about the schema and API for indicator 
 This topic is for developers who want to customize their dashboards for monitoring their apps using App Metrics.
 
 For uploading an indicator document, see [cURLing Your Indicator Document to App Metrics](#curling-indicator-document) below.
+For uploading an indicator and creating a custom chart from UI, see [Add Your Indicator to App Metrics and Create Custom Metric Chart from the UI](#adding-indicator-from-ui) below.
 
 For more information on the schema and API, see [Indicator Document API Specification](#indicator-document-api-spec) below.
 This also contains an example indicator document, named `IndicatorDocumentExample`.
@@ -210,3 +211,45 @@ components:
               presentation:
                 units: "counts"
 </pre>
+
+## <a id='adding-indicator-from-ui'></a> Add Your Indicator to App Metrics and Create Custom Metric Chart from UI
+
+In short, there is an ability to `UPLOAD`, `EDIT` and `REMOVE` custom chart for the specific application from UI.
+
+The pictures below shows how to do it.
+
+## <a id='add-custom-chart'></a> Create Single or Multiple Custom Metric Chart
+
+<%= image_tag('images/create-custom-chart.png', :alt => "Create Custom Chart") %>
+
+<%= image_tag('images/multiple-custom-chart.png', :alt => "Create Multiple Custom Charts") %>
+
+How to create a Single or Multiple Custom Metric Charts:
+
+* Click the `plus` icon located in the top right corner of window
+* Fill all required fields to create single or multiple custom chart, then click one of the following buttons:
+
+  Where:
+
+  * `SAVE` uploads and save the newly created custom chart into `Dashboard`
+  * `VIEW ON DASHBOARD` temporarily adds the newly created custom chart into `Dashboard`, which then can be uploaded by clicking
+     `Upload` icon located in the top right corner of chart, otherwise it will disappear after refresh of the window
+
+## <a id='edit-custom-chart'></a> Edit Custom Chart for the specific application
+
+<%= image_tag('images/edit-custom-chart.png', :alt => "Edit Custom Chart") %>
+
+Understanding the picture:
+
+* Click the `edit` icon of the chart located in the top right corner of chart
+* Edit all necessary fields and then click the `EXECUTE QUERY` button to review the changes, then to save the changes and return to `Dashboard`click the `SAVE`.
+  To discard the changes and return to `Dashboard` close the window
+
+## <a id='remove-custom-chart'></a> Remove Custom Chart for the specific application
+
+<%= image_tag('images/remove-custom-chart.png', :alt => "Remove Custom Chart") %>
+
+Understanding the picture:
+
+* Click the `sandwich` icon of the chart located in the top right corner of chart,
+  then select `Remove` and confirm by clicking the `OK` button
