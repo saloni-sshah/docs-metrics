@@ -2,6 +2,7 @@
 * [Release Notes and Known Issues](/docs-metrics/rn-ki.html)
 * [Installing App Metrics](/docs-metrics/installing.html)
 * [Sizing App Metrics for Your System](/docs-metrics/sizing.html)
+* [Event Alerting Template Reference](/docs-metrics/event-alerting-reference.html)
 * [Monitoring and Troubleshooting Apps with App Metrics](/docs-metrics/using.html)
 * [Monitoring App Metrics](/docs-metrics/monitoring-pcf-metrics.html)
 * [Troubleshooting App Metrics](/docs-metrics/troubleshooting.html)
