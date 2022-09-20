@@ -9,6 +9,21 @@ list_style_none: true
 
 This topic contains release notes for App Metrics v2.1.
 
+## <a id='2-1-5'></a> v2.1.5
+
+**Release Date: Sept 19, 2022**
+
+App Metrics v2.1.5 requires TAS for VMs v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later, v2.10, v2.11, v2.12 or v2.13.
+
+### Resolved Issues
+
+App Metrics v2.1.5 includes the following fixes:
+
+* Upgraded jetty-server package and spark framework versions to address the CVEs. For more information, see [CVE-2022-2191](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-2191) and [CVE-2022-2047](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-2047) on the CVE website.
+* Upgraded version of the loggregator-agent-release to 6.4.3 to avoid CVEs.
+* Added URI encoding function to encode each string from the `Highlight` and `Keyword` fields. For example, to find the `%` symbol needs to type just `%` instead of `%25`.
+* Added a new `Monitor name` field in the `Add Monitor` window of the App Metrics UI for the specific chart.
+
 ## <a id='2-1-4'></a> v2.1.4
 
 **Release Date: July 19, 2022**
@@ -31,8 +46,8 @@ App Metrics v2.1.4 includes the following new features:
 App Metrics v2.1.4 includes the following fixes:
 
 * Fixed SSL/TLS v1.0 by using TLS 1.2 version as a default, and used 'HIGH:+3DES:!aNULL' as a default Postgres SSL Cipher to address the CVE.Also added a new TLS_VERSION environment variable by which can change TLS version
-* Upgraded version of the jooq library to 3.16.6 to address the CVE. For more information, see CVE-2022-23221 on the CVE website.
-* Upgraded version of the PostgreSQL JDBC Driver to 42.3.6 to address the CVE. For more information, see CVE-2022-21724 on the CVE website.
+* Upgraded version of the jooq library to 3.16.6 to address the CVE. For more information, see [CVE-2022-23221](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23221) on the CVE website.
+* Upgraded version of the PostgreSQL JDBC Driver to 42.3.6 to address the CVE. For more information, see [CVE-2022-21724](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-21724) on the CVE website.
 * Upgraded versions of BPM to v1.1.16 and Routing to 0.235.0 to avoid CVEs
 
 ## <a id='2-1-3'></a> v2.1.3
