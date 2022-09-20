@@ -9,182 +9,135 @@ list_style_none: true
 
 This topic contains release notes for App Metrics v2.1.
 
-## <a id='2-1-5'></a> v2.1.5
 
-**Release Date: Sept 19, 2022**
+## <a id='releases'></a> Releases
 
-App Metrics v2.1.5 requires TAS for VMs v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later, v2.10, v2.11, v2.12 or v2.13.
+### <a id='2-1-5'></a> v2.1.5
 
-### Resolved Issues
+**Release Date: September 19, 2022**
 
-App Metrics v2.1.5 includes the following fixes:
+App Metrics v2.1.5 requires VMware Tanzu Application Service for VMs (TAS for VMs) v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later,
+v2.10, v2.11, v2.12 or v2.13.
 
-* Upgraded jetty-server package and spark framework versions to address the CVEs. For more information, see [CVE-2022-2191](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-2191) and [CVE-2022-2047](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-2047) on the CVE website.
-* Upgraded version of the loggregator-agent-release to 6.4.3 to avoid CVEs.
-* Added URI encoding function to encode each string from the `Highlight` and `Keyword` fields. For example, to find the `%` symbol needs to type just `%` instead of `%25`.
-* Added a new `Monitor name` field in the `Add Monitor` window of the App Metrics UI for the specific chart.
+* **[Security Fix]** The `jetty-server` package and Spark Framework versions are upgraded to address critical CVEs. For more information, see
+[CVE-2022-2191](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-2191) and
+[CVE-2022-2047](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-2047) on the CVE website.
+* **[Security Fix]** `loggregator-agent-release` is upgraded to v6.4.3 to address critical CVEs.
+* **[Feature Improvement]** App Metrics uses URI encoding to encode each string from the **Highlight** and **Keyword** fields. For example, to find the `%`
+symbol, you only need to type `%` instead of `%25`.
+* **[Feature Improvement]** In the App Metrics tile, the **Monitor name** field is included in the **Add Monitor** pane.
 
-## <a id='2-1-4'></a> v2.1.4
+### <a id='2-1-4'></a> v2.1.4
 
 **Release Date: July 19, 2022**
 
 App Metrics v2.1.4 requires TAS for VMs v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later, v2.10, v2.11, v2.12 or v2.13.
 
-## New Features
+* **[Security Fix]** App Metrics uses `HIGH:+3DES:!aNULL` as its default Postgres SSL Cipher to address a critical CVE.
+* **[Security Fix]** The jOOQ library is upgraded to v3.16.6 to address a critical CVE. For more information, see
+[CVE-2022-23221](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23221) on the CVE website.
+* **[Security Fix]** The PostgreSQL JDBC Driver is upgraded to v42.3.6 to address a critical CVE. For more information, see
+[CVE-2022-21724](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-21724) on the CVE website.
+* **[Security Fix]** BPM is upgraded to v1.1.16 and Routing is upgraded to v0.235.0 to address critical CVEs.
+* **[Feature]** You can create, update, and delete custom charts.
+* **[Feature]** You can add, edit, and delete monitors for charts.
+* **[Feature]** You can configure App Metrics to send alerts for events or patterns in app logs. For more information, see [cURL Your Log Monitor Document to
+App Metrics](event-alerting-reference.html#curling-log-monitor-document) in _Event Alerting Template Reference_.
+* **[Feature Improvement]** Ops Manager includes a configuration field to control the Log Store replication factor.
+* **[Feature Improvement]** App Metrics uses TLS v1.2 version by default. You can change your TLS version using the `TLS_VERSION` environment variable.
 
-App Metrics v2.1.4 includes the following new features:
-
-* Added field in the Ops Manager to control Log Store replication factor
-* Added ability to create, update and delete custom charts from UI. Users have the ability to create single or multiple custom charts.
-* Added spinner due refreshing in the Dashboard page
-* Added ability to add, edit and delete monitor to the charts from UI
-* Added a new optional Event Alerting functionality in the App Metrics. It lets send alerts in the case of an event (CRASH, SSH, UPDATE, STOP, START) or find custom pattern in the app logs. For more information, see the [Event and Logs Alerting](./event-alerting-reference.html#curling-log-monitor-document) documentation.
-* Changed `plus` button position to improve user experience
-
-### Resolved Issues
-
-App Metrics v2.1.4 includes the following fixes:
-
-* Fixed SSL/TLS v1.0 by using TLS 1.2 version as a default, and used 'HIGH:+3DES:!aNULL' as a default Postgres SSL Cipher to address the CVE.Also added a new TLS_VERSION environment variable by which can change TLS version
-* Upgraded version of the jooq library to 3.16.6 to address the CVE. For more information, see [CVE-2022-23221](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23221) on the CVE website.
-* Upgraded version of the PostgreSQL JDBC Driver to 42.3.6 to address the CVE. For more information, see [CVE-2022-21724](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-21724) on the CVE website.
-* Upgraded versions of BPM to v1.1.16 and Routing to 0.235.0 to avoid CVEs
-
-## <a id='2-1-3'></a> v2.1.3
+### <a id='2-1-3'></a> v2.1.3
 
 **Release Date: February 10, 2022**
 
 App Metrics v2.1.3 requires TAS for VMs v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later, v2.10, v2.11, or v2.12.
 
-### Resolved Issues
+* **[Security Fix]** Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE. For more information, see
+[CVE-2021-44832](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44832) on the CVE website.
 
-App Metrics v2.1.3 includes the following fixes:
-
-* Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE.
-For more information, see [CVE-2021-44832](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44832)
-on the CVE website.
-
-## <a id='2-1-2'></a> v2.1.2
+### <a id='2-1-2'></a> v2.1.2
 
 **Release Date: December 16, 2021**
 
 App Metrics v2.1.2 requires TAS for VMs v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later, v2.10, v2.11, or v2.12.
 
-### Resolved Issues
+* **[Security Fix]** Apache Log4J dependencies are updated to v2.16.0 to address a critical CVE. For more information, see
+[CVE 2021-44228](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228) on the CVE website.
 
-App Metrics v2.1.2 includes the following fixes:
-
-* Apache Log4J dependencies are updated to v2.16.0 to address a critical CVE.
-For more information, see [CVE 2021-44228](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228)
-on the CVE website.
-
-## <a id='2-1-1'></a> v2.1.1
+### <a id='2-1-1'></a> v2.1.1
 
 **Release Date: December 11, 2021**
 
 App Metrics v2.1.1 requires TAS for VMs v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later, v2.10, v2.11, or v2.12.
 
-### Resolved Issues
+* **[Security Fix]** Apache Log4J dependencies are updated to v2.15.0 to address a critical CVE. For more information, see
+[CVE 2021-44228](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228) on the CVE website.
 
-App Metrics v2.1.1 includes the following fixes:
-
-* Apache Log4J dependencies are updated to v2.15.0 to address a critical CVE.
-For more information, see [CVE 2021-44228](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228)
-on the CVE website.
-
-
-## <a id='2-1-0'></a> v2.1.0
+### <a id='2-1-0'></a> v2.1.0
 
 **Release Date: November 18, 2021**
 
 App Metrics v2.1.0 requires TAS for VMs v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later, v2.10, v2.11, or v2.12.
 
-## New Features
-
-App Metrics v2.1.0 includes the following new features:
-
-* Added triggered monitors view
-* Added TAS for VMs v2.12 support
-* Added filter logs by Task
-* Added ability to change units of PromQL Explorer
-* Changed PromQL Explorer window
-* Added GET endpoint for indicator documents
-* Added DELETE endpoint for monitor documents
-
-### Resolved Issues
-
-App Metrics v2.1.0 includes the following fixes:
-
-* Changed default query of CPU chart
-* Added spinner when downloading logs
-* Improve UI error handling for Services
-* Improve error handling on adding new monitors
-* Added spinner when loading logs
-* Fixed chart when point goes above 100%
-* Fixed chart scrolling issue
-* Fixed bug to be able to use dot in the log "highlight" field
-
-### Maintenance Updates
-
-App Metrics v2.1.0 includes the following updates:
-
-* Log Store v4.0.152 fixes the issue in the querying part which could have a negative affect on load balancing
-* Removed `bosh-dns`
+* **[Breaking Change]** BOSH DNS is removed.
+* **[Feature]** The App Metrics UI includes a triggered monitors view.
+* **[Feature]** App Metrics supports TAS for VMs v2.12.
+* **[Feature]** You can filter logs by task.
+* **[Feature]** App Metrics includes a `GET` endpoint that you can use to retrieve indicator documents.
+* **[Feature]** App Metrics includes a `DELETE` endpoint that you can use to delete monitor documents.
+* **[Feature Improvement]** You can change the units of PromQL Explorer.
+* **[Feature Improvement]** App Metrics changes the PromQL Explorer window.
+* **[Feature Improvement]** App Metrics changes the default query of the CPU chart.
+* **[Feature Improvement]** UI error handling for Services is improved.
+* **[Feature Improvement]** Error handling on adding new monitors is improved.
+* **[Bug Fix]** Fixes chart when point goes above 100%.
+* **[Bug Fix]** Fixes chart scrolling issue.
+* **[Bug Fix]** You can use the dot in the **Highlight** field.
+* **[Bug Fix]** Log Store is upgraded to v4.0.152. This fixes a bug in the querying part that negatively affects load balancing.
 
 
-## <a id="new-features"></a> New Features in App Metrics v2.1
+## <a id='new-features'></a> New Features in App Metrics v2.1
 
 App Metrics v2.1 includes the following new features:
 
-* Added triggered monitors view
-* Added TAS for VMs v2.12 support
-* Added filter logs by Task
-* Added ability to change units of PromQL Explorer
-* Changed PromQL Explorer window
-* Added GET endpoint for indicator documents
-* Added DELETE endpoint for monitor documents
+* The App Metrics UI includes a triggered monitors view.
+* App Metrics supports TAS for VMs v2.12.
+* You can filter logs by task.
+* You can change units of PromQL Explorer.
+* App Metrics changes the PromQL Explorer window.
+* App Metrics includes a `GET` endpoint that you can use to retrieve indicator documents.
+* App Metrics includes a `DELETE` endpoint that you can use to delete monitor documents.
 
 
-## <a id="deprecated-features"></a> Deprecated Features in App Metrics v2.1
+## <a id='deprecated-features'></a> Removed Features in App Metrics v2.1
 
 App Metrics v2.1 removes the following features:
 
+* BOSH DNS
 * Trace Explorer
-* App Event Monitoring and Alerting Removed
-* CF Staging Failed Event Removed
+* App Event Monitoring and Alerting
+* CF Staging Failed Event
 
 
-## <a name="tas-compatibility"></a> Compatibility with VMware Tanzu Application Service
+## <a id='things-to-note'></a> Additional Notes
 
-App Metrics v2.1 requires the following versions of VMware Tanzu Application Service:
+### <a id='things-to-note'></a> Network Metrics
 
-* **v2.6:** v2.6.21 or later
-* **v2.7:** v2.7.17 or later
-* **v2.8:** v2.8.11 or later
-* **v2.9:** v2.9.5 or later
-* **v2.10:** v2.10.0 or later
-* **v2.11:** v2.11.0 or later
-* **v2.12:** v2.12.1 or later
+If the app you are monitoring is not configured to accept HTTP traffic, no data is displayed on the **HTTP Request Count**, **HTTP Request Latency**, or
+**HTTP Request Errors** charts.
 
-## <a name="ops-manager-compatibility"></a> Compatibility with Operations Manager
+### <a id='things-to-note'></a> PromQL source_id Tag
 
-App Metrics v2.1 requires Operations Manager v2.6 or later.
+PromQL should always have the `source_id` tag for non-admin users. The `source_id` tag is used to verify access to the requested app. Without it, non-admin
+users cannot receive data from the metric store.
 
-## <a name="things-to-note"></a> Additional Items to Note
+App Metrics supports using a `$sourceId` parameter in PromQL, which automatically refers to the source ID of the current app. For example,
+`cpu{source_id="$sourceId"}`.
 
-### Network Metrics
+### <a id='things-to-note'></a> Custom Metric Process Labels
 
-Please note that if the app you are monitoring is not configured to accept HTTP traffic, no data will be displayed on the HTTP Request Count, HTTP Request Latency, or HTTP Request Errors charts.
+App Metrics v2.1 introduces a new app hierarchy to support multiple process types from CAPI v3. Processes that contain apporpriately tagged envelopes are
+available for metric filtering and labeled accordingly within the charts.
 
-### Promql source_id tag
-
-PromQL should always have the `source_id` tag for non-admin users.
-The `source_id` tag is used to verify access to the requested application and without it non-admin users will not recieve data back from the metric store.
-App Metrics supports using a $sourceId parameter in PromQL which automatically refers to the sourceId of the current app.
-Example: cpu{source_id="$sourceId"}
-
-### Custom Metric Process Labels
-
-App Metrics v2.1 introduces a new app hierarchy to support multiple process types from CAPI v3. Processes that contain apporpriately tagged envelopes will be available for metric filtering, and will be labled accordingly within the charts.
-
-There are some metrics, including custom and network metrics, that may not have proper process tagging available. In these cases, `sourceId={'YOUR_APP_ID'}` may be used.
+Some metrics, including custom and network metrics, may not have proper process tagging available. In these cases, `sourceId={'APP-ID'}` may be used, where
+`APP-ID` is the source ID of your app.
