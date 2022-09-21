@@ -6,59 +6,134 @@ owner: App Metrics
 
 <strong><%= modified_date %></strong>
 
-App Metrics can display up to six weeks worth of logs, metrics data, and event data from apps running on the
-VMware Tanzu Application Service. It graphically presents this data to help operators and developers better understand
-the health and performance of their apps.
+App Metrics can display up to six weeks' worth of logs, metrics data, and event data from apps running on VMware Tanzu Application Service for VMs (TAS for
+VMs). App Metrics graphically presents this data to help operators and developers better understand the health and performance of their apps.
 
-##<a id='new'></a> What's New in App Metrics v2.1
 
-| For more information about... | See...                                                                                     |
-|------|--------------------------------------------------------------------------------------------|
-| Spring Boot Micrometer and tagged metrics support | [Custom Metrics](./using.html#custom-metrics)                                              |
-| CAPI v3 multi-process and rolling deployment support | [Observability by Process Type](./using.html#app-instance)                                 |
-| Declarative custom observability codification | [Adding Custom Metrics Charts](./using.html#custom-metrics)                                |
-| Persistent, sharable dashboard customizations | [Adding Custom Metrics Charts](./using.html#custom-metrics)                                |
-| Improved time selection experience | [Time Selection](./using.html#time)                                                        |
-| Improved data ingestion performance for live metrics and logs observation | [Live Metrics and Logs](./using.html#auto-refresh)                                         |
-| Metrics: Fault-tolerant, scalable metrics with increased data retention | [Metric Store](https://docs.pivotal.io/metric-store/index.html#-about-metric-store-for-pcf) |
-| Metrics: Easy querying | [Metric Store API](https://docs.pivotal.io/metric-store/using.html)                        |
-| Logs: Fault-tolerant, scalable logs with increased data retention | [Log Store](./index.html#log-store)                                                        |
-| Logs: Easy querying | [Log Store API](./using.html#log-store-api)                                                |
-| Event Alerting | [Event and Logs Alerting](./event-alerting-reference.html#curling-log-monitor-document)    |
-| Add Monitor into chart from UI | [Add Monitor from UI](./monitor-document-reference.html#adding-monitor-document-from-ui)                                 |
-| Add Custom Chart from UI | [Add Custom Chart from UI](./indicator-document-reference.html#adding-indicator-from-ui)   |
+## <a id='new'></a> What's New in App Metrics v2.1
 
-##<a id='log-store'></a> About the Log Store
+<table border="1" class="nice">
+  <thead>
+    <tr>
+      <th>For more information about...</th>
+      <th>See...</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Spring Boot Micrometer and tagged metrics support</td>
+      <td><a href="using.html#custom-metrics">Custom Metrics</a> in <em>Monitoring and Troubleshooting Apps with App Metrics</em></td>
+    </tr>
+    <tr>
+      <td>CAPI v3 multi-process and rolling deployment support</td>
+      <td><a href="using.html#app-instance">Observability by Process Type</a> in <em>Monitoring and Troubleshooting Apps with App Metrics</em></td>
+    </tr>
+    <tr>
+      <td>Declarative custom observability codification</td>
+      <td><a href="using.html#custom-metrics">Adding Custom Metrics Charts</a> in <em>Monitoring and Troubleshooting Apps with App Metrics</em></td>
+    </tr>
+    <tr>
+      <td>Persistent, sharable dashboard customizations</td>
+      <td><a href="using.html#custom-metrics">Adding Custom Metrics Charts</a> in <em>Monitoring and Troubleshooting Apps with App Metrics</em></td>
+    </tr>
+    <tr>
+      <td>Improved time selection experience</td>
+      <td><a href="using.html#time">Time Selection</a> in <em>Monitoring and Troubleshooting Apps with App Metrics</em></td>
+    </tr>
+    <tr>
+      <td>Improved data ingestion performance for live metrics and logs observation</td>
+      <td><a href="using.html#auto-refresh">Live Metrics and Logs</a> in <em>Monitoring and Troubleshooting Apps with App Metrics</em></td>
+    </tr>
+    <tr>
+      <td>Fault-tolerant, scalable metrics with increased data retention</td>
+      <td>The <a href="https://docs.pivotal.io/metric-store/index.html#-about-metric-store-for-pcf">Metric Store documentation</a></td>
+    </tr>
+    <tr>
+      <td>Easy metric querying</td>
+      <td>The <a href="https://docs.pivotal.io/metric-store/using.html">Metric Store documentation</a></td>
+    </tr>
+    <tr>
+      <td>Fault-tolerant, scalable logs with increased data retention</td>
+      <td><a href="index.html#log-store">Log Store</a> below</td>
+    </tr>
+    <tr>
+      <td>Easy log querying</td>
+      <td><a href="using.html#log-store-api">Log Store API</a> in <em>Monitoring and Troubleshooting Apps with App Metrics</em></td>
+    </tr>
+    <tr>
+      <td>Event alerting</td>
+      <td><a href="event-alerting-reference.html#curling-log-monitor-document">Event and Logs Alerting</a> in <em>Event Alerting Template Reference</em></td>
+    </tr>
+    <tr>
+      <td>Adding a monitor into a chart from UI</td>
+      <td><a href="monitor-document-reference.html#adding-monitor-document-from-ui">Add Monitor from UI</a> in <em>Monitor Document Template
+        Reference</em></td>
+    </tr>
+    <tr>
+      <td>Adding a custom chart from UI</td>
+      <td><a href="indicator-document-reference.html#adding-indicator-from-ui">Add Custom Chart from UI</a> in <em>Indicator Document Template
+        Reference</em></td>
+    </tr>
+  </tbody>
+</table>
 
-App Metrics packages Log Store to provide a persistent storage layer for logs sent through the Loggregator subsystem.
-It is multi-tenant aware, is easy to query, and has a powerful storage engine.
 
-- **Multi-tenant aware** Using the auth proxy to ensure Application Developers have access only to their own logs.
-- **Ubiquitous Query Language** Log Store uses PromQL-style label selector query for filtering logs.
-- **Powerful Storage Engine** The [InfluxDB storage engine](https://docs.influxdata.com/influxdb) has built-in compression and a memory-efficient series index.
+## <a id='log-store'></a> About the Log Store
+
+In App Metrics v2.1, Log Store provides a persistent storage layer for logs sent through Loggregator.
+
+Log Store has the following features:
+
+* **Multi-tenant aware:** Log Store uses the auth proxy to ensure that app developers can only access their own logs.
+
+* **Ubiquitous query language:** Log Store uses a PromQL-style label selector query for filtering logs.
+
+* **Powerful storage engine:** Log store uses the InfluxDB storage engine, which has built-in compression and a memory-efficient series index. For more
+information about the InfluxDB storage engine, see the [InfluxDB documentation](https://docs.influxdata.com/influxdb).
 
 Log Store offers multi-node deployments, data replication, and load balancing in a highly-available configuration.
 
-## <a id="deprecated-features"></a>Deprecated Features in App Metrics v2.1
 
-App Metrics v2.1 removed the following features:
-
-<ul>
-  <li>Trace Explorer</li>
-  <li>App Event Monitoring and Alerting Removed </li>
-  <li>CF Staging Failed Event Removed</li>
-</ul>
-
-##<a id='snapshot'></a> Product Snapshot
+## <a id='snapshot'></a> Product Snapshot
 
 The following table provides version and version-support information about App Metrics.
 
-| Element | Details                                                                                                                |
-|------|------------------------------------------------------------------------------------------------------------------------|
-| Tile version | v2.1.5                                                                                                                 |
-| Release date | Sept 19, 2022                                                                                                          |
-| Compatible Ops Manager versions | v2.6 and later                                                                                                         |
-| Compatible Tanzu Application Service versions | v2.6.21+ (unsupported), v2.7.17+, v2.8.11+ (unsupported), v2.9.5+ (unsupported), v2.10.x, v2.11.x, v2.12.x and v2.13.x |
-| IaaS support | AWS, Azure, GCP, OpenStack, and vSphere                                                                                |
-| IPsec support | Yes                                                                                                                    |
-| Browser support | Latest major versions of Google Chrome and Firefox                                                                     |
+<table border="1" class="nice">
+  <thead>
+    <tr>
+      <th>Element</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tile version</td>
+      <td>v2.1.5</td>
+    </tr>
+    <tr>
+      <td>Release date</td>
+      <td>September 19, 2022</td>
+    </tr>
+    <tr>
+      <td>Compatible Ops Manager versions</td>
+      <td>v2.6 and later</td>
+    </tr>
+    <tr>
+      <td>Compatible TAS for VMs versions</td>
+      <td>v2.6.21 and later (unsupported), v2.7.17 and later, v2.8.11 and later (unsupported), v2.9.5 and later (unsupported), v2.10, v2.11, v2.12, and
+        v2.13</td>
+    </tr>
+    <tr>
+      <td>IaaS support</td>
+      <td>AWS, Azure, GCP, OpenStack, and vSphere</td>
+    </tr>
+    <tr>
+      <td>IPsec support</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Browser support</td>
+      <td>Latest major versions of Google Chrome and Firefox</td>
+    </tr>
+  </tbody>
+</table>
