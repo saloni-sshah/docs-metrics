@@ -51,12 +51,9 @@ Windows:
 
 ## <a id='log-monitor-document-api-spec'></a> Log Monitor Document API Specification
 
-In short, there is a `/monitors-documents` path that supports `POST` and an `/monitor-documents/{org,space,app}` that
-supports `GET` a monitor document for a specific `org,space,app`. There is currently no `DELETE` supported for a single
-log monitors document.
+The `/monitors-documents` path supports `POST` and the `/monitor-documents/{org,space,app}` supports `GET` monitor document for a specific `org,space,app`. `DELETE` is not supported for a single log monitor document.
 
-For more details about the log monitor document API, consult the following Open API specification. To use demos and
-examples, you can test it out in the [Swagger Editor](https://editor.swagger.io/).
+For more details about the log monitor document API, consult the following Open API specification. To use demos and examples, see [Swagger Editor](https://editor.swagger.io/).
 
 ```
 openapi: 3.0.2
@@ -214,7 +211,7 @@ components:
               duration: 1m
 ```
 
-In case of the fired alerts, the result will be posted in the appropriate slack channel as mentioned in the YAML file like the following:
+In case of the fired alerts, the result will be posted in the appropriate slack channel as mentioned in the YAML file. It will appear similar to the following example output:
 
 ```
 [OUT] Event match for CRASH matched with log pattern

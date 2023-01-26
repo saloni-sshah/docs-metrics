@@ -21,12 +21,12 @@ Understanding the diagram:
 * The cylinders represent the data storage components of App Metrics v2.1.
 * The <span style="background:#9AC0CD">blue</span> components are packaged with App Metrics v2.1.
 
+
 ## <a id="data-flow"></a>Data Flow
 
-[//]: # (Add introduction to the headings below.)
+The following sections describe the components and how they contribute to the data flow.
 
-
-##<a id="metrics"></a> Metrics
+### <a id="metrics"></a> Metrics
 Metrics are ingested and stored by the Metric Store tile.
 
 App Metrics uses the Metric Store tile for two purposes:
@@ -37,7 +37,7 @@ App Metrics uses the Metric Store tile for two purposes:
 For more information about the Metric Store tile,
 see the [Metric Store documentation](https://docs.pivotal.io/metric-store).
 
-## <a id="custom-metrics"></a> Custom Metrics
+### <a id="custom-metrics"></a> Custom Metrics
 
 Metrics Registrar can be used to collect custom application metrics.
 Metrics Registrar is bundled alongside TAS for VMs which is already a dependency of App Metrics v2.1.
@@ -51,7 +51,7 @@ For more information, see:
 * [Metric Registrar and Custom App Metrics](https://docs.pivotal.io/platform/application-service/metric-registrar/index.html)
 * [Using Metric Registrar](https://docs.pivotal.io/platform/application-service/metric-registrar/using.html)
 
-## <a id="logs"></a> Logs
+### <a id="logs"></a> Logs
 
 The Log Store is a time series database for storing and querying application logs.
 
@@ -62,7 +62,7 @@ configured maximum disk utilization.
 
 App Metrics queries the Log Store for logs, log searches, and search density histograms.
 
-## <a id="pg-datastore"></a> PostgreSQL Datastore
+### <a id="pg-datastore"></a> PostgreSQL Datastore
 
 The PostgreSQL database stores the indicator documents, monitors documents,
 and the triggered alerts for the monitors.
@@ -75,7 +75,7 @@ When a monitor threshold is surpassed, the Metric Store tile sends a request to 
 receives this request, App Metrics stores a record of the alert in the PostgreSQL datastore. These stored alerts
 then display on the charts in the App Metrics dashboard.
 
-## <a id="security"></a> Security
+### <a id="security"></a> Security
 
 **In Transit**: All communication with the PostgreSQL datastore is over TLS, following the guidelines in
 the [PostgreSQL documentation](https://www.postgresql.org/docs/11/ssl-tcp.html).

@@ -69,18 +69,11 @@ The following sections explain how to use each of the charts on the dashboard to
 they show No Data or zeros for the default Latency, Traffic, and Errors metrics.
 </p>
 
-#### <a id='latency'></a> Latency
+* <a id='latency'></a> **Latency**: Average latency of a request in milliseconds. A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
 
-* Average latency of a request in milliseconds:<br><br>A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
+* <a id='traffic'></a> **Traffic**: Number of network requests per minute. A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.
 
-#### <a id='traffic'></a> Traffic
-
-* Number of network requests per minute:<br><br>A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.
-
-#### <a id='errors'></a> Errors
-
-* Number of network request errors per minute:<br><br>A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.
-
+* <a id='errors'></a> **Errors**: Number of network request errors per minute. A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.
 
 ### <a id='saturation'></a> Saturation (Container Metrics)
 
@@ -126,9 +119,9 @@ you want to use to monitor it.
 
 There are three steps to creating an indicator document:
 
-1. Find the metric you want to monitor
-2. Write the PromQL query
-3. Add the PromQL to your indicator document
+1. Find the metric you want to monitor.
+2. Write the PromQL query.
+3. Add the PromQL to your indicator document.
 
 #### Find the Metric Name
 

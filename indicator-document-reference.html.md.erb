@@ -20,8 +20,7 @@ This also contains an example indicator document, named `IndicatorDocumentExampl
 For more information about the full schema of indicator documents,
 see [Indicator Protocol Document Reference](https://github.com/pivotal/monitoring-indicator-protocol/wiki/Indicator-Document-Reference).
 
-<p class="note"><strong>Note</strong>: At this time, only the below subset of the <code>name</code>, <code>promql</code>,
-   <code>documentation</code>, and <code>presentation</code> fields are supported for app indicators.
+<p class="note"><strong>Note</strong>: Only this subset of fields is supported for app indicators: <code>name</code>, <code>promql</code>, <code>documentation</code>, and <code>presentation</code>.
 </p>
 
 ## <a id='curling-indicator-document'></a> cURLing Your Indicator Document to App Metrics
@@ -47,14 +46,11 @@ After you have your indicator document created, you can also automate the deploy
 
 ## <a id='indicator-document-api-spec'></a> Indicator Document API Specification
 
-The `/indicator-documents` path supports `POST` and the `/indicator-documents/{org,space,app}` path
-supports deleting an indicator document for a specific `org,space,app`.
+The `/indicator-documents` path supports `POST` and the `/indicator-documents/{org,space,app}` path supports deleting an indicator document for a specific `org,space,app`.
 
-Deleting or uploading an indicator document clears all associated monitors and recorded alerts associated with
-that app.
+Deleting or uploading an indicator document clears all associated monitors and recorded alerts associated with that app.
 
-For more details about the indicator document API, consult the following Open API specification. You can use demos and
-examples in the [Swagger Editor](https://editor.swagger.io/).
+For more details about the indicator document API, consult the following Open API specification. You can use demos and examples in the [Swagger Editor](https://editor.swagger.io/).
 
 ```
 openapi: 3.0.2
@@ -222,8 +218,8 @@ To upload, edit or remove a custom chart for the specific application from UI:
 1. Click the plus icon located in the top right corner of the window.
 2. Fill in all required fields to create a single or multiple custom chart, then click one of the following buttons:
 
-  * Click **SAVE** to upload and save the newly created custom chart into the Dashboard.
-  * Click **VIEW ON DASHBOARD** to temporarily add the newly created custom chart into Dashboard so that you can review it. Then click the
+     * Click **SAVE** to upload and save the newly created custom chart into the Dashboard.
+     * Click **VIEW ON DASHBOARD** to temporarily add the newly created custom chart into Dashboard so that you can review it. Then click the
      Upload icon located in the top right corner of chart. If you forget to click the Upload icon, the chart will disappear when the window is refreshed.
 
 <%= image_tag('images/create-custom-chart.png', :alt => "Create Custom Chart") %>
@@ -236,8 +232,9 @@ To edit a custom chart for an application:
 
 1. Click the edit icon on the chart, located in the top right corner of chart
 1. Edit all necessary fields.
-2. Click **EXECUTE QUERY** to review the changes.
-3. Click **SAVE** to save the changes and return to Dashboard.
+
+     * Click **EXECUTE QUERY** to review the changes.
+     * Click **SAVE** to save the changes and return to Dashboard.
 
 To discard the changes and return to Dashboard, close the window.
 
