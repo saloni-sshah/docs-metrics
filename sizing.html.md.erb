@@ -14,7 +14,7 @@ After your deployment has been running for a while, use the information in this 
 
 If you are not familiar with the App Metrics components, review [App Metrics Product Architecture](./architecture.html) before reading this topic.
 
-App Metrics depends on 3 datastores, the Metric Store, the Log Store, and the Postgres database.
+App Metrics depends on three datastores, the Metric Store, the Log Store, and the Postgres database.
 
 Metric Store tile is separate, and will mostly be discussed elsewhere. The Log Store and Postgres database
 are part of the App Metrics tile, and so their scaling will be discussed more in detail here.
@@ -41,7 +41,7 @@ Estimate the size of your deployment according to how many apps are expected to 
    <tr><td><a href="#large">Large</a></td><td>Production use</td><td>15,000</td></tr>
 </table>
 
-+ **Metrics App** — App Metrics deploys the app, `appmetrics`. This app is responsible for serving the UI, proxying requests from the browser to metric and log store, and creating notifications for the user-created monitors.<br><br>
+* **Metrics App** — App Metrics deploys the app, `appmetrics`. This app is responsible for serving the UI, proxying requests from the browser to metric and log store, and creating notifications for the user-created monitors.<br><br>
 The `appmetrics` app should be scaled to 1 instance.
 
 ###<a id='small'></a>Deployment Resources for a Small Deployment
@@ -130,13 +130,13 @@ They can be configured in the App Metrics tile Resource Config.
 
 The scaling of an individual log-store deployment is subject to many variables, including:
 
-+ Required retention time
-+ Replication factor
-+ Log ingress volume
-+ The average size of log messages
+* Required retention time
+* Replication factor
+* Log ingress volume
+* The average size of log messages
 
 <p class="note"><strong>Note</strong>:
-Horizontally scaling Log Store currently results in data loss. Vertical scaling is recommended at this time
+Horizontally scaling Log Store currently results in data loss. Vertical scaling is recommended at this time.
 </p>
 
 ###<a id='log-considerations'></a> Considerations for Scaling

@@ -53,13 +53,10 @@ After you have your monitor document created, you can also automate the deployme
 
 ## <a id='monitor-document-api-spec'></a> Monitor Document API Spec
 
-In short, there is a `/monitors-documents` path that supports `POST` and an `/monitor-documents/{org,space,app}` that
-supports `GET` a monitor document for a specific `org,space,app`. There is currently no `DELETE` supported for a single
-monitors document. However, a monitors document is deleted when a new indicator file is uploaded for that
-app.
+The `/monitors-documents` path supports `POST` and the `/monitor-documents/{org,space,app}` path supports `GET` a monitor document for a specific `org,space,app`. `DELETE` is not supported for a single monitors document. However, a monitors document is deleted when a new indicator file is uploaded for that app.
 
 For more details about the monitor document API, consult the following Open API specification. To use demos and
-examples, you can test it out in the [Swagger Editor](https://editor.swagger.io/).
+examples, see [Swagger Editor](https://editor.swagger.io/).
 
 ```
 openapi: 3.0.2
@@ -202,41 +199,37 @@ components:
                only_every: 15m
 ```
 
-## <a id='adding-monitor-document-from-ui'></a> Add Your Monitor Document to App Metrics from UI
+## <a id='adding-monitor-document-from-ui'></a> Add your onitor Document to App Metrics from the UI
 
-In short, there is an ability to `ADD`, `EDIT` or `DELETE` monitor for the specific application's chart from UI.
+You can add, edit, or delete a monitor for the specific application's chart from the UI.
 
-The pictures below show how to do it.
+## <a id='add-monitor'></a> Add a Monitor to a specific chart
 
-## <a id='add-monitor'></a> Add Monitor to the specific chart
+1. Select the chart for the application and then click the menu button located in the upper right corner of the chart. Select **Add Monitor**.
+2. Fill in the required fields to add a monitor to the chart:
 
-<%= image_tag('images/choose-add-monitor.png', :alt => "Choose Add Monitor") %>
+   * **Webhook Url** is the URL of webhook to receive JSON payload when alerts are triggered.
+   * **Operator** is one of the comparison operators [lt, lte, ge, gte, eq ,neq].
+   * **Threshold** is the value parameter for **Operator**.
+   * **Duration** is how long the value has to be past the threshold before firing an alert.
+   * **Only Every** is the minimum duration between alerts. Alerts will fire only every [this duration].
+
+<%= image_tag('images/choose-add-monitor.png', :alt => "Add Monitor") %>
 
 <%= image_tag('images/add-monitor.png', :alt => "Add Monitor to the chart") %>
 
-Description of the pictures:
+3. Click **ADD**.
 
-* For first picture, click on the specific chart for the application and click the `sandwich` button
-  located in the upper right corner of the chart then choose `Add Monitor`.
-* For second picture fill required fields to add a monitor to the chart then
-  click the `ADD` button:
-  Where:
+## <a id='edit-monitor'></a> Edit or delete a Monitor for a specific chart
 
-   * `Webhook Url` is the URL of webhook to receive JSON payload when alerts are triggered.
-   * `Operator` is one of the comparison operators [lt, lte, ge, gte, eq ,neq].
-   * `Threshold` is the value parameter for `Operator`.
-   * `Duration` is how long the value has to be past the threshold before firing an alert.
-   * `Only Every` is the minimum duration between alerts. Alerts will fire only every [this duration].
+To edit or delete a Monitor:
 
-## <a id='edit-monitor'></a> Edit or Delete Monitor for the specific chart
+1. Select chart you want to edit and click the menu button located in the top right corner of chart. Select **Edit Monitor**.
+2. Edit the fields as necessary. Then:
+
+  * Click **EDIT** to change the Monitor.
+  * Click **DELETE MONITOR** to delete the Monitor.
 
 <%= image_tag('images/choose-edit-or-delete-monitor.png', :alt => "Edit Monitor for the specific chart") %>
 
 <%= image_tag('images/edit-or-delete-monitor.png', :alt => "Delete Monitor for the specific chart") %>
-
-Description of the pictures:
-
-* For first picture click the specific chart for the application and click the `sandwich`  button
-  located in the top right corner of chart then choose `Edit Monitor`.
-* For second picture change necessary fields to edit the monitor in the chart then
-  click `EDIT` or to delete monitor from the chart click `DELETE MONITOR` button.

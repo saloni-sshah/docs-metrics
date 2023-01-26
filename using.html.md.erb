@@ -278,14 +278,14 @@ You can query Metric Store and Log Store directly to access the raw data.
 
 ### <a id="metric-store-api"></a> Metric Store API
 
-To query Metric Store, consult the documentation for [Using Metric Store](https://docs.pivotal.io/metric-store/using.html)
+To query Metric Store, consult the documentation for [Using Metric Store](https://docs.pivotal.io/metric-store/using.html).
 
 ### <a id="log-store-api"></a> Log Store API
 
 #### <a id='prerequisites'></a> Prerequisites
 
-- [curl](https://github.com/curl/curl)
-- [CF Auth Token](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
+* [curl](https://github.com/curl/curl)
+* [CF Auth Token](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
 
 #### <a id='authorization-authentication'></a> Authorization & Authentication
 
@@ -299,7 +299,8 @@ header set with a UAA provided token.
 Issues a query against Log Store data.
 
 Path Parameters:
-- **sourceID** -- The app or component source ID. App source ID is the same as app GUID.
+
+* **sourceID** -- The app or component source ID. App source ID is the same as app GUID.
 
 Query Parameters:
 

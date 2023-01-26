@@ -11,14 +11,14 @@ This topic contains detailed information about the schema and API for indicator 
 
 This topic is for developers who want to customize their dashboards for monitoring their apps using App Metrics.
 
-For uploading an indicator document, see [cURLing Your Indicator Document to App Metrics](#curling-indicator-document) below.
-For uploading an indicator and creating a custom chart from UI, see [Add Your Indicator to App Metrics and Create Custom Metric Chart from the UI](#adding-indicator-from-ui) below.
+To upload an indicator document, see [cURLing Your Indicator Document to App Metrics](#curling-indicator-document) below.
+To upload an indicator and creating a custom chart from UI, see [Add Your Indicator to App Metrics and Create Custom Metric Chart from the UI](#adding-indicator-from-ui) below.
 
 For more information on the schema and API, see [Indicator Document API Specification](#indicator-document-api-spec) below.
 This also contains an example indicator document, named `IndicatorDocumentExample`.
 
 For more information about the full schema of indicator documents,
-see the [Indicator Protocol Document Reference](https://github.com/pivotal/monitoring-indicator-protocol/wiki/Indicator-Document-Reference).
+see [Indicator Protocol Document Reference](https://github.com/pivotal/monitoring-indicator-protocol/wiki/Indicator-Document-Reference).
 
 <p class="note"><strong>Note</strong>: At this time, only the below subset of the <code>name</code>, <code>promql</code>,
    <code>documentation</code>, and <code>presentation</code> fields are supported for app indicators.
@@ -29,14 +29,17 @@ see the [Indicator Protocol Document Reference](https://github.com/pivotal/monit
 After you have created your indicator document, you can push it to App Metrics with cURL.
 
 Linux/Mac:
-<pre>curl -vvv https://metrics.sys.DOMAIN/indicator-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"</pre>
+```
+curl -vvv https://metrics.sys.DOMAIN/indicator-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"
+```
 
 Windows:
-<ol>
-  <li> Copy your cf oath token to the clipboard: `cf oauth-token`</li>
-  <li> Paste your oauth token into the following command:</li>
-</ol>
-<pre>curl -vvv https://metrics.sys.DOMAIN/indicator-documents -H "Authorization: [YOUR-TOKEN]" --data-binary "@[YourDoc.yml]"</pre>
+1. Copy your cf oath token to the clipboard: `cf oauth-token`</li>
+1. Paste your oauth token into the following command:</li>
+
+```
+curl -vvv https://metrics.sys.DOMAIN/indicator-documents -H "Authorization: [YOUR-TOKEN]" --data-binary "@[YourDoc.yml]"
+```
 
 <p class="note"><strong>Note</strong>: You can only push indicators for apps that run in a space that you have access to.</p>
 
@@ -44,16 +47,16 @@ After you have your indicator document created, you can also automate the deploy
 
 ## <a id='indicator-document-api-spec'></a> Indicator Document API Specification
 
-In short, there is a `/indicator-documents` path that supports `POST` and an `/indicator-documents/{org,space,app}` that
+The `/indicator-documents` path supports `POST` and the `/indicator-documents/{org,space,app}` path
 supports deleting an indicator document for a specific `org,space,app`.
 
 Deleting or uploading an indicator document clears all associated monitors and recorded alerts associated with
 that app.
 
-For more details about the indicator document API, consult the following Open API specification. To use demos and
-examples, you can test it out in the [Swagger Editor](https://editor.swagger.io/).
+For more details about the indicator document API, consult the following Open API specification. You can use demos and
+examples in the [Swagger Editor](https://editor.swagger.io/).
 
-<pre>
+```
 openapi: 3.0.2
 info:
   title: App Metrics API for Indicator Documents
@@ -210,46 +213,41 @@ components:
                 title: "Custom Metric 500 Errors"
               presentation:
                 units: "counts"
-</pre>
+```
 
-## <a id='adding-indicator-from-ui'></a> Add Your Indicator to App Metrics and Create Custom Metric Chart from UI
+## <a id='adding-indicator-from-ui'></a> Add your Indicator to App Metrics and create a custom metric chart from the UI
 
-In short, there is an ability to `UPLOAD`, `EDIT` and `REMOVE` custom chart for the specific application from UI.
+To upload, edit or remove a custom chart for the specific application from UI:
 
-The pictures below shows how to do it.
+1. Click the plus icon located in the top right corner of the window.
+2. Fill in all required fields to create a single or multiple custom chart, then click one of the following buttons:
 
-## <a id='add-custom-chart'></a> Create Single or Multiple Custom Metric Chart
+  * Click **SAVE** to upload and save the newly created custom chart into the Dashboard.
+  * Click **VIEW ON DASHBOARD** to temporarily add the newly created custom chart into Dashboard so that you can review it. Then click the
+     Upload icon located in the top right corner of chart. If you forget to click the Upload icon, the chart will disappear when the window is refreshed.
 
 <%= image_tag('images/create-custom-chart.png', :alt => "Create Custom Chart") %>
 
 <%= image_tag('images/multiple-custom-chart.png', :alt => "Create Multiple Custom Charts") %>
 
-How to create a Single or Multiple Custom Metric Charts:
-
-* Click the `plus` icon located in the top right corner of window
-* Fill all required fields to create single or multiple custom chart, then click one of the following buttons:
-
-  Where:
-
-  * `SAVE` uploads and save the newly created custom chart into `Dashboard`
-  * `VIEW ON DASHBOARD` temporarily adds the newly created custom chart into `Dashboard`, which then can be uploaded by clicking
-     `Upload` icon located in the top right corner of chart, otherwise it will disappear after refresh of the window
-
 ## <a id='edit-custom-chart'></a> Edit Custom Chart for the specific application
+
+To edit a custom chart for an application:
+
+1. Click the edit icon on the chart, located in the top right corner of chart
+1. Edit all necessary fields.
+2. Click **EXECUTE QUERY** to review the changes.
+3. Click **SAVE** to save the changes and return to Dashboard.
+
+To discard the changes and return to Dashboard, close the window.
 
 <%= image_tag('images/edit-custom-chart.png', :alt => "Edit Custom Chart") %>
 
-Understanding the picture:
-
-* Click the `edit` icon of the chart located in the top right corner of chart
-* Edit all necessary fields and then click the `EXECUTE QUERY` button to review the changes, then to save the changes and return to `Dashboard`click the `SAVE`.
-  To discard the changes and return to `Dashboard` close the window
-
 ## <a id='remove-custom-chart'></a> Remove Custom Chart for the specific application
 
+To remove a custom chart for an application:
+
+1. Click the menu icon of the chart located in the top right corner of chart, then select **Remove**.
+2. Confirm by clicking **OK**.
+
 <%= image_tag('images/remove-custom-chart.png', :alt => "Remove Custom Chart") %>
-
-Understanding the picture:
-
-* Click the `sandwich` icon of the chart located in the top right corner of chart,
-  then select `Remove` and confirm by clicking the `OK` button
