@@ -17,66 +17,85 @@ App Metrics is a nexus of four integration points:
 * Log Store
 
 To monitor the status of these dependencies, check out the `/integration-status` endpoint.
-It is a quick way to see if the app is able to communicate with each dependency,
-`true` if accessible and `false` if not.
+It's a quick way to see if the app is able to communicate with each dependency:
 
-For example when all integrations are accessible the output would be:
+* `true` - accessible
 
-```
-{"Log Store":true,"CF API":true,"UAA":true,"Metric Store":true}
-```
+* `false` - not accessible
 
-If there is an issue with one of the dependencies,
-first investigate what is wrong with that particular component.
+For example, when all integrations are accessible the output is:
+>
+>{"Log Store":true,"CF API":true,"UAA":true,"Metric Store":true}
+
+If there is an issue with one of the dependencies, investigate what is wrong with that particular component.
 
 ### <a id="troubleshooting-cf-api"></a> Troubleshooting CF API
+>
+>"CF API":false
 
-```
-"CF API":false
-```
 See the [Cloud Controller documentation](https://docs.pivotal.io/platform/application-service/concepts/architecture/cloud-controller.html).
 
 ### <a id="troubleshooting-uaa"></a> Troubleshooting UAA
-```
-"UAA":false
-```
+>
+>"UAA":false
+
 See the [UAA documentation](https://docs.pivotal.io/platform/application-service/concepts/architecture/uaa.html).
 
 ### <a id="troubleshooting-metric-store"></a> Troubleshooting Metric Store
+>
+>"Metric Store":false
 
-```
-"Metric Store":false
-```
-See [Metric Store documentation](https://docs.pivotal.io/metric-store).
+See the [Metric Store documentation](https://docs.pivotal.io/metric-store).
 
 ### <a id="troubleshooting-log-store"></a> Troubleshooting Log Store
+>
+>"Log Store":false
 
-```
-"Log Store":false
-```
-Check out the log store VMs on the `appMetrics` deployment to investigate.
+Check out the log store VMs on the `appMetrics` deployment to investigate:
 
-1. Are the VMs running? If any of them aren't running, start them and prioritize examining those.
-    - `bosh -d <appMetrics-deployment> vms --vitals`
-    - Take note of the memory and disk usage.
-1. Check Log Store CPU, Memory Usage, and Disk Usage on the App Metrics dashboard for App Metrics
-1. Are the processes running?
-    - `monit summary`
-1. Are logs being stored?
-    - `ssh` into the VM and check `/var/vcap/sys/log` to look at the logs for each process using `du -h /var/vcap/sys/log`
-1. Are logs failing to write to disk? Check the following metrics
-    - `queued_log_count` -- backup of attempts to write to disk
-    - `replayed_log_count` -- attempting to replay logs to catch up from a backup
+1. Are the Virtual Machines (VM) running?
+
+     If any of virtual machines are not running, start them, prioritize and examine the following:
+
+* `bosh -d <appMetrics-deployment> vms --vitals`
+
+    Take note of the memory and disk usage.
+
+2. Check Log Store CPU, Memory Usage, and Disk Usage on the App Metrics dashboard for App Metrics.
+
+2. Are the processes running?
+
+     To view status for all processes run:
+
+* `sudo /var/vcap/jobs/log-store/monit summary`
+
+4. Are logs being stored?
+
+* Run `ssh` into the VM and check `/var/vcap/sys/log` to examine the logs for each process using `du -h /var/vcap/sys/log`
+
+5. Are logs failing to write to disk?
+
+    Check the following metrics:
+
+* `queued_log_count` -- The number of backup of attempts to write to disk. This metric  shows the handoff stored data count and helps to identify service-to-service transmission faults. If this metric continuously grows, then the receiver service is not able to receive data from the sender.
+* `replayed_log_count` -- The number of attempts to replay logs to catch up from a backup. This metric shows the log count that is sent from a stored handoff. When the receiver service is back online, this metric increases for a time period until all handoffs are purged.
 
 ### <a id="troubleshooting-database"></a> Troubleshooting Postgres Database
 
 Check out the `db-and-errand-runner` VM on the `appMetrics` deployment to investigate.
 
-1. Look at Postgres charts for on the App Metrics dashboard for App Metrics
-    - Database CPU
-    - Database Memory Usage
-    - Database Disk Usage
-1. Is the VM running?
-    - `bosh -d <appMetrics-deployment> vms --vitals`
-1. Is the database functioning as expected? Investigate by getting into the VM and using `psql` locally
-    - `bosh ssh` in and find the appropriate `psql` to query locally, which will always be in `/var/vcap/data/packages`: `/var/vcap/data/packages/postgres-11.7/.../bin/psql`
+1. Look at Postgres charts on the App Metrics dashboard for the following metrics:
+
+* Database CPU
+* Database Memory Usage
+* Database Disk Usage
+
+2. Is the VM running?
+
+* Run `bosh -d <appMetrics-deployment> vms --vitals`
+
+3. Is the database functioning as expected?
+
+   Investigate the VM and by using `psql` locally.
+
+* Run `bosh ssh` and find the appropriate `psql` to query locally, which will always be in `/var/vcap/data/packages`: `/var/vcap/data/packages/postgres-11.7/.../bin/psql`
