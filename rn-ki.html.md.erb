@@ -17,7 +17,7 @@ This topic contains release notes for Pivotal Cloud Foundry (PCF) Metrics.
 This release fixes the following issues:
 
 * Changes to the **Ingestor Count** field in the **Metrics Components Config** pane are applied after clicking **Apply Changes** and running the **Push PCF Metrics Components** errand. Previously, a bug in the PCF Metrics manifest file prevented changes to **Ingestor Count**.
-* Locked down Postgres version for logs data storage to ensure comaptible version is installed with PCF Metrics
+* Locked down Postgres version for logs data storage to ensure a compatible version is installed with PCF Metrics.
 
 ## <a id='151'></a>v1.5.1
 
@@ -92,7 +92,7 @@ instance count under the `system` org and `metrics-v1-5` space would scale to ma
 
 #### Conflict with sysctl Job in Runtime Config
 
-Installing PCF Metrics 1.5 might fail with an error message like the following:
+Installing PCF Metrics 1.5 might fail with an error message similar to the following:
 
 <pre>
 Task 31134 | 20:01:24 | Preparing deployment: Preparing deployment (00:00:01)
@@ -131,7 +131,7 @@ Where:
 
 Alternatively, to apply the `sysctl` job to all tile deployments except PCF Metrics, add an `exclude` rule to the `runtime-config` file to exclude PCF Metrics deployments.
 
-For more information, see the [BOSH documentation](https://bosh.io/docs/runtime-config/#placement-rules).
+For more information, see [BOSH documentation](https://bosh.io/docs/runtime-config/#placement-rules).
 
 #### Using Custom App Metrics
 

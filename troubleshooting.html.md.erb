@@ -444,7 +444,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
           Metrics will not display custom metrics without the Metrics Forwarder Tile but will otherwise function normally.
       * **WebSocket Disconnects**: If you see WebSocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances.
           The Firehose might be dropping the Ingestor connection to avoid back pressure.
-      * **Redis errors**: Investigate redis logs, for instructions see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
+      * **Redis errors**: Investigate redis logs, for instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
            Many possible solutions start with restarting redis.
 
 1. If the app is started and you do not find any errors, proceed to the next step.
@@ -462,7 +462,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
         due to the application security group (ASG) being deleted.
         This ASG allows the logs-queue application to create a network connection to the PostgreSQL VM.
         You can run `cf security-group metrics-api` to see if the ASG exists.
-        If the ASG is not present, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html)
+        If the ASG is not present, see [Creating Application Security Groups](https://docs.cloudfoundry.org/concepts/asg.html)
         to recreate it.
       * **Could not find service with name: metrics-forwarder**: The Metrics Forwarder Tile is not installed.
           Metrics will not display custom metrics without the Metrics Forwarder Tile but will otherwise function normally.
@@ -477,7 +477,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 1. Under the **Status** tab, record the IP of a **MySQL Server** node.
 
 1. Use `bosh ssh` to access the VM from the previous step.
-   For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
+   For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 
 1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
   <p class="note"><strong>Note</strong>: If you do not know the username and password,
@@ -522,7 +522,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
         due to the application security group (ASG) being deleted.
         This ASG allows the logs-queue application to create a network connection to the MySQL VM.
         You can run `cf security-group metrics-api` to see if the ASG exists.
-        If the ASG is not present, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html)
+        If the ASG is not present, see [Creating Application Security Groups](https://docs.cloudfoundry.org/concepts/asg.html)
         to recreate it.
       * **Could not find service with name: metrics-forwarder**: The Metrics Forwarder Tile is not installed.
           Metrics will not display custom metrics without the Metrics Forwarder Tile but will otherwise function normally.
@@ -541,11 +541,11 @@ The following two sections describe the known conditions that cause this failure
 Follow these steps to see if a `monit` time-out caused the MySQL node restart to fail:
 
 1. Use `bosh ssh` to access the failing node, using the IP address in the Ops Manager Director tile **Status** tab.
-   For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
+   For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 1. Run `monit summary` and check the status of the `galera-init` job.
 1. If the status of the `galera-init` job is `Execution Failed`, open the following file: `/var/vcap/sys/log/pxc-mysql/galera-init.log`.
   1. If the last line of the log indicates that MySQL started without issue, such as in the example below,
-     `monit` likely timed out while waiting for the job to report healthy. Follow the steps below to resolve the issue.
+     `monit` likely timed out while waiting for the job to report healthy. Use the following steps to resolve the issue.
   <pre class="terminal">
   {"timestamp":"1536851105.372446537","source":"/var/vcap/packages/galera-init/bin/galera-init","message":"/var/vcap/packages/galera-init/bin/galera-init.galera-init started","log_level":1,"data":{}}
   </pre>
@@ -563,7 +563,7 @@ Run the following commands to return the `galera-init` job to a healthy state:
 #### Diagnose
 
 1. Use `bosh ssh` to access the failing node.
-   For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
+   For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 1. Open the following log file: `/var/vcap/sys/log/pxc-mysql/mysql.err.log`.
 1. If you see log messages that indicate insufficient disk space, the [persistent disk](https://bosh.io/docs/persistent-disks.html) is likely storing too many bin logs.
    Confirm insufficient disk space by doing the following:
