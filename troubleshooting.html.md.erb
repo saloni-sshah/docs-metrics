@@ -17,17 +17,19 @@ App Metrics is a nexus of four integration points:
 * Log Store
 
 To monitor the status of these dependencies, check out the `/integration-status` endpoint.
-It is a quick way to see if the app is able to communicate with each dependency,
-`true` if accessible and `false` if not.
+It's a quick way to see if the app is able to communicate with each dependency:
 
-For example when all integrations are accessible the output would be:
+* `true` - if accessible
+* `false` - if not
+
+For example, when all integrations are accessible the output is:
 
 ```
 {"Log Store":true,"CF API":true,"UAA":true,"Metric Store":true}
 ```
 
 If there is an issue with one of the dependencies,
-first investigate what is wrong with that particular component.
+investigate what is wrong with that particular component.
 
 ### <a id="troubleshooting-cf-api"></a> Troubleshooting CF API
 
