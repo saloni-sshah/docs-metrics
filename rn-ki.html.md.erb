@@ -73,7 +73,7 @@ PCF Metrics v1.5.x requires the following versions of Pivotal Application Servic
 
 In order to successfully run both PCF Metrics 1.4 and 1.5 simultaneously during the upgrade period, please make sure the 1.4 tile is updated to 1.4.6 or later. 1.4.5 and older will not support the secondary metrics URL (metrics-previous.YOUR-SYSTEM-DOMAIN) that allows the 1.4 dashboard to be viewed.
 
-For more information about upgrading to PCF Metrics v1.5, see [Installing PCF Metrics](installing.html#upgrade).
+For more information about upgrading to PCF Metrics v1.5, see [Installing PCF Metrics](https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/1.5/app-metrics/GUID-installing.html#upgrade)).
 
 #### Triggered Monitor Notifications (Alpha) via Webhook with Proxy Settings
 
@@ -145,7 +145,7 @@ To prevent metrics data backup in Redis, ensure that each app does not emit more
 
 When you vertically scale your Postgres instance in PCF Metrics 1.5, Postgres enters an unhealthy period during which it does not ingest any new logs data until the scaling operation has completed.
 
-For more information about scaling the Logs Postgres datastore, see [Sizing PCF Metrics for your System](sizing.html#log-datastore).
+For more information about scaling the Logs Postgres datastore, see [Sizing PCF Metrics for your System](https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/1.5/app-metrics/GUID-sizing.html#log-datastore).
 
 #### Data Loss During Stemcell Upgrades
 
@@ -153,7 +153,7 @@ No metrics or logs data will be ingested during a stemcell or VM update. In test
 
 #### Logs Data Export Limitation
 
-Due to security, call pagination, and resource constraints, downloaded logs are limited to 10,000 log-line entries. If you need to export more logs data, we suggest looking directly at the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) or utilizing the [Log Cache CLI](https://github.com/cloudfoundry/log-cache-cli).
+Due to security, call pagination, and resource constraints, downloaded logs are limited to 10,000 log-line entries. If you need to export more logs data, we suggest looking directly at the [Loggregator Firehose](https://docs.pivotal.io/application-service/3-0/loggregator/architecture.html) or utilizing the [Log Cache CLI](https://github.com/cloudfoundry/log-cache-cli).
 
 #### <a id="logs-queue"></a> (Resolved in v1.5.1) Custom Metrics for `logs-queue` Not Currently Emitted
 
@@ -169,39 +169,23 @@ from authenticating with the deployment and validating against the Metrics API.
 If you experience this issue, disable the **Smoke Test** errand in the PCF Metrics tile and click **Apply Changes** to run the install again.
 
 For more information about what configurations lead to this failure,
-see [Configure Authentication and Enterprise SSO](http://docs.pivotal.io/pivotalcf/customizing/config-er-vmware.html#er-auth-config) in _Configuring Elastic Runtime_.
+see [Configure Authentication and Enterprise SSO](https://docs.pivotal.io/application-service/3-0/operating/auth-sso.html) in _Configuring Elastic Runtime_.
 
 #### For Operators Who Deploy PCF Metrics Using BOSH
 
 If both of the following are true, you might experience issues while using PCF Metrics:
 
-* You deploy PCF Metrics using BOSH instead of using the PCF Metrics tile in Ops Manager.
-* You use self-signed certificates.
+* Deploy PCF Metrics using BOSH instead of using the PCF Metrics tile in Ops Manager.
+* Use self-signed certificates.
 
 Pivotal recommends using certificates issued by a Certificate Authority for BOSH deployments of this product.
 
 #### Using PCF Metrics with Firewall Compression
 
-Using firewall compression is known to strip out `accept-encoding` header, which will cause `req.header('accept-encoding')` to return _null_. You will need to add an HTTP header to the load balancer in order for PCF Metrics to build and run correctly.
+Using firewall compression is known to strip out `accept-encoding` header, which causes `req.header('accept-encoding')` to return _null_. You need to add an HTTP header to the load balancer for PCF Metrics to build and run correctly.
 
 Please note that this issue is addressed in PCF Metrics 1.5.1.
 
 ## <a id="14x"></a>Past Minor v1.4.x
 
 Release Notes for v1.4.x releases can be found [here](http://docs.pivotal.io/app-metrics/1-4/rn-ki.html).
-
-## <a id="13x"></a>Past Minor v1.3.x
-
-Release Notes for v1.3.x releases can be found [here](http://docs.pivotal.io/app-metrics/1-3/rn-ki.html).
-
-## <a id="12x"></a>Past Minor v1.2.x
-
-Release Notes for v1.2.x releases can be found [here](http://docs.pivotal.io/app-metrics/1-2/rn-ki.html).
-
-## <a id="11x"></a>Past Minor v1.1.x
-
-Release Notes for v1.1.x releases can be found [here](http://docs.pivotal.io/app-metrics/1-1/rn-ki.html).
-
-## <a id="10x"></a>Past Minor v1.0.x
-
-Release Notes for v1.0.x releases can be found [here](http://docs.pivotal.io/app-metrics/1-0/rn-ki.html).
