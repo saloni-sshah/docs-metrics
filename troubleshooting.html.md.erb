@@ -57,28 +57,28 @@ Check out the log store VMs on the `appMetrics` deployment to investigate:
 
      If any of virtual machines are not running, start them, prioritize and examine the following:
 
-* `bosh -d <appMetrics-deployment> vms --vitals`
+   * `bosh -d <appMetrics-deployment> vms --vitals`
 
     Take note of the memory and disk usage.
 
 2. Check Log Store CPU, Memory Usage, and Disk Usage on the App Metrics dashboard for App Metrics.
 
-2. Are the processes running?
+3. Are the processes running?
 
      To view status for all processes run:
 
-* `sudo /var/vcap/jobs/log-store/monit summary`
+   * `sudo /var/vcap/jobs/log-store/monit summary`
 
 4. Are logs being stored?
 
-* Run `ssh` into the VM and check `/var/vcap/sys/log` to examine the logs for each process using `du -h /var/vcap/sys/log`
+   * Run `ssh` into the VM and check `/var/vcap/sys/log` to examine the logs for each process using `du -h /var/vcap/sys/log`
 
 5. Do the logs fail to write to disk?
 
     Check the following metrics:
 
-* `queued_log_count` -- The number of backup of attempts to write to disk. This metric  shows the handoff stored data count and helps to identify service-to-service transmission faults. If this metric continuously grows, then the receiver service is not able to receive data from the sender.
-* `replayed_log_count` -- The number of attempts to replay logs to catch up from a backup. This metric shows the log count that is sent from a stored handoff. When the receiver service is back online, this metric increases for a time period until all handoffs are purged.
+   * `queued_log_count` -- The number of backup of attempts to write to disk. This metric  shows the handoff stored data count and helps to identify service-to-service transmission faults. If this metric continuously grows, then the receiver service is not able to receive data from the sender.
+   * `replayed_log_count` -- The number of attempts to replay logs to catch up from a backup. This metric shows the log count that is sent from a stored handoff. When the receiver service is back online, this metric increases for a time period until all handoffs are purged.
 
 ### <a id="troubleshooting-database"></a> Troubleshooting Postgres Database
 
@@ -86,16 +86,16 @@ Check out the `db-and-errand-runner` VM on the `appMetrics` deployment to invest
 
 1. Look at Postgres charts on the App Metrics dashboard for the following metrics:
 
-* Database CPU
-* Database Memory Usage
-* Database Disk Usage
+   * Database CPU
+   * Database Memory Usage
+   * Database Disk Usage
 
 2. Is the VM running?
 
-* Run `bosh -d <appMetrics-deployment> vms --vitals`
+   * Run `bosh -d <appMetrics-deployment> vms --vitals`
 
 3. Is the database functioning as expected?
 
-   Investigate the VM and by using `psql` locally.
+   Investigate the VM by using `psql` locally.
 
-* Run `bosh ssh` and find the appropriate `psql` to query locally, which will always be in `/var/vcap/data/packages`: `/var/vcap/data/packages/postgres-11.7/.../bin/psql`
+   * Run `bosh ssh` and find the appropriate `psql` to query locally, which will always be in `/var/vcap/data/packages`: `/var/vcap/data/packages/postgres-11.7/.../bin/psql`
