@@ -198,7 +198,7 @@ This topic describes how to resolve common issues experienced while operating or
   </tr>
 </table>
 
-#### <a id="no-results-mysql"></a> Received No Results Back from MySQL - Failing
+### <a id="no-results-mysql"></a> Received No Results Back from MySQL - Failing
 
 <table border='1' class='nice'>
 <tr>
@@ -374,7 +374,7 @@ This topic describes how to resolve common issues experienced while operating or
 </tr>
 </table>
 
-##<a id='ui'></a> No Logs or Metrics in the UI
+<a id='ui'></a> No Logs or Metrics in the UI
 
 In some cases, the PCF Metrics UI might not display metrics and logs after successfully deploying.
 
@@ -405,15 +405,14 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 ### Step 2: Check the PCF Metrics Apps
 
 1. From Ops Manager, click the PAS Tile.
-  1. Click the **Credentials** tab.
-  1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**.
-  1. Record the username and password for use in the next step.
+1. Click the **Credentials** tab.
+1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**.
+1. Record the username and password for use in the next step.
 
 1. Log in to the Cloud Foundry Command Line Interface (cf CLI) using the credentials from the previous step.
   <pre class="terminal">$ cf login -a http<span>s</span>://api.YOUR-SYSTEM-DOMAIN -u admin -p PASSWORD</pre>
 
 1. When prompted, select the `system` org and the `metrics-v1-5` space.
-
 1. Ensure that the output displays the following apps, each in a `started` state:
   * `metrics-ingestor`
   * `metrics-queue`
@@ -422,7 +421,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   * `metrics-ui`
   * `metrics-alerting`
 
-1. Check the logs of each app for errors using the following command:
+3. Check the logs of each app for errors using the following command:
   <pre class="terminal">$ cf logs APP-NAME --recent</pre>
   If you do not see any output, or if you did not find any errors, proceed to the next step.
 
@@ -431,11 +430,11 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
   1. To get a higher level of detail from the metrics-ingestor application, set the LOG_LEVEL env variable:
   <pre class="terminal">$ cf set-env metrics-ingestor LOG_LEVEL DEBUG</pre>
-  1. To apply this setting, restage the application:
+  2. To apply this setting, restage the application:
   <pre class="terminal">$ cf restage metrics-ingestor</pre>
-  1. Run the following command to stream logs:
+  3. Run the following command to stream logs:
   <pre class="terminal">$ cf logs metrics-ingestor</pre>
-  1. Watch the logs emitted by the `metrics-ingestor` app for errors. See the list below for common errors:
+  4. Watch the logs emitted by the `metrics-ingestor` app for errors. See the list below for common errors:
       * **Aggregation Stored Procedures key is not in redis**: Redis may have been restarted or is in a bad state.
           Stop the `metrics-ingestor` app. Restart redis. Start the `metrics-ingestor` app again.
       * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the Firehose.
@@ -529,7 +528,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
 1. If the app is started and you do not find any errors, proceed to the next step.
 
-##<a id='mysql'></a> MySQL Failure
+##  <a id='mysql'></a> MySQL Failure
 
 In some cases, a MySQL server might fail to restart.
 The following two sections describe the known conditions that cause this failure as well as steps for diagnosing and resolving them.
@@ -578,9 +577,12 @@ Follow the steps below to resolve the issue.
 #### Resolve
 
 1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
+
   <p class="note"><strong>Note</strong>: If you do not know the username and password, you can run `cf env metrics-queue` with the <code>system</code> org and the <code>metrics-v1-5</code> space targeted.</p>
-1. Run `use metrics;`.
-1. Run the following command:
+  2. Run `use metrics;`.
+
+  3. Run the following command:
+
 <pre class="terminal">mysql> PURGE BINARY LOGS BEFORE 'YYYY-MM-DD HH:MM:SS'; </pre>
 
 #### Edit Your MySQL Server Configuration
@@ -606,6 +608,7 @@ Follow the steps below to resolve the issue.
 </table>
 
 ## <a id="http-metrics-unavailable"></a>Metrics API Unavailable
+
 <table>
   <tr>
       <th>Error</th>
