@@ -308,7 +308,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-##<a id='ui'></a> No Logs or Metrics in the UI
+##  <a id='ui'></a> No Logs or Metrics in the UI
 
 In some cases, the PCF Metrics UI might not display metrics and logs after successfully deploying.
 
@@ -613,7 +613,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 1. Run `bosh deploy` to deploy with your manifest.
 1. Run `bosh disks --orphaned` to see the [persistent disk](https://bosh.io/docs/persistent-disks.html) or disks associated with the failed node.
   1. Record the `CID` of each persistent disk.
-  1. Contact [Pivotal Support](http://support.pivotal.io/) to walk through re-attaching the orphaned disks to new VMs to preserve their data.
+  1. Contact [Tanzu Support](https://tanzu.vmware.com/support) to walk through re-attaching the orphaned disks to new VMs to preserve their data.
 1. Open the manifest and set the number of instances of the failed server node to `1`.
 1. Run `bosh deploy` to deploy with your edited manifest.
 1. Wait for BOSH to rebuild the node.
