@@ -8,42 +8,34 @@ list_style_none: true
 <strong><%= modified_date %></strong>
 
 This topic is for developers who want to monitor events from their apps using App Metrics.
-Have a configurable `Enable Event Alerting`variable in the `Ops Manager->App Metrics tile -> Settings-> Resource Config` to disable or enable Event Alerting optional feature.
 
-It contains detailed information about the schema and API for log monitor documents.
+You need a configurable `Enable Event Alerting` variable in the `Ops Manager->App Metrics tile -> Settings-> Resource Config` to disable or enable Event Alerting optional feature. It contains detailed information about the schema and API for log monitor documents.
 
-To upload a log monitor document, see [cURL Your Log Monitor Document to App Metrics](#curling-log-monitor-document) below.
+To upload a log monitor document, see [cURL Your Log Monitor Document to App Metrics](#curling-log-monitor-document).
 
-For more information about the schema and API, see [Log Monitor Document API Specification](#log-monitor-document-api-spec) below.
-It also contains an example for log monitor document, named `LogMonitorDocumentExample`.
+For more information about the schema and API, see [Log Monitor Document API Specification](#log-monitor-document-api-spec). It also contains an example for log monitor document, named `LogMonitorDocumentExample`.
 
 ## <a id='curling-log-monitor-document'></a> cURL Your Log Monitor Document to App Metrics
 
-After you have your log monitor document prepared, you can push it to App Metrics using cURL.
-The endpoint is the same as the monitor document.
+After you prepare your log monitor document, you can push it to App Metrics using the cURL command line. The endpoint is the same as the monitor document.
 
-Linux/Mac:
-```
+### Linux/Mac:
+
 curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[LOG-MONITOR-DOCUMENT.yml]"
-```
 
 Where `LOG-MONITOR-DOCUMENT` is the name of your log monitor document YAML file.
 
-Windows:
+### Windows:
 
-1. Copy your OAuth token to the clipboard by running:
+1. Copy your OAuth token to the clipboard:
 
-    ```
-    cf oauth-token
-    ```
+   >    cf oauth-token
 
 1. Paste your OAuth token into the following command:
 
-    ```
-    curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: [AUTH-TOKEN]" --data-binary "@[LOG-MONITOR-DOCUMENT.yml]"
-    ```
-   Where:
+   >    curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: [AUTH-TOKEN]" --data-binary "@[LOG-MONITOR-DOCUMENT.yml]"
 
+Where:
   * `AUTH-TOKEN` is the OAuth token you copied in the previous step.
   * `LOG-MONITOR-DOCUMENT` is the name of your log monitor document YAML file.
 
@@ -51,9 +43,11 @@ Windows:
 
 ## <a id='log-monitor-document-api-spec'></a> Log Monitor Document API Specification
 
-The `/monitors-documents` path supports `POST` and the `/monitor-documents/{org,space,app}` supports `GET` monitor document for a specific `org,space,app`. `DELETE` is not supported for a single log monitor document.
+The `/monitors-documents` path supports `POST` and the `/monitor-documents/{org,space,app}` supports `GET` monitor document for a specific `org,space,app`. The `DELETE` variable is not supported for a single log monitor document.
 
-For more details about the log monitor document API, consult the following Open API specification. To use demos and examples, see [Swagger Editor](https://editor.swagger.io/).
+For more details about the log monitor document API, see the following Open API specification.
+
+To use demos and examples, see [Swagger Editor](https://editor.swagger.io/).
 
 ```
 openapi: 3.0.2
@@ -211,7 +205,7 @@ components:
               duration: 1m
 ```
 
-In case of the fired alerts, the result will be posted in the appropriate slack channel as mentioned in the YAML file. It will appear similar to the following example output:
+In case of the fired alerts, the result is posted in the appropriate Slack channel as mentioned in the YAML file. It appears similar to the following example output:
 
 ```
 [OUT] Event match for CRASH matched with log pattern

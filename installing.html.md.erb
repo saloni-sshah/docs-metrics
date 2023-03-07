@@ -7,64 +7,67 @@ list_style_none: true
 
 <strong><%= modified_date %></strong>
 
-##<a id='prerequisites'></a>Prerequisites
+## <a id='prerequisites'></a>Prerequisites
 
 Before you install App Metrics:
 
-<p class="note"><b>Note:</b> App Metrics v2.1 requires <a href="https://docs.pivotal.io/metric-store" target="_blank">Metric Store</a> as its metrics datastore. You will need to install this tile before installing App Metrics.</p>
+<p class="note"><b>Note:</b> App Metrics v2.1 requires <a href="https://docs.pivotal.io/metric-store" target="_blank">Metric Store</a> as the metrics datastore. You need to install this tile before you install App Metrics.</p>
 
-+ **If upgrading from the Metrics v1.x line:**
-The App Metrics tile will install as a separate tile and will not install over the v1.x version of the Metrics tile.
-There is no data migration from the v1.x line to the v2.x line of the product.
-To maintain historical data please install both tiles  side-by-side for two weeks before uninstalling the Metrics v1.x line.
-    <p class="note"><strong>Note:</strong> App Metrics will take over the `metrics.YOUR-SYSTEM-DOMAIN`.
-        Please turn off the `Push PCF Metrics Components Errand` for the Metrics v1.x tile to avoid install errors.
-        Metrics v1.x will be accessible at `metrics-previous.YOUR-SYSTEM-DOMAIN`.
-    </p>
++ **If you upgrade from the Metrics v1.x :**
+The App Metrics tile is installed as a separate tile and does not install over the v1.x version of the Metrics tile.
+
+    There is no data migration from v1.x to v2.x of the product.
+To maintain historical data you need to install both version tiles side-by-side for two weeks before uninstalling Metrics v1.x.
+
+<p class="note"><strong>Note:</strong> App Metrics takes over the `metrics.YOUR-SYSTEM-DOMAIN`.
+
+Turn off `Push PCF Metrics Components Errand` for the Metrics v1.x tile to avoid installation errors.
+
+Metrics v1.x is accessible at `metrics-previous.YOUR-SYSTEM-DOMAIN`.
+</p>
 
 ## <a id='AddTile'></a>Download App Metrics
 
 <ol>
-<li>After you have installed the <a href="https://docs.pivotal.io/metric-store" target="_blank">Metric Store</a> tile in Ops Manager,
+<li>After you install the <a href="https://docs.pivotal.io/metric-store" target="_blank">Metric Store</a> tile in Ops Manager,
     download the App Metrics 2.1 product file from <a href="https://network.pivotal.io/products/apm" target="_blank">VMware Tanzu Network</a>.</li>
-<li>Navigate to the Ops Manager Installation Dashboard and click Import a Product to upload the product file.</li>
-<li>Under the Import a Product button, click + next to the version number of App Metrics. This adds the tile to your staging area.</li>
+<li>Navigate to the Ops Manager Installation Dashboard and click <strong>Import a Product</strong> to upload the product file.</li>
+<li>Click plus sign (+) next to the version number of App Metrics. This adds the tile to your staging area.</li>
 </ol>
 
 ## <a id='ConfigureAzs'></a>Configure AZs and Networks
 
 To start using App Metrics, you need to configure the App Metrics tile by performing the following steps:
 <ol>
-<li>Click the App Metrics tile on the Ops Manager Installation Dashboard.</li>
+<li>Click the <strong>App Metrics</strong> tile on the Ops Manager Installation Dashboard.</li>
 <li>Navigate to Assign AZs and Networks and do the following:</li>
 <ul>
 <li>Select an Availability Zone (AZ) for placing singleton jobs.</li>
-<li>Select one or more AZs for balancing other jobs. (Note: To create a highly available environment,
-VMware recommends selecting multiple AZs.)</li>
-<li>Select Network for installing App Metrics.</li>
+<li>Select one or more AZs for balancing other jobs.
+<p class="note"><b>Note:</b> To create a highly available environment, select multiple AZs. Select  Network for installing App Metrics.</p>
 </ul>
 </ol>
 
-## <a id='ConfigureProxy'></a>(Optional) Configure App Metrics to Use an HTTP or SOCKS Proxy
+## <a id='ConfigureProxy'></a>Configure App Metrics to Use an HTTP or SOCKS Proxy (Optional)
 
 You can configure App Metrics to use your HTTP, HTTPS, or SOCKS proxy server for
 Slack or webhook alerts.
 
-###<a id='EnableHTTP'></a>Enable an HTTP or HTTPS Proxy Server
-Enable a HTTP or HTTPS Proxy Server through the cf CLI.
+To configure a HTTP or HTTPS Proxy Server through the cf CLI, follow these steps:
 
-1. Log in to the cf CLI by running:
+1. Log in to the cf CLI and run:
 
     ```
     cf login -a API-URL -u USERNAME -p PASSWORD -o system -s app-metrics-v2
     ```
+
     Where:
 
-    * `API-URL` is your API endpoint.
-    * `USERNAME` is your username.
-    * `PASSWORD` is your password.
+    + `API-URL` is your API endpoint.
+    + `USERNAME` is your username.
+    + `PASSWORD` is your password.
 
-1. Update the `HTTP_PROXY` or `HTTPS_PROXY` environment variable by running:
+2. Update the `HTTP_PROXY` or `HTTPS_PROXY` environment variable. Run:
 
     ```
     cf set-env appmetrics HTTP_PROXY "http://PROXY-HOST:PROXY-PORT"
@@ -78,33 +81,35 @@ Enable a HTTP or HTTPS Proxy Server through the cf CLI.
 
     Where:
 
-    * `PROXY-HOST` is the hostname of your HTTP or HTTPS proxy.
-    * `PROXY-PORT` is the port that your HTTP or HTTPS proxy is listening on.
+    + `PROXY-HOST` is the hostname of your HTTP or HTTPS proxy.
+    + `PROXY-PORT` is the port that your HTTP or HTTPS proxy is listening on.
 
-    The HTTP proxy environment variables must be uppercase. For more information
-    on setting system-wide environment variables, see [Environment Variable Groups]
-    (https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#evgroups)
+    The HTTP proxy environment variables must be uppercase.
+
+    For more information
+    on setting system-wide environment variables, see [Environment Variable Groups](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#evgroups)
     in the Cloud Foundry Documentation.
 
-###<a id='EnableSOCKS'></a>Enable a SOCKS Proxy Server
-Start by enabling an HTTP or HTTPS proxy using the cf CLI, then switch it to a
-SOCKS protocol in the Ops Manager UI.
+### <a id='EnableSOCKS'></a>Enable a SOCKS Proxy Server
 
-  1. Click the App Metrics tile on the Ops Manager Installation Dashboard.
+To start a HTTP or HTTPS proxy use the cf CLI, then switch to a SOCKS protocol in the Ops Manager UI and follow these steps:
+
+  1. Click the **App Metrics** tile on the Ops Manager Installation Dashboard.
   1. Navigate to the **App Metrics Components Config** pane.
-  1. Click **Enable Socks Proxy**. This checkbox sets the `USE_SOCKS_PROXY`
+  1. Click **Enable Socks Proxy**. This check box sets the `USE_SOCKS_PROXY`
   environment variable, which overrides the protocol for the proxy to use SOCKS instead of HTTP or HTTPS.
 
-  1. Even though the HTTP or HTTPS proxy will be overriden, you must set it first. To do so, log in to the cf CLI by running:
+  1. Even though the HTTP or HTTPS proxy is overrode, you must begin by setting it. To set it, log in to the cf CLI and run:
 
       ```
       cf login -a API-URL -u USERNAME -p PASSWORD -o system -s app-metrics-v2
       ```
+
       Where:
 
-      * `API-URL` is your API endpoint.
-      * `USERNAME` is your username.
-      * `PASSWORD` is your password.
+      + `API-URL` is your API endpoint.
+      + `USERNAME` is your username.
+      + `PASSWORD` is your password.
 
   1. Update the `HTTP_PROXY` or `HTTPS_PROXY` environment variable:
 
@@ -120,83 +125,89 @@ SOCKS protocol in the Ops Manager UI.
 
       Where:
 
-      * `PROXY-HOST` is the hostname of your HTTP or HTTPS proxy.
-      * `PROXY-PORT` is the port that your HTTP or HTTPS proxy is listening on.
+      + `PROXY-HOST` is the hostname of your HTTP or HTTPS proxy.
+      + `PROXY-PORT` is the port that your HTTP or HTTPS proxy is listening on.
 
-    The HTTP proxy environment variables must be uppercase. For more information
-    on setting system-wide environment variables, see [Environment Variable Groups]
-    (https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#evgroups)
+The HTTP proxy environment variables must be uppercase.
+
+For more information
+    on setting system-wide environment variables, see [Environment Variable Groups](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#evgroups)
     in the Cloud Foundry Documentation.
 
-## <a id='ConfigureFeatures'></a>(Optional) Configure App Metrics Features
+## <a id='ConfigureFeatures'></a>Configure App Metrics Features (Optional)
 
-Here you can configure the settings for App Metrics components, including Log Store.
+To configure the settings for App Metrics components, including Log Store, follow these steps:
 <ol>
-<li>Click the App Metrics tile on the Ops Manager Installation Dashboard.</li>
+<li>Click the <strong>App Metrics</strong> tile on the Ops Manager Installation Dashboard.</li>
 <li>Navigate to the App Metrics Components Config pane.</li>
-<li>To disable the Logs Drawer on the App Metrics dashboard, deselect the "App Metrics Enable Logs" checkbox (enabled by default).</li>
-<li>Set the App Metrics Logs Prune Threshold disk capacity percentage (set to 80% by default). This is the disk percentage at which Log Store will start to prune the oldest logs first.</li>
-<li>Set the App Metrics Logs Prune Interval (set to two minutes by default). This is the frequency at which Log Store will check the disk capacity to make the pruning decision.</li>
+<li>Deactivate Logs Drawer on the App Metrics dashboard,and deselect the "App Metrics Enable Logs" check box (the default setting is activated).</li>
+<li>Set the App Metrics Logs Prune Threshold disk capacity percentage (the default setting is 80%). This is the disk percentage at which Log Store starts to prune the oldest logs first.</li>
+<li>Set the App Metrics Logs Prune Interval (the default setting is two minutes). This is the frequency the Log Store checks the disk capacity to make your pruning decision.</li>
 </ol>
 
-## <a id='ConfigureSyslog'></a>(Optional) Configure Syslog Forwarding
+## <a id='ConfigureSyslog'> </a> Configure Syslog Forwarding (Optional)
 
-App Metrics supports forwarding syslog to an external log management service such as Papertrail, Splunk, or a custom enterprise log sink. You may find the VM logs useful for debugging problems in the system.
+App Metrics supports forwarding syslog to an external log management service. For example Papertrail, Splunk, or a custom enterprise log sink. You might find the VM logs useful for debugging problems in the system.
 
 To enable remote syslog forwarding for Healthwatch, do the following:
-<ol>
-<li>Click the App Metrics tile on the Ops Manager Installation Dashboard.</li>
-<li>Navigate to the Syslog pane.</li>
-<li>Select Yes without encryption or Yes with TLS encryption to enable syslog forwarding.</li>
-<li>For External Syslog Host, enter the address of syslog server where you want logs sent, such as [logs.example.com].</li>
-<li>For External Syslog Port, enter the port of your syslog server, such as [29279].</li>
-<li>For External Syslog Protocol, select the protocol for sending the logs.</li>
-<li>(TLS only) For External Syslog Permitted Peer, enter the fingerprint or name of the remote peer, such as [*.example.com].</li>
-<li>(TLS only) For External Syslog TLS CA Certificate, enter the CA certificate of the syslog destination.</li>
-</ol>
 
-## <a id='ConfigureMetricRegistrar'></a>(Optional) Configure Metric Registrar for Spring Boot Metrics
+1. Click the **App Metrics** tile on the Ops Manager Installation Dashboard.
 
-For Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in the VMware Tanzu Application Service for VMs (TAS for VMs) or Pivotal Application Service (PAS) tile.
+2. Navigate to the Syslog pane.
+
+3. Select **Yes without encryption** or **Yes with TLS encryption** to activate syslog forwarding.
+4. For External Syslog Host, enter the address of syslog server where you want logs sent. For example, [logs.example.com].
+
+5. For External Syslog Port, enter the port of your syslog server. For example, [29279].
+6. For External Syslog Protocol, select the protocol for sending the logs.
+7. (TLS only) For External Syslog Permitted Peer, enter the fingerprint or name of the remote peer. For example, [*.example.com].
+8. (TLS only) For External Syslog TLS CA Certificate, enter the CA certificate of the syslog destination.
+
+## <a id='ConfigureMetricRegistrar'></a>Configure Metric Registrar for Spring Boot Metrics (Optional)
+
+For Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar you must be update the VMware Tanzu Application Service for VMs (TAS for VMs) or Pivotal Application Service (PAS) tile.
 
 To update the Metric Registrar configuration, do the following:
 <ol>
-<li>Click the TAS for VMs or PAS tile on the Ops Manager Installation Dashboard.</li>
+<li>Click the <strong>TAS for VMs</strong> or the <strong>PAS</strong> tile on the Ops Manager Installation Dashboard.</li>
 <li>Navigate to the Metric Registrar pane.</li>
-<li>Update the Blocked tags list and remove the `id` tag from the list of Blocked tags.</li>
+<li>Update the Blocked tags list. Remove the `id` tag from the Blocked tags list.</li>
 </ol>
 
-## <a id='AppManagerLinkConfig'></a> (Optional) Enable the App Metrics Link in Apps Manager
+## <a id='AppManagerLinkConfig'></a> Enable the App Metrics Link in Apps Manager (Optional)
 
-Perform this step if the **View in App Metrics** does not appear in Apps Manager and App Metrics is deployed with one the following versions of TAS for VM or PAS:
+Use this topic if **View in App Metrics** does not appear in Apps Manager and if App Metrics is deployed with one the following versions of TAS for VM or PAS:
 
-- TAS for VMs v2.10.x
-- TAS for VMs v2.9.x
-- PAS v2.8.4 or later
-- PAS v2.7.10 or later
-- PAS v2.6.16 or later
++ Tas for VMs v3.0
++ TAS for VMs v2.10.x
++ TAS for VMs v2.9.x
++ PAS v2.8.4 or later
++ PAS v2.7.10 or later
++ PAS v2.6.16 or later
 
-The **View in App Metrics** link may not appear in Apps Manager if your <%= vars.app_runtime_abbr %> deployment has restrictive networking policies around request proxying.
+The **View in App Metrics** link might not appear in Apps Manager if your deployment has restrictive networking policies around request proxying.
 
-To resolve this issue and enable the App Metrics link in Apps Manager:
+To resolve this issue and activate the App Metrics link in Apps Manager:
 
-1. Log in to the cf CLI by running:
+1. Log in to the cf CLI and run:
 
     ```
     cf login -a API-URL -u USERNAME -p PASSWORD -o system -s system
     ```
+
     Where:
 
-    * `API-URL` is your API endpoint.
-    * `USERNAME` is your username.
-    * `PASSWORD` is your password.
+    + `API-URL` is your API endpoint.
+    + `USERNAME` is your username.
+    + `PASSWORD` is your password.
 
 1. Update the `no_proxy` environment variable for the `search-server` app to include your system domain.
 
     ```
     cf set-env search-server no_proxy '*.SYSTEM-DOMAIN'
     ```
-    where `SYSTEM-DOMAIN` is the system domain configured for your <%= vars.app_runtime_abbr %> deployment.
+
+    where `SYSTEM-DOMAIN` is the system domain configured for your deployment.
 
     For example:
     <pre class="terminal">

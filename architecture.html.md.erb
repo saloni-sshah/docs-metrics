@@ -9,42 +9,37 @@ list_style_none: true
 
 ## <a id="overview"></a>Overview
 
-The diagram below shows the components of App Metrics and the Platform components
-that the App Metrics system interacts with.
+The following diagram shows the components of App Metrics and the Platform components that the App Metrics system interacts with.
 
-<%= image_tag('images/app-metrics-2-0-architecture.svg', :alt => "App Metrics 2.1 architecture") %>
+![alt-text="App Metrics and platform components architecture"](./images/app-metrics-2-0-architecture.svg)
 
 Understanding the diagram:
 
 * The cornered rectangles represent Platform tiles that App Metrics v2.1 depends on.
 * The rounded rectangles represent customer interaction points.
 * The cylinders represent the data storage components of App Metrics v2.1.
-* The <span style="background:#9AC0CD">blue</span> components are packaged with App Metrics v2.1.
-
+* The blue components are packaged with App Metrics v2.1.
 
 ## <a id="data-flow"></a>Data Flow
 
 The following sections describe the components and how they contribute to the data flow.
 
 ### <a id="metrics"></a> Metrics
+
 Metrics are ingested and stored by the Metric Store tile.
 
-App Metrics uses the Metric Store tile for two purposes:
+App Metrics uses the Metric Store tile for following purposes:
 
 * Querying for metrics
 * Registering monitors to receive alerts when the metrics surpass the monitor thresholds
 
-For more information about the Metric Store tile,
-see the [Metric Store documentation](https://docs.pivotal.io/metric-store).
+For more information about the Metric Store tile, see the [Metric Store documentation](https://docs.pivotal.io/metric-store).
 
 ### <a id="custom-metrics"></a> Custom Metrics
 
-Metrics Registrar can be used to collect custom application metrics.
-Metrics Registrar is bundled alongside TAS for VMs which is already a dependency of App Metrics v2.1.
+Metrics Registrar collects custom application metrics. Metrics Registrar is bundled with VMware Tanzu Application Service for VMs (TAS for VMs), which is a dependency of App Metrics v2.1.
 
-To see custom application metrics in App Metrics v2.1, Metrics Registrar
-needs to be configured to scrape Prometheus-style metrics from your applications.
-These custom metrics will then be available inside Metrics Store to be visualized by App Metrics v2.1.
+To see custom application metrics for App Metrics v2.1,you need to configure Metrics Registrar to scrape Prometheus-style metrics from your applications. These custom metrics are then available inside Metrics Store and are visualized in App Metrics v2.1.
 
 For more information, see:
 
@@ -55,9 +50,9 @@ For more information, see:
 
 The Log Store is a time series database for storing and querying application logs.
 
-Logs are streamed into the store via the Loggregator V2 endpoint and stored via the Influx Storage Engine.
-Log Store provides the capability for distributed configurations, scaled out to use multiple nodes.
-Each node in a Log Store deployment manages disk usage to maximize stored logs without exceeding a
+Logs are streamed into the Log Store through the Loggregator V2 endpoint and stored through the Influx Storage Engine.
+
+Log Store provides the capability for distributed configurations, that are scaled out to use multiple nodes. Each node in a Log Store deployment manages disk usage to maximize stored logs without exceeding a
 configured maximum disk utilization.
 
 App Metrics queries the Log Store for logs, log searches, and search density histograms.
@@ -69,17 +64,16 @@ and the triggered alerts for the monitors.
 
 When a client uploads an indicator document or monitor document,
 App Metrics stores it in the database. These documents
-then display on the charts in the App Metrics dashboard.
+are displayed on the charts in the App Metrics dashboard.
 
 When a monitor threshold is surpassed, the Metric Store tile sends a request to App Metrics. When App Metrics
 receives this request, App Metrics stores a record of the alert in the PostgreSQL datastore. These stored alerts
-then display on the charts in the App Metrics dashboard.
+are then displayed on the charts in the App Metrics dashboard.
 
 ### <a id="security"></a> Security
 
-**In Transit**: All communication with the PostgreSQL datastore is over TLS, following the guidelines in
+**In Transit**: All communication with the PostgreSQL datastore is over Transport Layer Security (TLS), and follows the guidelines in
 the [PostgreSQL documentation](https://www.postgresql.org/docs/11/ssl-tcp.html).
 
-**At Rest**: The PostgreSQL datastore does not store any sensitive information,
-so by default it is not encrypted.
-If you want to encrypt it, see [Disk Encryption](https://docs.pivotal.io/platform/security/pcf-infrastructure/disk-encrypt.html).
+**At Rest**: The PostgreSQL datastore does not store any sensitive information, and by default it's not encrypted.
+If you want to encrypt it, see [Disk Encryption](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/2.10/vmware-tanzu-ops-manager/security-pcf-infrastructure-disk-encrypt.html).
