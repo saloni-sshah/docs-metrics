@@ -11,113 +11,127 @@ This topic describes how developers can monitor and troubleshoot their apps usin
 
 ## <a id="overview"></a> Overview
 
-App Metrics helps you understand and troubleshoot the health and performance of your apps by offering the following indicators, data, and visualizations:
+App Metrics helps you to understand and troubleshoot the health and performance of your apps by offering the following indicators, data, and visualizations:
 
-* [Latency](#latency): Response times for your app
-* [Traffic](#traffic): Number of requests made for your app
-* [Errors](#errors): HTTP errors thrown by your app
-* [Saturation (Container Metrics)](#saturation): Three charts measuring CPU, memory, and disk consumption percentages
-* [Custom Metrics](#custom-metrics): User-customizable charts for measuring app performance, such as Spring Boot Actuator and Micrometer metrics, or user-defined custom business metrics
-* [App Events](#events): A chart of update, start, stop, crash, SSH, and staging failure events
-* [Logs](#logs): A list of app logs that you can search, filter, and download
+* [Latency](#latency): Response times for your app.
+* [Traffic](#traffic): Number of requests made for your app.
+* [Errors](#errors): HTTP errors thrown by your app.
+* [Saturation (Container Metrics)](#saturation): Three charts measuring CPU, memory, and disk consumption percentages.
+* [Custom Metrics](#custom-metrics): User-customizable charts for measuring app performance, such as Spring Boot Actuator and Micrometer metrics, or user-defined custom business metrics.
+* [App Events](#events): A chart of update, start, stop, crash, SSH, and staging failure events.
+* [Logs](#logs): A list of app logs that you can search, filter, and download.
 
-The following sections describe a standard workflow for using App Metrics to monitor or troubleshoot your apps.
+The following sections describe a standard workflow for App Metrics to monitor or troubleshoot your apps.
 
-##<a id='get-started'></a> View an App
+## <a id='get-started'></a> View an App
 
-In a browser, navigate to `metrics.sys.DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Choose an app from the search bar for which you want to view metrics and/or logs. App Metrics respects UAA permissions such that you can view any app that runs in a space that you have access to.
+In a browser,go to `metrics.sys.DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Select an app from the search bar to view metrics and logs.
 
-App Metrics displays app data for a given time frame. See the sections below to [Change the Time Frame](#time) for the dashboard.
+App Metrics respects UAA permissions so you can view any app that runs in a space that you have access to.
+
+App Metrics displays app data for a specific time frame on the dashboard.
 
 ## <a id="time"></a>Change the Time Frame
 
-The charts show time along the horizontal axis. You can change the time frame for all charts and the logs by using the time selector options at the top of the window. You can select from several pre-set timescales or select a custom date range.
+The charts show time along the horizontal axis. You can change the time frame for all charts and the logs by using the time selector options. You can select from several preset timescales or select a custom date range.
 
-**Zoom**: From within any chart, click and drag to zoom in on areas of interest. This adjusts all of the charts, and the logs, to show data from that time frame.
+**Zoom**: In any chart, click and drag to zoom in on areas of interest. This adjusts all of the charts, and logs, to show data for that time frame.
 
 ## <a id="auto-refresh"></a>Auto-Refreshing the Dashboard
 
-Auto-refresh mode allows the metrics charts and logs on your dashboard to be updated on a timed interval as data is ingested.
+Auto refresh mode updates the metrics charts and logs on your dashboard for a timed interval as data is received.
 
-To enable auto-refresh, click the **REFRESH** button next to the time selection options on the top right of the dashboard. This will enable live updating of metrics and logs data for the currently selected timeframe.
+To activate auto refresh, click the **Refresh** button next to the time selection options on the dashboard. This action activates live updating of metrics and logs data for the currently selected time frame.
 
-<p class="note"><strong>Note</strong>: The default auto-refresh interval is set to one minute and is currently not configurable.</p>
+<p class="note"><strong>Note</strong>: The default setting for the auto refresh interval is set to one minute and cannot be configured.</p>
 
 ## <a id="app-instance"></a>View Metrics at the Process and App Instance Level
 
-App Metrics relays metric data at the app process level to allow for an in-depth troubleshooting experience, even across rolling deployment. Users are able to view the app metrics related to a specific process and further drill down into specific instances within those processes, which correlates directly with the processes and app instances shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
+App Metrics relays metric data at the app process level to allow for an in-depth troubleshooting experience, even across rolling deployment. Users are able to view the app metrics that are related to a specific process and further drill down into specific instances within those processes. This correlates directly with the processes and app instances in [Apps Manager](https://docs.pivotal.io/application-service/3-0/console/dev-console.html).
 
-The dashboard will display metrics aggregated across all processes by default. To view metrics by specific process, select a process type from the dropdown near the upper-left of the dashboard.
+The dashboard displays metrics that are aggregated across all processes by default. To view metrics for a specific process, select a process type from the drop down menu.
 
-With a specific process type selected, the metrics charts will display aggregate data from all instances within the selected process type.
+When you select a specific process type, the metrics charts display aggregate data from all instances for the selected process type.
 
-To view metrics for the individual instances within the selected process, select the "Instances" radio button at the upper-right of the dashboard.
+To view metrics for individual instances within the selected process, select the **Instances** radio button on the dashboard.
 
-To view metrics for a specific app instance (or selection of specific instances), select the desired instance(s) from the legend along the bottom of any chart on the dashboard while the "Instances" radio is selected.
+To view metrics for a specific app instance or selection of specific instances, select your instance or instances from the legend of any chart on the dashboard and select the **Instances** radio button.
 
-##<a id='metrics'></a> Interpreting Metrics
+## <a id='metrics'></a> Interpreting Metrics
 
-The default metrics charts included with App Metrics provide high-level indicators
-of the Four Golden Signals for monitoring the health of apps running on distributed systems:
-Latency, Traffic, Errors, and Saturation.
+The default metrics charts that are included with App Metrics provide high-level indicators
+for the four golden signals for monitoring the health of apps running on distributed systems:
+
+* Latency
+* Traffic
+* Errors
+* Saturation
 
 The following sections explain how to use each of the charts on the dashboard to monitor and troubleshoot your app.
 
 ### <a id='networkMetrics'></a> Network Metrics
 
-<p class="note"><strong>Note</strong>: If apps are not configured for network traffic,
-they show No Data or zeros for the default Latency, Traffic, and Errors metrics.
+<p class="note"><strong>Note</strong>: If you do not configure your apps for network traffic, the apps show No Data or zeros for the default Latency, Traffic, and Errors metrics.
 </p>
 
-* <a id='latency'></a> **Latency**: Average latency of a request in milliseconds. A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and result in faster response times.
+* <a id='latency'></a> **Latency**: Average latency of a request in milliseconds. A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and results in faster response times.
 
-* <a id='traffic'></a> **Traffic**: Number of network requests per minute. A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the response time.
+* <a id='traffic'></a> **Traffic**: Number of network requests per minute. A spike in HTTP requests means more users are using your app. Scaling app instances reduces the response time.
 
-* <a id='errors'></a> **Errors**: Number of network request errors per minute. A spike in HTTP errors means one or more 5xx errors have occurred. Check your app logs for more information.
+* <a id='errors'></a> **Errors**: Number of network request errors per minute. A spike in HTTP errors means one or more 5xx errors occurred. Check your app logs for more information.
 
 ### <a id='saturation'></a> Saturation (Container Metrics)
 
 The following **Container Metrics** charts are available on the App Metrics dashboard to help monitor resource saturation:
 
-* CPU usage percentage: A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but you need to investigate the app to better understand and fix the root cause.
+* CPU usage percentage: A spike in CPU might point to a process that is computationally heavy. Scaling app instances relieves the immediate pressure, but you must further investigate the app to better understand and ultimately fix the root cause.
 
-* Memory usage percentage: A consistent, gradual increase in memory might mean a resource leak in the code. Scaling app memory can relieve the immediate pressure, but you need to find and resolve the underlying issue so that it does not occur again.
+* Memory usage percentage: A consistent, gradual increase in memory might mean a resource leak in the code. Scaling app memory relieves the immediate pressure, but you must find and resolve the underlying issue so that it does not occur again.
 
 * Disk usage percentage: A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing large sessions to disk.
 
 ### <a id='events'></a> Events
 
-In addition, the **Events** chart helps to correllate these metrics to events for your app, including: **Crash**, **Fail** (staging failures), **Update**, **Stop**, **Start**, and **SSH**.
+In addition, the **Events** chart helps to correlate the metrics to events for your app. They include:
 
-<p class="note"><strong>Note</strong>: The <b>SSH</b> event corresponds to someone successfully using SSH to access a container that runs an instance of the app.</p>
+* Crash
+* Fail (staging failures)
+* Update
+* Stop
+* Start
+* SSH
+
+<p class="note"><strong>Note</strong>: The <b>SSH</b> event corresponds to you successfully using SSH to access a container that runs an instance of the app.</p>
 
 See the following topics for more information about app events:
 
 * [Starting, Restarting, and Restaging Apps](https://docs.pivotal.io/platform/application-service/devguide/deploy-apps/start-restart-restage.html)
+
 * [Troubleshooting App Deployment and Health](https://docs.pivotal.io/platform/application-service/devguide/deploy-apps/troubleshoot-app-health.html)
 
-##<a id='custom-metrics'></a> Adding Custom Metrics Charts
+## <a id='custom-metrics'></a> Adding Custom Metrics Charts
 
-You can add custom metrics charts to your dashboard, including Spring Boot Actuator and Micrometer metrics, by defining the custom metrics you want to monitor and including them in an indicator document for your app.
+You can add custom metrics charts to your dashboard, including the Spring Boot Actuator and Micrometer metrics. You define the custom metrics that you want to monitor and include them in the indicator document for your app.
 
-In order to get custom, Actuator, or Micrometer metrics into the Metrics Store, you will need to bind Metric Registrar to your app and register your endpoint. For more information, see [Configuring the Metric Registrar](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
+For example, to get custom, Actuator, or Micrometer metrics into the Metrics Store, bind Metric Registrar to your app and register your endpoint.
 
-If you want to view custom metrics, you can configure your apps to emit those metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the App Metrics dashboard.
+For more information, see [Configuring the Metric Registrar](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
 
-In addition, Spring Boot apps with actuators or Micrometer metrics implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code.
+To view custom metrics, configure your apps to emit those metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the App Metrics dashboard.
 
-###<a id='metric-registrar-settings'></a> Metric Registrar Configuration for Spring Metrics
+In addition, Spring Boot apps with actuators or Micrometer metrics that are implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to the source code.
 
-In order for Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in the Tanzu Application Service Tile.
+### <a id='metric-registrar-settings'></a> Metric Registrar Configuration for Spring Metrics
 
-The `id` tag will need to be removed from the list of Blocked tags in the Metric Registrar settings withing the Tanzu Application Service Tile.
+In order, for Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in Tanzu Application Service Tile.
 
-###<a id='create-indicator-doc'></a> Create an Indicator Document
+You must remove the  `id` tag from the list of Blocked tags in the Metric Registrar settings in Tanzu Application Service Tile.
 
-An indicator document is a YAML document that specifies which app you want to monitor and the indicators
-you want to use to monitor it.
+### <a id='create-indicator-doc'></a> Create an Indicator Document
 
-There are three steps to creating an indicator document:
+An indicator document is a YAML document that specifies which app you want to monitor and the indicators you want to use to monitor it.
+
+These are the steps to create an indicator document:
 
 1. Find the metric you want to monitor.
 2. Write the PromQL query.
@@ -125,12 +139,12 @@ There are three steps to creating an indicator document:
 
 #### Find the Metric Name
 
-First verify that the metrics are being emitted.
-After you have configured Metrics Registrar to scrape your metrics
-endpoint, you can verify your respective endpoint for metric names.
+Verify that the metrics are being emitted.
+After you configure Metrics Registrar to scrape your metrics
+endpoint, verify your respective endpoint for metric names.
 
-If you are using a Prometheus-style metrics endpoint, you can do so by hitting your app's metrics endpoint at
-`app.domain/metrics` and looking for the desired metric.
+If you use a Prometheus-style metrics endpoint, hit your app's metrics endpoint at
+`app.domain/metrics` and search for the desired metric.
 
 To validate Spring Boot Actuator and Micrometer metrics,
 see [Metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html)
@@ -138,29 +152,31 @@ in _Spring Boot Actuator: Production-ready Features_ in the Spring Boot document
 
 #### Write a PromQL Query
 
-After you have the metric name, write a PromQL query for visualizing the metric.
+After you have the metric name, write a PromQL query for visualizing the metric using the following steps:
 
 1. Find additional example PromQL for any of the default charts on the dashboard
-   by clicking **Info** in the upper-right of any chart or visit the
+   by clicking **Info** of any chart or visit the
    [PromQL Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
 
-2. Use the PromQL Explorer to test out PromQL before putting it in an indicator document:
+2. Use the PromQL Explorer to test out PromQL before inserting it in the indicator document:
 
-    1. Click the **+** button at the bottom right of the dashboard.
+    1. Click the **+** button on the dashboard.
 
-    2. Test out queries to see how the graph looks before placing it in an indicator document.
+    2. Test out the queries to see how the graph appears before placing it in the indicator document.
 
-    <p class="note"><strong>Note</strong>: PromQL should always have the <code>source_id</code> tag for non-admin users.
+    <p class="note"><strong>Note</strong>: PromQL must have the <code>source_id</code> tag for non-admin users.
+
   App Metrics supports using a <code>$sourceId</code> parameter in the PromQL which automatically refers to the sourceId of
-  the current app. Example: <code>cpu{source_id="$sourceId"}</code>
+  the current app. For example: <code>cpu{source_id="$sourceId"}</code>
 </p>
 
 #### Add the PromQL to Your Indicator Document
 
-After you have the PromQL ready, put it in an indicator document.
+After you have the PromQL ready, insert it in an indicator document.
 
-For example, if you have a custom metric `customMetricName500` and want to graph the amount of errors over a 1 minute
-period, then your PromQL query is `sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))`.
+For example, if you have a custom metric `customMetricName500` and want to graph the amount of errors over a one minute
+time period, then your PromQL query is `sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))`.
+
 The following is an example of the YAML for an indicator document:
 
 <pre>
@@ -186,32 +202,38 @@ spec:
         units: "none"
 </pre>
 
-The  `org,space,app-name` in the example above determines which app these indicators are applied to.
+The  `org,space,app-name` in the example determines which app these indicators are applied to.
 Replace `org,space,app-name` with the org, space, and app name of the app dashboard that you want to customize.
 
 ### <a id="indicator-document-schema"></a> Indicator Document Schema
 
 App Metrics uses a derivative version of the Indicator Protocol.
-For more information about the App Metrics-supported indicator document schema,
-see [Indicator Document Template Reference](./indicator-document-reference.html).
 
-##<a id='monitoring'></a> Adding Monitoring and Alerting
+## <a id='monitoring'></a> Adding Monitoring and Alerting
 
-You can add custom monitoring to your dashboard's indicators by creating a custom monitor document for your app.
+You can add custom monitoring to your dashboard indicators by creating a custom monitor document for your app.
 
 ### Creating a Monitor Document
 
 Monitors are linked to specific indicators, so the first step to adding custom monitoring and alerting to your
-app is to verify the names of the indicators you would like to monitor.
+app is to verify the names of the indicators you want to monitor.
 
-You can view the indicator names of each chart on your app's dashboard by hovering on the desired chart,
-clicking on the kabobs in the right-hand corner and selecting Info.
+You can view the indicator names for each chart on your app's dashboard by hovering over the desired chart,
+clicking the three vertical dots and selecting **Info**.
 
-The indicator name can correspond to one of your custom indicators or to one of the default indicator names:
-RequestCount, HttpLatency, ErrorCount, CPU, MemoryPercentage, and DiskPercentage.
+The indicator corresponds to one of your custom indicators or to one of the following default indicator names:
 
-Once you have the indicator names you can create your monitor document that will define threshold for your indicator
-and the webhook to send alerts to. The following is an example of the YAML for an monitor document:
+* RequestCount
+* HttpLatency
+* ErrorCount
+* CPU
+* MemoryPercentage
+* DiskPercentage
+
+After you have the indicator names you can create your monitor document that defines the threshold for your indicator
+and the webhook to send alerts to.
+
+The following is an example of the YAML for an monitor document:
 
 <pre>
 ---
@@ -234,22 +256,23 @@ monitors:
        only_every: 15m
 </pre>
 
-Please note that `org,space,app-name` above is responsible for defining which app these indicators will be applied to.
-Please replace this with the org, space, and app name of the app you wish to monitor.
+Note that `org,space,app-name` is responsible for defining which app these indicators are applied to.
+Replace this with the org, space, and app name of the app you want to monitor.
 
-Please also note that the `https://my-slack-webhook.com` should be where alerts are sent when a threshold is surpassed.
-Slack is the currently the only supported use case, but other webhook platforms may work if they accept a "text" payload.
+Also, note that the `https://my-slack-webhook.com` must be where alerts are sent when a threshold is surpassed.
+
+The Slack application is currently the only supported use case, but other webhook platforms might work, if they accept a text payload.
 
 ### <a id="monitor-document-schema"></a> Monitor Document Schema
 
-For more detailed information on the monitor document schema, see the [Monitor Document Template Reference](./monitor-document-reference.html).
+For more detailed information on the monitor document schema, see [Monitor Document Template Reference](./monitor-document-reference.html).
 
 ## <a id="custom-metric-demos"></a> Custom Metric Demos
 
-* [Adding custom application metric charts using Indicator Protocol](https://www.youtube.com/watch?v=KKed-LwJ0BM)
-* [Platform-level metric charts to the dashboard](https://www.youtube.com/watch?v=z7CVbYzjxVU)
+* [Adding custom application metric charts using Indicator Protocol](https://www.youtube.com/watch?v=KKed-LwJ0BM).
+* [Platform-level metric charts to the dashboard](https://www.youtube.com/watch?v=z7CVbYzjxVU).
 
-##<a id="logs"></a>Logs
+## <a id="logs"></a>Logs
 
 The **Logs** view displays app log data ingested from the Loggregator Reverse Log Proxy (RLP):
 
@@ -265,7 +288,7 @@ You can interact with the **Logs** view in the following ways:
 
 By default, the most recent 1,000 log lines will be displayed in the logs drawer. You can click `SHOW 1000 MORE LOGS` to load more.
 
-##<a id="direct-data-access"></a> Direct Data Access
+## <a id="direct-data-access"></a> Direct Data Access
 
 You can query Metric Store and Log Store directly to access the raw data.
 
@@ -282,31 +305,31 @@ To query Metric Store, consult the documentation for [Using Metric Store](https:
 
 #### <a id='authorization-authentication'></a> Authorization & Authentication
 
-When querying the API via HTTPS, each request must have the `Authorization`
+When you query the API through HTTPS, each request must have the `Authorization`
 header set with a UAA provided token.
 
-#### <a id='querying'></a> Querying via HTTP Endpoints
+#### <a id='querying'></a> Querying through HTTP Endpoints
 
 **GET** `/v1/sources/{sourceID}/logs`
 
 Issues a query against Log Store data.
 
-Path Parameters:
+**Path Parameters** :
 
 * **sourceID** -- The app or component source ID. App source ID is the same as app GUID.
 
-Query Parameters:
+**Query Parameters**:
 
-- **query** is a [PromQL label selector query](https://prometheus.io/docs/prometheus/latest/querying/basics/#querying-prometheus) for filtering logs on  `message`, `message_type`, `source_type`, and `instance_id`.
-  - `message` -- RegEx to search the log message body. Use the backtick operator in case of `\.`.
-  - `message_type` -- The file descriptor the log was written to, `OUT` or `ERR`
-  - `source_type` -- The source of the log, any subset of `{"API","APP","CELL","HEALTH","LGR","RTR","SSH","STG"}` connected by pipes, e.g. `"APP|API"`.
-  - `instance_id` -- Filter based on the instance ID of the app or component that wrote the log
-- **startTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to 10 minutes ago. Must be before end time.
-- **endTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to now. Must be after start time.
-- **limit** is an optional maximum number of logs to return. Defaults to 100.
-- **page** is an optional number of the page of logs to be returned, must be `>= 1`. Defaults to 1.
-- **order** is an optional order in which the logs will be returned, `asc` or `desc`. Defaults to `desc`.
+* **query** is a [PromQL label selector query](https://prometheus.io/docs/prometheus/latest/querying/basics/#querying-prometheus) for filtering logs on  `message`, `message_type`, `source_type`, and `instance_id`.
+  * `message` -- RegEx to search the log message body. Use the backtick operator in case of `\.`.
+  * `message_type` -- The file descriptor the log was written to, `OUT` or `ERR`
+  * `source_type` -- The source of the log, any subset of `{"API","APP","CELL","HEALTH","LGR","RTR","SSH","STG"}` connected by pipes, e.g. `"APP|API"`.
+  * `instance_id` -- Filter based on the instance ID of the app or component that wrote the log
+* **startTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to 10 minutes ago. Must be before end time.
+* **endTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to now. Must be after start time.
+* **limit** is an optional maximum number of logs to return. Defaults to 100.
+* **page** is an optional number of the page of logs to be returned, must be `>= 1`. Defaults to 1.
+* **order** is an optional order in which the logs will be returned, `asc` or `desc`. Defaults to `desc`.
 
 ```shell
 export SYSTEM_DOMAIN="<YOUR_SYSTEM_DOMAIN>"
@@ -338,3 +361,6 @@ curl --get -H "Authorization: $(cf oauth-token)" \
   ]
 }
 ```
+
+
+[def]: ./indicator-document-reference.html

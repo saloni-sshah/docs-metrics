@@ -28,18 +28,18 @@ The following sections describe the components and how they contribute to the da
 
 Metrics are ingested and stored by the Metric Store tile.
 
-App Metrics uses the Metric Store tile for following purposes:
+App Metrics uses the Metric Store tile for the following purposes:
 
-* Querying for metrics
-* Registering monitors to receive alerts when the metrics surpass the monitor thresholds
+* To Query for metrics.
+* To Register monitors to receive alerts when the metrics surpass the monitor thresholds.
 
-For more information about the Metric Store tile, see the [Metric Store documentation](https://docs.pivotal.io/metric-store).
+For more information, see the Metric Store tile, see the [Metric Store documentation](https://docs.pivotal.io/metric-store).
 
 ### <a id="custom-metrics"></a> Custom Metrics
 
 Metrics Registrar collects custom application metrics. Metrics Registrar is bundled with VMware Tanzu Application Service for VMs (TAS for VMs), which is a dependency of App Metrics v2.1.
 
-To see custom application metrics for App Metrics v2.1,you need to configure Metrics Registrar to scrape Prometheus-style metrics from your applications. These custom metrics are then available inside Metrics Store and are visualized in App Metrics v2.1.
+To see custom application metrics for App Metrics v2.1,you must configure Metrics Registrar to scrape Prometheus-style metrics from your applications. These custom metrics are available inside Metrics Store and are visualized in App Metrics v2.1.
 
 For more information, see:
 
@@ -60,14 +60,14 @@ App Metrics queries the Log Store for logs, log searches, and search density his
 ### <a id="pg-datastore"></a> PostgreSQL Datastore
 
 The PostgreSQL database stores the indicator documents, monitors documents,
-and the triggered alerts for the monitors.
+and triggered alerts for the monitors.
 
 When a client uploads an indicator document or monitor document,
 App Metrics stores it in the database. These documents
 are displayed on the charts in the App Metrics dashboard.
 
 When a monitor threshold is surpassed, the Metric Store tile sends a request to App Metrics. When App Metrics
-receives this request, App Metrics stores a record of the alert in the PostgreSQL datastore. These stored alerts
+receives this request, it stores a record of the alert in the PostgreSQL datastore. These stored alerts
 are then displayed on the charts in the App Metrics dashboard.
 
 ### <a id="security"></a> Security
@@ -76,4 +76,4 @@ are then displayed on the charts in the App Metrics dashboard.
 the [PostgreSQL documentation](https://www.postgresql.org/docs/11/ssl-tcp.html).
 
 **At Rest**: The PostgreSQL datastore does not store any sensitive information, and by default it's not encrypted.
-If you want to encrypt it, see [Disk Encryption](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/2.10/vmware-tanzu-ops-manager/security-pcf-infrastructure-disk-encrypt.html).
+To encrypt it, see [Disk Encryption](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/2.10/vmware-tanzu-ops-manager/security-pcf-infrastructure-disk-encrypt.html).

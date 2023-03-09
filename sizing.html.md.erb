@@ -7,32 +7,36 @@ list_style_none: true
 
 <strong><%= modified_date %></strong>
 
-This topic describes how operators configure App Metrics depending on their deployment size.
-Operators can use these procedures to optimize App Metrics for high capacity or to reduce resource usage for smaller deployment sizes.
+This topic describes how to configure App Metrics depending on your deployment size. Use the information in this topic to optimize App Metrics for high capacity, reduce resource usage for smaller deployment sizes and to scale your overall deployment.
 
-After your deployment has been running for a while, use the information in this topic to scale your running deployment.
+If you are not familiar with the App Metrics components, see [App Metrics Product Architecture](https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.1/app-metrics/GUID-architecture.html) before you continue with this topic.
 
-If you are not familiar with the App Metrics components, review [App Metrics Product Architecture](./architecture.html) before reading this topic.
+App Metrics depends on the following datastores:
 
-App Metrics depends on three datastores, the Metric Store, the Log Store, and the Postgres database.
+* Metric Store.
+* Log Store.
+* Postgres database.
 
-Metric Store tile is separate, and will mostly be discussed elsewhere. The Log Store and Postgres database
-are part of the App Metrics tile, and so their scaling will be discussed more in detail here.
+Metric Store tile is separate, and is discussed elsewhere.
 
-##<a id='metrics-datastore'></a> Scale the Metrics Datastore
+The Log Store and Postgres datastores are part of the App Metrics tile, and their scaling is discussed in more detail later in this topic.
 
-App Metrics retrieves metrics from Metric Store, which has its own configuration for resizing.
+## <a id='metrics-datastore'></a> Scale the Metrics Datastore
+
+App Metrics retrieves metrics from the Metric Store and has its' own configuration for resizing.
+
 For information, see [Metric Store documentation](https://docs.pivotal.io/metric-store/installing.html#-metric-store-for-pcf-resources).
 
-Currently, VMware recommends that you scale vertically rather than horizontally.
+Currently, you can scale vertically rather than horizontally.
+
 See [Limitations](https://docs.pivotal.io/metric-store/index.html#limitations)
-in the _Metric Store_ documentation.
+in the Metric Store documentation.
 
-##<a id='configs-by-size'></a> Suggested Sizing by Deployment Size
+## <a id='configs-by-size'></a> Suggested Sizing by Deployment Size
 
-Use the following tables as a guide for configuring resources for your deployment.
+Use the following tables as a guide to configure your resources for deployment.
 
-Estimate the size of your deployment according to how many apps are expected to be deployed.
+Estimate the size of your deployment according to how many apps you expect to be deployed.
 
 <table style='nice'>
    <tr><th>Size</th><th>Purpose</th><th>Approximate number of app instances</th></tr>
@@ -41,12 +45,12 @@ Estimate the size of your deployment according to how many apps are expected to 
    <tr><td><a href="#large">Large</a></td><td>Production use</td><td>15,000</td></tr>
 </table>
 
-* **Metrics App** — App Metrics deploys the app, `appmetrics`. This app is responsible for serving the UI, proxying requests from the browser to metric and log store, and creating notifications for the user-created monitors.<br><br>
-The `appmetrics` app should be scaled to 1 instance.
+**Metrics App** — App Metrics deploys the app, `appmetrics`. This app is responsible for serving the UI, proxy requests from the browser to metric and log store, and creating notifications for the user-created monitors.<br><br>
+Scale the `appmetrics` app to one instance.
 
-###<a id='small'></a>Deployment Resources for a Small Deployment
+### <a id='small'></a>Deployment Resources for a Small Deployment
 
-Example resource configuration to store approximately 6 weeks of data for a small deployment, about 100 application instances:
+Use the following example resource configuration to store approximately six weeks of data for a small deployment and about 100 application instances:
 
 <table>
   <tr>
@@ -69,9 +73,9 @@ Example resource configuration to store approximately 6 weeks of data for a smal
   </tr>
 </table>
 
-###<a id='medium'></a>Deployment Resources for a Medium Deployment
+### <a id='medium'></a>Deployment Resources for a Medium Deployment
 
-Example resource configuration to store approximately 6 weeks of data for a medium deployment, about 5000 application instances:
+Use the following example resource configuration to store approximately six weeks of data for a medium deployment and about 5000 application instances:
 
 <table>
   <tr>
@@ -94,10 +98,9 @@ Example resource configuration to store approximately 6 weeks of data for a medi
   </tr>
 </table>
 
+### <a id='large'></a>Deployment Resources for a Large Deployment
 
-###<a id='large'></a>Deployment Resources for a Large Deployment
-
-Example resource configuration to store approximately 6 weeks of data for a large deployment, about 15,000 application instances:
+Use the following example resource configuration to store approximately six weeks of data for a large deployment and about 15,000 application instances:
 
 <table>
   <tr>
@@ -120,26 +123,24 @@ Example resource configuration to store approximately 6 weeks of data for a larg
   </tr>
 </table>
 
+## <a id='log-datastore'></a> Scale the Log Datastore
 
-##<a id='log-datastore'></a> Scale the Log Datastore
+App Metrics retrieves logs from the Log Store.
 
-App Metrics retrieves logs from Log Store.
-
-By default, App Metrics ships with three xlarge VMs with 500&nbsp;GB of persistent disk.
-They can be configured in the App Metrics tile Resource Config.
+By default, App Metrics ships with three xlarge VMs with 500&nbsp;GB of persistent disk. You configure them in App Metrics tile Resource Config.
 
 The scaling of an individual log-store deployment is subject to many variables, including:
 
-* Required retention time
-* Replication factor
-* Log ingress volume
-* The average size of log messages
+* Required retention time.
+* Replication factor.
+* Log ingress volume.
+* The average size of log messages.
 
 <p class="note"><strong>Note</strong>:
-Horizontally scaling Log Store currently results in data loss. Vertical scaling is recommended at this time.
+Horizontally scaling in Log Store currently results in data loss. To ensure the best possible results, practice vertical scaling.
 </p>
 
-###<a id='log-considerations'></a> Considerations for Scaling
+### <a id='log-considerations'></a> Considerations for Scaling
 
 **Scaling Baseline**
 

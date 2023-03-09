@@ -7,9 +7,9 @@ list_style_none: true
 
 <strong><%= modified_date %></strong>
 
-This topic is for developers who want to monitor events from their apps using App Metrics.
+This topic is for developers who want to monitor events from apps using App Metrics.
 
-You need a configurable `Enable Event Alerting` variable in the `Ops Manager->App Metrics tile -> Settings-> Resource Config` to disable or enable Event Alerting optional feature. It contains detailed information about the schema and API for log monitor documents.
+You need a configurable `Enable Event Alerting` variable in the `Ops Manager->App Metrics tile -> Settings-> Resource Config` to stop or start the Event Alerting optional feature. This feature contains detailed information about the schema and API for log monitor documents.
 
 To upload a log monitor document, see [cURL Your Log Monitor Document to App Metrics](#curling-log-monitor-document).
 
@@ -17,7 +17,7 @@ For more information about the schema and API, see [Log Monitor Document API Spe
 
 ## <a id='curling-log-monitor-document'></a> cURL Your Log Monitor Document to App Metrics
 
-After you prepare your log monitor document, you can push it to App Metrics using the cURL command line. The endpoint is the same as the monitor document.
+After you prepare your log monitor document, push it to App Metrics using the cURL command line. The endpoint is the same as the monitor document.
 
 ### Linux/Mac:
 
@@ -205,7 +205,7 @@ components:
               duration: 1m
 ```
 
-In case of the fired alerts, the result is posted in the appropriate Slack channel as mentioned in the YAML file. It appears similar to the following example output:
+In case of fired alerts, the results are posted in the appropriate Slack channel as mentioned in the YAML file. It might appear similar to the following example output:
 
 ```
 [OUT] Event match for CRASH matched with log pattern
