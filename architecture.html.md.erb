@@ -33,13 +33,13 @@ App Metrics uses the Metric Store tile for the following purposes:
 * To Query for metrics.
 * To Register monitors to receive alerts when the metrics surpass the monitor thresholds.
 
-For more information, see the Metric Store tile, see the [Metric Store documentation](https://docs.pivotal.io/metric-store).
+For more information, see the Metric Store tile, and the [Metric Store documentation](https://docs.pivotal.io/metric-store).
 
 ### <a id="custom-metrics"></a> Custom Metrics
 
 Metrics Registrar collects custom application metrics. Metrics Registrar is bundled with VMware Tanzu Application Service for VMs (TAS for VMs), which is a dependency of App Metrics v2.1.
 
-To see custom application metrics for App Metrics v2.1,you must configure Metrics Registrar to scrape Prometheus-style metrics from your applications. These custom metrics are available inside Metrics Store and are visualized in App Metrics v2.1.
+To see custom application metrics for App Metrics v2.1, you must configure Metrics Registrar to scrape Prometheus-style metrics from your applications. These custom metrics are available inside Metrics Store and are visualized in App Metrics v2.1.
 
 For more information, see:
 
@@ -55,12 +55,12 @@ Logs are streamed into the Log Store through the Loggregator V2 endpoint and sto
 Log Store provides the capability for distributed configurations, that are scaled out to use multiple nodes. Each node in a Log Store deployment manages disk usage to maximize stored logs without exceeding a
 configured maximum disk utilization.
 
-App Metrics queries the Log Store for logs, log searches, and search density histograms.
+App Metrics queries the Log Store for logs, log searches, and density histograms.
 
 ### <a id="pg-datastore"></a> PostgreSQL Datastore
 
 The PostgreSQL database stores the indicator documents, monitors documents,
-and triggered alerts for the monitors.
+and trigger alerts for monitors.
 
 When a client uploads an indicator document or monitor document,
 App Metrics stores it in the database. These documents

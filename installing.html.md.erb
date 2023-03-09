@@ -13,8 +13,7 @@ Before you install App Metrics:
 
 <p class="note"><b>Note:</b> App Metrics v2.1 requires <a href="https://docs.pivotal.io/metric-store" target="_blank">Metric Store</a> as the metrics datastore. You must install this tile before you install App Metrics.</p>
 
-If you upgrade from the Metrics v1.x :
-The App Metrics tile is installed as a separate tile and does not install over the v1.x version of the Metrics tile.
+If you upgrade from the Metrics v1.x, the App Metrics tile is installed as a separate tile and does not install over the v1.x version of the Metrics tile.
 
 There is no data migration from v1.x to v2.x of the product.
 To maintain historical data you must install both version tiles side-by-side for two weeks before uninstalling Metrics v1.x.
@@ -31,7 +30,7 @@ Metrics v1.x is accessible at `metrics-previous.YOUR-SYSTEM-DOMAIN`.
 <ol>
 <li>After you install the <a href="https://docs.pivotal.io/metric-store" target="_blank">Metric Store</a> tile in Ops Manager,
     download the App Metrics 2.1 product file from <a href="https://network.pivotal.io/products/apm" target="_blank">VMware Tanzu Network</a>.</li>
-<li>Go to the Ops Manager Installation Dashboard and click <strong>Import a Product</strong> to upload the product file.</li>
+<li>Go to Ops Manager Installation Dashboard and click <strong>Import a Product</strong> to upload the product file.</li>
 <li>Click the plus sign (+) next to the version number of App Metrics to add the tile to your staging area.</li>
 </ol>
 
@@ -39,20 +38,20 @@ Metrics v1.x is accessible at `metrics-previous.YOUR-SYSTEM-DOMAIN`.
 
 To start using App Metrics, you must configure the App Metrics tile by performing the following steps:
 <ol>
-<li>Click the <strong>App Metrics</strong> tile on the Ops Manager Installation Dashboard.</li>
+<li>Click <strong>App Metrics</strong> tile on the Ops Manager Installation Dashboard.</li>
 <li>Go to <strong>Assign AZs and Networks</strong> and do the following:</li>
 <ul>
 <li>Select an Availability Zone (AZ) for placing singleton jobs.</li>
 <li>Select one or more AZs for balancing other jobs.
 
-<p> To create a highly available environment, select multiple AZs and then select Network for installing App Metrics.</p>
+To create a highly available environment, select multiple AZs and then select Network for installing App Metrics.
 </ul>
 </ol>
 
 ## <a id='ConfigureProxy'></a>Configure App Metrics to Use an HTTP or SOCKS Proxy (Optional)
 
 You can configure App Metrics to use your HTTP, HTTPS, or SOCKS proxy server for
-Slack or webhook alerts.
+the Slack application or webhook alerts.
 
 To configure a HTTP or HTTPS Proxy Server through the cf CLI, follow these steps:
 
@@ -68,7 +67,7 @@ To configure a HTTP or HTTPS Proxy Server through the cf CLI, follow these steps
     + `USERNAME` is your username.
     + `PASSWORD` is your password.
 
-2. Update the `HTTP_PROXY` or `HTTPS_PROXY` environment variable. Run:
+2. Update the `HTTP_PROXY` or `HTTPS_PROXY` environment variable and run:
 
     ```
     cf set-env appmetrics HTTP_PROXY "http://PROXY-HOST:PROXY-PORT"
@@ -95,12 +94,12 @@ To configure a HTTP or HTTPS Proxy Server through the cf CLI, follow these steps
 
 To start a HTTP or HTTPS proxy use the cf CLI, then switch to a SOCKS protocol in the Ops Manager UI and follow these steps:
 
-  1. Click the **App Metrics** tile on the Ops Manager Installation Dashboard.
+  1. Click **App Metrics** tile on the Ops Manager Installation Dashboard.
   1. Go to **App Metrics Components Config** pane.
   1. Click **Enable Socks Proxy**. This check box sets the `USE_SOCKS_PROXY`
-  environment variable, which overrides the protocol for the proxy to use SOCKS instead of HTTP or HTTPS.
+  environment variable and overrides the protocol for the proxy to use SOCKS instead of HTTP or HTTPS.
 
-  1. Even though the HTTP or HTTPS proxy is overrode, you must begin by setting it. To set it, log in to the cf CLI and run:
+  1. Even though the HTTP or HTTPS proxy was overrode, you must begin by setting it. To set it, log in to the cf CLI and run:
 
       ```
       cf login -a API-URL -u USERNAME -p PASSWORD -o system -s app-metrics-v2
