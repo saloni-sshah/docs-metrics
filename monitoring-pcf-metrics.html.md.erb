@@ -59,7 +59,7 @@ Monitor them to verify they are not consuming excess resources.
    </tr>
    <tr>
       <th>Recommended response</th>
-      <td>Log Store disks should be scale up <strong>vertically</strong> as needed to prevent data loss. Scaling horizontally will result in data loss.
+      <td>Log Store disks should be scale up <strong>vertically</strong> as needed to prevent data loss. Scaling horizontally results in data loss.
       </td>
    </tr>
 </table>
@@ -73,7 +73,7 @@ Monitor them to verify they are not consuming excess resources.
          <th width="25%">Description</th>
          <td>Percentage of VM persistent disk used for PostgreSQL.<br><br>
          <strong>Use</strong>: This stores custom indicator files, configured monitors and triggered alerts.
-         The disk filling up will prevent further customization of dashboards and monitors and will prevent new alert triggers from being displayed on metrics graphs.
+         As the disk fills up it prevents further customization of dashboards and monitors and prevents new alert triggers from being displayed on metrics graphs.
          <br><br>
          <strong>PromQl Used</strong>: avg(avg_over_time(system_disk_persistent_percent{deployment=~'appMetrics-.*',job='db-and-errand-runner',source_id='bosh-system-metrics-forwarder'}[60s]))<br>
          <strong>Type</strong>: percent<br>
@@ -85,7 +85,7 @@ Monitor them to verify they are not consuming excess resources.
       </tr>
       <tr>
          <th>Recommended response</th>
-         <td>Scale up disk as appropriate. Further customization will not be available while scaling is occuring.
+         <td>Scale up disk as appropriate. Further customization is not be available while scaling is occuring.
          </td>
       </tr>
 </table>
@@ -95,7 +95,7 @@ Monitor them to verify they are not consuming excess resources.
 All applications pushed using Cloud Foundry automatically emit the following application metrics.
 App Metrics is a single application and thus can be monitored by App Metrics or another application monitoring services.
 The following KPIs can indicate problems with App Metrics and are useful for monitoring any application.
-Non-routed applications will return no data or all zeros for Latency, Errors and Traffic metrics.
+Non-routed applications return no data or all zeros for Latency, Errors and Traffic metrics.
 
 <table>
    <tr><th colspan="3" style="text-align: center;"><br>Latency<br><br></th></tr>

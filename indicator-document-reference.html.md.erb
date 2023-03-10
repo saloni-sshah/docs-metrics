@@ -53,7 +53,7 @@ For more details about the indicator document API, see the following Open API sp
 
 You can use demos and examples in the [Swagger Editor](https://editor.swagger.io/).
 
-```
+```yaml
 openapi: 3.0.2
 info:
   title: App Metrics API for Indicator Documents
@@ -162,15 +162,15 @@ components:
                           - counts
                           - percentage
                         description: |
-                          The units are responsible for automatic formatting of chart data. bytes will automatically be
-                          converted to kB, MB, GB, or TB as appropriate. counts will be converted to K or M as appropriate.
-                          percentage will be formatted as a percentage. none will round to 2 decimals.
+                          The units are responsible for automatic formatting of chart data. Bytes are automatically be
+                          converted to kB, MB, GB, or TB as appropriate. counts are converted to K or M as appropriate.
+                          percentage is formatted as a percentage. none rounds to 2 decimals.
                   documentation:
                     type: object
                     properties:
                       title:
                         type: string
-                        description: Title that the chart will display
+                        description: Title that the chart displays
                       description:
                         type: string
                         description: What is the chart trying to display?
@@ -189,10 +189,10 @@ components:
         An indicator document specifying one custom indicator called CustomErrorCount500 for the
         application `org,space,app`.
 
-        It will graph the 1 minute average errors as reported by the custom metric `customMetricName500`. The
-        `$sourceId` will be interpolated to the source_id of the app at rendering time.
+        It shows  the 1 minute average errors as reported by the custom metric `customMetricName500`. The
+        `$sourceId` is interpolated to the source_id of the app at rendering time.
 
-        The title of the graph will display as "Custom Metric 500 Errors".
+        The title of the graph displays as "Custom Metric 500 Errors".
       value: |
         ---
         apiVersion: indicatorprotocol.io/v1

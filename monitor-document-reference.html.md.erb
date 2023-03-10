@@ -13,7 +13,7 @@ This topic contains detailed information about the schema and API for monitor do
 
 For more information about uploading a monitor document, see [cURL Your Monitor Document to App Metrics](#curling-monitor-document).
 
-For more information about uploading a monitor from UI, see [Add Your Monitor Document to App Metrics from UI](#adding-monitor-document-from-ui) below.
+For more information about uploading a monitor from UI, see [Add Your Monitor Document to App Metrics from UI](#adding-monitor-document-from-ui).
 
 For more information about the schema and API, see [Monitor Document API Specification](#monitor-document-api-spec).
 This also contains an example monitor document, named `MonitorDocumentExample`.
@@ -54,7 +54,7 @@ The `/monitors-documents` path supports `POST`. The `/monitor-documents/{org,spa
 For more details about the monitor document API, see the following Open API specification. To use demos and
 examples, see [Swagger Editor](https://editor.swagger.io/).
 
-```
+```yaml
 openapi: 3.0.2
 info:
   title: App Metrics API for Monitor Documents
@@ -162,18 +162,18 @@ components:
           description: How long the value has to be past the threshold before firing an alert.
         only_every:
           type: string
-          description: 'Minimum duration between alerts. Alerts will fire only every [this duration].'
+          description: 'Minimum duration between alerts. Alerts trigger only every [this duration].'
   examples:
     MonitorDocumentExample:
       description: |
         A monitor on the ErrorCount indicator for the system,catalyst,appmetrics application that sends alerts to
         https://my-slack-webhook.com.
 
-        A warning alert gets sent when the ErrorCount is greater than 1 for a duration of at least one minute, and will
-        only get sent a maximum of once every hour.
+        A warning alert gets sent when the ErrorCount is greater than 1 for a duration of at least one minute, and
+        only gets sent a maximum of once every hour.
 
-        A critical alert will get sent when the ErrorCount is greater than 2 for a duration of at least one minute,
-        and will only get sent a maximum of every fifteen minutes.
+        A critical alert gets sent when the ErrorCount is greater than 2 for a duration of at least one minute,
+        and only gets sent a maximum of every fifteen minutes.
       value: |
         ---
         product: system,catalyst,appmetrics
@@ -208,7 +208,7 @@ To add a monitor document to a specific chart, follow these steps:
    * **Operator** is one of the comparison operators [lt, lte, ge, gte, eq ,neq].
    * **Threshold** is the value parameter for **Operator**.
    * **Duration** is how long the value has to be past the threshold before firing an alert.
-   * **Only Every** is the minimum duration between alerts. Alerts will fire only every [this duration].
+   * **Only Every** is the minimum duration between alerts. Alerts trigger only every [this duration].
 
 3. Click **Add**.
 

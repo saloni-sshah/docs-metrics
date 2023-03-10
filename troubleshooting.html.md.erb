@@ -24,14 +24,14 @@ It's a quick way to see if the app is able to communicate with each dependency:
 * `false` - not accessible
 
 For example, when all integrations are accessible the output is:
->
->{"Log Store":true,"CF API":true,"UAA":true,"Metric Store":true}
+
+> {"Log Store":true,"CF API":true,"UAA":true,"Metric Store":true}
 
 If there is an issue with one of the dependencies, investigate what is wrong with that particular component.
 
 ### <a id="troubleshooting-cf-api"></a> Troubleshooting CF API
 >
->"CF API":false
+> "CF API":false
 
 See the [Cloud Controller documentation](https://docs.pivotal.io/platform/application-service/concepts/architecture/cloud-controller.html).
 
@@ -78,7 +78,7 @@ Check out the log store VMs on the `appMetrics` deployment to investigate:
 
 Check out the `db-and-errand-runner` VM on the `appMetrics` deployment to investigate.
 
-1. Look at Postgres charts on the App Metrics dashboard for the following metrics:
+1. Look at Postgres charts on the App Metrics dashboard for these metrics:
 
    * Database CPU
    * Database Memory Usage
@@ -92,4 +92,4 @@ Check out the `db-and-errand-runner` VM on the `appMetrics` deployment to invest
 
    Investigate the VM by using `psql` locally.
 
-   * Run `bosh ssh` and find the appropriate `psql` to query locally, which will always be in `/var/vcap/data/packages`: `/var/vcap/data/packages/postgres-11.7/.../bin/psql`
+   * Run `bosh ssh` and find the appropriate `psql` to query locally, which is always in `/var/vcap/data/packages`: `/var/vcap/data/packages/postgres-11.7/.../bin/psql`

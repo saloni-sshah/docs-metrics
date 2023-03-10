@@ -49,7 +49,7 @@ For more details about the log monitor document API, see the following Open API 
 
 To use demos and examples, see [Swagger Editor](https://editor.swagger.io/).
 
-```
+```yaml
 openapi: 3.0.2
 info:
   title: App Metrics API for the Log Monitor Documents
@@ -146,7 +146,7 @@ components:
           description: The source of the log, any subset of {"API","APP","CELL","HEALTH","LGR","RTR","SSH","STG"}
         only_every:
           type: string
-          description: 'Minimum duration between alerts. Alerts will fire only every [this duration].'
+          description: 'Minimum duration between alerts. Alerts trigger only every [this duration].'
         duration:
           type: string
           description: How long the value has to be past the threshold before firing an alert
@@ -162,7 +162,7 @@ components:
           description: Name of event which can be one of the following types - CRASH, SSH, START, STOP, UPDATE
         only_every:
           type: string
-          description: 'Minimum duration between alerts. Alerts will fire only every [this duration].'
+          description: 'Minimum duration between alerts. Alerts trigger only every [this duration].'
         duration:
           type: string
           description: How long the value has to be past the threshold before firing an alert. In case of event it is required to set to Om

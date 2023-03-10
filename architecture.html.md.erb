@@ -28,20 +28,20 @@ The following sections describe the components and how they contribute to the da
 
 Metrics are ingested and stored by the Metric Store tile.
 
-App Metrics uses the Metric Store tile for the following purposes:
+App Metrics uses the Metric Store tile for:
 
-* To Query for metrics.
+* To query for metrics.
 * To Register monitors to receive alerts when the metrics surpass the monitor thresholds.
 
-For more information, see the Metric Store tile, and the [Metric Store documentation](https://docs.pivotal.io/metric-store).
+For more information about the Metric Store tile, see [Metric Store documentation](https://docs.pivotal.io/metric-store).
 
 ### <a id="custom-metrics"></a> Custom Metrics
 
 Metrics Registrar collects custom application metrics. Metrics Registrar is bundled with VMware Tanzu Application Service for VMs (TAS for VMs), which is a dependency of App Metrics v2.1.
 
-To see custom application metrics for App Metrics v2.1, you must configure Metrics Registrar to scrape Prometheus-style metrics from your applications. These custom metrics are available inside Metrics Store and are visualized in App Metrics v2.1.
+To see custom application metrics for App Metrics v2.1, you must configure Metrics Registrar to scrape Prometheus-style metrics from your applications. These custom metrics are available inside Metrics Store and are visible in App Metrics v2.1 to digest the data.
 
-For more information, see:
+For more information about Metrics Registrar, see:
 
 * [Metric Registrar and Custom App Metrics](https://docs.pivotal.io/platform/application-service/metric-registrar/index.html)
 * [Using Metric Registrar](https://docs.pivotal.io/platform/application-service/metric-registrar/using.html)
@@ -52,14 +52,14 @@ The Log Store is a time series database for storing and querying application log
 
 Logs are streamed into the Log Store through the Loggregator V2 endpoint and stored through the Influx Storage Engine.
 
-Log Store provides the capability for distributed configurations, that are scaled out to use multiple nodes. Each node in a Log Store deployment manages disk usage to maximize stored logs without exceeding a
+Log Store provides the capability, for distributed configurations, to be scaled out to use multiple nodes. Each node, in a Log Store deployment, manages disk usage to maximize stored logs without exceeding a
 configured maximum disk utilization.
 
 App Metrics queries the Log Store for logs, log searches, and density histograms.
 
 ### <a id="pg-datastore"></a> PostgreSQL Datastore
 
-The PostgreSQL database stores the indicator documents, monitors documents,
+The PostgreSQL database stores the indicator and monitor documents,
 and trigger alerts for monitors.
 
 When a client uploads an indicator document or monitor document,
@@ -72,8 +72,7 @@ are then displayed on the charts in the App Metrics dashboard.
 
 ### <a id="security"></a> Security
 
-**In Transit**: All communication with the PostgreSQL datastore is over Transport Layer Security (TLS), and follows the guidelines in
-the [PostgreSQL documentation](https://www.postgresql.org/docs/11/ssl-tcp.html).
+**In Transit**: All communication with the PostgreSQL datastore is through the Transport Layer Security (TLS) protocol, and follows the guidelines in [PostgreSQL documentation](https://www.postgresql.org/docs/11/ssl-tcp.html).
 
 **At Rest**: The PostgreSQL datastore does not store any sensitive information, and by default it's not encrypted.
-To encrypt it, see [Disk Encryption](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/2.10/vmware-tanzu-ops-manager/security-pcf-infrastructure-disk-encrypt.html).
+To encrypt it, see [Disk Encryption](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/security-pcf-infrastructure-disk-encrypt.html).

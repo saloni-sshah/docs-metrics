@@ -37,7 +37,7 @@ The charts show time along the horizontal axis. You can change the time frame fo
 
 **Zoom**: In any chart, click and drag to zoom in on areas of interest. This adjusts all of the charts, and logs, to show data for that time frame.
 
-## <a id="auto-refresh"></a>Auto-Refreshing the Dashboard
+## <a id="auto-refresh"></a>Auto Refresh the Dashboard
 
 Auto refresh mode updates the metrics charts and logs on your dashboard for a timed interval as data is received.
 
@@ -280,13 +280,13 @@ The **Logs** view displays app log data ingested from the Loggregator Reverse Lo
 
 You can interact with the **Logs** view in the following ways:
 
-* **Keyword**: Perform a keyword search. While filtering on keywords, logs results will be reduced to only display log lines that contain the matching criteria. Matching terms will also be highlighted in blue.
-* **Highlight**: Enter a term to visually highlight within your search. The terms will be highlighted in orange within the current filter results.
-* **Sources**: Choose which sources to display logs from. For more information, see [Log Types and Their Messages](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/streaming-logs.html#format).
+* **Keyword**: Perform a keyword search. While filtering on keywords, logs results are reduced to only display log lines that contain the matching criteria. Matching terms are also highlighted in blue.
+* **Highlight**: Enter a term to visually highlight within your search. The terms are highlighted in orange within the current filter results.
+* **Sources**: Choose which sources to display logs from. For more information about logs, see [Log Types and Their Messages](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/streaming-logs.html#format).
 * **Download**: Download a file containing logs for the current search.
 * **Copy**: Click the copy icon to copy the text of the log.
 
-By default, the most recent 1,000 log lines will be displayed in the logs drawer. You can click `SHOW 1000 MORE LOGS` to load more.
+By default, the most recent 1,000 log lines are displayed in the logs drawer. You can click `SHOW 1000 MORE LOGS` to load more.
 
 ## <a id="direct-data-access"></a> Direct Data Access
 
@@ -329,7 +329,7 @@ Issues a query against Log Store data.
 * **endTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to now. Must be after start time.
 * **limit** is an optional maximum number of logs to return. Defaults to 100.
 * **page** is an optional number of the page of logs to be returned, must be `>= 1`. Defaults to 1.
-* **order** is an optional order in which the logs will be returned, `asc` or `desc`. Defaults to `desc`.
+* **order** is an optional order in which the logs are returned, `asc` or `desc`. Defaults to `desc`.
 
 ```shell
 export SYSTEM_DOMAIN="<YOUR_SYSTEM_DOMAIN>"
