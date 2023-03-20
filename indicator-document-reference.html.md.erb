@@ -11,9 +11,9 @@ This topic contains detailed information about the schema and API for indicator 
 
 This topic is for developers who want to customize their dashboards for monitoring apps using App Metrics.
 
-To upload an indicator document, see [cURLing Your Indicator Document to App Metrics](#curling-indicator-document).
+To upload an indicator document, see [cURLing your Indicator Document to App Metrics](#curling-indicator-document).
 
-To upload an indicator and create a custom chart from UI, see [Add Your Indicator to App Metrics and Create Custom Metric Chart from the UI](#adding-indicator-from-ui).
+To upload an indicator and create a custom chart from UI, see [Add your Indicator to App Metrics and create Custom Metric Chart from the UI](#adding-indicator-from-ui).
 
 For more information about the schema and API, see [Indicator Document API Specification](#indicator-document-api-spec).
 This topic also contains an example indicator document, named `IndicatorDocumentExample.`
@@ -24,26 +24,28 @@ see [Indicator Protocol Document Reference](https://github.com/pivotal/monitorin
 <p class="note"><strong>Note</strong>: Only this subset of fields is supported for app indicators: <code>name</code>, <code>promql</code>, <code>documentation</code>, and <code>presentation</code>.
 </p>
 
-## <a id='curling-indicator-document'></a> cURLing Your Indicator Document to App Metrics
+## <a id='curling-indicator-document'></a> cURLing your Indicator Document to App Metrics
 
-After you have created your indicator document, you can push it to App Metrics with the cURL command line.
+After you have created your indicator document, you can push it to App Metrics with the cURL command.
 
 ### Linux/Mac
 
-> curl -vvv <https://metrics.sys.DOMAIN/indicator-documents> -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"
+    curl -vvv <https://metrics.sys.DOMAIN/indicator-documents> -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"
 
 ### Windows
 
 1. Copy your cf oath token to the clipboard: `cf oauth-token`</li>
 1. Paste your oauth token into the following command:</li>
 
-> curl -vvv <https://metrics.sys.DOMAIN/indicator-documents> -H "Authorization: [YOUR-TOKEN]" --data-binary "@[YourDoc.yml]"
+```python
+curl -vvv <https://metrics.sys.DOMAIN/indicator-documents> -H "Authorization: [YOUR-TOKEN]" --data-binary "@[YourDoc.yml]"
+```
 
 <p class="note"><strong>Note</strong>: You can only push indicators for apps that run in a space you have access to.</p>
 
 After you create your indicator document, you can also automate the deployment of app indicator documents in your deployment pipeline.
 
-## <a id='indicator-document-api-spec'></a> Indicator Document API Specification
+## <a id='indicator-document-api-spec'></a> Indicator Document API specification
 
 The `/indicator-documents` path supports `POST` and the `/indicator-documents/{org,space,app}` path supports the deletion of an indicator document for a specific `org,space,app`.
 
@@ -212,7 +214,7 @@ components:
                 units: "counts"
 ```
 
-## <a id='adding-indicator-from-ui'></a> Add your Indicator to App Metrics and create a custom metric chart from the UI
+## <a id='adding-indicator-from-ui'></a> Add your Indicator Document to App Metrics and create a custom metric chart from the UI
 
 To upload, edit or remove a custom chart for the specific application from the UI:
 
@@ -245,6 +247,6 @@ To discard the changes and return to the dashboard, close the window.
 To remove a custom chart for an application:
 
 1. Click the Menu icon on the chart and select **Remove**.
-2. To confirm click **Ok**.
+2. To confirm, click **Ok**.
 
 ![alt-text="Create a custom chart"](./images/remove-custom-chart.png)

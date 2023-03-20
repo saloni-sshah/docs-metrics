@@ -25,31 +25,31 @@ It's a quick way to see if the app is able to communicate with each dependency:
 
 For example, when all integrations are accessible the output is:
 
-> {"Log Store":true,"CF API":true,"UAA":true,"Metric Store":true}
+    {"Log Store":true,"CF API":true,"UAA":true,"Metric Store":true}
 
 If there is an issue with one of the dependencies, investigate what is wrong with that particular component.
 
 ### <a id="troubleshooting-cf-api"></a> Troubleshooting CF API
 >
-> "CF API":false
+    "CF API":false
 
 See the [Cloud Controller documentation](https://docs.pivotal.io/platform/application-service/concepts/architecture/cloud-controller.html).
 
 ### <a id="troubleshooting-uaa"></a> Troubleshooting UAA
 >
->"UAA":false
+    "UAA":false
 
 See the [UAA documentation](https://docs.pivotal.io/platform/application-service/concepts/architecture/uaa.html).
 
 ### <a id="troubleshooting-metric-store"></a> Troubleshooting Metric Store
 >
->"Metric Store":false
+    "Metric Store":false
 
 See the [Metric Store documentation](https://docs.vmware.com/en/Metric-Store/1.5/metric-store/GUID-index.html).
 
 ### <a id="troubleshooting-log-store"></a> Troubleshooting Log Store
 >
->"Log Store":false
+    "Log Store":false
 
 Check out the log store VMs on the `appMetrics` deployment to investigate:
 
@@ -78,18 +78,18 @@ Check out the log store VMs on the `appMetrics` deployment to investigate:
 
 Check out the `db-and-errand-runner` VM on the `appMetrics` deployment to investigate.
 
-1. Look at Postgres charts on the App Metrics dashboard for these metrics:
+* Look at Postgres charts on the App Metrics dashboard for these metrics:
 
    * Database CPU
    * Database Memory Usage
    * Database Disk Usage
 
-2. Is the VM running?
+* Is the VM running?
 
    * Run `bosh -d <appMetrics-deployment> vms --vitals`
 
-3. Is the database functioning as expected?
+* Is the database functioning as expected?
 
-   Investigate the VM by using `psql` locally.
+   Investigate the VM by using `psql` locally:
 
    * Run `bosh ssh` and find the appropriate `psql` to query locally, which is always in `/var/vcap/data/packages`: `/var/vcap/data/packages/postgres-11.7/.../bin/psql`

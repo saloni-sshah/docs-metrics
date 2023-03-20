@@ -26,7 +26,7 @@ disk percentage `system.disk.persistent.percent` and VM health `system.healthy`.
 App Metrics dashboard for the App Metrics application also displays the platform indicators as custom metrics.
 App Metrics also supports [alerting](https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.1/app-metrics/GUID-using.html) based on dashboard indicators.
 
-## <a id="kpi"></a>Key Performance Indicators
+## <a id="kpi"></a>Key performance indicators
 
 Key Performance Indicators (KPIs) for App Metrics are the metrics that you might find most useful for monitoring the App Metrics service. KPIs are high-signal-value metrics that can indicate emerging issues.
 
@@ -34,7 +34,7 @@ VMware provides the following KPIs as general alerting and response guidance for
 
 You can expand beyond this guidance and create new, installation-specific monitoring metrics, thresholds, and alerts that are based on learning from your own installations.
 
-### <a id="bosh-metrics"></a> BOSH Metrics
+### <a id="bosh-metrics"></a> BOSH metrics
 
 All BOSH-deployed components generate the following metrics.
 Monitor them to verify they are not consuming excess resources.
@@ -93,7 +93,7 @@ Monitor them to verify they are not consuming excess resources.
 ### <a id="application-metrics"></a> Application Metrics
 
 All applications pushed using Cloud Foundry automatically emit the following application metrics.
-App Metrics is a single application and thus can be monitored by App Metrics or another application monitoring services.
+App Metrics is a single application and can be monitored by App Metrics or another application monitoring services.
 The following KPIs can indicate problems with App Metrics and are useful for monitoring any application.
 Non-routed applications return no data or all zeros for Latency, Errors and Traffic metrics.
 
@@ -133,7 +133,7 @@ Non-routed applications return no data or all zeros for Latency, Errors and Traf
    <tr><th colspan="3" style="text-align: center;"><br>Errors<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>The rate of failed requests i.e. number of 500 status responses.<br><br>
+      <td>The rate of failed requests. For example, number of 500 status responses.<br><br>
       <strong>Use</strong>: Any number of failures indicate a problem with the application or underlying infrastructure.
       <br><br>
       <strong>PromQl Used</strong>: sum((rate(http_total{source_id="$sourceId",status_code="500"}[60s:30s])) * 60) by (process_type, source_id)<br>
@@ -141,7 +141,7 @@ Non-routed applications return no data or all zeros for Latency, Errors and Traf
    </tr>
    <tr>
       <th>Recommended response</th>
-      <td>Investigate application metrics and logs as well as the metrics.sys.<i>DOMAIN</i>/integration-status endpoint.</td>
+      <td>Investigate application metrics and logs and the metrics.sys.<i>DOMAIN</i>/integration-status endpoint.</td>
    </tr>
 </table>
 <table>
@@ -150,7 +150,7 @@ Non-routed applications return no data or all zeros for Latency, Errors and Traf
       <th width="25%">Description</th>
       <td>The amount of resources being utilized by the application.<br><br>
       <strong>Use</strong>: This is made up of CPU, Memory and Disk.
-      Performance may degrade as the amount of resource used approach the Saturation
+      Performance might degrade as the amount of resource used approach the Saturation
       <br><br>
       <strong>CPU PromQl Used</strong>: avg(avg_over_time(cpu{source_id="sourceId"}[60s])) by (process_type, source_id)<br>
       <strong>CPU Type</strong>: percent <br>

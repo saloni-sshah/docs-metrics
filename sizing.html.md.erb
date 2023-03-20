@@ -11,7 +11,7 @@ This topic describes how to configure App Metrics depending on your deployment s
 
 If you are not familiar with App Metrics components, see [App Metrics Product Architecture](https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.1/app-metrics/GUID-architecture.html) before you continue with this topic.
 
-App Metrics depends on the following datastores:
+App Metrics depends on these datastores:
 
 * Metric Store.
 * Log Store.
@@ -19,7 +19,7 @@ App Metrics depends on the following datastores:
 
 The Log Store and Postgres datastores are part of the App Metrics tile, and their scaling is discussed in more detail later in this topic. Metric Store datastore is separate.
 
-## <a id='metrics-datastore'></a> Scale the Metrics Datastore
+## <a id='metrics-datastore'></a> Scaling the Metrics Datastore
 
 App Metrics retrieves metrics from the Metric Store and has its' own configuration for resizing.
 
@@ -30,7 +30,7 @@ Currently, you can scale vertically rather than horizontally.
 For more information about limitations, see [Limitations](https://docs.pivotal.io/metric-store/index.html#limitations)
 in the Metric Store documentation.
 
-## <a id='configs-by-size'></a> Suggested Sizing by Deployment Size
+## <a id='configs-by-size'></a> Suggested Sizing by deployment size
 
 Use the following tables as a guide to configure your resources for deployment.
 
@@ -46,7 +46,7 @@ Estimate the size of your deployment according to how many apps you expect to be
 **Metrics App** — App Metrics deploys the app, `appmetrics`. This app is responsible for serving the UI, proxy requests from the browser to metric and log store, and creating notifications for the user-created monitors.<br><br>
 Scale the `appmetrics` app to one instance.
 
-### <a id='small'></a>Deployment Resources for a Small Deployment
+### <a id='small'></a>Deployment resources for a small deployment
 
 Use the following example resource configuration to store approximately six weeks of data for a small deployment and about 100 application instances:
 
@@ -71,7 +71,7 @@ Use the following example resource configuration to store approximately six week
   </tr>
 </table>
 
-### <a id='medium'></a>Deployment Resources for a Medium Deployment
+### <a id='medium'></a>Deployment resources for a medium deployment
 
 Use the following example resource configuration to store approximately six weeks of data for a medium deployment and about 5000 application instances:
 
@@ -96,7 +96,7 @@ Use the following example resource configuration to store approximately six week
   </tr>
 </table>
 
-### <a id='large'></a>Deployment Resources for a Large Deployment
+### <a id='large'></a>Deployment resources for a large deployment
 
 Use the following example resource configuration to store approximately six weeks of data for a large deployment and about 15,000 application instances:
 
@@ -121,7 +121,7 @@ Use the following example resource configuration to store approximately six week
   </tr>
 </table>
 
-## <a id='log-datastore'></a> Scale the Log Datastore
+## <a id='log-datastore'></a> Scaling the Log Datastore
 
 App Metrics retrieves logs from the Log Store.
 
@@ -138,14 +138,14 @@ The scaling of an individual log-store deployment is subject to many variables, 
 Horizontally scaling in Log Store currently results in data loss. To ensure the best possible results, practice vertical scaling.
 </p>
 
-### <a id='log-considerations'></a> Considerations for Scaling
+### <a id='log-considerations'></a> Considerations for scaling
 
-**Scaling Baseline**
+**Scaling baseline**
 
 6x VMs at 8 core, 64&nbsp;GB RAM, 500&nbsp;GB persistent disk provides approximately 42 days
 of log retention for an environment emitting 40,000 logs per second.
 
-**Scaling Recommendations**
+**Scaling recommendations**
 
 Maximum ingress throughput is primarily dependent on the number of VMs,
 with secondary consideration to CPU and Memory resources.

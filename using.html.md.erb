@@ -45,7 +45,7 @@ To activate auto refresh, click the **Refresh** button by the time selection opt
 
 <p class="note"><strong>Note</strong>: The default setting for auto refresh interval is set to one minute and cannot be configured.</p>
 
-## <a id="app-instance"></a>View Metrics at the Process and App Instance Level
+## <a id="app-instance"></a>Viewing metrics at the process and app instance level
 
 App Metrics relays metric data at the app process level to allow for an in-depth troubleshooting experience, even across a rolling deployment. You are able to view the app metrics that are related to a specific process and focus in further to the specific instances within those processes. This action correlates directly with the processes and app instances in [Apps Manager](https://docs.pivotal.io/application-service/3-0/console/dev-console.html).
 
@@ -137,7 +137,7 @@ These are the steps to create an indicator document:
 2. Write the PromQL query.
 3. Add the PromQL to your indicator document.
 
-### Finding the Metric Name
+### Finding the metric name
 
 Verify that the metrics are being emitted.
 After you configure Metrics Registrar to scrape your metrics
@@ -150,7 +150,7 @@ To validate Spring Boot Actuator and Micrometer metrics,
 see [Metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html)
 in _Spring Boot Actuator: Production-ready Features_ in the Spring Boot documentation.
 
-### Writing a PromQL Query
+### Writing a PromQL query
 
 After you have the metric name, write a PromQL query to see the metric:
 
@@ -213,11 +213,11 @@ spec:
 The  `org,space,app-name` in the example determines which app these indicators are applied to.
 Replace `org,space,app-name` with the org, space, and app name of the app dashboard that you want to customize.
 
-### <a id="indicator-document-schema"></a> Indicator Document Schema
+### <a id="indicator-document-schema"></a> Indicator Document schema
 
 App Metrics uses a derivative version of the Indicator Protocol.
 
-## <a id='monitoring'></a> Adding Monitoring and Alerting
+## <a id='monitoring'></a> Adding monitoring and alerting
 
 You can add custom monitoring to your dashboard indicators by creating a custom monitor document for your app.
 
@@ -271,11 +271,11 @@ Also, note that the `https://my-slack-webhook.com` must be where alerts are sent
 
 The Slack application is currently the only supported use case, but other webhook platforms might work, if they accept a text payload.
 
-### <a id="monitor-document-schema"></a> Monitor Document Schema
+### <a id="monitor-document-schema"></a> Monitor Document schema
 
 For more detailed information on the monitor document schema, see [Monitor Document Template Reference](./monitor-document-reference.html).
 
-## <a id="custom-metric-demos"></a> Custom Metric Demos
+## <a id="custom-metric-demos"></a> Custom metric demos
 
 * [Adding custom application metric charts using Indicator Protocol](https://www.youtube.com/watch?v=KKed-LwJ0BM).
 * [Platform-level metric charts to the dashboard](https://www.youtube.com/watch?v=z7CVbYzjxVU).
@@ -296,7 +296,7 @@ You can interact with the **Logs** view in the following ways:
 
 By default, the most recent 1,000 log lines are displayed in the logs drawer. You can click `SHOW 1000 MORE LOGS` to load more.
 
-## <a id="direct-data-access"></a> Direct Data Access
+## <a id="direct-data-access"></a> Direct data access
 
 You can query Metric Store and Log Store directly to access the raw data.
 
@@ -316,7 +316,7 @@ To query Metric Store, consult the documentation for [Using Metric Store](https:
 When you query the API through HTTPS, each request must have the `Authorization`
 header set with a UAA provided token.
 
-#### <a id='querying'></a> Querying through HTTP Endpoints
+#### <a id='querying'></a> Querying through HTTP endpoints
 
 **GET** `/v1/sources/{sourceID}/logs`
 
