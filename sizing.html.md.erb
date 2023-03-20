@@ -30,7 +30,7 @@ Currently, you can scale vertically rather than horizontally.
 For more information about limitations, see [Limitations](https://docs.pivotal.io/metric-store/index.html#limitations)
 in the Metric Store documentation.
 
-## <a id='configs-by-size'></a> Suggested Sizing by deployment size
+## <a id='configs-by-size'></a> Suggested sizing by deployment size
 
 Use the following tables as a guide to configure your resources for deployment.
 
@@ -121,7 +121,7 @@ Use the following example resource configuration to store approximately six week
   </tr>
 </table>
 
-## <a id='log-datastore'></a> Scale the Log Datastore
+## <a id='log-datastore'></a> Scale the Log datastore
 
 App Metrics retrieves logs from the Log Store.
 
@@ -140,12 +140,12 @@ Horizontally scaling in Log Store currently results in data loss. To ensure the 
 
 ### <a id='log-considerations'></a> Scale considerations
 
-**Scaling baseline**
+**Scale baseline**
 
 6x VMs at 8 core, 64&nbsp;GB RAM, 500&nbsp;GB persistent disk provides approximately 42 days
 of log retention for an environment emitting 40,000 logs per second.
 
-**Scaling recommendations**
+**Scale recommendations**
 
 Maximum ingress throughput is primarily dependent on the number of VMs,
 with secondary consideration to CPU and Memory resources.

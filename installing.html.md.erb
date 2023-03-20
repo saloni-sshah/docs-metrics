@@ -57,7 +57,7 @@ To create a highly available environment, select multiple AZs and select Network
 You can configure App Metrics to use your HTTP, HTTPS, or SOCKS proxy server for
 the Slack application or webhook alerts.
 
-To configure a HTTP or HTTPS Proxy Server through the cf CLI, follow these steps:
+Configure a HTTP or HTTPS Proxy Server through the cf CLI:
 
 1. Log in to cf CLI and run:
 
@@ -153,7 +153,7 @@ To configure the settings for App Metrics components, including Log Store, follo
 
 App Metrics supports forwarding syslog to an external log management service. For example Papertrail, Inc., Splunk Technology, or another custom enterprise log sink. You might find the VM logs useful for debugging problems in the system.
 
-To enable remote syslog forwarding for Healthwatch, do the following:
+To enable remote syslog forwarding for Healthwatch:
 
 1. Click **App Metrics** tile on the Ops Manager Installation Dashboard.
 
@@ -171,7 +171,7 @@ To enable remote syslog forwarding for Healthwatch, do the following:
 
 For Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated with the VMware Tanzu Application Service for VMs (TAS for VMs) tile.
 
-To update the Metric Registrar configuration, do the following:
+To update the Metric Registrar configuration:
 <ol>
 <li>Click <strong>TAS for VMs</strong> tile on the Ops Manager Installation Dashboard.</li>
 <li>Go to **Metric Registrar** pane.</li>
@@ -203,7 +203,7 @@ To resolve this issue and activate the App Metrics link in Apps Manager:
     * `USERNAME` is your username.
     * `PASSWORD` is your password.
 
-2. Update the `no_proxy` environment variable for the `search-server` app to include your system domain.
+2. Update the `no_proxy` environment variable for the `search-server` app to include your system domain:
 
     ```
     cf set-env search-server no_proxy '*.SYSTEM-DOMAIN'

@@ -25,7 +25,7 @@ The flow is the same as the indicator document flow but is curls to the `/monito
 
 ### Linux/Mac
 
-     >curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: [cf oauth-token]" --data-binary "@[MONITOR-DOCUMENT.yml]"
+     curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: [cf oauth-token]" --data-binary "@[MONITOR-DOCUMENT.yml]"
 
 Where `MONITOR-DOCUMENT` is the name of your monitor document YAML file.
 
@@ -204,7 +204,7 @@ components:
 
 You can add, edit, or delete a monitor for the specific application's chart from the UI.
 
-## <a id='add-monitor'></a> Add a Monitor to a specific chart
+## <a id='add-monitor'></a> Add a monitor to a specific chart
 
 To add a monitor document to a specific chart, follow these steps:
 
@@ -232,4 +232,4 @@ To edit or delete a Monitor, follow these steps:
 3. Click **Edit** to change the monitor.
 4. Click **Delete Monitor** to delete the monitor.
 
-![alt-text="Sselect monitor for a chart"](images/choose-edit-or-delete-monitor.png)
+![alt-text="Select monitor for a chart"](images/choose-edit-or-delete-monitor.png)
