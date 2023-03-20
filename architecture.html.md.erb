@@ -21,7 +21,7 @@ To understand the architecture diagram note the following guidelines:
 * Cylinders represent the data storage components of App Metrics v2.1.
 * Blue colored components are packaged with App Metrics v2.1.
 
-## <a id="data-flow"></a>Data Flow
+## <a id="data-flow"></a>Data flow
 
 The following sections describe the components and how they contribute to the data flow.
 
@@ -36,7 +36,7 @@ App Metrics uses the Metric Store tile for:
 
 For more information about the Metric Store tile, see [Metric Store documentation](https://docs.vmware.com/en/Metric-Store/index.html).
 
-### <a id="custom-metrics"></a> Custom Metrics
+### <a id="custom-metrics"></a> Custom metrics
 
 Metrics Registrar collects custom application metrics. Metrics Registrar is bundled with VMware Tanzu Application Service for VMs (TAS for VMs), which is a dependency of App Metrics v2.1.
 
@@ -58,7 +58,7 @@ configured maximum disk utilization.
 
 App Metrics queries the Log Store for logs, log searches, and density histograms.
 
-### <a id="pg-datastore"></a> PostgreSQL Datastore
+### <a id="pg-datastore"></a> PostgreSQL datastore
 
 The PostgreSQL database stores the indicator and monitor documents,
 and trigger alerts for monitors.

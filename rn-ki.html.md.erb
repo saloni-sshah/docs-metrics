@@ -1,6 +1,6 @@
 ---
 breadcrumb: App Metrics Documentation
-title: App Metrics Release Notes and Known Issues
+title: App Metrics release notes and known issues
 owner: App Metrics
 list_style_none: true
 ---
@@ -96,7 +96,7 @@ App Metrics v2.1.0 requires TAS for VMs v2.6.21 or later, v2.7.17 or later, v2.8
 * **[Bug Fix]** Log Store is upgraded to v4.0.152. This fixes a bug in the querying part that negatively affects load balancing.
 
 
-## <a id='new-features'></a> New Features in App Metrics v2.1
+## <a id='new-features'></a> New features in App Metrics v2.1
 
 App Metrics v2.1 includes the following new features:
 
@@ -109,7 +109,7 @@ App Metrics v2.1 includes the following new features:
 * App Metrics includes a `DELETE` endpoint that you can use to delete monitor documents.
 
 
-## <a id='deprecated-features'></a> Removed Features in App Metrics v2.1
+## <a id='deprecated-features'></a> Removed features in App Metrics v2.1
 
 App Metrics v2.1 removes the following features:
 
@@ -119,14 +119,14 @@ App Metrics v2.1 removes the following features:
 * CF Staging Failed Event
 
 
-## <a id='things-to-note'></a> Additional Notes
+## <a id='things-to-note'></a> Additional notes
 
-### <a id='things-to-note'></a> Network Metrics
+### <a id='things-to-note'></a> Network metrics
 
 If the app you are monitoring is not configured to accept HTTP traffic, no data is displayed on the **HTTP Request Count**, **HTTP Request Latency**, or
 **HTTP Request Errors** charts.
 
-### <a id='things-to-note'></a> PromQL source_id Tag
+### <a id='things-to-note'></a> PromQL source_id tag
 
 PromQL should always have the `source_id` tag for non-admin users. The `source_id` tag is used to verify access to the requested app. Without it, non-admin
 users cannot receive data from the metric store.
@@ -134,7 +134,7 @@ users cannot receive data from the metric store.
 App Metrics supports using a `$sourceId` parameter in PromQL, which automatically refers to the source ID of the current app. For example,
 `cpu{source_id="$sourceId"}`.
 
-### <a id='things-to-note'></a> Custom Metric Process Labels
+### <a id='things-to-note'></a> Custom Metric Process labels
 
 App Metrics v2.1 introduces a new app hierarchy to support multiple process types from CAPI v3. Processes that contain the appropriate tagged envelopes are
 available for metric filtering and are labeled accordingly  in the charts.

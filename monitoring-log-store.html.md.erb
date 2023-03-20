@@ -1,6 +1,6 @@
 ---
 breadcrumb: App Metrics Documentation
-title: Monitoring Log Store
+title: Monitor Log Store
 owner: App Metrics
 list_style_none: true
 ---
@@ -20,11 +20,11 @@ resources reach complete consumption, you should scale Log Store up.
 The `dropped_envelopes_count` metric is a key capacity scaling indicator you can use to guide your scaling decisions for Log Store. When the `dropped_envelopes_count` metric increases at a steady rate, you may need to scale the size of your VMs up. For more information about this metric, see [Nozzle Job Metrics](#nozzle-metrics).
 
 
-## <a id='metrics'></a> Metrics Emitted by Log Store
+## <a id='metrics'></a> Emit metrics by Log Store
 
 To understand the metrics that Log Store publishes, see the following sections:
 
-### <a id='nozzle-metrics'></a> Nozzle Job Metrics
+### <a id='nozzle-metrics'></a> Nozzle job metrics
 
 In Loggregator, nozzles receive log envelopes from the Reverse Log Proxy (RLP). For more information about Loggregator, see [Loggregator Architecture](https://docs.pivotal.io/application-service/2-11/loggregator/architecture.html) in the VMware Tanzu Application Service for VMs (TAS for VMs) documentation.
 
@@ -112,7 +112,7 @@ The following table describes the nozzle-related metrics that Log Store publishe
 </tr>
 </table>
 
-### <a id='cf-auth-proxy-metrics'></a> CF Auth Proxy Job Metrics
+### <a id='cf-auth-proxy-metrics'></a> CF Auth Proxy job metrics
 
 The following table describes the CF Auth Proxy-related metrics that Log Store publishes:
 
@@ -149,7 +149,7 @@ The following table describes the CF Auth Proxy-related metrics that Log Store p
 </tr>
 </table>
 
-### <a id='log-store-metrics'></a> Log Store Job Metrics
+### <a id='log-store-metrics'></a> Log Store job metrics
 
 The following table describes the Log Store-related metrics that Log Store publishes:
 
@@ -235,7 +235,7 @@ The following table describes the Log Store-related metrics that Log Store publi
 </tr>
 </table>
 
-### <a id='router-metrics'></a> Router Job Metrics
+### <a id='router-metrics'></a> Router job metrics
 
 The following table describes the router-related metrics that Log Store publishes:
 
