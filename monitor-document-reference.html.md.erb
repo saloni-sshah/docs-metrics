@@ -23,23 +23,28 @@ This also contains an example monitor document, named `MonitorDocumentExample`.
 After you prepare your monitor document, you can push it to App Metrics using the cURL command line.
 The flow is the same as the indicator document flow but is curls to the `/monitor-documents` endpoint.
 
-### Linux/Mac:
+### Linux/Mac
 
      >curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: [cf oauth-token]" --data-binary "@[MONITOR-DOCUMENT.yml]"
 
 Where `MONITOR-DOCUMENT` is the name of your monitor document YAML file.
 
-### Windows:
+### Windows
 
 1. Copy your OAuth token to the clipboard. Run:
 
-   >cf oauth-token
+```python
+f oauth-token
+````
 
-2. Paste your OAuth token into the following command:
+1. Paste your OAuth token into the following command:
 
-   >curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: [AUTH-TOKEN]" --data-binary "@[MONITOR-DOCUMENT.yml]"
+````python
+curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: [AUTH-TOKEN]" --data-binary "@[MONITOR-DOCUMENT.yml]"
+````
 
 Where:
+
 * `AUTH-TOKEN` is the OAuth token you copied in the previous step.
 * `MONITOR-DOCUMENT` is the name of your monitor document YAML file.
 
@@ -200,7 +205,9 @@ components:
 You can add, edit, or delete a monitor for the specific application's chart from the UI.
 
 ## <a id='add-monitor'></a> Add a Monitor to a specific chart
+
 To add a monitor document to a specific chart, follow these steps:
+
 1. Select the chart for the application, click the **Menu** button and select **Add Monitor**.
 2. Fill in the required fields:
 
@@ -214,9 +221,7 @@ To add a monitor document to a specific chart, follow these steps:
 
 ![alt-text="Select the chart to Add Monitor."](images/choose-add-monitor.png)
 
-
 ![alt-text="Adding a monitor to a chart"](images/add-monitor.png)
-
 
 ## <a id='edit-monitor'></a> Edit or delete a monitor for a specific chart
 
