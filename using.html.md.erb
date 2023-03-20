@@ -1,6 +1,6 @@
 ---
 breadcrumb: App Metrics Documentation
-title: Monitoring and Troubleshooting Apps with App Metrics
+title: Monitoring and troubleshooting apps with App Metrics
 owner: App Metrics
 list_style_none: true
 ---
@@ -9,7 +9,7 @@ list_style_none: true
 
 This topic describes how you can monitor and troubleshoot apps using App Metrics.
 
-## <a id="overview"></a> Overview
+## <a id="overview"></a> Understanding health and performance of your apps
 
 App Metrics helps you to understand and troubleshoot the health and performance of your apps by offering the following indicators, data, and visualizations:
 
@@ -23,33 +23,33 @@ App Metrics helps you to understand and troubleshoot the health and performance 
 
 The following sections describe a standard workflow for App Metrics to monitor or troubleshoot your apps.
 
-## <a id='get-started'></a> View an App
+## <a id='get-started'></a> Viewing an app
 
-In a browser,go to `metrics.sys.DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Select an app from the search bar to view metrics and logs.
+In a browser, go to `metrics.sys.DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Select an app from the search bar to view metrics and logs.
 
 App Metrics respects UAA permissions so you can view any app that runs in a space that you have access to.
 
 App Metrics displays app data for a specific time frame on the dashboard.
 
-## <a id="time"></a>Change the Time Frame
+## <a id="time"></a>Changing the time frame
 
 The charts show time along the horizontal axis. You can change the time frame for all charts and the logs by using the time selector options. You can select from several preset timescales or select a custom date range.
 
-**Zoom**: In any chart, click and drag to zoom in on areas of interest. This adjusts all of the charts, and logs, to show data for that time frame.
+In addition, forn any chart, you can click and drag to zoom in on areas of interest. This adjusts all of the charts, and logs, to show data for that time frame.
 
-## <a id="auto-refresh"></a>Auto Refresh the Dashboard
+## <a id="auto-refresh"></a>Auto refreshing the dashboard
 
 Auto refresh mode updates the metrics charts and logs on your dashboard for a timed interval as data is received.
 
-To activate auto refresh, click the **Refresh** button next to the time selection options on the dashboard. This action activates live updating of metrics and logs data for the currently selected time frame.
+To activate auto refresh, click the **Refresh** button by the time selection options on the dashboard. This action activates live updating of metrics and logs data for your currently selected time frame.
 
-<p class="note"><strong>Note</strong>: The default setting for the auto refresh interval is set to one minute and cannot be configured.</p>
+<p class="note"><strong>Note</strong>: The default setting for auto refresh interval is set to one minute and cannot be configured.</p>
 
 ## <a id="app-instance"></a>View Metrics at the Process and App Instance Level
 
-App Metrics relays metric data at the app process level to allow for an in-depth troubleshooting experience, even across rolling deployment. Users are able to view the app metrics that are related to a specific process and further drill down into specific instances within those processes. This correlates directly with the processes and app instances in [Apps Manager](https://docs.pivotal.io/application-service/3-0/console/dev-console.html).
+App Metrics relays metric data at the app process level to allow for an in-depth troubleshooting experience, even across a rolling deployment. You are able to view the app metrics that are related to a specific process and focus in further to the specific instances within those processes. This action correlates directly with the processes and app instances in [Apps Manager](https://docs.pivotal.io/application-service/3-0/console/dev-console.html).
 
-The dashboard displays metrics that are aggregated across all processes by default. To view metrics for a specific process, select a process type from the drop down menu.
+By default, the dashboard displays metrics that are aggregated across all processes. To view metrics for a specific process, select a process type from the drop down menu.
 
 When you select a specific process type, the metrics charts display aggregate data from all instances for the selected process type.
 
@@ -57,7 +57,7 @@ To view metrics for individual instances within the selected process, select the
 
 To view metrics for a specific app instance or selection of specific instances, select your instance or instances from the legend of any chart on the dashboard and select the **Instances** radio button.
 
-## <a id='metrics'></a> Interpreting Metrics
+## <a id='metrics'></a> Interpreting metrics
 
 The default metrics charts that are included with App Metrics provide high-level indicators
 for the four golden signals for monitoring the health of apps running on distributed systems:
@@ -69,9 +69,9 @@ for the four golden signals for monitoring the health of apps running on distrib
 
 The following sections explain how to use each of the charts on the dashboard to monitor and troubleshoot your app.
 
-### <a id='networkMetrics'></a> Network Metrics
+### <a id='networkMetrics'></a> Network metrics
 
-<p class="note"><strong>Note</strong>: If you do not configure your apps for network traffic, the apps show No Data or zeros for the default Latency, Traffic, and Errors metrics.
+<p class="note"><strong>Note</strong>: If you do not configure your apps for network traffic, the apps show no data or zeros for the default settings of Latency, Traffic, and Errors metrics.
 </p>
 
 * <a id='latency'></a> **Latency**: Average latency of a request in milliseconds. A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and results in faster response times.
@@ -80,7 +80,7 @@ The following sections explain how to use each of the charts on the dashboard to
 
 * <a id='errors'></a> **Errors**: Number of network request errors per minute. A spike in HTTP errors means one or more 5xx errors occurred. Check your app logs for more information.
 
-### <a id='saturation'></a> Saturation (Container Metrics)
+### <a id='saturation'></a> Monitoring resource saturation with container metrics
 
 The following **Container Metrics** charts are available on the App Metrics dashboard to help monitor resource saturation:
 
@@ -90,9 +90,9 @@ The following **Container Metrics** charts are available on the App Metrics dash
 
 * Disk usage percentage: A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing large sessions to disk.
 
-### <a id='events'></a> Events
+### <a id='events'></a> Correlating metrics to events
 
-In addition, the **Events** chart helps to correlate the metrics to events for your app. They include:
+ **Events** chart helps to correlate the metrics to events for your app. They include:
 
 * Crash
 * Fail (staging failures)
@@ -105,29 +105,29 @@ In addition, the **Events** chart helps to correlate the metrics to events for y
 
 See the following topics for more information about app events:
 
-* [Starting, Restarting, and Restaging Apps](https://docs.pivotal.io/platform/application-service/devguide/deploy-apps/start-restart-restage.html)
+* [Starting, restarting, and restaging apps](https://docs.pivotal.io/platform/application-service/devguide/deploy-apps/start-restart-restage.html)
 
-* [Troubleshooting App Deployment and Health](https://docs.pivotal.io/platform/application-service/devguide/deploy-apps/troubleshoot-app-health.html)
+* [Troubleshooting app deployment and health](https://docs.pivotal.io/platform/application-service/devguide/deploy-apps/troubleshoot-app-health.html)
 
-## <a id='custom-metrics'></a> Adding Custom Metrics Charts
+## <a id='custom-metrics'></a> Adding custom metric charts
 
 You can add custom metrics charts to your dashboard, including the Spring Boot Actuator and Micrometer metrics. You define the custom metrics that you want to monitor and include them in the indicator document for your app.
 
-For example, to get custom, Actuator, or Micrometer metrics into the Metrics Store, bind Metric Registrar to your app and register your endpoint.
+For example, to get custom Actuator, or Micrometer metrics into the Metrics Store, bind Metric Registrar to your app and register your endpoint.
 
-For more information, see [Configuring the Metric Registrar](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
+For more information, see [Configuring the Metric Registrar](https://docs.pivotal.io/application-service/3-0/metric-registrar/using.html).
 
 To view custom metrics, configure your apps to emit those metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the App Metrics dashboard.
 
 In addition, Spring Boot apps with actuators or Micrometer metrics that are implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to the source code.
 
-### <a id='metric-registrar-settings'></a> Metric Registrar Configuration for Spring Metrics
+### <a id='metric-registrar-settings'></a> Configuring Metric Registrar for Spring Metrics
 
-In order, for Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in Tanzu Application Service Tile.
+In order for Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in Tanzu Application Service Tile.https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html
 
 You must remove the  `id` tag from the list of Blocked tags in the Metric Registrar settings in Tanzu Application Service Tile.
 
-### <a id='create-indicator-doc'></a> Create an Indicator Document
+### <a id='create-indicator-doc'></a> Creating an Indicator Document
 
 An indicator document is a YAML document that specifies which app you want to monitor and the indicators you want to use to monitor it.
 
@@ -137,47 +137,55 @@ These are the steps to create an indicator document:
 2. Write the PromQL query.
 3. Add the PromQL to your indicator document.
 
-#### Find the Metric Name
+### Finding the Metric Name
 
 Verify that the metrics are being emitted.
 After you configure Metrics Registrar to scrape your metrics
 endpoint, verify your respective endpoint for metric names.
 
-If you use a Prometheus-style metrics endpoint, hit your app's metrics endpoint at
+If you use a Prometheus style metrics endpoint, check your app's metrics endpoint at
 `app.domain/metrics` and search for the desired metric.
 
 To validate Spring Boot Actuator and Micrometer metrics,
 see [Metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html)
 in _Spring Boot Actuator: Production-ready Features_ in the Spring Boot documentation.
 
-#### Write a PromQL Query
+### Writing a PromQL Query
 
-After you have the metric name, write a PromQL query for visualizing the metric using the following steps:
+After you have the metric name, write a PromQL query to see the metric:
 
 1. Find additional example PromQL for any of the default charts on the dashboard
    by clicking **Info** of any chart or visit the
    [PromQL Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
 
-2. Use the PromQL Explorer to test out PromQL before inserting it in the indicator document:
+2. Use the PromQL Explorer to test out PromQL before you insert it in the indicator document:
 
     1. Click the **+** button on the dashboard.
 
-    2. Test out the queries to see how the graph appears before placing it in the indicator document.
+    2. Test out the queries to see how the graph appears before you place it in the indicator document.
 
     <p class="note"><strong>Note</strong>: PromQL must have the <code>source_id</code> tag for non-admin users.
 
-  App Metrics supports using a <code>$sourceId</code> parameter in the PromQL which automatically refers to the sourceId of
+  App Metrics supports using:
+
+  ```shell
+  <code> $sourceId</code> parameter in the PromQL which automatically refers to the sourceId of
   the current app. For example: <code>cpu{source_id="$sourceId"}</code>
+```
+
 </p>
 
-#### Add the PromQL to Your Indicator Document
+### Adding the PromQL to your indicator document
 
 After you have the PromQL ready, insert it in an indicator document.
 
 For example, if you have a custom metric `customMetricName500` and want to graph the amount of errors over a one minute
-time period, then your PromQL query is `sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))`.
+time period, then your PromQL query is:
+  ```shell
+`sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))`
+```
 
-The following is an example of the YAML for an indicator document:
+This is an example of the YAML file for an indicator document:
 
 <pre>
 ---
@@ -294,7 +302,7 @@ You can query Metric Store and Log Store directly to access the raw data.
 
 ### <a id="metric-store-api"></a> Metric Store API
 
-To query Metric Store, consult the documentation for [Using Metric Store](https://docs.pivotal.io/metric-store/using.html).
+To query Metric Store, consult the documentation for [Using Metric Store](https://docs.vmware.com/en/Metric-Store/1.5/metric-store/GUID-using.html).
 
 ### <a id="log-store-api"></a> Log Store API
 

@@ -1,24 +1,25 @@
 ---
 breadcrumb: App Metrics Documentation
-title: App Metrics Product Architecture
+title: App Metric product architecture
 owner: App Metrics
 list_style_none: true
 ---
 
 <strong><%= modified_date %></strong>
 
-## <a id="overview"></a>Overview
+## <a id="overview"></a>Architecture
 
 The following diagram shows the components of App Metrics and the Platform components that the App Metrics system interacts with.
 
-![alt-text="App Metrics and platform components architecture"](./images/app-metrics-2-0-architecture.svg)
+![alt-text="App Metrics and platform components interaction architecture"](./images/app-metrics-2-0-architecture.svg)
 
-Understanding the diagram:
+### Understanding the diagram:
+To understand the architecture diagram note the following guidelines:
 
-* The cornered rectangles represent Platform tiles that App Metrics v2.1 depends on.
-* The rounded rectangles represent customer interaction points.
-* The cylinders represent the data storage components of App Metrics v2.1.
-* The blue components are packaged with App Metrics v2.1.
+* Cornered rectangles represent Platform tiles that App Metrics v2.1 depends on.
+* Rounded rectangles represent customer interaction points.
+* Cylinders represent the data storage components of App Metrics v2.1.
+* Blue colored components are packaged with App Metrics v2.1.
 
 ## <a id="data-flow"></a>Data Flow
 
@@ -30,16 +31,16 @@ Metrics are ingested and stored by the Metric Store tile.
 
 App Metrics uses the Metric Store tile for:
 
-* To query for metrics.
-* To register monitors to receive alerts when metrics surpass the monitor thresholds.
+* Querying for metrics.
+* Registering monitors to receive alerts when metrics surpass the thresholds.
 
-For more information about the Metric Store tile, see [Metric Store documentation](https://docs.pivotal.io/metric-store).
+For more information about the Metric Store tile, see [Metric Store documentation](https://docs.vmware.com/en/Metric-Store/index.html).
 
 ### <a id="custom-metrics"></a> Custom Metrics
 
 Metrics Registrar collects custom application metrics. Metrics Registrar is bundled with VMware Tanzu Application Service for VMs (TAS for VMs), which is a dependency of App Metrics v2.1.
 
-To see custom application metrics for App Metrics v2.1, you must configure Metrics Registrar to scrape Prometheus-style metrics from your applications. These custom metrics are available inside Metrics Store and are visible in App Metrics v2.1 to digest the data.
+To see custom application metrics for App Metrics v2.1, you must configure Metrics Registrar to scrape Prometheus style metrics from your applications. These custom metrics are available in the Metrics Store and appear in the App Metrics v2.1 UI to digest the data.
 
 For more information about Metrics Registrar, see:
 
@@ -64,15 +65,15 @@ and trigger alerts for monitors.
 
 When a client uploads an indicator document or monitor document,
 App Metrics stores it in the database. These documents
-are displayed on the charts in the App Metrics dashboard.
+are displayed on the charts on the App Metrics dashboard.
 
 When a monitor threshold is surpassed, the Metric Store tile sends a request to App Metrics. When App Metrics
 receives this request, it stores a record of the alert in the PostgreSQL datastore. These stored alerts
-are then displayed on the charts in the App Metrics dashboard.
+are then displayed on the charts on the App Metrics dashboard.
 
 ### <a id="security"></a> Security
 
 **In Transit**: All communication with the PostgreSQL datastore is through the Transport Layer Security (TLS) protocol, and follows the guidelines in [PostgreSQL documentation](https://www.postgresql.org/docs/11/ssl-tcp.html).
 
-**At Rest**: The PostgreSQL datastore does not store any sensitive information, and by default it's not encrypted.
+**At Rest**: The PostgreSQL datastore does not contain any sensitive information, and by default it's not encrypted.
 To encrypt it, see [Disk Encryption](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/security-pcf-infrastructure-disk-encrypt.html).

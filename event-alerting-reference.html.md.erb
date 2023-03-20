@@ -122,7 +122,7 @@ components:
         name:
           type: string
         event:
-          description: Is to fire alert in case of matched event for the specific application. Allowed events types are CRASH, SSH, START, STOP, UPDATE
+          description: Is to initiate an alert in case of a matched event for the specific application. Allowed events types are CRASH, SSH, START, STOP, UPDATE
           $ref: '#/components/schemas/Event'
         log:
           description: Is to look at given log pattern in the app logs and fire alert in case of match
