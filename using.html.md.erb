@@ -355,8 +355,8 @@ For example:
 }
 ```
 
-* **startTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to 10 minutes ago. Must be before end time.
-* **endTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to now. Must be after start time.
+* **startTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to 10 minutes ago and must be before end time.
+* **endTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to now and must be after start time.
 * **limit** is an optional maximum number of logs to return. Defaults to 100.
 * **page** is an optional number of the page of logs to be returned, must be `>= 1`. Defaults to 1.
 * **order** is an optional order in which the logs are returned, `asc` or `desc`. Defaults to `desc`.
