@@ -123,9 +123,9 @@ In addition, Spring Boot apps with actuators or Micrometer metrics that are impl
 
 ### <a id='metric-registrar-settings'></a> Configure Metric Registrar for Spring Metrics
 
-In order for Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in Tanzu Application Service Tile.https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html
+In order for Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in Tanzu Application Service Tile.
 
-You must remove the  `id` tag from the list of Blocked tags in the Metric Registrar settings in Tanzu Application Service Tile.
+You must remove the  `id` tag from the list of Blocked tags in the Metric Registrar settings for the Tanzu Application Service Tile.
 
 ### <a id='create-indicator-doc'></a> Create an Indicator Document
 
@@ -164,20 +164,20 @@ After you have the metric name, write a PromQL query to see the metric:
 
     2. Test out the queries to see how the graph appears before you place it in the indicator document.
 
-    <p class="note"><strong>Note</strong>: PromQL must have the <code>source_id</code> tag for non-admin users.
+    <p class="note"><strong>Note</strong>: The PromQL query must have the <code>source_id</code> tag for non-admin users.
+    </p>
 
-  App Metrics supports using:
+<p>App Metrics supports using a <code>source_id</code> parameter in the PromQL query which refers to the <code>"$source_id"</code> of the current app.
 
-  ```shell
-  <code> $sourceId</code> parameter in the PromQL which automatically refers to the sourceId of
-  the current app. For example: <code>cpu{source_id="$sourceId"}</code>
+For example:
+
+```shell
+cpu{source_id=“$sourceId”}
 ```
 
-</p>
+### Add the PromQL query to your Indicator Document
 
-### Adding the PromQL to your indicator document
-
-After you have the PromQL ready, insert it in an indicator document.
+After you have the PromQL query ready, insert it in the indicator document.
 
 For example, if you have a custom metric `customMetricName500` and want to graph the amount of errors over a one minute
 time period, then your PromQL query is:
@@ -217,9 +217,9 @@ Replace `org,space,app-name` with the org, space, and app name of the app dashbo
 
 App Metrics uses a derivative version of the Indicator Protocol.
 
-## <a id='monitoring'></a> Add monitoring and alerting
+## <a id='monitoring'></a> Add custom monitoring and alerting
 
-You can add custom monitoring to your dashboard indicators by creating a custom monitor document for your app.
+You can add custom monitoring and alerting to your dashboard indicators by creating a monitor document for your app.
 
 ### Create a Monitor Document
 
@@ -241,7 +241,7 @@ The indicator corresponds to one of your custom indicators or to one of the foll
 After you have the indicator names you can create your monitor document that defines the threshold for your indicator
 and the webhook to send alerts to.
 
-The following is an example of the YAML for an monitor document:
+The following is an example of the YAML file for an monitor document:
 
 <pre>
 ---
@@ -267,7 +267,7 @@ monitors:
 Note that `org,space,app-name` is responsible for defining which app these indicators are applied to.
 Replace this with the org, space, and app name of the app you want to monitor.
 
-Also, note that the `https://my-slack-webhook.com` must be where alerts are sent when a threshold is surpassed.
+Also, `webhook_url`: `https://my-slack-webhook.com` must be where alerts are sent when a threshold is surpassed.
 
 The Slack application is currently the only supported use case, but other webhook platforms might work, if they accept a text payload.
 
@@ -277,6 +277,7 @@ For more detailed information on the monitor document schema, see [Monitor Docum
 
 ## <a id="custom-metric-demos"></a> Custom metric demos
 
+View the following videos to enhance your understanding of metric charts:
 * [Adding custom application metric charts using Indicator Protocol](https://www.youtube.com/watch?v=KKed-LwJ0BM).
 * [Platform-level metric charts to the dashboard](https://www.youtube.com/watch?v=z7CVbYzjxVU).
 
@@ -311,12 +312,12 @@ To query Metric Store, consult the documentation for [Using Metric Store](https:
 * [curl](https://github.com/curl/curl)
 * [CF Auth Token](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
 
-#### <a id='authorization-authentication'></a> Authorization & Authentication
+### <a id='authorization-authentication'></a> Authorization & Authentication
 
 When you query the API through HTTPS, each request must have the `Authorization`
 header set with a UAA provided token.
 
-#### <a id='querying'></a> Query through HTTP endpoints
+### <a id='querying'></a> Query through HTTP endpoints
 
 **GET** `/v1/sources/{sourceID}/logs`
 
@@ -331,26 +332,10 @@ Issues a query against Log Store data.
 * **query** is a [PromQL label selector query](https://prometheus.io/docs/prometheus/latest/querying/basics/#querying-prometheus) for filtering logs on  `message`, `message_type`, `source_type`, and `instance_id`.
   * `message` -- RegEx to search the log message body. Use the backtick operator in case of `\.`.
   * `message_type` -- The file descriptor the log was written to, `OUT` or `ERR`
-  * `source_type` -- The source of the log, any subset of `{"API","APP","CELL","HEALTH","LGR","RTR","SSH","STG"}` connected by pipes, e.g. `"APP|API"`.
-  * `instance_id` -- Filter based on the instance ID of the app or component that wrote the log
-* **startTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to 10 minutes ago. Must be before end time.
-* **endTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to now. Must be after start time.
-* **limit** is an optional maximum number of logs to return. Defaults to 100.
-* **page** is an optional number of the page of logs to be returned, must be `>= 1`. Defaults to 1.
-* **order** is an optional order in which the logs are returned, `asc` or `desc`. Defaults to `desc`.
+  * `source_type` -- The source of the log, any subset of `{"API","APP","CELL","HEALTH","LGR","RTR","SSH","STG"}` connected by pipes. For example, `"APP|API"`.
+  * `instance_id` -- Filter based on the instance ID of the app or component that wrote the log.
 
-```shell
-export SYSTEM_DOMAIN="<YOUR_SYSTEM_DOMAIN>"
-export SOURCE_ID="$(cf app <YOUR_APP> --guid)"
-curl --get -H "Authorization: $(cf oauth-token)" \
-     "https://log-store.$YOUR_SYSTEM_DOMAIN/v1/sources/$SOURCE_ID/logs" \
-     --data-urlencode 'query={message=~"Error.*"}' \
-     --data-urlencode 'startTime=2020-03-24T06:55:00Z' \
-     --data-urlencode 'endTime=2020-03-24T06:59:00Z'
-```
-
-**Response Body**
-
+For example:
 ```json
 {
   "metadata": {
@@ -370,5 +355,22 @@ curl --get -H "Authorization: $(cf oauth-token)" \
 }
 ```
 
+* **startTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to 10 minutes ago. Must be before end time.
+* **endTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to now. Must be after start time.
+* **limit** is an optional maximum number of logs to return. Defaults to 100.
+* **page** is an optional number of the page of logs to be returned, must be `>= 1`. Defaults to 1.
+* **order** is an optional order in which the logs are returned, `asc` or `desc`. Defaults to `desc`.
+
+For example:
+
+```shell
+export SYSTEM_DOMAIN="<YOUR_SYSTEM_DOMAIN>"
+export SOURCE_ID="$(cf app <YOUR_APP> --guid)"
+curl --get -H "Authorization: $(cf oauth-token)" \
+     "https://log-store.$YOUR_SYSTEM_DOMAIN/v1/sources/$SOURCE_ID/logs" \
+     --data-urlencode 'query={message=~"Error.*"}' \
+     --data-urlencode 'startTime=2020-03-24T06:55:00Z' \
+     --data-urlencode 'endTime=2020-03-24T06:59:00Z'
+```
 
 [def]: ./indicator-document-reference.html
