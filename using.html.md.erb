@@ -181,14 +181,14 @@ After you have the PromQL query ready, insert it in the indicator document.
 
 For example, if you have a custom metric `customMetricName500` and want to graph the amount of errors over a one minute
 time period, then your PromQL query is:
+
   ```shell
 `sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))`
 ```
 
 This is an example of the YAML file for an indicator document:
 
-<pre>
----
+```console
 apiVersion: indicatorprotocol.io/v1
 kind: IndicatorDocument
 
@@ -208,7 +208,7 @@ spec:
         title: "Custom Metric 500 Errors"
       presentation:
         units: "none"
-</pre>
+```
 
 The  `org,space,app-name` in the example determines which app these indicators are applied to.
 Replace `org,space,app-name` with the org, space, and app name of the app dashboard that you want to customize.
@@ -277,6 +277,7 @@ For more detailed information on the monitor document schema, see [Monitor Docum
 ## <a id="custom-metric-demos"></a> Custom metric demos
 
 View the following videos to enhance your understanding of metric charts:
+
 * [Adding custom application metric charts using Indicator Protocol](https://www.youtube.com/watch?v=KKed-LwJ0BM).
 * [Platform-level metric charts to the dashboard](https://www.youtube.com/watch?v=z7CVbYzjxVU).
 
@@ -305,6 +306,7 @@ You can query Metric Store and Log Store directly to access raw data.
 To query Metric Store, consult the documentation for [Using Metric Store](https://docs.vmware.com/en/Metric-Store/1.5/metric-store/GUID-using.html).
 
 ### <a id="log-store-api"></a> Log Store API
+
 Be aware of the following prerequisites before you query the Log Store:
 
 * [curl](https://github.com/curl/curl)
@@ -334,6 +336,7 @@ Issues a query against Log Store data.
   * `instance_id` -- Filter based on the instance ID of the app or component that wrote the log.
 
 For example:
+
 ```json
 {
   "metadata": {
@@ -370,5 +373,3 @@ curl --get -H "Authorization: $(cf oauth-token)" \
      --data-urlencode 'startTime=2020-03-24T06:55:00Z' \
      --data-urlencode 'endTime=2020-03-24T06:59:00Z'
 ```
-
-[def]: ./indicator-document-reference.html
