@@ -241,10 +241,9 @@ The indicator corresponds to one of your custom indicators or to one of the foll
 After you have the indicator names you can create your monitor document that defines the threshold for your indicator
 and the webhook to send alerts to.
 
-The following is an example of the YAML file for an monitor document:
+The following example is an YAML file for an monitor document:
 
-<pre>
----
+```yaml
 product: org,space,app-name
 
 webhook_url: https://my-slack-webhook.com
@@ -262,7 +261,7 @@ monitors:
        threshold: 2.0
        duration: 1m
        only_every: 15m
-</pre>
+```
 
 Note that `org,space,app-name` is responsible for defining which app these indicators are applied to.
 Replace this with the org, space, and app name of the app you want to monitor.
@@ -299,15 +298,14 @@ By default, the most recent 1,000 log lines are displayed in the logs drawer. Yo
 
 ## <a id="direct-data-access"></a> Direct data access
 
-You can query Metric Store and Log Store directly to access the raw data.
+You can query Metric Store and Log Store directly to access raw data.
 
 ### <a id="metric-store-api"></a> Metric Store API
 
 To query Metric Store, consult the documentation for [Using Metric Store](https://docs.vmware.com/en/Metric-Store/1.5/metric-store/GUID-using.html).
 
 ### <a id="log-store-api"></a> Log Store API
-
-#### <a id='prerequisites'></a> Prerequisites
+Be aware of the following prerequisites before you query the Log Store:
 
 * [curl](https://github.com/curl/curl)
 * [CF Auth Token](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
