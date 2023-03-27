@@ -12,7 +12,7 @@ This topic describes how to resolve common issues experienced while operating or
 
 The following sections describe errors that cause failure during a PCF Metrics tile and how to troubleshoot them.
 
-###<a id='smoke-test'></a> Smoke Test Errors
+### <a id='smoke-test'></a> Smoke Test Errors
 
 PCF Metrics runs a set of smoke tests during installation to confirm system health.
 If the smoke tests discover any errors, you can find a summary of those errors at the end of the errand log output,
@@ -308,7 +308,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-##  <a id='ui'></a> No Logs or Metrics in the UI
+## <a id='ui'></a> No Logs or Metrics in the UI
 
 In some cases, the PCF Metrics UI might not display metrics and logs after successfully deploying.
 
@@ -339,24 +339,27 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 ### <a name="check-apps"></a> Step 2: Check the PCF Metrics Apps
 
 1. From Ops Manager, click the Elastic Runtime Tile.
-  1. Click the **Credentials** tab.
-  1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**.
-  1. Record the username and password for use in the next step.
+1. Click the **Credentials** tab.
+1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**.
+1. Record the username and password for use in the next step.
 
 1. Log in to the Cloud Foundry Command Line Interface (cf CLI) using the credentials from the previous step.
+
   <pre class="terminal">$ cf login -a http<span>s</span>://api.YOUR-SYSTEM-DOMAIN -u admin -p PASSWORD</pre>
 
 1. When prompted, select the `system` org and the `metrics-v1-4` space.
 
 1. Ensure that the output displays the following apps, each in a `started` state:
-  * `metrics-ingestor`
-  * `mysql-logqueue`
-  * `elasticsearch-logqueue`
-  * `metrics-aggregator`
-  * `metrics`
-  * `metrics-ui`
+
+* `metrics-ingestor`
+* `mysql-logqueue`
+* `elasticsearch-logqueue`
+* `metrics-aggregator`
+* `metrics`
+* `metrics-ui`
 
 1. Check the logs of each app for errors using the following command:
+
   <pre class="terminal">$ cf logs APP-NAME --recent</pre>
   If you do not see any output, or if you did not find any errors, proceed to [Step 3: Check the Elasticsearch Cluster](#check-es-cluster).
 
@@ -367,9 +370,10 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 1. Under the **Status** tab, record the IP of an **Elasticsearch Master** node.
 
 1. Use `bosh ssh` to access the VM from the previous step.
-For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
+For instructions, see [Advanced Troubleshooting with the BOSH CLI][def].
 
 1. Run the following command to list all the Elasticsearch indices:
+
   <pre class="terminal">$ curl ELASTICSEARCH-HOST-IP:9200/\_cat/indices?v | sort
   <br>
   green  open   app\_logs\_1477512000   8   1  125459066            0     59.6gb         29.8gb
@@ -380,20 +384,28 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
   green  open   app\_logs\_1478721600   8   1  102005754            0     53.5gb         26.5gb
   health status index               pri rep docs.count docs.deleted store.size pri.store.size
   </pre>
+
   1. If the `curl` command does not return a `success` response, Elasticsearch might not even be running correctly. Inspect the following logs for any failures or errors:
       * `/var/vcap/sys/log/elasticsearch/elasticsearch.stdout.log`
       * `/var/vcap/sys/log/elasticsearch/elasticsearch.stderr.log`
 
-1. Examine the `status` column of the output.
+  1. Examine the `status` column of the output.
   1. If any of the indices are `red`, delete them using the following command:
+
     <pre class="terminal">curl -X DELETE ELASTICSEARCH-HOST-IP:9200/INDEX</pre>
+
   1. Restart the `elasticsearch-logqueue` app:
+
     <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
+
   1. From each of the Elasticsearch VMs, run the following command:
+
     <pre class="terminal">$ monit restart all</pre>
+
   1. Check periodically to verify the indices gradually recover to a `green` status.
 
-1. Run the `curl` command several more times and examine the most recent index to see if the number of stored documents periodically increases.
+  1. Run the `curl` command several more times and examine the most recent index to see if the number of stored documents periodically increases.
+
   <p class="note"><strong>Note</strong>: The last row of the output corresponds to the most recent index.
      The sixth column displays the number of documents for the index.</p>
   1. If all indices show a `green` status, but the number of documents does not increase,
@@ -401,6 +413,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
      Proceed to to [Step 4: Check the Elasticsearch Logqueue](#check-es-logqueue).
 
 1. Check whether cluster-level shard allocation is enabled:
+
   <pre class="terminal">$ curl localhost:9200/_cluster/settings</pre>
 
     Examine the output:
@@ -415,10 +428,14 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
     }}</pre>
 
 1. Check whether a proxy is present in front of Elasticsearch and whether HTTP traffic is enabled:
-  1. Use `cf ssh` to SSH into any app in the metrics space:
+1. Use `cf ssh` to SSH into any app in the metrics space:
+
   <pre class="terminal">$ cf ssh APP-NAME</pre>
+
   1. Run the `curl` command with the IP address of the **Elasticsearch Master** node:
+
   <pre class="terminal">$ curl ELASTICSEARCH-MASTER-IP-ADDRESS</pre>
+
   1. If the `curl` command fails, talk to your system administrator about removing the proxy or green-listing the PCF Metrics apps.
 
 ### <a name="check-es-logqueue"></a>Step 4: Check the Elasticsearch Logqueue
@@ -426,11 +443,17 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 1. Run <code>cf apps</code> to see if the <code>elasticsearch-logqueue</code> app instances are `started`.
 
 1. If any instance of the app is `stopped`, run the following command to increase logging:
+
   <pre class="terminal">$ cf set-env elasticsearch-logqueue LOG_LEVEL DEBUG</pre>
+
   1. Run the following command to stream logs:
+
   <pre class="terminal">$ cf logs elasticsearch-logqueue</pre>
+
   1. In a different terminal window, run the following command:
+
   <pre class="terminal">$ cf restage elasticsearch-logqueue</pre>
+
   1. Watch the logs emitted by the `elasticsearch-logqueue` app for errors.
       * A common error is that the app cannot connect to Elasticsearch
         because a user deleted the application security group (ASG)
@@ -438,18 +461,23 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
         You can run `cf security-group metrics-api` to see if the ASG exists.
         If not, see [Creating Application Security Groups](https://docs.cloudfoundry.org/concepts/asg.html#process).
 
-
-1. If the app is started and you do not find any errors, proceed to [Step 5: Check the Metrics Ingestor](#check-ingestor).
+  1. If the app is started and you do not find any errors, proceed to [Step 5: Check the Metrics Ingestor](#check-ingestor).
 
 ### <a name="check-ingestor"></a>Step 5: Check the Metrics Ingestor
 
 1. Run <code>cf apps</code> to see if the `metrics-ingestor` app instances are `started`.
 1. If any of the app instances are `stopped`, run the following command to increase logging:
+
   <pre class="terminal">$ cf set-env metrics-ingestor LOG_LEVEL DEBUG</pre>
+
   1. Run the following command to stream logs:
+
   <pre class="terminal">$ cf logs metrics-ingestor</pre>
+
   1. In a different terminal window, run the following command:
+
   <pre class="terminal">$ cf restage metrics-ingestor</pre>
+
   1. Watch the logs emitted by the `metrics-ingestor` app for errors. See the list below for common errors:
       * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the Firehose.
           This user must have the `doppler.firehose` authority.
@@ -457,7 +485,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
       * **WebSocket Disconnects**: If you see WebSocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances.
           The Firehose might be dropping the Ingestor connection to avoid back pressure.
 
-1. If the app is started and you do not find any errors, proceed to [Step 6: Check MySQL](#check-mysql).
+  1. If the app is started and you do not find any errors, proceed to [Step 6: Check MySQL](#check-mysql).
 
 ### <a name="check-mysql"></a>Step 6: Check MySQL
 
@@ -469,11 +497,12 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
    For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
 
 1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
+
   <p class="note"><strong>Note</strong>: If you do not know the username and password,
     you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
 
 1. Verify that the database was bootstrapped correctly:
-  1. Run `show databases` and check for a `metrics` database.
+1. Run `show databases` and check for a `metrics` database.
       1. If there is no `metrics` database, the `migrate_db` errand of the BOSH release might not have run or succeeded.
          Ensure the errand is selected in the tile configuration and update the tile.
 
@@ -493,7 +522,8 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
    </pre>
 
 1. Enter the following query several times to verify that the value returned does not decrease over time:
-  <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_rollup where timestamp_minute > ((UNIX\_TIMESTAMP() - 60) * POW(10, 3));</pre>
+
+  <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_rollup where timestamp_minute > ((UNIX\_TIMESTAMP() - 60)* POW(10, 3));</pre>
   This command displays the rate at which metrics flow in over the last minute.
       1. If the command returns `0` or a consistently decreasing value, the problem is likely further up in ingestion.
          Proceed to [Step 7: Check the MySQL Logqueue](#check-mysql-logqueue).
@@ -503,11 +533,17 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 1. Run <code>cf apps</code> to see if the <code>mysql-logqueue</code> app instances are `started`.
 
 1. If any instance of the app is `stopped`, run the following command to increase logging:
+
   <pre class="terminal">$ cf set-env mysql-logqueue LOG_LEVEL DEBUG</pre>
+
   1. Run the following command to stream logs:
+
   <pre class="terminal">$ cf logs mysql-logqueue</pre>
+
   1. In a different terminal window, run the following command:
+
   <pre class="terminal">$ cf restage mysql-logqueue</pre>
+
   1. Watch the logs emitted by the `mysql-logqueue` app for errors.
       * A common error is that the app cannot connect to MySQL
         because a user deleted the application security group (ASG)
@@ -515,9 +551,9 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
         You can run `cf security-group metrics-api` to see if the ASG exists.
         If not, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
 
-1. If the app is started and you do not find any errors, proceed to [Step 8: Check the Metrics Aggregator](#check-aggregator).
+  1. If the app is started and you do not find any errors, proceed to [Step 8: Check the Metrics Aggregator](#check-aggregator).
 
-##<a id='mysql'></a> MySQL Node Failure
+## <a id='mysql'></a> MySQL Node Failure
 
 In some cases, a MySQL server node might fail to restart.
 The following two sections describe the known conditions that cause this failure as well as steps for diagnosing and resolving them.
@@ -530,11 +566,12 @@ If neither of the causes listed apply, the final section provides instructions f
 Follow these steps to see if a `monit` time-out caused the MySQL node restart to fail:
 
 1. Use `bosh ssh` to access the failing node, using the IP address in the Ops Manager Director tile **Status** tab.
-   For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
+   For instructions, see [Advanced Troubleshooting with the BOSH CLI][def].
 1. Run `monit summary` and check the status of the `mariadb_ctrl` job.
 1. If the status of the `mariadb_ctrl` job is `Execution Failed`, open the following file: `/var/vcap/sys/log/mysql/mariadb_ctrl.combined.log`.
-  1. If the last line of the log indicates that MySQL started without issue, such as in the example below,
+1. If the last line of the log indicates that MySQL started without issue, such as in the example below,
      `monit` likely timed out while waiting for the job to report healthy. Follow the steps below to resolve the issue.
+
   <pre class="terminal">
   {"timestamp":"1481149250.288255692","source":"/var/vcap/packages/<br>mariadb\_ctrl/bin/mariadb\_ctrl","message":"/var/vcap/packages/<br>mariadb\_ctrl/bin/mariadb\_ctrl.mariadb\_ctrl<br> started","log\_level":1,"data":{}}
   </pre>
@@ -552,13 +589,13 @@ Run the following commands to return the `mariadb_ctrl` job to a healthy state:
 #### Diagnose
 
 1. Use `bosh ssh` to access the failing node.
-   For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
+   For instructions, see [Advanced Troubleshooting with the BOSH CLI][def].
 1. Open the following log file: `/var/vcap/sys/log/mysql/mysql.err.log`.
 1. If you see log messages that indicate insufficient disk space, the [persistent disk](https://bosh.io/docs/persistent-disks.html) is likely storing too many bin logs.
    Confirm insufficient disk space by doing the following:
-  1. Run `df -h`.
+1. Run `df -h`.
       1. Ensure that you see the `/var/vcap/store` folder is at or over `90%` usage.
-  1. Navigate to `/var/vcap/store/mysql` and run `ls -al`.
+1. Navigate to `/var/vcap/store/mysql` and run `ls -al`.
       1. Ensure that you see many files named with the format `mysql-bin.########`.
 
 In MySQL for PCF, the server node does not make use of these logs and you can remove all except the most recent bin log.
@@ -567,6 +604,7 @@ Follow the steps below to resolve the issue.
 #### Resolve
 
 1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
+
   <p class="note"><strong>Note</strong>: If you do not know the username and password, you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
 1. Run `use metrics;`.
 1. Run the following command:
@@ -588,11 +626,13 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 #### Stop the Ingestor App
 
 1. From Ops Manager, click the Elastic Runtime Tile.
-  1. Click the **Credentials** tab.
-  1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**.
-  1. Record the username and password for use in the next step.
+1. Click the **Credentials** tab.
+1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**.
+1. Record the username and password for use in the next step.
 1. Log in to the cf CLI using the credentials from the previous step.
+
   <pre class="terminal">$ cf login -a http<span>s</span>://api.YOUR-SYSTEM-DOMAIN -u admin -p PASSWORD</pre>
+
 1. Target the <code>system</code> org and <code>metrics-v1-4</code> space of your PCF deployment:
     <pre class="terminal">$ cf target -o system -s metrics-v1-4</pre>
 1. Stop data flow into the Galera cluster:
@@ -600,7 +640,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 
 #### Edit Your Deployment Manifest
 
-1. Follow the steps in [Log in to BOSH](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html) in _Advanced Troubleshooting with the BOSH CLI_ to target and log in to your BOSH Director.
+1. Follow the steps in [Log in to BOSH][def] in _Advanced Troubleshooting with the BOSH CLI_ to target and log in to your BOSH Director.
    The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
 1. Download the manifest of your PCF deployment:
     <pre class="terminal">
@@ -612,13 +652,13 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 1. Run `bosh deployment YOUR-PCF-MANIFEST.yml` to specify your edited manifest.
 1. Run `bosh deploy` to deploy with your manifest.
 1. Run `bosh disks --orphaned` to see the [persistent disk](https://bosh.io/docs/persistent-disks.html) or disks associated with the failed node.
-  1. Record the `CID` of each persistent disk.
-  1. Contact [Tanzu Support](https://tanzu.vmware.com/support) to walk through re-attaching the orphaned disks to new VMs to preserve their data.
+1. Record the `CID` of each persistent disk.
+1. Contact [Tanzu Support](https://tanzu.vmware.com/support) to walk through re-attaching the orphaned disks to new VMs to preserve their data.
 1. Open the manifest and set the number of instances of the failed server node to `1`.
 1. Run `bosh deploy` to deploy with your edited manifest.
 1. Wait for BOSH to rebuild the node.
 
-##<a id='log'></a> Log Errors
+## <a id='log'></a> Log Errors
 
 <table border='1' class='nice'>
 <tr>
@@ -676,6 +716,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 </table>
 
 ## <a id="fetch-apps"></a>Failed to Fetch Apps
+
 <table>
   <tr>
       <th>Error</th>
@@ -698,6 +739,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 </table>
 
 ## <a id="redis-full"></a>Redis Temporary Datastore Stops Accepting Metrics
+
 <table>
   <tr>
       <th>Error</th>
@@ -726,3 +768,6 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
        </td>
   </tr>
 </table>
+
+
+[def]: https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html
