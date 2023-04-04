@@ -69,10 +69,10 @@ Check out the log store VMs on the `appMetrics` deployment to investigate:
 
    * Run `ssh` into the VM and check `/var/vcap/sys/log` to examine the logs for each process using `du -h /var/vcap/sys/log`
 
-5. Do the logs fail to write to disk? Check the following metrics:
+5. Do the logs fail to write to disk? Check the following metric values:
 
-   * `queued_log_count` -- The number of backup of attempts to write to disk. This metric  shows the handoff stored data count and helps to identify service-to-service transmission faults. If this metric continuously grows, then the receiver service is not able to receive data from the sender.
-   * `replayed_log_count` -- The number of attempts to replay logs to catch up from a backup. This metric shows the log count that is sent from a stored handoff. When the receiver service is back online, this metric increases for a period of time until all handoffs are purged.
+   * `queued_log_count` -- The number of backup attempts to write to disk. The value of the metric shows the handoff stored data count and helps to identify service-to-service transmission faults. If this metric continuously grows, then the receiver service is not able to receive data from the sender.
+   * `replayed_log_count` -- The number of attempts to replay logs to catch up from a backup. The value of the metric shows the log count that is sent from a stored handoff. When the receiver service is back online, this metric increases for a period of time until all handoffs are purged.
 
 ### <a id="troubleshooting-database"></a> Troubleshooting Postgres Database
 
