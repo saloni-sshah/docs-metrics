@@ -494,9 +494,8 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI][def].
 1. Under the **Status** tab, record the IP of a **MySQL Server** node.
 
 1. Use `bosh ssh` to access the VM from the previous step.
-   For instructions, see [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
 
-1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
+2. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
 
   <p class="note"><strong>Note</strong>: If you do not know the username and password,
     you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
