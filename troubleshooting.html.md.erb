@@ -370,7 +370,8 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 1. Under the **Status** tab, record the IP of an **Elasticsearch Master** node.
 
 1. Use `bosh ssh` to access the VM from the previous step.
-For instructions, see <a href="https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html">Advanced Troubleshooting with the BOSH CLI.</a>
+For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
+
 
 1. Run the following command to list all the Elasticsearch indices:
 
@@ -421,7 +422,7 @@ For instructions, see <a href="https://docs.vmware.com/en/VMware-Tanzu-Operation
     * `"all"` means the shard allocation is enabled.
     * `"none"` means the shard allocation is disabled.
 
-1. Re-enable the shard allocation by running the following command:
+1. Enable the shard allocation again by running the following command:
     <pre class="terminal">$ curl -XPUT localhost:9200/_cluster/settings -d
     {"transient" : {
       "cluster.routing.allocation.enable" : "all"
@@ -459,7 +460,7 @@ For instructions, see <a href="https://docs.vmware.com/en/VMware-Tanzu-Operation
         because a user deleted the application security group (ASG)
         that PCF Metrics creates to allow the Logqueue app to connect to the Elasticsearch VMs.
         You can run `cf security-group metrics-api` to see if the ASG exists.
-        If not, see [Creating Application Security Groups](https://docs.cloudfoundry.org/concepts/asg.html#process).
+        If not, see [App Security Groups](https://docs.cloudfoundry.org/concepts/asg.html).
 
   1. If the app is started and you do not find any errors, proceed to [Step 5: Check the Metrics Ingestor](#check-ingestor).
 
@@ -493,7 +494,7 @@ For instructions, see <a href="https://docs.vmware.com/en/VMware-Tanzu-Operation
 
 1. Under the **Status** tab, record the IP of a **MySQL Server** node.
 
-1. Use `bosh ssh` to access the VM from the previous step.
+1. Use `bosh ssh` to access the VM from the previous step. For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 
 2. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
 
@@ -565,11 +566,11 @@ If neither of the causes listed apply, the final section provides instructions f
 Follow these steps to see if a `monit` time-out caused the MySQL node restart to fail:
 
 1. Use `bosh ssh` to access the failing node, using the IP address in the Ops Manager Director tile **Status** tab.
-   For instructions, see [Advanced Troubleshooting with the BOSH CLI][def].
+   For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 1. Run `monit summary` and check the status of the `mariadb_ctrl` job.
 1. If the status of the `mariadb_ctrl` job is `Execution Failed`, open the following file: `/var/vcap/sys/log/mysql/mariadb_ctrl.combined.log`.
-1. If the last line of the log indicates that MySQL started without issue, such as in the example below,
-     `monit` likely timed out while waiting for the job to report healthy. Follow the steps below to resolve the issue.
+1. If the last line of the log indicates that MySQL started without issue, such as in the following example,
+     `monit` likely timed out while waiting for the job to report healthy. Use the following the steps to resolve the issue.
 
   <pre class="terminal">
   {"timestamp":"1481149250.288255692","source":"/var/vcap/packages/<br>mariadb\_ctrl/bin/mariadb\_ctrl","message":"/var/vcap/packages/<br>mariadb\_ctrl/bin/mariadb\_ctrl.mariadb\_ctrl<br> started","log\_level":1,"data":{}}
@@ -588,7 +589,7 @@ Run the following commands to return the `mariadb_ctrl` job to a healthy state:
 #### Diagnose
 
 1. Use `bosh ssh` to access the failing node.
-   For instructions, see [Advanced Troubleshooting with the BOSH CLI][def].
+   For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 1. Open the following log file: `/var/vcap/sys/log/mysql/mysql.err.log`.
 1. If you see log messages that indicate insufficient disk space, the [persistent disk](https://bosh.io/docs/persistent-disks.html) is likely storing too many bin logs.
    Confirm insufficient disk space by doing the following:
@@ -613,7 +614,7 @@ Follow the steps below to resolve the issue.
 
 If troubleshooting is based on the causes that were previously mentioned did not resolve the issue with your failing MySQL node,
 you can follow the steps below to recover it.
-Pivotal recommends only using this procedure as a if there are no other potential solutions available.
+VMware recommends only using this procedure as a if there are no other potential solutions available.
 
 <p class="note warning">
 <strong>WARNING! </strong>
@@ -639,7 +640,8 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 
 #### Edit Your Deployment Manifest
 
-1. Follow the steps in [Log in to BOSH][def] in _Advanced Troubleshooting with the BOSH CLI_ to target and log in to your BOSH Director.
+1. Follow the steps in [Log in to BOSH](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html)
+to target and log in to your BOSH Director.
    The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
 1. Download the manifest of your PCF deployment:
     <pre class="terminal">
@@ -652,7 +654,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 1. Run `bosh deploy` to deploy with your manifest.
 1. Run `bosh disks --orphaned` to see the [persistent disk](https://bosh.io/docs/persistent-disks.html) or disks associated with the failed node.
 1. Record the `CID` of each persistent disk.
-1. Contact [Tanzu Support](https://tanzu.vmware.com/support) to walk through re-attaching the orphaned disks to new VMs to preserve their data.
+1. Contact [VMware Support](https://www.vmware.com/support/services.html) to walk through re-attaching the orphaned disks to new VMs to preserve their data.
 1. Open the manifest and set the number of instances of the failed server node to `1`.
 1. Run `bosh deploy` to deploy with your edited manifest.
 1. Wait for BOSH to rebuild the node.
@@ -705,9 +707,11 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
         <li>Retrieve the IP address of your Elasticsearch master node by navigating to the <b>Metrics</b> tile in the Ops Manager Installation Dashboard,
             clicking the <b>Status</b> tab, and recording the IP address next to <b>ElasticSearchMaster</b>.</li>
         <%= image_tag('images/elasticsearch-ip.png') %>
-        <li>SSH into the Ops Manager VM by following the instructions in <a href="https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html">SSH into Ops Manager</a>.</li>
+        <li> [SSH into the Ops Manager VM](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
+        </li>
         <li>From the Ops Manager VM, use <code>curl</code> to target the IP address of your Elasticsearch master node.
-            Follow the instructions in <a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.2/_cluster_health.html">Cluster Health</a> of the Elasticsearch documentation.</li>
+            Follow the instructions in [Cluster Health](https://www.elastic.co/guide/en/elasticsearch/reference/2.2/_cluster_health.html).
+           </li>
       </ol>
 
       </td>
@@ -769,4 +773,3 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 </table>
 
 
-[def]: https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html
