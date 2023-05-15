@@ -41,7 +41,7 @@ In addition, forn any chart, you can click and drag to zoom in on areas of inter
 
 Auto refresh mode updates the metrics charts and logs on your dashboard for a timed interval as data is received.
 
-To activate auto refresh, click the **Refresh** button by the time selection options on the dashboard. This action activates live updating of metrics and logs data for your currently selected time frame.
+To activate auto refresh, click  **Refresh**  by the time selection options on the dashboard. This action activates live updating of metrics and logs data for your currently selected time frame.
 
 <p class="note"><strong>Note</strong>: The default setting for auto refresh interval is set to one minute and cannot be configured.</p>
 
@@ -114,6 +114,9 @@ See the following topics for more information about app events:
 You can add custom metrics charts to your dashboard, including the Spring Boot Actuator and Micrometer metrics. You define the custom metrics that you want to monitor and include them in the indicator document for your app.
 
 For example, to get custom Actuator, or Micrometer metrics into the Metrics Store, bind Metric Registrar to your app and register your endpoint.
+
+In previous versions, when you encountered an error, in your custom chart creation, the information was not substantial. In v2.2,
+more detailed information appears about the error, and provides you an easier way to troubleshoot.
 
 For more information, see [Configuring the Metric Registrar](https://docs.pivotal.io/application-service/3-0/metric-registrar/using.html).
 
