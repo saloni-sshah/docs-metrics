@@ -7,17 +7,46 @@ list_style_none: true
 
 <strong><%= modified_date %></strong>
 
-This topic contains release notes for App Metrics v2.1.
-
+This topic contains release notes for App Metrics v2.2.
 
 ## <a id='releases'></a> Releases
+
+### <a id='2-2-0'></a> v2.2
+**Release Date: May 19, 2023**
+
+App Metrics v2.2 requires VMware Tanzu Application Service for VMs (TAS for VMs) v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later,
+v2.10, v2.11, v2.12, v2.13, v3.0 or v4.0
+
+* **[Breaking Change]** ] The Ubuntu Xenial Stemcell is  changed to Ubuntu Jammy Stemcell. App Metrics requires Ubuntu Jammy Stemcell v1.44 or higher.
+* **[Feature Improvement]** In case of an error when you crate a custom chart, there is now more detailed information available about the error, which aids in better troubleshooting.
+* **[Security Fix]** Add Secure and HttpOnly flags are added to Http Request.
+* **[Security Fix]** Hide Web Server Name and Version information are added to HTTP response header.
+* **[Security Fix]** Content-security-policy, referrer-policy, strict-transport-security
+and x-content-type-options headers are added to HTTP response header.
+* **[Security Fix]** The Updated SnakeYaml parser is upgraded v2.0 to address a critical CVE. For more information, see [CVE-2022-1471](https://nvd.nist.gov/vuln/detail/CVE-2022-1471) in the
+National Vulnerability Database.
+* **[Security Fix]** The moment.js JavaScript library is upgraded to v2.29.4 to address a critical CVE. For more information, see [CVE-2022-24785](https://nvd.nist.gov/vuln/detail/cve-2022-24785) in the
+National Vulnerability Database.
+* **[Security Fix]** The Hibernate Validator is upgraded to v6.1.7.Final to address a critical CVE. For more information, see [CVE-2020-10693](https://nvd.nist.gov/vuln/detail/CVE-2020-10693) in the
+National Vulnerability Database.
+* **[Bug Fix]** Fixes the Prometheus Querying Language, (PromQL) disappearance or modification issue in custom chart creation.
+* **[Bug Fix]** Fixes the edit the custom chart, then click Execute Query > Save action not working properly issue.
+* **[Bug Fix]** Fixes the new chart creation position list issue. Now, when you create a new custom chart, it’s always added
+to the first position on the list.
+
+## <a id='log-store-fix'></a> Log Store fixes
+* **[Security Fix]** ] The Prometheus dependency is updated to avoid a security vulnerability in earlier versions of App Metrics.
+* **[Bug Fix]** Fixes the issue with the log store VM failing
+due to the log store process that was related to the startup process using corrupted TSM files. For more information, see [Log store VM keeps failing](https://pivotal-io.atlassian.net/browse/APPMETRICS-100).
+* **[Bug Fix]** Fixes the issue that is related to a disk resource leak after horizontal
+scaling. The unmanaged partitions were removed during the startup process.
 
 ### <a id='2-1-5'></a> v2.1.5
 
 **Release Date: September 19, 2022**
 
 App Metrics v2.1.5 requires VMware Tanzu Application Service for VMs (TAS for VMs) v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later,
-v2.10, v2.11, v2.12, v2.13 or v3.0.
+v2.10, v2.11, v2.12, v2.13, v3.0 or v4.0
 
 * **[Security Fix]** The `jetty-server` package and Spark Framework versions are upgraded to address critical CVEs. For more information about critical CVEs, see
 [CVE-2022-2191](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-2191) and

@@ -8,7 +8,7 @@ owner: App Metrics
 
 App Metrics displays up to six weeks of logs, metrics, and event data from apps that run on VMware Tanzu Application Service for VMs (TAS for VMs). App Metrics graphically presents this data to help you better understand the health and performance of your apps.
 
-## <a id='new'></a> What's new in App Metrics v2.1
+## <a id='new'></a> What's new in App Metrics v2.2
 
 <table border="1" class="nice">
   <thead>
@@ -19,65 +19,15 @@ App Metrics displays up to six weeks of logs, metrics, and event data from apps 
   </thead>
   <tbody>
     <tr>
-      <td>Spring Boot Micrometer and tagged metrics support</td>
-      <td> <A href="https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.1/app-metrics/GUID-using.html">Custom Metrics</A> in <em>Monitoring and Troubleshooting Apps with App Metrics</em></td>
-    </tr>
-    <tr>
-      <td>CAPI v3 multi-process and rolling deployment support</td>
-      <td> <A href="https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.1/app-metrics/GUID-using.html">Observability by Process Type</A> in <em>Monitoring and Troubleshooting Apps with App Metrics</em></td>
-    </tr>
-    <tr>
-      <td>Declarative custom observability codification</td>
-      <td><a href="using.html#custom-metrics">Adding Custom Metrics Charts</a> in <em>Monitoring and Troubleshooting Apps with App Metrics</em></td>
-    </tr>
-    <tr>
-      <td>Persistent, sharable dashboard customizations</td>
-      <td><a href="using.html#custom-metrics">Adding Custom Metrics Charts</a> in <em>Monitoring and troubleshooting apps with App Metrics</em></td>
-    </tr>
-    <tr>
-      <td>Improved time selection experience</td>
-      <td><a href="using.html#time">Time Selection</a> in <em>Monitoring and troubleshooting apps with App Metrics</em></td>
-    </tr>
-    <tr>
-      <td>Improved data ingestion performance for live metrics and logs observation</td>
-      <td><a href="using.html#auto-refresh">Live Metrics and Logs</a> in <em>Monitoring and troubleshooting apps with App Metrics</em></td>
-    </tr>
-    <tr>
-      <td>Fault-tolerant, scalable metrics with increased data retention</td>
-      <td>The <a href="https://docs.vmware.com/en/Metric-Store/index.html">Metric Store documentation</a></td>
-    </tr>
-    <tr>
-      <td>Easy metric querying</td>
-      <td>The <a href="https://docs.vmware.com/en/Metric-Store/index.htmlhttps://docs.vmware.com/en/Metric-Store/index.html">Metric Store documentation</a></td>
-    </tr>
-    <tr>
-      <td>Fault-tolerant, scalable logs with increased data retention</td>
-      <td><a href="index.html#log-store">Log Store</a></td>
-    </tr>
-    <tr>
-      <td>Easy log querying</td>
-      <td><a href="using.html#log-store-api">Log Store API</a> in <em>Monitoring and troubleshooting apps with App Metrics</em></td>
-    </tr>
-    <tr>
-      <td>Event alerting</td>
-      <td><a href="event-alerting-reference.html#curling-log-monitor-document">Event and logs alerting</a> in <em>Event Alerting Template Reference</em></td>
-    </tr>
-    <tr>
-      <td>Adding a monitor into a chart from UI</td>
-      <td><a href="monitor-document-reference.html#adding-monitor-document-from-ui">Add monitor from UI</a> in <em>Monitor Document Template
-        Reference</em></td>
-    </tr>
-    <tr>
-      <td>Adding a custom chart from UI</td>
-      <td><a href="indicator-document-reference.html#adding-indicator-from-ui">Add custom chart from UI</a> in <em>Indicator Document Template
-        Reference</em></td>
+      <td>More detailed error support information available when creating a custom chart.</td>
+      <td> <A href="https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.2/app-metrics/GUID-using.html">Custom Metrics</A> in <em>Monitoring and Troubleshooting Apps with App Metrics</em></td>
     </tr>
   </tbody>
 </table>
 
 ## <a id='log-store'></a> About the Log Store
 
-In App Metrics v2.1, Log Store provides a persistent storage layer for logs sent through Loggregator.
+In App Metrics v2.2, Log Store provides a persistent storage layer for logs sent through Loggregator.
 
 Log Store has the following features:
 
@@ -116,7 +66,7 @@ The following table provides version and version-support information about App M
     </tr>
     <tr>
       <td>Compatible TAS for VMs versions</td>
-      <td>v2.6.21 and later (unsupported), v2.7.17 and later, v2.8.11 and later (unsupported), v2.9.5 and later (unsupported), v2.10, v2.11, v2.12, v2.13, and v3.0</td>
+      <td>v2.6.21 and later (unsupported), v2.7.17 and later, v2.8.11 and later (unsupported), v2.9.5 and later (unsupported), v2.10, v2.11, v2.12, v2.13, v3.0 and v4.0</td>
     </tr>
     <tr>
       <td>IaaS support</td>
