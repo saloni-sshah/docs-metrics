@@ -370,7 +370,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 1. Under the **Status** tab, record the IP of an **Elasticsearch Master** node.
 
 1. Use `bosh ssh` to access the VM from the previous step.
-For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
+For instructions, see [Advanced Troubleshooting with the [BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 
 
 1. Run the following command to list all the Elasticsearch indices:
@@ -566,7 +566,7 @@ If neither of the causes listed apply, the final section provides instructions f
 Follow these steps to see if a `monit` time-out caused the MySQL node restart to fail:
 
 1. Use `bosh ssh` to access the failing node, using the IP address in the Ops Manager Director tile **Status** tab.
-   For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
+   For instructions, see [Advanced Troubleshooting with the [BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 1. Run `monit summary` and check the status of the `mariadb_ctrl` job.
 1. If the status of the `mariadb_ctrl` job is `Execution Failed`, open the following file: `/var/vcap/sys/log/mysql/mariadb_ctrl.combined.log`.
 1. If the last line of the log indicates that MySQL started without issue, such as in the following example,
@@ -589,7 +589,7 @@ Run the following commands to return the `mariadb_ctrl` job to a healthy state:
 #### Diagnose
 
 1. Use `bosh ssh` to access the failing node.
-   For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
+   For instructions, see [Advanced Troubleshooting with the [BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 1. Open the following log file: `/var/vcap/sys/log/mysql/mysql.err.log`.
 1. If you see log messages that indicate insufficient disk space, the [persistent disk](https://bosh.io/docs/persistent-disks.html) is likely storing too many bin logs.
    Confirm insufficient disk space by doing the following:
