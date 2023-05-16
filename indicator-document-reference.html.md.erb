@@ -1,6 +1,6 @@
 ---
 breadcrumb: App Metrics Documentation
-title: Indicator Document template reference
+title: Indicator document template reference
 owner: App Metrics
 list_style_none: true
 ---
@@ -8,7 +8,7 @@ list_style_none: true
 <strong><%= modified_date %></strong>
 
 This topic is for developers who want to customize their dashboards for monitoring apps using App Metrics.
-IT contains detailed information about the schema and API for indicator documents.
+It contains detailed information about the schema and API for indicator documents.
 
 To upload an indicator document, see [cURLing your Indicator Document to App Metrics](#curling-indicator-document).
 
@@ -23,7 +23,7 @@ see [Indicator Protocol Document Reference](https://github.com/pivotal/monitorin
 <p class="note"><strong>Note</strong>: Only this subset of fields is supported for app indicators: <code>name</code>, <code>promql</code>, <code>documentation</code>, and <code>presentation</code>.
 </p>
 
-## <a id='curling-indicator-document'></a> cURLing your Indicator Document to App Metrics
+## <a id='curling-indicator-document'></a> Use cURL command to push your Indicator document to App Metrics
 
 After you create your indicator document, you can push it to App Metrics with the cURL command.
 
@@ -44,7 +44,7 @@ curl -vvv <https://metrics.sys.DOMAIN/indicator-documents> -H "Authorization: [Y
 
 After you create your indicator document, you can automate the deployment of app indicator documents in your deployment pipeline.
 
-## <a id='indicator-document-api-spec'></a> Indicator Document API specification
+## <a id='indicator-document-api-spec'></a> Indicator document API specification
 
 The `/indicator-documents` path supports `POST` and the `/indicator-documents/{org,space,app}` path supports the deletion of an indicator document for a specific `org,space,app`.
 
@@ -238,11 +238,11 @@ To edit a custom chart for an application:
 3. Click **Execute Query** to review the changes.
 4. Click **Save** to save the changes and return to dashboard.
 
-To discard the changes and return to the dashboard, close the window.
+To discard your changes and return to the dashboard, close the window.
 
 ![alt-text="Edit a custom chart for an application"](./images/edit-custom-chart.png)
 
-## <a id='remove-custom-chart'></a> Remove Custom Chart for the specific application
+## <a id='remove-custom-chart'></a> Remove custom chart for the specific application
 
 To remove a custom chart for an application:
 

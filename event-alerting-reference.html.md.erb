@@ -15,7 +15,7 @@ To upload a log monitor document, see [cURL Your Log Monitor Document to App Met
 
 For more information about the schema and API, see [Log Monitor Document API Specification](#log-monitor-document-api-spec). It also contains an example for log monitor document, named `LogMonitorDocumentExample`.
 
-## <a id='curling-log-monitor-document'></a> cURL Your Log Monitor Document to App Metrics
+## <a id='curling-log-monitor-document'></a> Use the cURL command to push Log Monitor document to App Metrics
 
 After you prepare your log monitor document, you can push it to App Metrics using the cURL command line. The endpoint is the same as the monitor document.
 
@@ -29,12 +29,7 @@ Where `LOG-MONITOR-DOCUMENT` is the name of your log monitor document YAML file.
 
 ### Windows:
 
-1. Copy your OAuth token to the clipboard:
-
-````python
-cf oauth-token
-````
-
+1. Copy your OAuth token to the clipboard: `cf oauth-token`
 2. Paste your OAuth token into the following command:
 
 ````python
@@ -47,7 +42,7 @@ Where:
 
 <p class="note"><strong>Note</strong>: You can only push log monitors for apps that run in a space that you have access to.</p>
 
-## <a id='log-monitor-document-api-spec'></a> Log Monitor Document API Specification
+## <a id='log-monitor-document-api-spec'></a> Log Monitor document API specification
 
 The `/monitors-documents` path supports `POST` and the `/monitor-documents/{org,space,app}` supports `GET` monitor document for a specific `org,space,app`. The `DELETE` variable is not supported for a single log monitor document.
 
@@ -175,7 +170,7 @@ components:
   examples:
     LogMonitorDocumentExample:
       description: |
-        A log monitor for the system,catalyst,appmetrics application that sends alerts to
+        A log monitor for the system, catalyst, app metrics application that sends alerts to
         https://my-slack-webhook.com.
 
         In the log monitor document's YML file specify `event` and `log` in a meantime or at least one of them.
@@ -211,11 +206,11 @@ components:
               duration: 1m
 ```
 
-In case of fired alerts, the results are posted in the appropriate Slack channel as mentioned in the YAML file. It might appear similar to the following example output:
+In case of started alerts, the results are posted in the appropriate Slack channel as mentioned in the YAML file. It might appear similar to the following example output:
 
 ```console
 [OUT] Event match for CRASH matched with log pattern
-    App: system,catalyst,appmetrics
+    App: system, catalyst, appmetrics
     Indicator: MONIT419582b23da0480a8308451011cf7d4a
     Source type: API
     Since: 2022-07-15T06:21:21.131883281Z

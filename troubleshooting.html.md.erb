@@ -7,6 +7,8 @@ list_style_none: true
 
 <strong><%= modified_date %></strong>
 
+This topic helps you troubleshoot App Metrics
+
 ## <a id="integration-errors"></a> Integration errors
 
 App Metrics is a nexus of four integration points:
@@ -23,7 +25,7 @@ It's a quick way to see if the app is able to communicate with each dependency:
 
 * `false` - not accessible
 
-For example, when all integrations are accessible the output is:
+For example, when all integrations are accessible, the output is:
 
     {"Log Store":true,"CF API":true,"UAA":true,"Metric Store":true}
 
@@ -50,7 +52,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
       * `/var/vcap/sys/log/elasticsearch/elasticsearch.stderr.log`
 
 2. Examine the `status` column of the output.
-  . If any of the indices are `red`, delete them using the following command:
+   If any of the indices are `red`, delete them using the following command:
 
     <pre class="terminal">curl -X DELETE ELASTICSEARCH-HOST-IP:9200/INDEX</pre>
 
@@ -62,15 +64,15 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
     <pre class="terminal">$ monit restart all</pre>
 
-5. Check periodically to verify the indices gradually recover to a `green` status.
+5. Check periodically to verify that the indices recover to a `green` status.
 
 6. Run the `curl` command several more times and examine the most recent index to see if the number of stored documents periodically increases.
 
-  <p class="note"><strong>Note</strong>: The last row of the output corresponds to the most recent index.
+    <p class="note"><strong>Note</strong>: The last row of the output corresponds to the most recent index.
      The sixth column displays the number of documents for the index.</p>
-7. If all indices show a `green` status, but the number of documents does not increase,
+7. If all indices show `green` status, but the number of documents does not increase,
      there is likely a problem further up in ingestion.
-     Proceed to to [Step 4: Check the Elasticsearch Logqueue](#check-es-logqueue).
+     Proceed to [Step 4: Check the Elasticsearch Logqueue](#check-es-logqueue).
 1. Check whether cluster-level shard allocation is enabled:
 
   <pre class="terminal">$ curl localhost:9200/_cluster/settings</pre>
@@ -114,15 +116,15 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
     <pre class="terminal">$ cf restage elasticsearch-logqueue</pre>
 
 1. Watch the logs emitted by the `elasticsearch-logqueue` app for errors.
-      * A common error is that the app cannot connect to Elasticsearch
+      * A common error is that the app does not connect to Elasticsearch
         because a user deleted the application security group (ASG)
-        that PCF Metrics creates to allow the Logqueue app to connect to the Elasticsearch VMs.
+        that PCF Metrics created to allow the Logqueue app to connect to the Elasticsearch VMs.
         You can run `cf security-group metrics-api` to see if the ASG exists.
         If not, see [App Security Groups](https://docs.cloudfoundry.org/concepts/asg.html).
 
 1. If the app is started and you do not find any errors, proceed to [Step 5: Check the Metrics Ingestor](#check-ingestor).
 
-### <a name="check-ingestor"></a>Step 5: Check the Metrics Ingestor
+### <a name="check-ingestor"></a>Step 5: Check Metrics Ingestor
 
 1. Run <code>cf apps</code> to see if the `metrics-ingestor` app instances are `started`.
 1. If any of the app instances are `stopped`, run the following command to increase logging:
@@ -180,14 +182,14 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
    +-------------------+
    </pre>
 
-1. Enter the following query several times to verify that the value returned does not decrease over time:
+5. Enter the following query several times to verify that the value returned does not decrease over time:
 
   <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_rollup where timestamp_minute > ((UNIX\_TIMESTAMP() - 60)* POW(10, 3));</pre>
   This command displays the rate metrics flow in over the last minute.
       1. If the command returns `0` or a consistently decreasing value, the problem is likely further up in ingestion.
          Proceed to [Step 7: Check the MySQL Logqueue](#check-mysql-logqueue).
 
-### <a name="check-mysql-logqueue"></a> Step 7: Check the MySQL Logqueue
+### <a name="check-mysql-logqueue"></a> Step 7: Check MySQL Logqueue
 
 1. Run <code>cf apps</code> to see if the <code>mysql-logqueue</code> app instances are `started`.
 
