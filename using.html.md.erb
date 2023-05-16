@@ -120,12 +120,12 @@ You can add custom metrics charts to your dashboard, including the Spring Boot A
 For example, to get custom Actuator, or Micrometer metrics into the Metrics Store, bind Metric Registrar to your app and register your endpoint.
 
 For more information, see [Configuring the Metric Registrar](https://docs.pivotal.io/application-service/3-0/metric-registrar/using.html).
+) and then view these metrics on the App Metrics dashboard.
 
 <p class="note"><strong>Note</strong>: In previous versions, if you encountered an error, in your custom chart creation, the information was not substantial. In this version,
 more detailed information appears about the error, and provides you an easier way to troubleshoot.</p>
 
-To view custom metrics, configure your apps to emit those metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the App Metrics dashboard.
-
+To view custom metrics, configure your apps to emit those metrics out of the [Loggregator Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html).
 In addition, Spring Boot apps with actuators or Micrometer metrics that are implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to the source code.
 
 ### <a id='metric-registrar-settings'></a> Configure Metric Registrar for Spring Metrics
@@ -297,7 +297,7 @@ You can interact with the **Logs** view in the following ways:
 
 * **Keyword**: Perform a keyword search. While filtering on keywords, logs results are reduced to only display log lines that contain the matching criteria. Matching terms are also highlighted in blue.
 * **Highlight**: Enter a term to visually highlight within your search. The terms are highlighted in orange within the current filter results.
-* **Sources**: Choose which sources to display logs from. For more information about logs, see [Log Types and Their Messages](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/streaming-logs.html#format).
+* **Sources**: Choose which sources to display logs from. For more information about logs, see [Log Types and Their Messages](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-streaming-logs.html).
 * **Download**: Download a file containing logs for the current search.
 * **Copy**: Click the copy icon to copy the text of the log.
 
