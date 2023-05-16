@@ -21,11 +21,14 @@ App Metrics helps you to understand and troubleshoot the health and performance 
 * [App Events](#events): A chart of update, start, stop, crash, SSH, and staging failure events.
 * [Logs](#logs): A list of app logs that you can search, filter, and download.
 
+
 The following sections describe a standard workflow for App Metrics to monitor or troubleshoot your apps.
 
 ## <a id='get-started'></a> View an app
+These are the steps to view an app:
 
-In a browser, go to `metrics.sys.DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Select an app from the search bar to view metrics and logs.
+1. In a browser, go to `metrics.sys.DOMAIN` and log in with your User Account and Authentication (UAA) credentials.
+2. Select an app from the search bar to view metrics and logs.
 
 App Metrics respects UAA permissions so you can view any app that runs in a space that you have access to.
 
@@ -47,9 +50,9 @@ To activate auto refresh, click  **Refresh**  by the time selection options on t
 
 ## <a id="app-instance"></a>View metrics at the process and app instance level
 
-App Metrics relays metric data at the app process level to allow for an in-depth troubleshooting experience, even across a rolling deployment. You are able to view the app metrics that are related to a specific process and focus in further to the specific instances within those processes. This action correlates directly with the processes and app instances in [Apps Manager](https://docs.pivotal.io/application-service/3-0/console/dev-console.html).
+App Metrics relays metric data at the app process level to allow for an indepth troubleshooting experience, even across a rolling deployment. You are able to view the app metrics that are related to a specific process and focus in further to the specific instances within those processes. This action correlates directly with the processes and app instances in [Apps Manager](https://docs.pivotal.io/application-service/3-0/console/dev-console.html).
 
-By default, the dashboard displays metrics that are aggregated across all processes. To view metrics for a specific process, select a process type from the drop down menu.
+By default, the dashboard displays metrics that are aggregated across all processes. To view metrics for a specific process, select a process type from the drop-down menu.
 
 When you select a specific process type, the metrics charts display aggregate data from all instances for the selected process type.
 
@@ -66,6 +69,7 @@ for the four golden signals for monitoring the health of apps running on distrib
 * Traffic
 * Errors
 * Saturation
+
 
 The following sections explain how to use each of the charts on the dashboard to monitor and troubleshoot your app.
 
@@ -92,7 +96,7 @@ The following **Container Metrics** charts are available on the App Metrics dash
 
 ### <a id='events'></a> Correlate metrics to events
 
- **Events** chart helps to correlate the metrics to events for your app. They include:
+ The **Events** chart helps to correlate the metrics to events for your app. They include:
 
 * Crash
 * Fail (staging failures)
@@ -115,10 +119,10 @@ You can add custom metrics charts to your dashboard, including the Spring Boot A
 
 For example, to get custom Actuator, or Micrometer metrics into the Metrics Store, bind Metric Registrar to your app and register your endpoint.
 
-In previous versions, when you encountered an error, in your custom chart creation, the information was not substantial. In v2.2,
-more detailed information appears about the error, and provides you an easier way to troubleshoot.
-
 For more information, see [Configuring the Metric Registrar](https://docs.pivotal.io/application-service/3-0/metric-registrar/using.html).
+
+<p class="note"><strong>Note</strong>: In previous versions, if you encountered an error, in your custom chart creation, the information was not substantial. In this version,
+more detailed information appears about the error, and provides you an easier way to troubleshoot.</p>
 
 To view custom metrics, configure your apps to emit those metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the App Metrics dashboard.
 
@@ -157,8 +161,8 @@ in _Spring Boot Actuator: Production-ready Features_ in the Spring Boot document
 
 After you have the metric name, write a PromQL query to see the metric:
 
-1. Find additional example PromQL for any of the default charts on the dashboard
-   by clicking **Info** of any chart or visit the
+1. Find additional example PromQL for any of the default charts on the dashboard.
+   Click **Info** on any chart or visit the
    [PromQL Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
 
 2. Use the PromQL Explorer to test out PromQL before you insert it in the indicator document:
@@ -265,9 +269,8 @@ monitors:
        duration: 1m
        only_every: 15m
 ```
-
-Note that `org,space,app-name` is responsible for defining which app these indicators are applied to.
-Replace this with the org, space, and app name of the app you want to monitor.
+<p class="note"><strong>Note</strong>: The `org,space,app-name` is responsible for defining which app these indicators are applied to.
+Replace this with the org, space, and app name of the app you want to monitor.</p>
 
 Also, `webhook_url`: `https://my-slack-webhook.com` must be where alerts are sent when a threshold is surpassed.
 

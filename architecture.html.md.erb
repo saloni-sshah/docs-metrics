@@ -1,6 +1,6 @@
 ---
 breadcrumb: App Metrics Documentation
-title: App Metric product architecture
+title: App Metric architecture
 owner: App Metrics
 list_style_none: true
 ---
@@ -14,12 +14,12 @@ The following diagram shows the components of App Metrics and the Platform compo
 ![alt-text="App Metrics and platform components interaction architecture"](./images/app-metrics-2-0-architecture.svg)
 
 ### Understanding the diagram:
-To understand the architecture diagram note the following guidelines:
+To understand the architecture diagram, note the following guidelines:
 
-* Cornered rectangles represent Platform tiles that App Metrics v2.1 depends on.
+* Cornered rectangles represent Platform tiles that App Metrics depends on.
 * Rounded rectangles represent customer interaction points.
-* Cylinders represent the data storage components of App Metrics v2.1.
-* Blue colored components are packaged with App Metrics v2.1.
+* Cylinders represent the data storage components of App Metrics.
+* Blue colored components are packaged with App Metrics.
 
 ## <a id="data-flow"></a>Data flow
 
@@ -38,14 +38,14 @@ For more information about the Metric Store tile, see [Metric Store documentatio
 
 ### <a id="custom-metrics"></a> Custom metrics
 
-Metrics Registrar collects custom application metrics. Metrics Registrar is bundled with VMware Tanzu Application Service for VMs (TAS for VMs), which is a dependency of App Metrics v2.1.
+Metrics Registrar collects custom application metrics. Metrics Registrar is bundled with VMware Tanzu Application Service for VMs (TAS for VMs), which is a dependency of App Metrics.
 
-To see custom application metrics for App Metrics v2.1, you must configure Metrics Registrar to scrape Prometheus style metrics from your applications. These custom metrics are available in the Metrics Store and appear in the App Metrics v2.1 UI to digest the data.
+To see custom application metrics for App Metrics, you must configure Metrics Registrar to scrape Prometheus style metrics from your applications. These custom metrics are available in the Metrics Store and appear in the App Metrics UI to digest the data.
 
 For more information about Metrics Registrar, see:
 
-* [Metric Registrar and Custom App Metrics](https://docs.pivotal.io/application-service/3-0/metric-registrar/)
-* [Using Metric Registrar](https://docs.pivotal.io/platform/application-service/metric-registrar/using.html)
+* [Metric Registrar and Custom App Metrics](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/metric-registrar-index.html)
+* [Using Metric Registrar](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/metric-registrar-using.html)
 
 ### <a id="logs"></a> Logs
 
@@ -65,11 +65,11 @@ and trigger alerts for monitors.
 
 When a client uploads an indicator document or monitor document,
 App Metrics stores it in the database. These documents
-are displayed on the charts on the App Metrics dashboard.
+appear in the charts on the App Metrics dashboard.
 
 When a monitor threshold is surpassed, the Metric Store tile sends a request to App Metrics. When App Metrics
 receives this request, it stores a record of the alert in the PostgreSQL datastore. These stored alerts
-are then displayed on the charts on the App Metrics dashboard.
+are then appear on the charts on the App Metrics dashboard.
 
 ### <a id="security"></a> Security
 

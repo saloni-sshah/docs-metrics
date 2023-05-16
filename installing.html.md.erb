@@ -11,7 +11,7 @@ list_style_none: true
 
 Before you begin your installation of App Metrics:
 
-* App Metrics v2.1 requires <a href="https://docs.vmware.com/en/Metric-Store/1.5/metric-store/GUID-index.html" target="_blank">Metric Store</a> as the metrics datastore. You must install this tile before you install App Metrics.
+* App Metrics v2.2 requires <a href="https://docs.vmware.com/en/Metric-Store/1.5/metric-store/GUID-index.html" target="_blank">Metric Store</a> as the metrics datastore. You must install this tile before you install App Metrics.
 * If you upgrade from the Metrics v1.x, the App Metrics tile is installed as a separate tile and does not install over the v1.x version of the Metrics tile.
 * There is no data migration from v1.x to v2.x of the product.
 * To maintain historical data you must install both version tiles side-by-side for two weeks before uninstalling Metrics v1.x
@@ -33,7 +33,7 @@ Metrics v1.x is accessible at:
 
 <ol>
 <li>After you install the <a href="https://docs.vmware.com/en/Metric-Store/1.5/metric-store/GUID-index.html" target="_blank">Metric Store</a> tile in Ops Manager,
-    download the App Metrics 2.1 product file from <a href="https://network.pivotal.io/products/apm" target="_blank">VMware Tanzu Network</a>.</li>
+    download the App Metrics v2.2 product file from <a href="https://network.pivotal.io/products/apm" target="_blank">VMware Tanzu Network</a>.</li>
 <li>To upload the product file, go to Ops Manager Installation Dashboard and click <strong>Import a Product</strong>.</li>
 <li>Click the plus sign (+) next to the version number of App Metrics to add the tile to your staging area.</li>
 </ol>
@@ -183,6 +183,7 @@ To update the Metric Registrar configuration:
 
 Use this topic if **View in App Metrics** does not appear in Apps Manager and if App Metrics is deployed with one the following versions of TAS for VM:
 
+* Tas for VMs v4.0
 * Tas for VMs v3.0
 * TAS for VMs v2.13
 * TAS for VMs v2.12

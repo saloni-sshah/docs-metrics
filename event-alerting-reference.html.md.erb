@@ -17,7 +17,7 @@ For more information about the schema and API, see [Log Monitor Document API Spe
 
 ## <a id='curling-log-monitor-document'></a> cURL Your Log Monitor Document to App Metrics
 
-After you prepare your log monitor document, push it to App Metrics using the cURL command line. The endpoint is the same as the monitor document.
+After you prepare your log monitor document, you can push it to App Metrics using the cURL command line. The endpoint is the same as the monitor document.
 
 ### Linux/Mac:
 
@@ -35,7 +35,7 @@ Where `LOG-MONITOR-DOCUMENT` is the name of your log monitor document YAML file.
 cf oauth-token
 ````
 
-1. Paste your OAuth token into the following command:
+2. Paste your OAuth token into the following command:
 
 ````python
 curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: [AUTH-TOKEN]" --data-binary "@[LOG-MONITOR-DOCUMENT.yml]"
@@ -155,7 +155,7 @@ components:
           description: 'Minimum duration between alerts. Alerts trigger only every [this duration].'
         duration:
           type: string
-          description: How long the value has to be past the threshold before firing an alert
+          description: How long the value has to be past the threshold before it starts an alert
     Event:
       type: object
       required:
@@ -168,10 +168,10 @@ components:
           description: Name of event which can be one of the following types - CRASH, SSH, START, STOP, UPDATE
         only_every:
           type: string
-          description: 'Minimum duration between alerts. Alerts trigger only every [this duration].'
+          description: 'Minimum duration between alerts. Alerts start only every [this duration].'
         duration:
           type: string
-          description: How long the value has to be past the threshold before firing an alert. In case of event it is required to set to Om
+          description: How long the value has to be past the threshold before it starts an alert. In case of event it is required to set to Om
   examples:
     LogMonitorDocumentExample:
       description: |
@@ -213,7 +213,7 @@ components:
 
 In case of fired alerts, the results are posted in the appropriate Slack channel as mentioned in the YAML file. It might appear similar to the following example output:
 
-```
+```console
 [OUT] Event match for CRASH matched with log pattern
     App: system,catalyst,appmetrics
     Indicator: MONIT419582b23da0480a8308451011cf7d4a

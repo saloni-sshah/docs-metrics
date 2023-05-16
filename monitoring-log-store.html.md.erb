@@ -10,14 +10,14 @@ list_style_none: true
 This topic describes how to monitor Log Store and the metrics that Log Store publishes.
 
 
-## <a id='overview'></a> Overview
+## <a id='overview'></a> Overview on Observing the Health of Log Store
 
 You can use the metrics that Log Store publishes to observe the health of Log Store and determine if its VMs and disks are appropriately scaled.
 
 You can scale Log Store vertically. When disk resources reach complete consumption, Log Store begins dropping the oldest data first. When memory or CPU
-resources reach complete consumption, you should scale Log Store up.
+resources reach complete consumption, you must scale Log Store up.
 
-The `dropped_envelopes_count` metric is a key capacity scaling indicator you can use to guide your scaling decisions for Log Store. When the `dropped_envelopes_count` metric increases at a steady rate, you may need to scale the size of your VMs up. For more information about this metric, see [Nozzle Job Metrics](#nozzle-metrics).
+The `dropped_envelopes_count` metric is a key capacity scaling indicator you can use to guide your scaling decisions for Log Store. When the `dropped_envelopes_count` metric increases at a steady rate, you might need to scale the size of your VMs up. For more information about this metric, see [Nozzle Job Metrics](#nozzle-metrics).
 
 
 ## <a id='metrics'></a> Emit metrics by Log Store
@@ -47,8 +47,8 @@ The following table describes the nozzle-related metrics that Log Store publishe
   <td><code>dropped_envelopes_count</code></td>
   <td>counter</td>
   <td>The number of envelopes a nozzle drops.</td>
-  <td>If this number is increasing at a steady rate, it may indicate that the app is sending more logs than the nozzle can accommodate. To solve this issue,
-    you may need scale the size of your VMs up.</td>
+  <td>If this number is increasing at a steady rate, it might indicate that the app is sending more logs than the nozzle can accommodate. To solve this issue,
+    you might need scale the size of your VMs up.</td>
 </tr>
 <tr>
   <td><code>ingress_byte_count</code></td>

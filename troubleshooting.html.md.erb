@@ -54,32 +54,31 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
     <pre class="terminal">curl -X DELETE ELASTICSEARCH-HOST-IP:9200/INDEX</pre>
 
-  1. Restart the `elasticsearch-logqueue` app:
+  4. Restart the `elasticsearch-logqueue` app:
 
     <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
 
-  1. From each of the Elasticsearch VMs, run the following command:
+  5. From each of the Elasticsearch VMs, run the following command:
 
     <pre class="terminal">$ monit restart all</pre>
 
-  1. Check periodically to verify the indices gradually recover to a `green` status.
+  6. Check periodically to verify the indices gradually recover to a `green` status.
 
-  1. Run the `curl` command several more times and examine the most recent index to see if the number of stored documents periodically increases.
+  7. Run the `curl` command several more times and examine the most recent index to see if the number of stored documents periodically increases.
 
   <p class="note"><strong>Note</strong>: The last row of the output corresponds to the most recent index.
      The sixth column displays the number of documents for the index.</p>
-  1. If all indices show a `green` status, but the number of documents does not increase,
+  8. If all indices show a `green` status, but the number of documents does not increase,
      there is likely a problem further up in ingestion.
      Proceed to to [Step 4: Check the Elasticsearch Logqueue](#check-es-logqueue).
-
 1. Check whether cluster-level shard allocation is enabled:
 
   <pre class="terminal">$ curl localhost:9200/_cluster/settings</pre>
 
-    Examine the output:
+  Examine the output:
     <br><br>
-    * `"all"` means the shard allocation is enabled.
-    * `"none"` means the shard allocation is disabled.
+    * `"all"` means the shard allocation is activated.
+    * `"none"` means the shard allocation is deactivated.
 
 1. Enable the shard allocation again by running the following command:
     <pre class="terminal">$ curl -XPUT localhost:9200/_cluster/settings -d
@@ -87,8 +86,8 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
       "cluster.routing.allocation.enable" : "all"
     }}</pre>
 
-1. Check whether a proxy is present in front of Elasticsearch and whether HTTP traffic is enabled:
-1. Use `cf ssh` to SSH into any app in the metrics space:
+2. Check whether a proxy is present in front of Elasticsearch and whether HTTP traffic is enabled:
+3. Use `cf ssh` to SSH into any app in the metrics space:
 
   <pre class="terminal">$ cf ssh APP-NAME</pre>
 
@@ -138,7 +137,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
   <pre class="terminal">$ cf restage metrics-ingestor</pre>
 
-  1. Watch the logs emitted by the `metrics-ingestor` app for errors. See the list below for common errors:
+  1. Watch the logs emitted by the `metrics-ingestor` app for errors. See the following list for common errors:
       * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the Firehose.
           This user must have the `doppler.firehose` authority.
       * **Cannot connect to the logqueues**: There might be a problem with the UAA, or it could be throttling traffic.
@@ -258,7 +257,7 @@ Run the following commands to return the `mariadb_ctrl` job to a healthy state:
       1. Ensure that you see many files named with the format `mysql-bin.########`.
 
 In MySQL for PCF, the server node does not make use of these logs and you can remove all except the most recent bin log.
-Follow the steps below to resolve the issue.
+Use the following steps to resolve the issue.
 
 #### Resolve
 
@@ -272,7 +271,7 @@ Follow the steps below to resolve the issue.
 ### Re-deploy BOSH to Restart the Node
 
 If troubleshooting is based on the causes that were previously mentioned did not resolve the issue with your failing MySQL node,
-you can follow the steps below to recover it.
+you can use the following steps to recover it.
 VMware recommends only using this procedure as a if there are no other potential solutions available.
 
 <p class="note warning">
@@ -342,7 +341,7 @@ to target and log in to your BOSH Director.
     <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
   </ol>
     <p class="note"><strong>Note</strong>: To avoid having to apply this fix in the future,
-    select the checkbox to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update. </p>
+    select the check box to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update. </p>
   </td>
 </tr>
 </table>
@@ -388,7 +387,7 @@ to target and log in to your BOSH Director.
       <ol>
         <li>Retrieve the IP address of your Elasticsearch master node by navigating to the <b>Metrics</b> tile in the Ops Manager Installation Dashboard,
             clicking the <b>Status</b> tab, and recording the IP address next to <b>ElasticSearchMaster</b>.</li>
-        <%= image_tag('images/elasticsearch-ip.png') %>
+            ![alt-text=""](./images/elasticsearch-ip.png)
         <li> [SSH into the Ops Manager VM](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
         </li>
         <li>From the Ops Manager VM, use <code>curl</code> to target the IP address of your Elasticsearch master node.
@@ -399,23 +398,23 @@ to target and log in to your BOSH Director.
   </tr>
 </table>
 
-## <a id="fetch-apps"></a>Failed to Fetch Apps
+## <a id="fetch-apps"></a>Failed to get Apps
 <table>
   <tr>
       <th>Error</th>
-      <td>Even though you entered the correct UAA credentials, the metrics app fails to fetch the list of apps.</td>
+      <td>Even though you entered the correct UAA credentials, the metrics app fails to get the list of apps.</td>
   </tr>
   <tr>
       <th>Cause</th>
-      <td>The browser plugins or cookies inject extraneous content in requests to Cloud Controller API, causing it to reject the request.</td>
+      <td>The browser plug-ins or cookies inject extraneous content in requests to Cloud Controller API, causing it to reject the request.</td>
   </tr>
   <tr>
       <th>Solution</th>
       <td>Confirm the problem and clear the browser, as follows:
       <ol>
-        <li>Try the browser's incognito mode to see if the metrics app is able to fetch the list of apps.
-             If this works, the problem is likely cookies or plugins.</li>
-        <li>Clear your browser cookies and plugins.</li>
+        <li>Try your browser's incognito mode to see if the metrics app is able to get the list of apps.
+             If this works, the problem is likely cookies or plug-ins.</li>
+        <li>Clear your browser cookies and plug-ins.</li>
        </ol>
        </td>
   </tr>
@@ -430,7 +429,7 @@ to target and log in to your BOSH Director.
             <li>Metrics stop appearing on the UI.</li>
             <li>When you run <code>cf metrics-ingestor logs</code>, you see the following entry in the Ingestor logs:<br>
                 <code>MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk.
-                Commands that may modify the data set are disabled. Please check Redis logs for details about the error.</code></li>
+                Commands that might modify the data set are deactivated. Please check Redis logs for details about the error.</code></li>
            </ul>
       </td>
   </tr>

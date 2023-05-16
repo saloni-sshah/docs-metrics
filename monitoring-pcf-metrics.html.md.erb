@@ -7,7 +7,7 @@ list_style_none: true
 
 <strong><%= modified_date %></strong>
 
-This topic explains how to monitor the health of the App Metrics service using the logs, metrics,
+This topic explains how to monitor the health of the App Metrics service using logs, metrics,
 and Key Performance Indicators (KPIs) emitted by Tanzu Application Service and the App Metrics application itself.
 
 For more information about monitoring TAS for VMs,
@@ -16,15 +16,15 @@ see [Monitoring TAS for VMs](https://docs.pivotal.io/application-service/3-0/ope
 ## <a id="healthwatch"></a>Healthwatch
 
 The primary way to monitor App Metrics is using [Healthwatch](https://docs.vmware.com/en/Healthwatch-for-VMware-Tanzu/2.2/healthwatch/installing-index.html).
-After you complete your installation, go to the JobHealth dashboard to view the App Metrics deployment which is named `appMetrics`.
+After you complete your App Metrics installation, go to the JobHealth dashboard to view the App Metrics deployment. The deployment is named `appMetrics`.
 
 Healthwatch also supports alerting based on VM persistent
-disk percentage `system.disk.persistent.percent` and VM health `system.healthy`.
+disk percentage. For example,  `system.disk.persistent.percent` and VM health `system.healthy`.
 
 ## <a id="appmetrics"></a>App Metrics
 
 App Metrics dashboard for the App Metrics application also displays the platform indicators as custom metrics.
-App Metrics also supports [alerting](https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.1/app-metrics/GUID-using.html) based on dashboard indicators.
+App Metrics also supports [alerting](https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.2/app-metrics/GUID-using.html) based on dashboard indicators.
 
 ## <a id="kpi"></a>Key performance indicators
 
@@ -36,8 +36,8 @@ You can expand beyond this guidance and create new, installation-specific monito
 
 ### <a id="bosh-metrics"></a> BOSH metrics
 
-All BOSH-deployed components generate the following metrics.
-Monitor them to verify they are not consuming excess resources.
+All BOSH-deployed components generate the following metrics. Monitor them to verify they are not consuming excess resources.
+
 <table>
    <tr><th colspan="3" style="text-align: center;"><br> Log Store VMs (log-store-vms) <br><br></th></tr>
    <tr>
