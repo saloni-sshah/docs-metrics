@@ -1,0 +1,8 @@
+*   [Pivotal Cloud Foundry Metrics](/docs-metrics/index.html)
+*   [Installing PCF Metrics](/docs-metrics/installing.html)
+*   [Sizing PCF Metrics for Your System](/docs-metrics/sizing.html)
+*   [Monitoring and Troubleshooting Apps with PCF Metrics](/docs-metrics/using.html)
+*   [Monitoring PCF Metrics](/docs-metrics/monitoringpcfmetrics.html)
+*   [Troubleshooting PCF Metrics](/docs-metrics/troubleshooting.html)
+*   [PCF Metrics Product Architecture](/docs-metrics/architecture.html)
+*   [Release Notes and Known Issues](/docs-metrics/rn-ki.html)
