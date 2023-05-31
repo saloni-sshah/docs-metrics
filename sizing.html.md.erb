@@ -1,15 +1,15 @@
 ---
 breadcrumb: App Metrics Documentation
-title: Size App Metrics for your system
+title: Size App Metrics
 owner: App Metrics
 list_style_none: true
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic tells you how to configure App Metrics depending on your deployment size. Use the information in this topic to optimize App Metrics for high capacity, reduce resource usage for smaller deployment sizes and to scale your overall deployment.
+You can configure App Metrics depending on your deployment size. Use the information in this topic to optimize App Metrics for high capacity, reduce resource usage for smaller deployment sizes and to scale your overall deployment.
 
-If you are not familiar with App Metrics components, see [App Metrics Product Architecture](https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.1/app-metrics/GUID-architecture.html) before you continue with this topic.
+If you are not familiar with App Metrics components, see [App Metrics architecture](https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.1/app-metrics/GUID-architecture.html) before you continue with this topic.
 
 App Metrics depends on these datastores:
 
@@ -34,7 +34,7 @@ in the Metric Store documentation.
 
 Use the following tables as a guide to configure your resources for deployment.
 
-Estimate the size of your deployment according to how many apps you expect to be deployed.
+Estimate the size of your deployment according to how many apps you expect to deploy.
 
 <table style='nice'>
    <tr><th>Size</th><th>Purpose</th><th>Approximate number of app instances</th></tr>
@@ -149,7 +149,7 @@ of log retention for an environment emitting 40,000 logs per second.
 
 Maximum ingress throughput is primarily dependent on the number of VMs,
 with secondary consideration to CPU and Memory resources.
-Retention and Replication Factor primarily depend on the size of persistent disks attached to the VMs.
+Retention and Replication Factor primarily depends on the size of persistent disks attached to the VMs.
 Abnormally high cardinality of indexed information (particularly source_id and instance_id) can place pressure
 on VM Memory.
 This is possible even in the absence of high log volume.

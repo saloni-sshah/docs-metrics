@@ -7,20 +7,16 @@ list_style_none: true
 
 <strong><%= modified_date %></strong>
 
-This topic tells you how to monitor Log Store and the metrics that Log Store publishes.
+You can monitor Log Store and the metrics that Log Store publishes.
 
+## <a id='overview'></a> Observing the health of Log Store
 
-## <a id='overview'></a> Overview on observing the health of Log Store
-
-You can use the metrics that Log Store publishes to observe the health of Log Store and determine if its VMs and disks are appropriately scaled.
+You can use the metrics that Log Store publishes to observe the health of Log Store and determine if the VMs and disks are appropriately scaled.
 
 You can scale Log Store vertically. When disk resources reach complete consumption, Log Store begins dropping the oldest data first. When memory or CPU
-resources reach complete consumption, you must scale Log Store up.
+resources reach complete consumption, you can scale Log Store up.
 
 The `dropped_envelopes_count` metric is a key capacity scaling indicator you can use to guide your scaling decisions for Log Store. When the `dropped_envelopes_count` metric increases at a steady rate, you might need to scale the size of your VMs up. For more information about this metric, see [Nozzle Job Metrics](#nozzle-metrics).
-
-
-## <a id='metrics'></a> Emit metrics by Log Store
 
 To understand the metrics that Log Store publishes, see the following sections.
 

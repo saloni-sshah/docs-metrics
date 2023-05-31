@@ -1,15 +1,15 @@
 ---
 breadcrumb: App Metrics Documentation
-title: Monitor and troubleshoot apps with App Metrics
+title: Monitoring and troubleshooting apps with App Metrics
 owner: App Metrics
 list_style_none: true
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic tells you how to monitor and troubleshoot apps using App Metrics.
+You can monitor and troubleshoot apps using App Metrics.
 
-## <a id="overview"></a> Understand health and performance of your apps
+## <a id="overview"></a> Understand the health and performance of your apps
 
 App Metrics helps you to understand and troubleshoot the health and performance of your apps by offering the following indicators, data, and visualizations:
 
@@ -36,9 +36,9 @@ App Metrics displays app data for a specific time frame on the dashboard.
 
 ## <a id="time"></a>Change the time frame
 
-The charts show time along the horizontal axis. You can change the time frame for all charts and the logs by using the time selector options. You can select from several preset timescales or select a custom date range.
-
-In addition, forn any chart, you can click and drag to zoom in on areas of interest. This adjusts all of the charts, and logs, to show data for that time frame.
+The charts show time along the horizontal axis.
+You can change the time frame for all charts and the logs by using the time selector options. You can select from several preset timescales or select a custom date range.
+In addition, from any chart, you can click and drag to zoom in on areas of interest. This adjusts all of the charts, and logs, to show data for that time frame.
 
 ## <a id="auto-refresh"></a>Auto refresh the dashboard
 
@@ -157,7 +157,7 @@ To validate Spring Boot Actuator and Micrometer metrics,
 see [Metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html)
 in _Spring Boot Actuator: Production-ready Features_ in the Spring Boot documentation.
 
-### Write a PromQL query
+### Writing a PromQL query
 
 After you have the metric name, write a PromQL query to see the metric:
 
@@ -224,7 +224,7 @@ Replace `org,space,app-name` with the org, space, and app name of the app dashbo
 
 App Metrics uses a derivative version of the Indicator Protocol.
 
-## <a id='monitoring'></a> Add custom monitoring and alerting
+## <a id='monitoring'></a> Custom monitoring and alerting
 
 You can add custom monitoring and alerting to your dashboard indicators by creating a monitor document for your app.
 
@@ -313,7 +313,7 @@ To query Metric Store, consult the documentation for [Using Metric Store](https:
 
 ### <a id="log-store-api"></a> Log Store API
 
-Be aware of the following prerequisites before you query the Log Store:
+Make note of the following prerequisites before you query the Log Store:
 
 * [curl](https://github.com/curl/curl)
 * [CF Auth Token](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
