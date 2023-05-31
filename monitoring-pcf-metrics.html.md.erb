@@ -7,7 +7,7 @@ list_style_none: true
 
 <strong><%= modified_date %></strong>
 
-This topic explains how to monitor the health of the App Metrics service using the logs, metrics,
+You can monitor the health of the App Metrics service using the logs, metrics,
 and Key Performance Indicators (KPIs) emitted by Tanzu Application Service and the App Metrics application itself.
 
 For more information about monitoring TAS for VMs,
@@ -37,8 +37,8 @@ VMware also recommends that operators expand beyond this guidance and create new
 
 ### <a id="bosh-metrics"></a> BOSH Metrics
 
-All BOSH-deployed components generate the following metrics.
-Monitor them to ensure that they are not consuming excess resources.
+All BOSH deployed components generate the following metrics.
+Monitor them to verify that they are not consuming excess resources.
 <table>
    <tr><th colspan="3" style="text-align: center;"><br> Log Store VMs (log-store-vms) <br><br></th></tr>
    <tr>
@@ -60,7 +60,7 @@ Monitor them to ensure that they are not consuming excess resources.
    </tr>
    <tr>
       <th>Recommended response</th>
-      <td>Log Store disks should be scale up <strong>vertically</strong> as needed to prevent data loss. Scaling horizontally will result in data loss.
+      <td>Log Store disks can be scaled up <strong>vertically</strong> as needed to prevent data loss. Scaling horizontally results in data loss.
       </td>
    </tr>
 </table>
@@ -91,7 +91,7 @@ Monitor them to ensure that they are not consuming excess resources.
       </tr>
 </table>
 
-### <a id="application-metrics"></a> Application Metrics
+### <a id="application-metrics"></a> Application metrics
 
 All applications pushed using Cloud Foundry automatically emit the following application metrics.
 App Metrics is a single application and thus can be monitored by App Metrics or another application monitoring services.

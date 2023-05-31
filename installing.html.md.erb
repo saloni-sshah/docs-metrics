@@ -6,10 +6,11 @@ list_style_none: true
 ---
 
 <strong><%= modified_date %></strong>
+ Before you begin your installation of App Metrics there are certain prerequisites you need to know.
 
-##<a id='prerequisites'></a>Prerequisites
+ ## <a id='prerequisites'></a>Prerequisites
 
-Before you install App Metrics:
+Here are your prerequisites to install App Metrics:
 
 <p class="note"><b>Note:</b> App Metrics v2.0 requires <a href="https://docs.pivotal.io/metric-store" target="_blank">Metric Store</a> as its metrics datastore. You will need to install this tile before installing App Metrics.</p>
 
@@ -31,7 +32,7 @@ To maintain historical data please install both tiles  side-by-side for two week
 <li>Under the Import a Product button, click + next to the version number of App Metrics. This adds the tile to your staging area.</li>
 </ol>
 
-## <a id='ConfigureAzs'></a>Configure AZs and Networks
+## <a id='ConfigureAzs'></a>Configuring availability zones and networks
 
 To start using App Metrics, you need to configure the App Metrics tile by performing the following steps:
 <ol>
@@ -45,7 +46,7 @@ VMware recommends selecting multiple AZs.)</li>
 </ul>
 </ol>
 
-## <a id='ConfigureProxy'></a>(Optional) Configure App Metrics to Use an HTTP or SOCKS Proxy
+## <a id='ConfigureProxy'></a>Configuring App Metrics to use HTTP or SOCKS proxy server (Optional)
 
 You can configure App Metrics to use your HTTP, HTTPS, or SOCKS proxy server for
 Slack or webhook alerts.
@@ -84,9 +85,7 @@ Enable a HTTP or HTTPS Proxy Server through the cf CLI.
     (https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#evgroups)
     in the Cloud Foundry Documentation.
 
-###<a id='EnableSOCKS'></a>Enable a SOCKS Proxy Server
-Start by enabling an HTTP or HTTPS proxy using the cf CLI, then switch it to a
-SOCKS protocol in the Ops Manager UI.
+### <a id='EnableSOCKS'></a>Starting a SOCKS proxy server
 
   1. Click the App Metrics tile on the Ops Manager Installation Dashboard.
   1. Navigate to the **App Metrics Components Config** pane.
@@ -124,7 +123,7 @@ SOCKS protocol in the Ops Manager UI.
     (https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#evgroups)
     in the Cloud Foundry Documentation.
 
-## <a id='ConfigureFeatures'></a>(Optional) Configure App Metrics Features
+## <a id='ConfigureFeatures'></a>Configuring App Metrics components (Optional)
 
 Here you can configure the settings for App Metrics components, including Log Store.
 <ol>
@@ -135,9 +134,29 @@ Here you can configure the settings for App Metrics components, including Log St
 <li>Set the App Metrics Logs Prune Interval (set to two minutes by default). This is the frequency at which Log Store will check the disk capacity to make the pruning decision.</li>
 </ol>
 
-## <a id='ConfigureSyslog'></a>(Optional) Configure Syslog Forwarding
+## <a id='ConfigureSyslog'> </a> Configuring syslog forwarding (Optional)
 
-App Metrics supports forwarding syslog to an external log management service such as Papertrail, Splunk, or a custom enterprise log sink. You may find the VM logs useful for debugging problems in the system.
+App Metrics supports forwarding syslog to an external log management service. For example Papertrail, Inc., Splunk Technology, or another custom enterprise log sink. You might find the VM logs useful for debugging problems in the system.
+
+To enable remote syslog forwarding for Healthwatch:
+
+1. Click **App Metrics** tile on the Ops Manager Installation Dashboard.
+
+2. Go to the **Syslog** pane.
+
+3. Select **Yes without encryption** or **Yes with TLS encryption** to activate syslog forwarding.
+
+   * **External Syslog Host**: address of syslog server where you want logs sent. For example, [logs.example.com].
+   * **External Syslog Port**: port of your syslog server. For example, [29279].
+   * **External Syslog Protocol**: protocol for sending the logs.
+   * **External Syslog Permitted Peer**: enter the fingerprint or name of the remote peer. For example, [*.example.com]. (TLS only).
+   * **External Syslog TLS CA Certificate**: enter the CA certificate of the syslog destination.(TLS only).
+
+## <a id='ConfigureMetricRegistrar'></a>Configuring Metric Registrar for Spring Boot Metrics (Optional)
+
+For Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated with the VMware Tanzu Application Service for VMs (TAS for VMs) tile.
+
+To update the Metric Registrar configuration:
 
 To enable remote syslog forwarding for Healthwatch, do the following:
 <ol>
@@ -151,7 +170,7 @@ To enable remote syslog forwarding for Healthwatch, do the following:
 <li>(TLS only) For External Syslog TLS CA Certificate, enter the CA certificate of the syslog destination.</li>
 </ol>
 
-## <a id='ConfigureMetricRegistrar'></a>(Optional) Configure Metric Registrar for Spring Boot Metrics
+## <a id='AppManagerLinkConfig'></a> Activating the App Metrics link in Apps Manager (Optional)
 
 In order for Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in the VMware Tanzu Application Service for VMs (TAS for VMs) or Pivotal Application Service (PAS) tile.
 

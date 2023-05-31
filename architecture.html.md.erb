@@ -7,21 +7,18 @@ list_style_none: true
 
 <strong><%= modified_date %></strong>
 
-## <a id="overview"></a>Overview
+The following diagram shows you the components of App Metrics and the Platform components that App Metrics interacts with.
 
-The diagram below shows the components of App Metrics and the Platform components
-that the App Metrics system interacts with.
+To understand the architecture diagram, see the following guidelines:
+
+* Cornered rectangles represent Platform tiles that App Metrics depends on.
+* Rounded rectangles represent customer interaction points.
+* Cylinders represent the data storage components of App Metrics
+* Blue colored components are packaged with App Metrics
 
 <%= image_tag('images/app-metrics-2-0-architecture.svg', :alt => "App Metrics 2.0 architecture") %>
 
-Understanding the diagram:
-
-* The cornered rectangles represent Platform tiles that App Metrics v2.0 depends on.
-* The rounded rectangles represent customer interaction points.
-* The cylinders represent the data storage components of App Metrics v2.0.
-* The <span style="background:#9AC0CD">blue</span> components are packaged with App Metrics v2.0.
-
-## <a id="data-flow"></a>Data Flow
+## <a id="data-flow"></a>Data flow
 
 [//]: # (Add introduction to the headings below.)
 
@@ -69,11 +66,11 @@ and the triggered alerts for the monitors.
 
 When a client uploads an indicator document or monitor document,
 App Metrics stores it in the database. These documents
-then display on the charts in the App Metrics dashboard.
+appear in the charts on your App Metrics dashboard.
 
 When a monitor threshold is surpassed, the Metric Store tile sends a request to App Metrics. When App Metrics
-receives this request, App Metrics stores a record of the alert in the PostgreSQL datastore. These stored alerts
-then display on the charts in the App Metrics dashboard.
+receives this request, it stores a record of the alert in the PostgreSQL datastore. These stored alerts
+appear in the charts on your App Metrics dashboard.
 
 ## <a id="security"></a> Security
 
