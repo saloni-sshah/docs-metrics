@@ -7,19 +7,16 @@ list_style_none: true
 
 <strong><%= modified_date %></strong>
 
-## <a id="overview"></a>Architecture
+The following diagram shows you the components of App Metrics and the Platform components that App Metrics interacts with.
 
-The following diagram shows the components of App Metrics and the Platform components that the App Metrics system interacts with.
+To understand the architecture diagram, see the following guidelines:
+
+* Cornered rectangles represent Platform tiles that App Metrics depends on.
+* Rounded rectangles represent customer interaction points.
+* Cylinders represent the data storage components of App Metrics
+* Blue colored components are packaged with App Metrics
 
 ![alt-text="App Metrics and platform components interaction architecture"](./images/app-metrics-2-0-architecture.svg)
-
-### Understanding the diagram:
-To understand the architecture diagram note the following guidelines:
-
-* Cornered rectangles represent Platform tiles that App Metrics v2.1 depends on.
-* Rounded rectangles represent customer interaction points.
-* Cylinders represent the data storage components of App Metrics v2.1.
-* Blue colored components are packaged with App Metrics v2.1.
 
 ## <a id="data-flow"></a>Data flow
 
@@ -65,11 +62,11 @@ and trigger alerts for monitors.
 
 When a client uploads an Indicator document or Monitor document,
 App Metrics stores it in the database. These documents
-are displayed on the charts on the App Metrics dashboard.
+appear in the charts on your App Metrics dashboard.
 
 When a monitor threshold is surpassed, the Metric Store tile sends a request to App Metrics. When App Metrics
 receives this request, it stores a record of the alert in the PostgreSQL datastore. These stored alerts
-are then displayed on the charts on the App Metrics dashboard.
+appear in the charts on your App Metrics dashboard.
 
 ### <a id="security"></a> Security
 

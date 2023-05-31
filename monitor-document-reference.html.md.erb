@@ -1,19 +1,17 @@
 ---
 breadcrumb: App Metrics Documentation
-title: Monitor Document template reference
+title: Monitor document reference for App Metrics
 owner: App Metrics
 list_style_none: true
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic is for developers who want to monitor their apps using App Metrics.
+This topic tells you detailed information about the schema and API for monitoring documents and the possibility of doing the same from the UI.
 
-This topic contains detailed information about the schema and API for monitor documents and possibility of doing the same from UI.
+For more information about uploading a Monitor document, see [cURL Your Monitor document to App Metrics](#curling-monitor-document).
 
-For more information about uploading a Monitor document, see [cURL Your Monitor Document to App Metrics](#curling-monitor-document).
-
-For more information about uploading a Monitor document from UI, see [Add Your Monitor Document to App Metrics from UI](#adding-monitor-document-from-ui).
+For more information about uploading a Monitor document from UI, see [Add your Monitor document to App Metrics from UI](#adding-monitor-document-from-ui).
 
 For more information about the schema and API, see [Monitor Document API Specification](#monitor-document-api-spec).
 This also contains an example Monitor document, named `MonitorDocumentExample`.
@@ -52,7 +50,7 @@ Where:
 
 After you create your Monitor document, you can also automate the deployment of app monitor documents within your deployment pipeline.
 
-## <a id='monitor-document-api-spec'></a> Monitor Document API Spec
+## <a id='monitor-document-api-spec'></a> Monitor document API Spec
 
 The `/monitors-documents` path supports `POST`. The `/monitor-documents/{org,space,app}` path supports `GET` a Monitor document for a specific `org,space,app`. The `DELETE` variable is not supported for a single monitors document. However, a monitors document is deleted when you upload a new indicator file for that app.
 To use demos and
@@ -203,7 +201,7 @@ components:
 
 ## <a id='adding-monitor-document-from-ui'></a> Add your Monitor document to App Metrics from the UI
 
-You can add, edit, or delete a monitor for the specific application's chart from the UI.
+You can add, edit, or delete a monitor for a specific application chart from the UI.
 
 ## <a id='add-monitor'></a> Add a monitor to a specific chart
 

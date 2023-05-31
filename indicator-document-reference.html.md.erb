@@ -1,21 +1,19 @@
 ---
 breadcrumb: App Metrics Documentation
-title: Indicator Document template reference
+title: Indicator document reference for App Metrics
 owner: App Metrics
 list_style_none: true
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic tells you about the schema and API for Indicator documents.
+This topic tells you about the schema and API for Indicator documents that allow you to customize your dashboards for monitoring apps with App Metrics.
 
-This topic is for developers who want to customize their dashboards for monitoring apps using App Metrics.
-
-To upload an Indicator document, see [cURLing your Indicator Document to App Metrics](#curling-indicator-document).
+To upload an Indicator document, see [cURLing your Indicator document to App Metrics](#curling-indicator-document).
 
 To upload an indicator and create a custom chart from the UI, see [Add your Indicator to App Metrics and create Custom Metric Chart from the UI](#adding-indicator-from-ui).
 
-For more information about the schema and API, see [Indicator Document API Specification](#indicator-document-api-spec).
+For more information about the schema and API, see [Indicator document API Specification](#indicator-document-api-spec).
 This topic also contains an example Indicator document, named `IndicatorDocumentExample.`
 
 For more information about the full schema of Indicator documents,
@@ -24,9 +22,9 @@ see [Indicator Protocol Document Reference](https://github.com/pivotal/monitorin
 <p class="note"><strong>Note</strong>: Only this subset of fields is supported for app indicators: <code>name</code>, <code>promql</code>, <code>documentation</code>, and <code>presentation</code>.
 </p>
 
-## <a id='curling-indicator-document'></a> cURLing your Indicator Document to App Metrics
+## <a id='curling-indicator-document'></a> cURLing your Indicator document to App Metrics
 
-After you have created your Indicator document, you can push it to App Metrics with the cURL command.
+After you create your Indicator document, you can push it to App Metrics with the cURL command.
 
 ### Linux/Mac
 
@@ -230,7 +228,7 @@ To upload, edit or remove a custom chart for the specific application from the U
 
 ![alt-text="Create a custom chart"](./images/multiple-custom-chart.png)
 
-## <a id='edit-custom-chart'></a> Edit custom chart for a specific application
+## <a id='edit-custom-chart'></a> Edit a custom chart for a specific application
 
 To edit a custom chart for an application:
 
@@ -243,7 +241,7 @@ To discard the changes and return to the dashboard, close the window.
 
 ![alt-text="Edit a custom chart for an application"](./images/edit-custom-chart.png)
 
-## <a id='remove-custom-chart'></a> Remove custom chart for the specific application
+## <a id='remove-custom-chart'></a> Remove a custom chart for the specific application
 
 To remove a custom chart for an application:
 
