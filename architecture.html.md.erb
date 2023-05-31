@@ -1,6 +1,6 @@
 ---
 breadcrumb: PCF Metrics Documentation
-title: PCF Metrics Product Architecture
+title: PCF Metrics architecture
 owner: PCF Metrics
 list_style_none: true
 ---
@@ -9,9 +9,7 @@ list_style_none: true
 
 This topic describes the product architecture of Pivotal Cloud Foundry (PCF) Metrics.
 
-## <a id="overview"></a>Overview
-
-The diagram below shows the components of PCF Metrics and the Cloud Foundry components that the PCF Metrics system interacts with.
+The following diagram displays the components of PCF Metrics, as well as the Cloud Foundry components that the PCF Metrics system interacts with.
 
 The bold rectangles represent Cloud Foundry apps that PCF Metrics deploys. The cylinders represent the data storage components of PCF Metrics.
 
@@ -31,7 +29,7 @@ This section describes how PCF Metrics fills its datastores. PCF Metrics uses th
 
 ### Components
 
-The diagram below highlights the components that convey metric and log data into the PostgreSQL and MySQL datastore.
+The following diagram highlights the components that convey metric and log data into the PostgreSQL and MySQL datastore.
 
 <%= image_tag('images/data-ingestion-15.png', :alt => "Ingesting firehose data into PCF Metrics 1.5 datastores") %>
 
@@ -80,13 +78,13 @@ The following table describes how the components act during each stage.
 	</tr>
 </table>
 
-##<a id="user-flow"></a> How the PCF Metrics UI Retrieves Data from the Datastores
+##<a id="user-flow"></a> How the PCF Metrics UI retrieves data from the datastores
 
 This section describes the flow of data through the system when you interact with the PCF Metrics UI.
 
 ### Components
 
-The diagram below highlights the components involved in this process.
+The following diagram highlights the components involved in this process.
 
 
 <%= image_tag('images/data-to-ui-15.png', :alt => "Displaying logs, events, and metrics data in the PCF Metrics 1.5 UI") %>

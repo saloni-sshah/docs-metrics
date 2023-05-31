@@ -9,7 +9,7 @@ list_style_none: true
 
 This document describes how to install and configure Pivotal Cloud Foundry (PCF) Metrics.
 
-To use the [Custom Metrics](./monitoringpcfmetrics.html#custom-metrics) feature of the PCF Metrics tile, you must have the Metrics Forwarder tile installed.
+To use the custom metrics feature of the PCF Metrics tile, you must have the Metrics Forwarder tile.
 However, the PCF Metrics tile can be installed without the Metrics Forwarder tile.
 
 For information about the components deployed as part of this install procedure,
@@ -18,8 +18,6 @@ see [PCF Metrics Product Architecture](./architecture.html).
 ##<a id='upgrade'></a>Upgrade from v1.4.x to v1.5.x
 
 This section describes upgrading from PCF Metrics v1.4.x to v1.5.x.
-
-###<a id='upgrade-overview'></a> Overview
 
 PCF Metrics v1.5 includes new data storage solutions:
 
@@ -56,20 +54,22 @@ To add the PCF Metrics tile to Ops Manager, do the following:
 1. Click  **Add** next to the uploaded product description in the **Available Products**
    view to add PCF Metrics to your **Installation Dashboard**.
 
-### <a id='step2'></a>Configure the PCF Metrics Tile
+### <a id='step2'></a>Configuring the PCF Metrics tile
 
 <p class="note"><strong>Note</strong>: The following procedures offer a standard configuration.
               To customize PCF Metrics for high capacity,
               see the <a href="sizing.html">Sizing PCF Metrics for Your System</a>.</p>
 
 1. From the **Installation Dashboard**, click the **PCF Metrics** tile.
-1. Follow the procedures below to configure the PCF Metrics tile:
-  + [Assign Availability Zones (AZs) and Networks](#az)
-  + [Configure Metrics Components](#mc-config)
-  + [Configure Resources](#resource-config)
-  + [Import Stemcell](#stemcell)
 
-#### <a id='az'></a> Assign Availability Zones (AZs) and Networks
+2. Use these procedures to configure the PCF Metrics tile:
+  + [Assigning Availability Zones (AZs) and Networks](#az)
+  + [Configuring metrics components](#mc-config)
+  + [Configuring errands](#errands)
+  + [Configuring resources](#resource-config)
+  + [Importing Stemcell](#stemcell)
+
+### <a id='az'></a> Assigning Availability Zones and networks
 
 1. Click **Assign AZs and Networks**.
 1. Select an Availability Zone under **Place singleton jobs**.
@@ -78,10 +78,16 @@ To add the PCF Metrics tile to Ops Manager, do the following:
 1. Select one or more Availability Zones under **Balance other jobs**.
    <br>
    Ops Manager balances instances of Metrics jobs with more than one instance
-   across the Availability Zones that you specify.
+   across the Availability Zones that you specify. However this setting does not
+   balance Elastic Search jobs across multiple AZs as merely balancing ES jobs across multiple AZs
+   does not ensure Highly available ES because ES auto-shards and distributes replicas across ES data nodes in real time.
+   So instead, we have added a redis instance between the firehose and ES (https://docs.pivotal.io/pcf-metrics/1-4/architecture.html)
+   which buffers logs before they are written to ES. In case of unavailable ES ( during deployment, ES red indices or AZ failure),
+   redis will hold logs in buffer and write it back once ES is stable again. You can create multiple redis jobs and balance them across AZs for ensuring HA redis in case of AZ failure.
+
 1. Use the drop-down menu to select a network.
    <br>
-   PCF Metrics should be installed on the same network the Pivotal Application Service (PAS) tile uses.
+   PCF Metrics can be installed on the same network the Pivotal Application Service (PAS) tile uses.
    However, if you do select a different subnet network, then refer to the table below when you configure
    the subnet network in the PAS tile to make sure that you have
    the ports needed for each of the PCF Metrics data services.
@@ -111,12 +117,12 @@ To add the PCF Metrics tile to Ops Manager, do the following:
 
 1. Click **Save**.
 
-#### <a id="mc-config"></a> Configure Metrics Components
+### <a id="mc-config"></a> Configuring metrics components
 
 1. Click **Metrics Components Config**.
-1. Review the **MySQL Metrics Queue Count** value.
+1. Review the **MySQL Logqueue Count** value.
    You can increase this instance count at any time to accommodate higher levels of inbound metrics traffic.
-1. Review the **PostgreSQL Logs Queue Count** value.
+1. Review the **Elasticsearch Logqueue Count** value.
    You can increase this instance count at any time to accommodate higher levels of inbound log traffic.
 1. Review the **Ingestor Count** value.
    You can increase this instance count at any time to accommodate higher levels of Loggregator Firehose traffic.
@@ -130,7 +136,56 @@ To add the PCF Metrics tile to Ops Manager, do the following:
    PCF Metrics adds one buffer day to your configured value to prevent pruning within your desired retention window. The retention window begins at UTC±00:00 of the current day and goes back the amount of days you enter in this field, plus the one buffer day added by PCF Metrics.
 1. Click **Save**.
 
-#### <a id="resource-config"></a> Configure Resources
+### <a id="errands"></a> Configuring errands
+
+To properly configure the **Errands** pane, follow the procedure that corresponds to your Ops Manager version.
+
++ [Configure Errands for Ops Manager v1.9](#19)
++ [Configure Errands for Ops Manager v1.10](#110)
+
+#### <a name='19'></a> Configure errands for Ops Manager v1.9
+
+1. Click **Errands**.
+  <p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong> by default.
+     Pivotal recommends that you do not deselect any errands as doing so can cause issues with the deployment of the tile.
+     However, you can deselect the <b>Remove PCF Metrics 1.3 CF Resources Errand</b> and
+     <strong>Migrate Old Data to 1.4 Errand</strong> after deploying v1.4 of the tile.</p>
+1. Review the **Post-Deploy Errands** and **Pre-Delete Errands**:
+  If you are deploying the tile for the first time, select all **Post-Deploy Errands**.<br>
+     The following list describes what the **Smoke Tests** errand does.
+     See [Smoke Test Errors](./troubleshooting.html#smoke-test) in _Troubleshooting PCF Metrics_
+     for information on resolving errors discovered by this errand:
+  * Confirms that MySQL ingests metrics
+  * Confirms that Elasticsearch ingests logs
+  * Confirms that the Metrics API returns metrics and logs
+  * Confirms that any custom metrics coming out of the Firehose are ingested and stored
+
+        <p class="note"><strong>Note</strong>: If you deselect <strong>Remove PCF Metrics 1.4 CF Resources Errand</strong>
+           under <strong>Pre-Delete Errands</strong>, artifacts might remain after the PCF Metrics tile uninstalls.</p>
+
+#### <a id='110'></a> Configuring errands for Ops Manager v1.10
+
+1. Click **Errands**.
+
+1. Review the **Post-Deploy Errands** and **Pre-Delete Errands**:
+  1. If you are deploying the tile for the first time, set all **Post-Deploy Errands** to **On**.
+  1. For deployments after the initial install, configure the **Post-Deploy Errands** as follows:
+      1. Set **Remove PCF Metrics 1.3 CF Resources Errand** to **When Changed**
+      1. Set **Push PCF Metrics components Errand** to **On**
+      1. Set **Migrate Old Data to 1.4 Errand** to **When Changed**
+      1. Set **Smoke Tests Errand** to **On**<br>
+         The following list describes what the **Smoke tests** errand does.
+         See [Smoke Test Errors](./troubleshooting.html#smoke-test) in _Troubleshooting PCF Metrics_ for information on resolving errors discovered by this errand:
+          * Confirms that MySQL ingests metrics
+          * Confirms that Elasticsearch ingests logs
+          * Confirms that the Metrics API returns metrics and logs
+          * Confirms that any custom metrics coming out of the Firehose are ingested and stored
+
+        <p class="note"><strong>Note</strong>: If you set <strong>Remove PCF Metrics 1.4 CF Resources</strong>
+           under <strong>Pre-Delete Errands</strong> to <strong>Off</strong>,
+           artifacts might remain after the PCF Metrics tile uninstalls.</p>
+
+### <a id="resource-config"></a> Configuring resources
 
 1. Click **Resource Config**.
 1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job.
@@ -189,21 +244,21 @@ To add the PCF Metrics tile to Ops Manager, do the following:
 
 1. Click **Save**.
 
-#### <a id="stemcell"></a> Import Stemcell
+### <a id="stemcell"></a> Importing Stemcell
 
 **For Ops Manager v2.0 and earlier:**
 
-1. Navigate to Pivotal Network and click [Stemcells for PCF](https://network.pivotal.io/products/stemcells).
+1. Go to Pivotal Network and click [Stemcells for PCF](https://network.pivotal.io/products/stemcells).
 1. Download the appropriate stemcell version for your IaaS.
    <p class='note'><strong>Note:</strong> On AWS, make sure to use a Hardware Virtual Machine (HVM) stemcell if you are using the default instance sizes.</p>
-1. Navigate to the **Stemcell** pane found under the **Settings** tab of your tile.
+1. Go to the **Stemcell** pane found under the **Settings** tab of your tile.
 1. Click **Import Stemcell** and select the stemcell file you downloaded.
 
 **For Ops Manager v2.1 and later:**
 
 1. Follow the procedure outlined in [Importing and Managing Stemcells](https://docs.pivotal.io/pivotalcf/opsguide/managing-stemcells.html).
 
-### <a id='step3'></a>Deploy PCF Metrics
+## <a id='step3'></a>Deploying PCF Metrics
 
 1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
 For more information about this Ops Manager page,

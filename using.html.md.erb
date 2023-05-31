@@ -1,15 +1,15 @@
 ---
-breadcrumb: PCF Metrics Documentation
-title: Monitoring and Troubleshooting Apps with PCF Metrics
-owner: PCF Metrics
+breadcrumb: App Metrics Documentation
+title: Monitoring and troubleshooting apps with App Metrics
+owner: App Metrics
 list_style_none: true
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how developers can monitor and troubleshoot their apps using Pivotal Cloud Foundry (PCF) Metrics.
+You can monitor and troubleshoot apps using App Metrics.
 
-## <a id="overview"></a> Overview
+## <a id="overview"></a> Understand the health and performance of your apps
 
 PCF Metrics helps you understand and troubleshoot the health and performance of your apps by offering the following:
 
@@ -35,9 +35,9 @@ PCF Metrics displays app data for a given time frame. See the sections below to 
 
 ## <a id="time"></a>Change the Time Frame
 
-The graphs show time along the horizontal axis. You can change the time frame for all graphs and the logs by using the time selector at the top of the window. Adjust either end of the selector or click and drag.
-
-<%= image_tag('images/1-5-time-select.png', :alt => "Time frame selection in Metrics 1.5") %>
+The charts show time along the horizontal axis.
+You can change the time frame for all charts and the logs by using the time selector options. You can select from several preset timescales or select a custom date range.
+In addition, from any chart, you can click and drag to zoom in on areas of interest. This adjusts all of the charts, and logs, to show data for that time frame.
 
 **Zoom**: From within any graph, click and drag to zoom in on areas of interest. This adjusts all of the graphs, and the logs, to show data from that time frame.
 
@@ -61,7 +61,7 @@ The time frame can be modified in both Streaming and Static Metrics modes.
 
 The PCF Metrics dashboard allows users to add, edit, and delete charts.
 
-**Add Chart**: To add a new chart, follow the steps below.
+**Add Chart**: To add a new chart, use the following steps:
 
 1. Click **+ ADD METRIC CHART** at the top left of the dashboard.
 <%= image_tag('images/1-5-add-chart.png', :alt => "Add metric chart") %>
@@ -78,7 +78,7 @@ The PCF Metrics dashboard allows users to add, edit, and delete charts.
 
 <%= image_tag('images/1-5-chart-delete.png', :alt => "Delete chart") %>
 
-## <a id="time"></a>View and Reorder Metric Charts
+## <a id="time"></a>Viewing and reordering  Metric Charts
 
 **Reorder**: Each metric has its own chart. You can click and drag the chart header to change the ordering of charts.
 
@@ -92,7 +92,7 @@ You can collapse the chart by clicking the icon again.
 
 <%= image_tag('images/1-5-reduce-chart.png', :alt => "Collapse metrics charts") %>
 
-## <a id="app-instance"></a>View Metrics at App-Instance Level
+## <a id="app-instance"></a>Viewing metrics at App-Instance Level
 
 PCF Metrics relays metric data at the app-instance level to allow for an in-depth troubleshooting experience. Users are able to view the app metrics related to a specific instance index, which correlates directly with the app instance indices shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
 
@@ -100,15 +100,15 @@ To view a specific app instance, select the desired instance from the **instance
 
 <%= image_tag('images/1-5-instance-select.png', :alt => "Select individual app instances") %>
 
-Alternatively, you can click on an instance line on the metric chart that interests you while All Instances is selected in the dropdown.
+Alternatively, you can click an instance line on the metric chart that interests you while All Instances is selected in the dropdown.
 
 <%= image_tag('images/1-5-instance-select-line.png', :alt => "Select specific app instance") %>
 
-##<a id='interpret-metrics'></a> Interpret Metrics
+##<a id='interpret-metrics'></a> Interpreting metrics
 
 See the following sections to understand how to use each of the views on the dashboard to monitor and troubleshoot your app.
 
-### <a id='container'></a> Container Metrics
+### <a id='container'></a> Container metrics charts
 
 Three **Container Metrics** charts are available on the PCF Metrics dashboard:
 
@@ -118,7 +118,7 @@ Three **Container Metrics** charts are available on the PCF Metrics dashboard:
 
 * Disk usage percentage:<br><br>A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing large sessions to disk.
 
-### <a id='network'></a> Network Metrics
+### <a id='network'></a> Network metrics charts
 
 Three **Network Metrics** charts are available on the PCF Metrics dashboard:
 
@@ -141,7 +141,7 @@ See the following topics for more information about app events:
 * [About Starting Applications](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/start-restart-restage.html)
 * [Troubleshooting Application Deployment and Health](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/troubleshoot-app-health.html)
 
-### <a id='custom'></a> Custom Metrics
+### <a id='custom'></a> Custom metrics
 
 Users can configure their apps to emit custom metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the PCF Metrics dashboard. For steps on how to set up your apps to emit custom metrics, refer to the [Metrics Forwarder Documentation](https://docs.pivotal.io/metrics-forwarder/index.html). If you have configured the apps correctly, you should be able to automatically see custom metrics on the PCF Metrics dashboard when you add a chart.
 
@@ -151,10 +151,10 @@ In addition, Spring Boot apps with actuators implemented emit [Spring Boot Actua
 
 <%= image_tag('images/1-5-spring-boot-metric-chart.png', :alt => "Create Spring Boot metric charts") %>
 
-###<a id='metrics-data'></a> Access Metrics Data Through MySQL
+###<a id='metrics-data'></a> Access metrics data through MySQL
 You can access metrics data through the PCF Metrics datastore.
 
-The table below provides login information.
+The following table provides login information.
 
 | Element      |    Details                                                                         |
 |----------|-----------------------------------------------------------------------------------------|
@@ -179,7 +179,174 @@ The **Logs** view displays app log data ingested from the Loggregator Firehose:
 
 <p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non-standard UUID application GUIDs are not stored.</p>
 
-<%= image_tag('images/1-5-logs-drawer.png', :alt => "PCF Metrics Logs drawer") %>
+The green time needle visible on metrics charts and the logs histogram indicates the beginning of the logs. Depending on the sort order of your logs, you can see different results:
+
+* Sort by **newest first (default)**:
+	<%= image_tag('images/newest-first.png') %>
+
+	The logs drawer retrieves all logs in the selected time frame that is _older than/to the left of_ the needle. The log outlined in green is the newest log among the logs located to the left of the needle placement.
+* Sort by **oldest first**:
+	<%= image_tag('images/oldest-first.png') %>
+
+	The logs drawer retrieves all logs in the selected time frame that is _newer than/to the right of_ the needle.
+	The log outlined in green is the oldest log among the logs located to the right of the needle placement.
+
+To adjust the placement of the time needle, click the handle at the bottom of the needle and drag to reposition it.
+Alternatively, you can click anywhere along the x-axis of a metric chart or the logs histogram to snap the needle to that position.
+These are the steps to create an Indicator document:
+
+1. Find the metric you want to monitor.
+2. Write the PromQL query.
+3. Add the PromQL to your Indicator document.
+
+### Find the metric name
+
+Verify that the metrics are being emitted.
+After you configure Metrics Registrar to scrape your metrics
+endpoint, verify your respective endpoint for metric names.
+
+If you use a Prometheus style metrics endpoint, check your app's metrics endpoint at
+`app.domain/metrics` and search for the desired metric.
+
+To validate Spring Boot Actuator and Micrometer metrics,
+see [Metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html)
+in _Spring Boot Actuator: Production-ready Features_ in the Spring Boot documentation.
+
+### Writing a PromQL query
+
+After you have the metric name, write a PromQL query to see the metric:
+
+1. Find additional example PromQL for any of the default charts on the dashboard.
+   Click **Info** on any chart or visit the
+   [PromQL Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
+
+2. Use the PromQL Explorer to test out PromQL before you insert it in the Indicator document:
+
+    1. Click the **+** button on the dashboard.
+
+    2. Test out the queries to see how the graph appears before you place it in the Indicator document.
+
+    <p class="note"><strong>Note</strong>: The PromQL query must have the <code>source_id</code> tag for non-admin users.
+    </p>
+
+<p>App Metrics supports using a <code>source_id</code> parameter in the PromQL query which refers to the <code>"$source_id"</code> of the current app.
+
+For example:
+
+```shell
+cpu{source_id=“$sourceId”}
+```
+
+### Add the PromQL query to your Indicator document
+
+After you have the PromQL query ready, insert it in the Indicator document.
+
+For example, if you have a custom metric `customMetricName500` and want to graph the amount of errors over a one minute
+time period, then your PromQL query is:
+
+  ```shell
+`sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))`
+```
+
+This is an example of the YAML file for an Indicator document:
+
+```console
+apiVersion: indicatorprotocol.io/v1
+kind: IndicatorDocument
+
+metadata:
+  labels:
+    deployment: "my deployment name"
+
+spec:
+  product:
+    name: org,space,app-name
+    version: 0.0.1
+
+  indicators:
+    - name: CustomErrorCount500
+      promql: "sum(rate(customMetricName500{source_id='$sourceId'}[1m]))"
+      documentation:
+        title: "Custom Metric 500 Errors"
+      presentation:
+        units: "none"
+```
+
+The  `org,space,app-name` in the example determines which app these indicators are applied to.
+Replace `org,space,app-name` with the org, space, and app name of the app dashboard that you want to customize.
+
+### <a id="indicator-document-schema"></a> Indicator document schema
+
+App Metrics uses a derivative version of the Indicator Protocol.
+
+## <a id='monitoring'></a> Custom monitoring and alerting
+
+You can add custom monitoring and alerting to your dashboard indicators by creating a monitor document for your app.
+
+### Create a Monitor document
+
+Monitors are linked to specific indicators, so the first step to adding custom monitoring and alerting to your
+app is to verify the names of the indicators you want to monitor.
+
+You can view the indicator names for each chart on your app's dashboard by pointing to the desired chart,
+clicking the three vertical dots and selecting **Info**.
+
+The indicator corresponds to one of your custom indicators or to one of the following default indicator names:
+
+* RequestCount
+* HttpLatency
+* ErrorCount
+* CPU
+* MemoryPercentage
+* DiskPercentage
+
+After you have the indicator names you can create your monitor document that defines the threshold for your indicator
+and the webhook to send alerts to.
+
+The following example is an YAML file for an monitor document:
+
+```yaml
+product: org,space,app-name
+
+webhook_url: https://my-slack-webhook.com
+
+monitors:
+  - name: 500 Errors For Application
+    indicator: ErrorCount
+    warning:
+       operator: gte
+       threshold: 1.0
+       duration: 1m
+       only_every: 1h
+    critical:
+       operator: gte
+       threshold: 2.0
+       duration: 1m
+       only_every: 15m
+```
+<p class="note"><strong>Note</strong>: The `org,space,app-name` is responsible for defining which app these indicators are applied to.
+Replace this with the org, space, and app name of the app you want to monitor.</p>
+
+Also, `webhook_url`: `https://my-slack-webhook.com` must be where alerts are sent when a threshold is surpassed.
+
+The Slack application is currently the only supported use case, but other webhook platforms might work, if they accept a text payload.
+
+### <a id="monitor-document-schema"></a> Monitor document schema
+
+For more detailed information on the monitor document schema, see [Monitor Document Template Reference](./monitor-document-reference.html).
+
+## <a id="custom-metric-demos"></a> Custom metric demos
+
+View the following videos to enhance your understanding of metric charts:
+
+* [Adding custom application metric charts using Indicator Protocol](https://www.youtube.com/watch?v=KKed-LwJ0BM).
+* [Platform-level metric charts to the dashboard](https://www.youtube.com/watch?v=z7CVbYzjxVU).
+
+## <a id="logs"></a>Logs
+
+The **Logs** view displays app log data ingested from the Loggregator Reverse Log Proxy (RLP):
+
+<p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non-standard UUID app GUIDs are not stored.</p>
 
 You can interact with the **Logs** view in the following ways:
 
@@ -289,7 +456,7 @@ compile "org.springframework.cloud:spring-cloud-starter-sleuth"
 * **Node.js**, **Go**, and **Python**: Ensure that the servers associated with your app do not modify HTTP requests in a way that removes the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers from a request. You also need to add Trace ID, Span ID, and Parent Span ID to the SLF4J MDC in your app logs to correlate logs within the Trace Explorer.
 * **Ruby**: Ruby servers that use a library depending on Rack modify HTTP request headers in a way that is incompatible with PCF Metrics. If you want to trace app requests for your Ruby apps, ensure that your framework does not rely on Rack. You may need to write a raw Ruby server that preserves the `X-B3-TraceId`, `X-B3-SpanId`, and `X-B3-ParentSpan` headers in the request. You also need to add Trace ID, Span ID, and Parent Span ID to the SLF4J MDC in your app logs to correlate logs within the Trace Explorer.
 
-###<a id="trace-explorer"></a> Use the Trace Explorer
+Make note of the following prerequisites before you query the Log Store:
 
 This section explains how to view the trace for a request received by your app and interact with the Trace Explorer.
 
