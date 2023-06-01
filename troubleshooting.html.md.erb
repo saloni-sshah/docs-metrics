@@ -371,7 +371,6 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 1. Under the **Status** tab, record the IP of an **Elasticsearch Master** node.
 
 1. Use `bosh ssh` to access the VM from the previous step.
-For instructions, see [Advanced Troubleshooting with the [BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 
 
 1. Run the following command to list all the Elasticsearch indices:
@@ -550,7 +549,7 @@ For instructions, see [Advanced Troubleshooting with the [BOSH CLI](https://docs
         because a user deleted the application security group (ASG)
         that PCF Metrics creates to allow the Logqueue app to connect to the MySQL VMs.
         You can run `cf security-group metrics-api` to see if the ASG exists.
-        If not, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
+        If not, see [Creating Application Security Groups](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/3.0/tas-for-vms/asg.html).
 
   1. If the app is started and you do not find any errors, proceed to [Step 8: Check the Metrics Aggregator](#check-aggregator).
 
@@ -707,7 +706,6 @@ to target and log in to your BOSH Director.
       <ol>
         <li>Retrieve the IP address of your Elasticsearch master node by navigating to the <b>Metrics</b> tile in the Ops Manager Installation Dashboard,
             clicking the <b>Status</b> tab, and recording the IP address next to <b>ElasticSearchMaster</b>.</li>
-        <%= image_tag('images/elasticsearch-ip.png') %>
         <li> [SSH into the Ops Manager VM](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
         </li>
         <li>From the Ops Manager VM, use <code>curl</code> to target the IP address of your Elasticsearch master node.
