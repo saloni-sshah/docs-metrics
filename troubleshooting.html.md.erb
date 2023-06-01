@@ -1,6 +1,6 @@
 ---
 breadcrumb: App Metrics Documentation
-title: Troubleshooting App Metrics
+title: Troubleshoot App Metrics
 owner: App Metrics
 list_style_none: true
 ---
@@ -78,9 +78,9 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
   <pre class="terminal">$ curl localhost:9200/_cluster/settings</pre>
 
     Examine the output:
-    <br><br>
-    * `"all"` means the shard allocation is enabled.
-    * `"none"` means the shard allocation is disabled.
+  `"all"` means the shard allocation is enabled.
+
+  `"none"` means the shard allocation is deactivated.
 
 1. Enable the shard allocation again by running the following command:
     <pre class="terminal">$ curl -XPUT localhost:9200/_cluster/settings -d
@@ -88,8 +88,8 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
       "cluster.routing.allocation.enable" : "all"
     }}</pre>
 
-1. Check whether a proxy is present in front of Elasticsearch and whether HTTP traffic is enabled:
-1. Use `cf ssh` to SSH into any app in the metrics space:
+2. Check whether a proxy is present in front of Elasticsearch and whether HTTP traffic is enabled:
+3. Use `cf ssh` to SSH into any app in the metrics space:
 
   <pre class="terminal">$ cf ssh APP-NAME</pre>
 
@@ -99,7 +99,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
   1. If the `curl` command fails, talk to your system administrator about removing the proxy or green-listing the PCF Metrics apps.
 
-### <a name="check-es-logqueue"></a>Step 4: Check the Elasticsearch Logqueue
+### <a name="check-es-logqueue"></a>Check the Elasticsearch Logqueue
 
 1. Run <code>cf apps</code> to see if the <code>elasticsearch-logqueue</code> app instances are `started`.
 
@@ -122,9 +122,9 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
         You can run `cf security-group metrics-api` to see if the ASG exists.
         If not, see [App Security Groups](https://docs.cloudfoundry.org/concepts/asg.html).
 
-  1. If the app is started and you do not find any errors, proceed to [Step 5: Check the Metrics Ingestor](#check-ingestor).
+  1. If the app is started and you do not find any errors, proceed to [Checking the Metrics Ingestor](#check-ingestor).
 
-### <a name="check-ingestor"></a>Step 5: Check the Metrics Ingestor
+### <a name="check-ingestor"></a>Checking the Metrics Ingestor
 
 1. Run <code>cf apps</code> to see if the `metrics-ingestor` app instances are `started`.
 1. If any of the app instances are `stopped`, run the following command to increase logging:
@@ -146,9 +146,9 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
       * **WebSocket Disconnects**: If you see WebSocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances.
           The Firehose might be dropping the Ingestor connection to avoid back pressure.
 
-  1. If the app is started and you do not find any errors, proceed to [Step 6: Check MySQL](#check-mysql).
+  1. If the app is started and you do not find any errors, proceed to [Checking MySQL](#check-mysql).
 
-### <a name="check-mysql"></a>Step 6: Check MySQL
+### <a name="check-mysql"></a>Checking MySQL
 
 1. From Ops Manager, select the PCF Metrics tile.
 
@@ -186,9 +186,9 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
   <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_rollup where timestamp_minute > ((UNIX\_TIMESTAMP() - 60)* POW(10, 3));</pre>
   This command displays the rate at which metrics flow in over the last minute.
       1. If the command returns `0` or a consistently decreasing value, the problem is likely further up in ingestion.
-         Proceed to [Step 7: Check the MySQL Logqueue](#check-mysql-logqueue).
+         Proceed to [Checking the MySQL Logqueue](#check-mysql-logqueue).
 
-### <a name="check-mysql-logqueue"></a> Step 7: Check the MySQL Logqueue
+### <a name="check-mysql-logqueue"></a> Checking the MySQL Logqueue
 
 1. Run <code>cf apps</code> to see if the <code>mysql-logqueue</code> app instances are `started`.
 
@@ -210,8 +210,6 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
         that PCF Metrics creates to allow the Logqueue app to connect to the MySQL VMs.
         You can run `cf security-group metrics-api` to see if the ASG exists.
         If not, see [Creating Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html).
-
-  1. If the app is started and you do not find any errors, proceed to [Step 8: Check the Metrics Aggregator](#check-aggregator).
 
 ## <a id='mysql'></a> MySQL Node Failure
 
@@ -270,7 +268,7 @@ Follow the steps below to resolve the issue.
 1. Run the following command:
 <pre class="terminal">mysql> PURGE BINARY LOGS BEFORE 'YYYY-MM-DD HH:MM:SS'; </pre>
 
-### Re-deploy BOSH to Restart the Node
+### Redeploying BOSH to restart the node
 
 If troubleshooting is based on the causes that were previously mentioned did not resolve the issue with your failing MySQL node,
 you can follow the steps below to recover it.
@@ -283,7 +281,7 @@ The cluster takes a significant amount of time to put the data replicated to the
 This procedure consumes considerable network bandwidth as potentially hundreds of gigabytes of data needs to transfer.
 </p>
 
-#### Stop the Ingestor App
+#### Stopping the Ingestor App
 
 1. From Ops Manager, click the Elastic Runtime Tile.
 1. Click the **Credentials** tab.
@@ -298,7 +296,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 1. Stop data flow into the Galera cluster:
     <pre class="terminal">$ cf stop metrics-ingestor</pre>
 
-#### Edit Your Deployment Manifest
+#### Editing Your Deployment Manifest
 
 1. Follow the steps in [Log in to BOSH](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html)
 to target and log in to your BOSH Director.
@@ -376,31 +374,19 @@ to target and log in to your BOSH Director.
             Decrease the Logs Retention Window and increase the PostgreSQL Persistent Disk
             <br><br>
             <ol>
-              <li>Navigate to the <b>Metrics Components Config</b> section of the PCF Metrics Tile.</li>
+              <li>Go to the <b>Metrics Components Config</b> section of the PCF Metrics Tile.</li>
               <li>Decrease the Logs Retention Window to a smaller number to free up space in PostgreSQL.</li>
-              <li>Navigate to the <b>Resource Config</b> section of the PCF Metrics Tile.</li>
+              <li>Go to the <b>Resource Config</b> section of the PCF Metrics Tile.</li>
               <li>Increase the Persistent Disk size of PostgreSQL Server to at least twice the current size.</li>
             </ol>
           </li>
         </ol>
 
-      <td>Decrease the Logs Retention Window and increase the PostgreSQL Persistent Disk
-      <br><br>
-      <ol>
-        <li>Retrieve the IP address of your Elasticsearch master node by navigating to the <b>Metrics</b> tile in the Ops Manager Installation Dashboard,
-            clicking the <b>Status</b> tab, and recording the IP address next to <b>ElasticSearchMaster</b>.</li>
-        <%= image_tag('images/elasticsearch-ip.png') %>
-        <li> [SSH into the Ops Manager VM](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
-        </li>
-        <li>From the Ops Manager VM, use <code>curl</code> to target the IP address of your Elasticsearch master node.
-            Follow the instructions in [Cluster Health](https://www.elastic.co/guide/en/elasticsearch/reference/2.2/_cluster_health.html).
-           </li>
-      </ol>
 
   </tr>
 </table>
 
-## <a id="fetch-apps"></a>Failed to Fetch Apps
+## <a id="fetch-apps"></a>Failed to fetch apps
 <table>
   <tr>
       <th>Error</th>
@@ -422,7 +408,7 @@ to target and log in to your BOSH Director.
   </tr>
 </table>
 
-## <a id="redis-full"></a>Redis Temporary Datastore Stops Accepting Metrics
+## <a id="redis-full"></a>Redis temporary datastore stops accepting metrics
 <table>
   <tr>
       <th>Error</th>
@@ -452,5 +438,4 @@ to target and log in to your BOSH Director.
   </tr>
 </table>
 
-#### <a id="no-results-mysql"></a> Received No Results Back from MySQL - Failing
 
