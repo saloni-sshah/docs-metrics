@@ -19,7 +19,7 @@ App Metrics depends on these datastores:
 
 The Log Store and Postgres datastores are part of the App Metrics tile, and their scaling is discussed in more detail later in this topic. Metric Store datastore is separate.
 
-## <a id='metrics-datastore'></a> Scale the metrics datastore
+## <a id='metrics-datastore'></a> Scaling the metrics datastore
 
 App Metrics retrieves metrics from the Metric Store and has its' own configuration for resizing.
 
@@ -121,7 +121,7 @@ Use the following example resource configuration to store approximately six week
   </tr>
 </table>
 
-## <a id='log-datastore'></a> Scale the Log datastore
+## <a id='log-datastore'></a> Scaling the Log datastore
 
 App Metrics retrieves logs from the Log Store.
 
@@ -138,7 +138,7 @@ The scaling of an individual log-store deployment is subject to many variables, 
 Horizontally scaling in Log Store currently results in data loss. To ensure the best possible results, practice vertical scaling.
 </p>
 
-### <a id='log-considerations'></a> Scale considerations
+### <a id='log-considerations'></a> Scaling considerations
 
 **Scale baseline**
 

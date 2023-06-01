@@ -1,6 +1,6 @@
 ---
 breadcrumb: App Metrics Documentation
-title: Monitoring and troubleshooting apps with App Metrics
+title: Monitor and troubleshoot apps with App Metrics
 owner: App Metrics
 list_style_none: true
 ---
@@ -9,7 +9,7 @@ list_style_none: true
 
 You can monitor and troubleshoot apps using App Metrics.
 
-## <a id="overview"></a> Understand the health and performance of your apps
+## <a id="overview"></a> Understanding the health and performance of your apps
 
 App Metrics helps you to understand and troubleshoot the health and performance of your apps by offering the following indicators, data, and visualizations:
 
@@ -24,8 +24,7 @@ App Metrics helps you to understand and troubleshoot the health and performance 
 
 The following sections describe a standard workflow for App Metrics to monitor or troubleshoot your apps.
 
-## <a id='get-started'></a> View an app
-These are the steps to view an app:
+## <a id='get-started'></a> Viewing an app
 
 1. In a browser, go to `metrics.sys.DOMAIN` and log in with your User Account and Authentication (UAA) credentials.
 2. Select an app from the search bar to view metrics and logs.
@@ -34,7 +33,7 @@ App Metrics respects UAA permissions so you can view any app that runs in a spac
 
 App Metrics displays app data for a specific time frame on the dashboard.
 
-## <a id="time"></a>Change the time frame
+## <a id="time"></a>Changing the time frame
 
 The charts show time along the horizontal axis.
 You can change the time frame for all charts and the logs by using the time selector options. You can select from several preset timescales or select a custom date range.
@@ -48,7 +47,7 @@ To activate auto refresh, click  **Refresh**  by the time selection options on t
 
 <p class="note"><strong>Note</strong>: The default setting for auto refresh interval is set to one minute and cannot be configured.</p>
 
-## <a id="app-instance"></a>View metrics at process and app instance level
+## <a id="app-instance"></a>Viewing metrics at the process and app instance level
 
 App Metrics relays metric data at the app process level to allow for an indepth troubleshooting experience, even across a rolling deployment. You are able to view the app metrics that are related to a specific process and focus in further to the specific instances within those processes. This action correlates directly with the processes and app instances in [Apps Manager](https://docs.pivotal.io/application-service/3-0/console/dev-console.html).
 
@@ -60,9 +59,9 @@ To view metrics for individual instances within the selected process, select the
 
 To view metrics for a specific app instance or selection of specific instances, select your instance or instances from the legend of any chart on the dashboard and select the **Instances** radio button.
 
-## <a id='metrics'></a> Interpret metrics
+## <a id='metrics'></a> Interpreting metrics
 
-The default metrics charts that are included with App Metrics provide high-level indicators
+The default metrics charts that are included with App Metrics provide high level indicators
 for the four golden signals for monitoring the health of apps running on distributed systems:
 
 * Latency
@@ -113,7 +112,7 @@ See the following topics for more information about app events:
 
 * [Troubleshooting app deployment and health](https://docs.pivotal.io/platform/application-service/devguide/deploy-apps/troubleshoot-app-health.html)
 
-## <a id='custom-metrics'></a> Add custom metric charts
+## <a id='custom-metrics'></a> Adding custom metric charts
 
 You can add custom metrics charts to your dashboard, including the Spring Boot Actuator and Micrometer metrics. You define the custom metrics that you want to monitor and include them in the Indicator document for your app.
 
@@ -128,13 +127,13 @@ more detailed information appears about the error, and provides you an easier wa
 To view custom metrics, configure your apps to emit those metrics out of the [Loggregator Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html).
 In addition, Spring Boot apps with actuators or Micrometer metrics that are implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to the source code.
 
-### <a id='metric-registrar-settings'></a> Configure Metric Registrar for Spring Metrics
+### <a id='metric-registrar-settings'></a> Configuring Metric Registrar for Spring Metrics
 
 In order for Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in Tanzu Application Service Tile.
 
 You must remove the  `id` tag from the list of Blocked tags in the Metric Registrar settings for the Tanzu Application Service Tile.
 
-### <a id='create-indicator-doc'></a> Create an Indicator document
+### <a id='create-indicator-doc'></a> Creating an Indicator document
 
 An Indicator document is a YAML document that specifies which app you want to monitor and the indicators you want to use to monitor it.
 
@@ -144,7 +143,7 @@ These are the steps to create an Indicator document:
 2. Write the PromQL query.
 3. Add the PromQL to your Indicator document.
 
-### Find the metric name
+### Finding the metric name
 
 Verify that the metrics are being emitted.
 After you configure Metrics Registrar to scrape your metrics
@@ -228,7 +227,7 @@ App Metrics uses a derivative version of the Indicator Protocol.
 
 You can add custom monitoring and alerting to your dashboard indicators by creating a monitor document for your app.
 
-### Create a Monitor document
+### Creating a Monitor document
 
 Monitors are linked to specific indicators, so the first step to adding custom monitoring and alerting to your
 app is to verify the names of the indicators you want to monitor.
@@ -323,7 +322,7 @@ Make note of the following prerequisites before you query the Log Store:
 When you query the API through HTTPS, each request must have the `Authorization`
 header set with a UAA provided token.
 
-### <a id='querying'></a> Query through HTTP endpoints
+### <a id='querying'></a> Querying through HTTP endpoints
 
 **GET** `/v1/sources/{sourceID}/logs`
 
