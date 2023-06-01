@@ -1,6 +1,6 @@
-* [App Metrics](/docs-metrics/index.html)
+* [What's new in App Metrics](/docs-metrics/index.html)
 * [Release notes and known issues](/docs-metrics/rn-ki.html)
-* [App Metrics product architecture](/docs-metrics/architecture.html)
+* [App Metrics architecture](/docs-metrics/architecture.html)
 * [Install App Metrics](/docs-metrics/installing.html)
 * [Size App Metrics](/docs-metrics/sizing.html)
 * [Monitor and Troubleshoot apps with App Metrics](/docs-metrics/using.html)
