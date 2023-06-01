@@ -46,41 +46,42 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
   health status index               pri rep docs.count docs.deleted store.size pri.store.size
   </pre>
 
-  1. If the `curl` command does not return a `success` response, Elasticsearch might not even be running correctly. Inspect the following logs for any failures or errors:
+3. If the `curl` command does not return a `success` response, Elasticsearch might not even be running correctly. Inspect the following logs for any failures or errors:
       * `/var/vcap/sys/log/elasticsearch/elasticsearch.stdout.log`
       * `/var/vcap/sys/log/elasticsearch/elasticsearch.stderr.log`
 
-  1. Examine the `status` column of the output.
-  1. If any of the indices are `red`, delete them using the following command:
+1. Examine the `status` column of the output.
+1. If any of the indices are `red`, delete them using the following command:
 
     <pre class="terminal">curl -X DELETE ELASTICSEARCH-HOST-IP:9200/INDEX</pre>
 
-  1. Restart the `elasticsearch-logqueue` app:
+3. Restart the `elasticsearch-logqueue` app:
 
     <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
 
-  1. From each of the Elasticsearch VMs, run the following command:
+  4. From each of the Elasticsearch VMs, run the following command:
 
-    <pre class="terminal">$ monit restart all</pre>
+      <pre class="terminal">$ monit restart all</pre>
 
-  1. Check periodically to verify the indices gradually recover to a `green` status.
+  5. Check periodically to verify the indices gradually recover to a `green` status.
 
-  1. Run the `curl` command several more times and examine the most recent index to see if the number of stored documents periodically increases.
+  6. Run the `curl` command several more times and examine the most recent index to see if the number of stored documents periodically increases.
 
-  <p class="note"><strong>Note</strong>: The last row of the output corresponds to the most recent index.
+      <p class="note"><strong>Note</strong>: The last row of the output corresponds to the most recent index.
      The sixth column displays the number of documents for the index.</p>
   1. If all indices show a `green` status, but the number of documents does not increase,
      there is likely a problem further up in ingestion.
-     Proceed to to [Step 4: Check the Elasticsearch Logqueue](#check-es-logqueue).
+     Proceed to to [Checking the Elasticsearch Logqueue](#check-es-logqueue).
 
 1. Check whether cluster-level shard allocation is enabled:
 
-  <pre class="terminal">$ curl localhost:9200/_cluster/settings</pre>
+    <pre class="terminal">$ curl localhost:9200/_cluster/settings</pre>
 
     Examine the output:
-  `"all"` means the shard allocation is enabled.
 
-  `"none"` means the shard allocation is deactivated.
+    `"all"` means the shard allocation is enabled.
+
+    `"none"` means the shard allocation is deactivated.
 
 1. Enable the shard allocation again by running the following command:
     <pre class="terminal">$ curl -XPUT localhost:9200/_cluster/settings -d
@@ -91,29 +92,29 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 2. Check whether a proxy is present in front of Elasticsearch and whether HTTP traffic is enabled:
 3. Use `cf ssh` to SSH into any app in the metrics space:
 
-  <pre class="terminal">$ cf ssh APP-NAME</pre>
+    <pre class="terminal">$ cf ssh APP-NAME</pre>
 
   1. Run the `curl` command with the IP address of the **Elasticsearch Master** node:
 
-  <pre class="terminal">$ curl ELASTICSEARCH-MASTER-IP-ADDRESS</pre>
+      <pre class="terminal">$ curl ELASTICSEARCH-MASTER-IP-ADDRESS</pre>
 
   1. If the `curl` command fails, talk to your system administrator about removing the proxy or green-listing the PCF Metrics apps.
 
-### <a name="check-es-logqueue"></a>Check the Elasticsearch Logqueue
+### <a name="check-es-logqueue"></a>Checking the Elasticsearch Logqueue
 
 1. Run <code>cf apps</code> to see if the <code>elasticsearch-logqueue</code> app instances are `started`.
 
 1. If any instance of the app is `stopped`, run the following command to increase logging:
 
-  <pre class="terminal">$ cf set-env elasticsearch-logqueue LOG_LEVEL DEBUG</pre>
+    <pre class="terminal">$ cf set-env elasticsearch-logqueue LOG_LEVEL DEBUG</pre>
 
   1. Run the following command to stream logs:
 
-  <pre class="terminal">$ cf logs elasticsearch-logqueue</pre>
+      <pre class="terminal">$ cf logs elasticsearch-logqueue</pre>
 
   1. In a different terminal window, run the following command:
 
-  <pre class="terminal">$ cf restage elasticsearch-logqueue</pre>
+      <pre class="terminal">$ cf restage elasticsearch-logqueue</pre>
 
   1. Watch the logs emitted by the `elasticsearch-logqueue` app for errors.
       * A common error is that the app cannot connect to Elasticsearch
@@ -129,17 +130,17 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 1. Run <code>cf apps</code> to see if the `metrics-ingestor` app instances are `started`.
 1. If any of the app instances are `stopped`, run the following command to increase logging:
 
-  <pre class="terminal">$ cf set-env metrics-ingestor LOG_LEVEL DEBUG</pre>
+    <pre class="terminal">$ cf set-env metrics-ingestor LOG_LEVEL DEBUG</pre>
 
   1. Run the following command to stream logs:
 
-  <pre class="terminal">$ cf logs metrics-ingestor</pre>
+      <pre class="terminal">$ cf logs metrics-ingestor</pre>
 
   1. In a different terminal window, run the following command:
 
-  <pre class="terminal">$ cf restage metrics-ingestor</pre>
+      <pre class="terminal">$ cf restage metrics-ingestor</pre>
 
-  1. Watch the logs emitted by the `metrics-ingestor` app for errors. See the list below for common errors:
+  1. Watch the logs emitted by the `metrics-ingestor` app for errors. See the following list for common errors:
       * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the Firehose.
           This user must have the `doppler.firehose` authority.
       * **Cannot connect to the logqueues**: There might be a problem with the UAA, or it could be throttling traffic.
@@ -183,7 +184,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
 1. Enter the following query several times to verify that the value returned does not decrease over time:
 
-  <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_rollup where timestamp_minute > ((UNIX\_TIMESTAMP() - 60)* POW(10, 3));</pre>
+    <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_rollup where timestamp_minute > ((UNIX\_TIMESTAMP() - 60)* POW(10, 3));</pre>
   This command displays the rate at which metrics flow in over the last minute.
       1. If the command returns `0` or a consistently decreasing value, the problem is likely further up in ingestion.
          Proceed to [Checking the MySQL Logqueue](#check-mysql-logqueue).
@@ -194,15 +195,15 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
 1. If any instance of the app is `stopped`, run the following command to increase logging:
 
-  <pre class="terminal">$ cf set-env mysql-logqueue LOG_LEVEL DEBUG</pre>
+    <pre class="terminal">$ cf set-env mysql-logqueue LOG_LEVEL DEBUG</pre>
 
   1. Run the following command to stream logs:
 
-  <pre class="terminal">$ cf logs mysql-logqueue</pre>
+      <pre class="terminal">$ cf logs mysql-logqueue</pre>
 
   1. In a different terminal window, run the following command:
 
-  <pre class="terminal">$ cf restage mysql-logqueue</pre>
+      <pre class="terminal">$ cf restage mysql-logqueue</pre>
 
   1. Watch the logs emitted by the `mysql-logqueue` app for errors.
       * A common error is that the app cannot connect to MySQL
@@ -264,8 +265,9 @@ Follow the steps below to resolve the issue.
 1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
 
   <p class="note"><strong>Note</strong>: If you do not know the username and password, you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
+
 1. Run `use metrics;`.
-1. Run the following command:
+2. Run the following command:
 <pre class="terminal">mysql> PURGE BINARY LOGS BEFORE 'YYYY-MM-DD HH:MM:SS'; </pre>
 
 ### Redeploying BOSH to restart the node
@@ -289,7 +291,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 1. Record the username and password for use in the next step.
 1. Log in to the cf CLI using the credentials from the previous step.
 
-  <pre class="terminal">$ cf login -a http<span>s</span>://api.YOUR-SYSTEM-DOMAIN -u admin -p PASSWORD</pre>
+    <pre class="terminal">$ cf login -a http<span>s</span>://api.YOUR-SYSTEM-DOMAIN -u admin -p PASSWORD</pre>
 
 1. Target the <code>system</code> org and <code>metrics-v1-4</code> space of your PCF deployment:
     <pre class="terminal">$ cf target -o system -s metrics-v1-4</pre>
@@ -382,11 +384,11 @@ to target and log in to your BOSH Director.
           </li>
         </ol>
 
-
   </tr>
 </table>
 
 ## <a id="fetch-apps"></a>Failed to fetch apps
+
 <table>
   <tr>
       <th>Error</th>
@@ -409,6 +411,7 @@ to target and log in to your BOSH Director.
 </table>
 
 ## <a id="redis-full"></a>Redis temporary datastore stops accepting metrics
+
 <table>
   <tr>
       <th>Error</th>
@@ -437,5 +440,3 @@ to target and log in to your BOSH Director.
        </td>
   </tr>
 </table>
-
-
