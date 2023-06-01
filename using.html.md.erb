@@ -1,6 +1,6 @@
 ---
 breadcrumb: App Metrics Documentation
-title: Monitoring and troubleshooting apps with App Metrics
+title: Monitor and troubleshoot apps with App Metrics
 owner: App Metrics
 list_style_none: true
 ---
@@ -25,7 +25,7 @@ The following sections describe a standard workflow for using App Metrics to mon
 
 ##<a id='get-started'></a> View an App
 
-In a browser, navigate to `metrics.sys.DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Choose an app from the search bar for which you want to view metrics and/or logs. App Metrics respects UAA permissions such that you can view any app that runs in a space that you have access to.
+In a browser, go to `metrics.sys.DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Choose an app from the search bar for which you want to view metrics and/or logs. App Metrics respects UAA permissions such that you can view any app that runs in a space that you have access to.
 
 App Metrics displays app data for a given time frame. See the sections below to [Change the Time Frame](#time) for the dashboard.
 
@@ -43,7 +43,7 @@ To enable auto-refresh, click the **REFRESH** button next to the time selection 
 
 <p class="note"><strong>Note</strong>: The default auto-refresh interval is set to one minute and is currently not configurable.</p>
 
-## <a id="app-instance"></a>View Metrics at the Process and App Instance Level
+## <a id="app-instance"></a>Viewing metrics at the process and App instance level
 
 App Metrics relays metric data at the app process level to allow for an in-depth troubleshooting experience, even across rolling deployment. Users are able to view the app metrics related to a specific process and further drill down into specific instances within those processes, which correlates directly with the processes and app instances shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
 
@@ -55,7 +55,7 @@ To view metrics for the individual instances within the selected process, select
 
 To view metrics for a specific app instance (or selection of specific instances), select the desired instance(s) from the legend along the bottom of any chart on the dashboard while the "Instances" radio is selected.
 
-##<a id='metrics'></a> Interpreting Metrics
+##<a id='metrics'></a> Interpreting metrics
 
 The default metrics charts included with App Metrics provide high-level indicators
 of the Four Golden Signals for monitoring the health of apps running on distributed systems:
@@ -63,7 +63,7 @@ Latency, Traffic, Errors, and Saturation.
 
 The following sections explain how to use each of the charts on the dashboard to monitor and troubleshoot your app.
 
-### <a id='networkMetrics'></a> Network Metrics
+### <a id='networkMetrics'></a> Network metrics
 
 <p class="note"><strong>Note</strong>: If apps are not configured for network traffic,
 they show No Data or zeros for the default Latency, Traffic, and Errors metrics.
@@ -119,7 +119,7 @@ In order for Metric Registrar to accurately report Spring Metrics, the configura
 
 The `id` tag will need to be removed from the list of Blocked tags in the Metric Registrar settings withing the Tanzu Application Service Tile.
 
-###<a id='create-indicator-doc'></a> Create an Indicator Document
+###<a id='create-indicator-doc'></a> Creating an Indicator document
 
 An indicator document is a YAML document that specifies which app you want to monitor and the indicators
 you want to use to monitor it.
@@ -130,7 +130,7 @@ There are three steps to creating an indicator document:
 2. Write the PromQL query
 3. Add the PromQL to your indicator document
 
-#### Find the Metric Name
+#### Finding the metric name
 
 First verify that the metrics are being emitted.
 After you have configured Metrics Registrar to scrape your metrics
@@ -206,7 +206,7 @@ see [Indicator Document Template Reference](./indicator-document-reference.html)
 
 You can add custom monitoring to your dashboard's indicators by creating a custom monitor document for your app.
 
-### Create a Monitor document
+### Creating a Monitor document
 
 Monitors are linked to specific indicators, so the first step to adding custom monitoring and alerting to your
 app is to verify the names of the indicators you would like to monitor.
@@ -287,7 +287,7 @@ Make note of the following prerequisites before you query the Log Store:
 - [curl](https://github.com/curl/curl)
 - [CF Auth Token](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
 
-#### <a id='authorization-authentication'></a> Authorization & Authentication
+#### <a id='authorization-authentication'></a> Authorization and Authentication
 
 When querying the API via HTTPS, each request must have the `Authorization`
 header set with a UAA provided token.

@@ -1,6 +1,6 @@
 ---
 breadcrumb: App Metrics Documentation
-title: App Metrics Product Architecture
+title: App Metrics architecture
 owner: App Metrics
 list_style_none: true
 ---
@@ -15,15 +15,13 @@ To understand the architecture diagram, see the following guidelines:
 * Rounded rectangles represent customer interaction points.
 * Cylinders represent the data storage components of App Metrics
 * Blue colored components are packaged with App Metrics
-
-<%= image_tag('images/app-metrics-2-0-architecture.svg', :alt => "App Metrics 2.0 architecture") %>
+![alt-text="App Metrics 2.0 architecture"](./images/app-metrics-2-0-architecture.svg)
 
 ## <a id="data-flow"></a>Data flow
 
 [//]: # (Add introduction to the headings below.)
 
-
-##<a id="metrics"></a> Metrics
+## <a id="metrics"></a> Metrics
 Metrics are ingested and stored by the Metric Store tile.
 
 App Metrics uses the Metric Store tile for two purposes:

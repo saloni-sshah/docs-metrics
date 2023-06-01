@@ -1,6 +1,6 @@
 ---
 breadcrumb: App Metrics Documentation
-title: Troubleshooting App Metrics
+title: Troubleshoot App Metrics
 owner: App Metrics
 list_style_none: true
 ---
@@ -273,7 +273,7 @@ Follow the steps below to resolve the issue.
 1. Run the following command:
 <pre class="terminal">mysql> PURGE BINARY LOGS BEFORE 'YYYY-MM-DD HH:MM:SS'; </pre>
 
-### Re-deploy BOSH to Restart the Node
+### Redeploying BOSH to restart the node
 
 If troubleshooting is based on the causes that were previously mentioned did not resolve the issue with your failing MySQL node,
 you can follow the steps below to recover it.
@@ -286,7 +286,7 @@ The cluster takes a significant amount of time to put the data replicated to the
 This procedure consumes considerable network bandwidth as potentially hundreds of gigabytes of data needs to transfer.
 </p>
 
-#### Stop the Ingestor App
+#### Stopping the Ingestor App
 
 1. From Ops Manager, click the Elastic Runtime Tile.
 1. Click the **Credentials** tab.
@@ -301,7 +301,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 1. Stop data flow into the Galera cluster:
     <pre class="terminal">$ cf stop metrics-ingestor</pre>
 
-#### Edit Your Deployment Manifest
+#### Editing your deployment manifest
 
 1. Follow the steps in [Log in to BOSH](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html)
 to target and log in to your BOSH Director.
@@ -379,7 +379,7 @@ to target and log in to your BOSH Director.
             Decrease the Logs Retention Window and increase the PostgreSQL Persistent Disk
             <br><br>
             <ol>
-              <li>Navigate to the <b>Metrics Components Config</b> section of the PCF Metrics Tile.</li>
+              <li>Go to the <b>Metrics Components Config</b> section of the PCF Metrics Tile.</li>
               <li>Decrease the Logs Retention Window to a smaller number to free up space in PostgreSQL.</li>
               <li>Navigate to the <b>Resource Config</b> section of the PCF Metrics Tile.</li>
               <li>Increase the Persistent Disk size of PostgreSQL Server to at least twice the current size.</li>
@@ -425,7 +425,7 @@ to target and log in to your BOSH Director.
   </tr>
 </table>
 
-## <a id="redis-full"></a>Redis Temporary Datastore Stops Accepting Metrics
+## <a id="redis-full"></a>Redis temporary datastore stops accepting metrics
 <table>
   <tr>
       <th>Error</th>
@@ -455,5 +455,4 @@ to target and log in to your BOSH Director.
   </tr>
 </table>
 
-#### <a id="no-results-mysql"></a> Received No Results Back from MySQL - Failing
 

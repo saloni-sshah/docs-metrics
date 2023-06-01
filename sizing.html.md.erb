@@ -18,7 +18,7 @@ App Metrics depends on 3 datastores, the Metric Store, the Log Store, and the Po
 Metric Store tile is separate, and will mostly be discussed elsewhere. The Log Store and Postgres database
 are part of the App Metrics tile, and so their scaling will be discussed more in detail here.
 
-##<a id='metrics-datastore'></a> Scale the Metrics Datastore
+##<a id='metrics-datastore'></a> Scaling the metrics datastore
 
 App Metrics retrieves metrics from Metric Store, which has its own configuration for resizing.
 For information, see [Metric Store documentation](https://docs.pivotal.io/metric-store/installing.html#-metric-store-for-pcf-resources).
@@ -47,7 +47,7 @@ Estimate the size of your deployment according to how many apps you expect to de
 + **Metrics App** — App Metrics deploys the app, `appmetrics`. This app is responsible for serving the UI, proxying requests from the browser to metric and log store, and creating notifications for the user-created monitors.<br><br>
 The `appmetrics` app should be scaled to 1 instance.
 
-###<a id='small'></a>Deployment Resources for a Small Deployment
+###<a id='small'></a>Deploying resources for a small deployment
 
 Example resource configuration to store approximately 6 weeks of data for a small deployment, about 100 application instances:
 
@@ -72,7 +72,7 @@ Example resource configuration to store approximately 6 weeks of data for a smal
   </tr>
 </table>
 
-###<a id='medium'></a>Deployment Resources for a Medium Deployment
+###<a id='medium'></a>Deploying resources for a medium deployment
 
 Example resource configuration to store approximately 6 weeks of data for a medium deployment, about 5000 application instances:
 
@@ -98,7 +98,7 @@ Example resource configuration to store approximately 6 weeks of data for a medi
 </table>
 
 
-###<a id='large'></a>Deployment Resources for a Large Deployment
+###<a id='large'></a>Deploying resources for a large deployment
 
 Example resource configuration to store approximately 6 weeks of data for a large deployment, about 15,000 application instances:
 
@@ -124,7 +124,7 @@ Example resource configuration to store approximately 6 weeks of data for a larg
 </table>
 
 
-##<a id='log-datastore'></a> Scale the Log Datastore
+##<a id='log-datastore'></a> Scaling the Log Datastore
 
 App Metrics retrieves logs from Log Store.
 
@@ -142,7 +142,7 @@ The scaling of an individual log-store deployment is subject to many variables, 
 Horizontally scaling Log Store currently results in data loss. Vertical scaling is recommended at this time
 </p>
 
-###<a id='log-considerations'></a> Considerations for Scaling
+###<a id='log-considerations'></a> Scaling considerations
 
 **Scaling Baseline**
 
