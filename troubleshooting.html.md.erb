@@ -78,10 +78,9 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
     <pre class="terminal">$ curl localhost:9200/_cluster/settings</pre>
 
     Examine the output:
+  `"all"` means the shard allocation is enabled.
 
-    `"all"` means the shard allocation is enabled.
-
-    `"none"` means the shard allocation is deactivated.
+  `"none"` means the shard allocation is deactivated.
 
 1. Enable the shard allocation again by running the following command:
     <pre class="terminal">$ curl -XPUT localhost:9200/_cluster/settings -d
@@ -388,7 +387,6 @@ to target and log in to your BOSH Director.
 </table>
 
 ## <a id="fetch-apps"></a>Failed to fetch apps
-
 <table>
   <tr>
       <th>Error</th>
@@ -411,7 +409,6 @@ to target and log in to your BOSH Director.
 </table>
 
 ## <a id="redis-full"></a>Redis temporary datastore stops accepting metrics
-
 <table>
   <tr>
       <th>Error</th>
