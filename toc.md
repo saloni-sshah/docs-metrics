@@ -6,5 +6,5 @@
 *   [Monitoring PCF Metrics](/docs-metrics/monitoringpcfmetrics.html)
 *   [PCF Metrics Product Architecture](/docs-metrics/architecture.html)
 *   [PCF Metrics API](/docs-metrics/api/index.html)
-    *   [Monitor Configuration](/docs-metrics/api/monitors.html)
+*   [Monitor Configuration](/docs-metrics/api/monitors.html)
 *   [Release Notes and Known Issues](/docs-metrics/rn-ki.html)
