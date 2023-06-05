@@ -1,4 +1,4 @@
-* [What's new in App Metrics](/docs-metrics/index.html)
+* [App Metrics](/docs-metrics/index.html)
 * [Release notes and known issues](/docs-metrics/rn-ki.html)
 * [App Metrics architecture](/docs-metrics/architecture.html)
 * [Install App Metrics](/docs-metrics/installing.html)
