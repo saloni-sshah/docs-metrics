@@ -595,11 +595,11 @@ Run the following commands to return the `mariadb_ctrl` job to a healthy state:
    Confirm insufficient disk space by doing the following:
 1. Run `df -h`.
       1. Ensure that you see the `/var/vcap/store` folder is at or over `90%` usage.
-1. Navigate to `/var/vcap/store/mysql` and run `ls -al`.
+1. Go to `/var/vcap/store/mysql` and run `ls -al`.
       1. Ensure that you see many files named with the format `mysql-bin.########`.
 
 In MySQL for PCF, the server node does not make use of these logs and you can remove all except the most recent bin log.
-Follow the steps below to resolve the issue.
+Use the following the steps to resolve the issue.
 
 #### Resolve
 
