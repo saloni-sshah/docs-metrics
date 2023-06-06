@@ -1,4 +1,4 @@
-* [What's new in App Metrics](/docs-metrics/index.html)
+* [App Metrics](/docs-metrics/index.html)
 * [Release Notes and known issues](/docs-metrics/rn-ki.html)
 * [Install App Metrics](/docs-metrics/installing.html)
 * [Size App Metrics for Your System](/docs-metrics/sizing.html)
@@ -7,5 +7,5 @@
 * [Troubleshoot App Metrics](/docs-metrics/troubleshooting.html)
 * [Monitor Log Store](/docs-metrics/monitoring-log-store.html)
 * [App Metrics architecture](/docs-metrics/architecture.html)
-* [Indicator Document Template Reference](/docs-metrics/indicator-document-reference.html)
-* [Monitor Document Template Reference](/docs-metrics/monitor-document-reference.html)
+* [Indicator document reference for App Metrics](/docs-metrics/indicator-document-reference.html)
+* [Monitor document reference for App Metrics](/docs-metrics/monitor-document-reference.html)

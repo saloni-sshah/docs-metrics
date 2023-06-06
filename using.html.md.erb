@@ -9,7 +9,7 @@ list_style_none: true
 
 You can monitor and troubleshoot apps using App Metrics.
 
-## <a id="overview"></a> Understand the health and performance of your apps
+## <a id="overview"></a> Understanding the health and performance of your apps
 
 App Metrics helps you understand and troubleshoot the health and performance of your apps by offering the following indicators, data, and visualizations:
 
@@ -23,13 +23,13 @@ App Metrics helps you understand and troubleshoot the health and performance of 
 
 The following sections describe a standard workflow for using App Metrics to monitor or troubleshoot your apps.
 
-##<a id='get-started'></a> View an App
+##<a id='get-started'></a> Viewing an App
 
 In a browser, go to `metrics.sys.DOMAIN` and log in with your User Account and Authentication (UAA) credentials. Choose an app from the search bar for which you want to view metrics and/or logs. App Metrics respects UAA permissions such that you can view any app that runs in a space that you have access to.
 
 App Metrics displays app data for a given time frame. See the sections below to [Change the Time Frame](#time) for the dashboard.
 
-## <a id="time"></a>Change the Time Frame
+## <a id="time"></a>Changing the Time Frame
 
 The charts show time along the horizontal axis. You can change the time frame for all charts and the logs by using the time selector options at the top of the window. You can select from several pre-set timescales or select a custom date range.
 
@@ -162,9 +162,9 @@ After you have the metric name, write a PromQL query for visualizing the metric.
   the current app. Example: <code>cpu{source_id="$sourceId"}</code>
 </p>
 
-#### Add the PromQL to Your Indicator Document
+#### Adding the PromQL to Your Indicator Document
 
-After you have the PromQL ready, put it in an indicator document.
+When the PromQL is ready, put it in an indicator document.
 
 For example, if you have a custom metric `customMetricName500` and want to graph the amount of errors over a 1 minute
 period, then your PromQL query is `sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))`.
@@ -287,12 +287,12 @@ Make note of the following prerequisites before you query the Log Store:
 - [curl](https://github.com/curl/curl)
 - [CF Auth Token](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
 
-#### <a id='authorization-authentication'></a> Authorization and Authentication
+#### <a id='authorization-authentication'></a> Authorization and authentication
 
 When querying the API via HTTPS, each request must have the `Authorization`
 header set with a UAA provided token.
 
-#### <a id='querying'></a> Querying via HTTP Endpoints
+#### <a id='querying'></a> Querying through HTTP Endpoints
 
 **GET** `/v1/sources/{sourceID}/logs`
 
