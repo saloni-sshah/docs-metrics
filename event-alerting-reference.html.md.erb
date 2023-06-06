@@ -1,21 +1,22 @@
 ---
 breadcrumb: App Metrics Documentation
-title: Event alert template reference for App Metrics
+title: Event alerts in App Metrics
 owner: App Metrics
 list_style_none: true
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic is for developers who want to monitor events from apps using App Metrics.
+To monitor events from apps using App Metrics, you need a configurable `Enable Event Alerting` variable
+in `Ops Manager->App Metrics tile -> Settings-> Resource Config` to stop or start the Event Alerting optional feature.
+This optional feature contains detailed information about the schema and API for log monitor documents.
 
 You need a configurable `Enable Event Alerting` variable in the `Ops Manager->App Metrics tile -> Settings-> Resource Config` to stop or start the Event Alerting optional feature. This feature contains detailed information about the schema and API for log monitor documents.
 
 To upload a log monitor document, see [cURL Your Log Monitor Document to App Metrics](#curling-log-monitor-document).
 
-For more information about the schema and API, see [Log Monitor Document API Specification](#log-monitor-document-api-spec). It also contains an example for log monitor document, named `LogMonitorDocumentExample`.
+## <a id='curling-log-monitor-document'></a> cURLing your Log Monitor document to App Metrics
 
-## <a id='curling-log-monitor-document'></a> Using the cURL command to push Log Monitor document to App Metrics
 
 After you prepare your log monitor document, you can push it to App Metrics using the cURL command line. The endpoint is the same as the monitor document.
 
