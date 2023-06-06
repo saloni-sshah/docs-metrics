@@ -9,4 +9,4 @@
 * [Monitor log store](/docs-metrics/monitoring-log-store.html)
 * [Indicator Document template reference for App Metrics](/docs-metrics/indicator-document-reference.html)
 * [Monitor Document template reference for App Metrics](/docs-metrics/monitor-document-reference.html)
-* [Event alert template reference for App Metrics](/docs-metrics/event-alerting-reference.html)
+* [Event alerts in App Metrics](/docs-metrics/event-alerting-reference.html)
