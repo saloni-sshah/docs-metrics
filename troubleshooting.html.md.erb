@@ -35,7 +35,6 @@ investigate what is wrong with that particular component.
 1. Use `bosh ssh` to access the VM from the previous step.
 For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 
-
 1. Run the following command to list all the Elasticsearch indices:
 
   <pre class="terminal">$ curl ELASTICSEARCH-HOST-IP:9200/\_cat/indices?v | sort
@@ -56,15 +55,15 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
   1. Examine the `status` column of the output.
   1. If any of the indices are `red`, delete them using the following command:
 
-    <pre class="terminal">curl -X DELETE ELASTICSEARCH-HOST-IP:9200/INDEX</pre>
+   <pre class="terminal">curl -X DELETE ELASTICSEARCH-HOST-IP:9200/INDEX</pre>
 
   1. Restart the `elasticsearch-logqueue` app:
 
-    <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
+  <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
 
   1. From each of the Elasticsearch VMs, run the following command:
 
-    <pre class="terminal">$ monit restart all</pre>
+  <pre class="terminal">$ monit restart all</pre>
 
   1. Check periodically to verify the indices gradually recover to a `green` status.
 
@@ -387,12 +386,11 @@ to target and log in to your BOSH Director.
           </li>
         </ol>
 
-      <td>Decrease the Logs Retention Window and increase the PostgreSQL Persistent Disk
+<td>Decrease the Logs Retention Window and increase the PostgreSQL Persistent Disk
       <br><br>
       <ol>
         <li>Retrieve the IP address of your Elasticsearch master node by navigating to the <b>Metrics</b> tile in the Ops Manager Installation Dashboard,
             clicking the <b>Status</b> tab, and recording the IP address next to <b>ElasticSearchMaster</b>.</li>
-        <%= image_tag('images/elasticsearch-ip.png') %>
         <li> [SSH into the Ops Manager VM](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
         </li>
         <li>From the Ops Manager VM, use <code>curl</code> to target the IP address of your Elasticsearch master node.
@@ -404,6 +402,7 @@ to target and log in to your BOSH Director.
 </table>
 
 ## <a id="fetch-apps"></a>Failed to Fetch Apps
+
 <table>
   <tr>
       <th>Error</th>
@@ -426,6 +425,7 @@ to target and log in to your BOSH Director.
 </table>
 
 ## <a id="redis-full"></a>Redis temporary datastore stops accepting metrics
+
 <table>
   <tr>
       <th>Error</th>
@@ -454,5 +454,3 @@ to target and log in to your BOSH Director.
        </td>
   </tr>
 </table>
-
-
