@@ -481,7 +481,6 @@ to target and log in to your BOSH Director.
       <ol>
         <li>Retrieve the IP address of your Elasticsearch master node by navigating to the <b>Metrics</b> tile in the Ops Manager Installation Dashboard,
             clicking the <b>Status</b> tab, and recording the IP address next to <b>ElasticSearchMaster</b>.</li>
-        <%= image_tag('images/elasticsearch-ip.png') %>
         <li> [SSH into the Ops Manager VM](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
         </li>
         <li>From the Ops Manager VM, use <code>curl</code> to target the IP address of your Elasticsearch master node.
