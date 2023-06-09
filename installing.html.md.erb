@@ -15,10 +15,9 @@ However, the PCF Metrics tile can be installed without the Metrics Forwarder til
 For information about the components deployed as part of this install procedure,
 see [PCF Metrics Product Architecture](./architecture.html).
 
-##<a id='prerequisites'></a>Prerequisites
+## <a id='prerequisites'></a>Prerequisites
 
 Before you install or upgrade PCF Metrics, you must do the following:
-
 
 + **For PCF Metrics v1.6.4:**
 If you are upgrading, you first need to delete the appmetrics_nodejs8_buildpack if it exists via the [cf cli](http://cli.cloudfoundry.org/en-US/cf/delete-buildpack.html).
@@ -38,40 +37,41 @@ selected in the **App Containers** pane in the Pivotal Application Service (PAS)
 you must have the Metrics Forwarder tile installed.
 However, the PCF Metrics tile can be installed without the Metrics Forwarder tile.
 
-##<a id='upgrade'></a>Upgrade from v1.4.x to v1.6.x
+## <a id='upgrade'></a>Upgrading from v1.4.x to v1.6.x
 
 This section describes upgrading from PCF Metrics v1.4.x to v1.6.x.
 
 PCF Metrics version 1.6 includes new data storage solutions that were introduced in version 1.5:
 
-- For logs, versions 1.5 and 1.6 use PostgreSQL instead of ElasticSearch.
-- For metrics, versions 1.5 and 1.6 use Percona instead of MariaDB.
++ For logs, versions 1.5 and 1.6 use PostgreSQL instead of ElasticSearch.
++ For metrics, versions 1.5 and 1.6 use Percona instead of MariaDB.
 
 There is no effective upgrade path from ElasticSearch to PostgreSQL for logs data. For this reason, the upgrade [Procedure](#upgrade-procedure) is different from previous versions.
 
-###<a id='upgrade-procedure'></a> Procedure
+### <a id='upgrade-procedure'></a> Procedure
 
 To upgrade to PCF Metrics v1.6 from 1.4.x, Pivotal recommends that you follow this procedure:
 
 1. Upload and install the PCF Metrics v1.6 tile alongside the v1.4 tile. Follow the instructions in the [Install PCF Metrics](#install) section below. <br>PCF Metrics v1.6 supports running both the v1.6 and v1.4 tiles simultaneously. You can install v1.6 manually or automate the installation with a deployment pipeline.
   <%= image_tag('images/ops-man-metrics-tiles-image.png', :alt => "PCF Metrics 1.4 and v1.6 installed in Ops Manager") %>
 1. Keep both tiles installed and running for the duration of the logs and metrics retention window you configured in v1.6. This allows data to propagate to the new version.
-  * During this time, you can access both dashboards. However, you can no longer access historical metrics and logs data on the v1.4 dashboard after the duration of the logs and metrics retention window you configured in v1.6 has passed.
-      * **For v1.4**: Go to `metrics-previous.YOUR-SYSTEM-DOMAIN`.
-      * **For v1.6**: Go to `metrics.YOUR-SYSTEM-DOMAIN`. You can also click **View Metrics in Previous Versions** on the v1.6 dashboard to see metrics for the current app on the v1.4 dashboard.
+
++ During this time, you can access both dashboards. However, you can no longer access historical metrics and logs data on the v1.4 dashboard after the duration of the logs and metrics retention window you configured in v1.6 has passed.
+  + **For v1.4**: Go to `metrics-previous.YOUR-SYSTEM-DOMAIN`.
+  + **For v1.6**: Go to `metrics.YOUR-SYSTEM-DOMAIN`. You can also click **View Metrics in Previous Versions** on the v1.6 dashboard to see metrics for the current app on the v1.4 dashboard.
         <%= image_tag('images/previous-link.png', :alt => "View Metrics in Previous Version link") %>
 
 1. Uninstall PCF Metrics v1.4.
 
-##<a id='upgrade'></a>Upgrade from v1.5.x to v1.6.x
+## <a id='upgrade'></a>Upgrading from v1.5.x to v1.6.x
 
 As both 1.5 and 1.6 use the same datastore solutions, you can use standard manual or automated upgrade paths to upgrade from PCF Metrics 1.5.x to 1.6.x.
 
-## <a id='install'></a> New Install of PCF Metrics
+## <a id='install'></a> New Installation of PCF Metrics
 
 This section describes how to install the PCF Metrics tile.
 
-### <a id='step1'></a> Add the PCF Metrics Tile to Ops Manager
+### <a id='step1'></a> Adding the PCF Metrics Tile to Ops Manager
 
 To add the PCF Metrics tile to Ops Manager, do the following:
 
@@ -90,11 +90,12 @@ This section describes how to configure the PCF Metrics tile.
 1. From the **Installation Dashboard**, click the **PCF Metrics** tile.
 
 2. Use these procedures to configure the PCF Metrics tile:
-  + [Assigning Availability Zones (AZs) and Networks](#az)
-  + [Configuring metrics components](#mc-config)
-  + [Configuring errands](#errands)
-  + [Configuring resources](#resource-config)
-  + [Importing Stemcell](#stemcell)
+
++ [Assigning Availability Zones (AZs) and Networks](#az)
++ [Configuring metrics components](#mc-config)
++ [Configuring errands](#errands)
++ [Configuring resources](#resource-config)
++ [Importing Stemcell](#stemcell)
 
 ### <a id='az'></a> Assigning Availability Zones and networks
 
@@ -110,7 +111,7 @@ To configure the **Assign AZs and Networks** pane, do the following:
    across the Availability Zones that you specify. However this setting does not
    balance Elastic Search jobs across multiple AZs as merely balancing ES jobs across multiple AZs
    does not ensure Highly available ES because ES auto-shards and distributes replicas across ES data nodes in real time.
-   So instead, we have added a redis instance between the firehose and ES (https://docs.pivotal.io/pcf-metrics/1-4/architecture.html)
+   So instead, we have added a redis instance between the firehose and ES (<https://docs.pivotal.io/pcf-metrics/1-4/architecture.html>)
    which buffers logs before they are written to ES. In case of unavailable ES ( during deployment, ES red indices or AZ failure),
    redis will hold logs in buffer and write it back once ES is stable again. You can create multiple redis jobs and balance them across AZs for ensuring HA redis in case of AZ failure.
 
@@ -150,30 +151,30 @@ To configure the **Assign AZs and Networks** pane, do the following:
 
 To configure the **Metrics Components Config** pane, do the following:
 
-<%= image_tag('images/metrics-components-config.png', :alt => "Metrics App Components Settings") %>
+![alt-text="Metrics App Components Settings"](./images/metrics-components-config.png)
 
 1. Click **Metrics Components Config**.
-1. Review the **MySQL Logqueue Count** value.
+2. Review the **MySQL Logqueue Count** value.
    You can increase this instance count at any time to accommodate higher levels of inbound metrics traffic.
-1. Review the **Elasticsearch Logqueue Count** value.
+3. Review the **Elasticsearch Logqueue Count** value.
    You can increase this instance count at any time to accommodate higher levels of inbound log traffic.
-1. Review the **Ingestor Count** value.
+4. Review the **Ingestor Count** value.
    You can increase this instance count at any time to accommodate higher levels of Loggregator Firehose traffic.
-1. Review the **Metrics API server instance count** value.
+5. Review the **Metrics API server instance count** value.
    You can increase this instance count at any time to accommodate deployments with more apps, metrics, and logs.
-1. Review the **Metrics Retention Window** value.
+6. Review the **Metrics Retention Window** value.
    You can set number of days to retain metrics data from `1` to `14` days.
    PCF Metrics adds one buffer day to your configured value to prevent pruning within your desired retention window. The retention window begins at UTC±00:00 of the current day and goes back the amount of days you enter in this field, plus the one buffer day added by PCF Metrics.
-1. Review the **Logs Retention Window** value.
+7. Review the **Logs Retention Window** value.
    You can set number of days to retain logs data from `1` to `14` days.
    PCF Metrics adds one buffer day to your configured value to prevent pruning within your desired retention window. The retention window begins at UTC±00:00 of the current day and goes back the amount of days you enter in this field, plus the one buffer day added by PCF Metrics.
-1. Review the **Logs Max Retention Percentage** value.
+8. Review the **Logs Max Retention Percentage** value.
    As a preventative measure, you can set the percentage of disk capacity used before triggering automatic log pruning to prevent Postgres failures. The default is `85`.
-1. Review the **Logs Disk Size Pruning Interval** value.
+9. Review the **Logs Disk Size Pruning Interval** value.
    You can set the length of time between checking the Postgres disk capacity for automated pruning operations. Default is 1 hour.
-1. Review the **Log level for push apps** value.
+10. Review the **Log level for push apps** value.
    You can set the log level for the `push-apps` errand to suit your troubleshooting needs. The options are `error`, `warning`, `info`, `debug`, or `trace`. Default level is `error`.
-1. Click **Save**.
+11. Click **Save**.
 
 ### <a id="errands"></a> Configuring errands
 
@@ -184,22 +185,23 @@ To properly configure the **Errands** pane, follow the procedure that correspond
 
 #### <a name='19'></a> Configuring errands for Ops Manager v1.9
 
-1. Click **Errands**.
   <p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong> by default.
      Pivotal recommends that you do not deselect any errands as doing so can cause issues with the deployment of the tile.
      However, you can deselect the <b>Remove PCF Metrics 1.3 CF Resources Errand</b> and
      <strong>Migrate Old Data to 1.4 Errand</strong> after deploying v1.4 of the tile.</p>
+
+1. Click **Errands**.
 1. Review the **Post-Deploy Errands** and **Pre-Delete Errands**:
   If you are deploying the tile for the first time, select all **Post-Deploy Errands**.<br>
      The following list describes what the **Smoke Tests** errand does.
      See [Smoke Test Errors](./troubleshooting.html#smoke-test) in _Troubleshooting PCF Metrics_
      for information on resolving errors discovered by this errand:
-  * Confirms that MySQL ingests metrics
+  *Confirms that MySQL ingests metrics
   * Confirms that Elasticsearch ingests logs
-  * Confirms that the Metrics API returns metrics and logs
+  *Confirms that the Metrics API returns metrics and logs
   * Confirms that any custom metrics coming out of the Firehose are ingested and stored
 
-        <p class="note"><strong>Note</strong>: If you deselect <strong>Remove PCF Metrics 1.4 CF Resources Errand</strong>
+    <p class="note"><strong>Note</strong>: If you deselect <strong>Remove PCF Metrics 1.4 CF Resources Errand</strong>
            under <strong>Pre-Delete Errands</strong>, artifacts might remain after the PCF Metrics tile uninstalls.</p>
 
 #### <a id='110'></a> Configuring errands for Ops Manager v1.10
@@ -207,20 +209,20 @@ To properly configure the **Errands** pane, follow the procedure that correspond
 1. Click **Errands**.
 
 1. Review the **Post-Deploy Errands** and **Pre-Delete Errands**:
-  1. If you are deploying the tile for the first time, set all **Post-Deploy Errands** to **On**.
-  1. For deployments after the initial install, configure the **Post-Deploy Errands** as follows:
+1. If you are deploying the tile for the first time, set all **Post-Deploy Errands** to **On**.
+1. For deployments after the initial install, configure the **Post-Deploy Errands** as follows:
       1. Set **Remove PCF Metrics 1.3 CF Resources Errand** to **When Changed**
       1. Set **Push PCF Metrics components Errand** to **On**
       1. Set **Migrate Old Data to 1.4 Errand** to **When Changed**
       1. Set **Smoke Tests Errand** to **On**<br>
          The following list describes what the **Smoke tests** errand does.
          See [Smoke Test Errors](./troubleshooting.html#smoke-test) in _Troubleshooting PCF Metrics_ for information on resolving errors discovered by this errand:
-          * Confirms that MySQL ingests metrics
-          * Confirms that Elasticsearch ingests logs
-          * Confirms that the Metrics API returns metrics and logs
-          * Confirms that any custom metrics coming out of the Firehose are ingested and stored
+          + Confirms that MySQL ingests metrics
+          + Confirms that Elasticsearch ingests logs
+          + Confirms that the Metrics API returns metrics and logs
+          + Confirms that any custom metrics coming out of the Firehose are ingested and stored
 
-        <p class="note"><strong>Note</strong>: If you set <strong>Remove PCF Metrics 1.4 CF Resources</strong>
+    <p class="note"><strong>Note</strong>: If you set <strong>Remove PCF Metrics 1.4 CF Resources</strong>
            under <strong>Pre-Delete Errands</strong> to <strong>Off</strong>,
            artifacts might remain after the PCF Metrics tile uninstalls.</p>
 
@@ -231,6 +233,7 @@ To configure the **Resource Config** pane, do the following:
 1. Click **Resource Config**.
 1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job.
    For reference, the following table shows the default resource and IP requirements for installing the PCF Metrics tile:
+
   <table border="1" class="nice">
     <thead>
     <tr>
@@ -277,10 +280,11 @@ To configure the **Resource Config** pane, do the following:
     </tr>
     </tbody>
   </table>
-    If you expect a high level of use, you might need to increase the disk resources available to your instances.
+
+   If you expect a high level of use, you might need to increase the disk resources available to your instances.
     For more information, see [Sizing PCF Metrics for Your System](./sizing.html).
 
-    <p class="note"><strong>Note:</strong> For Ops Manager v1.9, if you configure a job with persistent disk larger than 2&nbsp;TB,
+   <p class="note"><strong>Note:</strong> For Ops Manager v1.9, if you configure a job with persistent disk larger than 2&nbsp;TB,
        you might experience disk partitioning issues with the BOSH Director.</p>
 
 1. Click **Save**.
@@ -309,4 +313,3 @@ see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/custom
 1. Click **Apply Changes** to install the service.
 If the smoke tests fail, see [Smoke Test Errors](./troubleshooting.html#smoke-test) in _Troubleshooting PCF Metrics_.
 
-For more information on how to log in, use, and interpret data from PCF Metrics, see [Monitoring and Troubleshooting Apps with PCF Metrics](./using.html).

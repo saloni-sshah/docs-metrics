@@ -3,7 +3,8 @@ breadcrumb: PCF Metrics Documentation
 title: Monitor Configuration
 owner: PCF Metrics
 ---
-This topic describes how to configure event and metric monitors for your applications using PCF Metrics' Beta `monitors-api` endpoint. 
+This topic tells you how to configure event and metric monitors for your
+applications using PCF Metrics' Beta `monitors-api` endpoint.
 
 <p class="note"><b>Note</b>: You must have the appropriate permissions to view or manage application monitors in PCF Metrics.</p>
 
@@ -11,7 +12,7 @@ This topic describes how to configure event and metric monitors for your applica
 
 You can use the following cURL and API commands to view event and metric monitors.
 
-###cURL
+### cURL
 
 To view monitors using cURL, run the following command:
 
@@ -19,11 +20,11 @@ To view monitors using cURL, run the following command:
 curl -H "Authorization: $(cf oauth-token)" -vvv -G "https://monitors-api.sys.DOMAIN/api/v1/$(cf app APP_NAME --guid)/monitors" | jq
 </pre>
 
-Where: 
+Where:
 
 * `DOMAIN` is your domain
 
-* `APP_NAME` is the name of your app  
+* `APP_NAME` is the name of your app
 
 ### API
 
@@ -37,7 +38,7 @@ Where:
 
 * `DOMAIN` is your domain
 
-* `APP_GUID` is the GUID of your app  
+* `APP_GUID` is the GUID of your app
 
 ##<a id='delete-monitors'></a> Delete Monitors
 
@@ -57,9 +58,9 @@ Where:
 
 * `APP_NAME` is the name of your app
 
-* `MONITOR_GUID` is the GUID of your app  
+* `MONITOR_GUID` is the GUID of your app
 
-### API 
+### API
 
 To delete monitors via API, run the following command:
 
@@ -75,7 +76,7 @@ Where:
 
 * `MONITOR_GUID` is the GUID of your app
 
-##<a id='create-monitors'></a> Create Monitors
+## <a id='create-monitors'></a> Create Monitors
 
 You can use the following cURL and API commands to create event and metric monitors.
 
@@ -108,7 +109,7 @@ To create monitors via API, run the following command:
 <pre>
 POST https://monitors-api.sys.DOMAIN/api/v1/APP_GUID/monitors
 </pre>
-    
+
 Where:
 
 * `DOMAIN` is your domain
@@ -137,7 +138,7 @@ And BODY:
 
 You can use the following cURL and API commands to view triggered event and metric monitors.
 
-### cURL 
+### cURL
 
 To view triggered monitors using cURL, run the following command:
 
@@ -151,7 +152,7 @@ Where:
 
 * `APP_NAME` is the name of your app
 
-### API 
+### API
 
 To view triggered monitors via API, run the following command:
 
@@ -167,9 +168,9 @@ Where:
 
 ##<a id='configure-monitors-yml'></a> Configure Monitors via YAML
 
-In addition to configuring monitors directly via API, you can also automate monitors configuration via YAML file. 
+In addition to configuring monitors directly via API, you can also automate monitors configuration via YAML file.
 
-To automate monitor configuration via YAML file, create a YAML file using the <a href="#yml-examples">YAML File Format Examples</a> below, then run the following command:
+To automate monitor configuration through YAML file, create a YAML file using the <a href="#yml-examples">YAML File Format Examples</a> below, then run the following command:
 
 <pre>
 curl -H "Authorization: $(cf oauth-token)" -H "Content-Type: application/yaml" --data-binary "@/PATH-TO-FILE.yml" -k "https://monitors-api.sys.DOMAIN/api/v1/$(cf app APP_NAME --guid)/monitors" -vvv -X PUT
@@ -212,7 +213,7 @@ The following is an example YAML file for configuring a metric monitor.
   warning_webhook_url: warning_webhook_url
   warning_json_payload: warning_json_payload
 </pre>
-    
+
 #### YAML Format for Event Monitors
 
 The following is an example YAML file for configuring an event monitor.

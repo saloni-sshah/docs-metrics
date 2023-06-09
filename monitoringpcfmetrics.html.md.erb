@@ -5,7 +5,7 @@ owner: PCF Metrics
 
 <strong><%= modified_date %></strong>
 
-This topic explains how to monitor the health of the Pivotal Cloud Foundry (PCF) Metrics service using the logs, metrics, and Key Performance Indicators (KPIs) emitted by Cloud Foundry and the Metrics application itself.
+This topic explains how you can monitor the health of the Pivotal Cloud Foundry (PCF) Metrics service using the logs, metrics, and Key Performance Indicators (KPIs) emitted by Cloud Foundry and the Metrics application itself.
 
 For more information about monitoring PCF, see [Monitoring Pivotal Cloud Foundry](https://docs.pivotal.io/pivotalcf/monitoring/index.html).
 
@@ -26,7 +26,7 @@ Pivotal recommends that operators continue to fine-tune the alert measures to th
 Pivotal also recommends that operators expand beyond this guidance and create new, installation-specific monitoring
 metrics, thresholds, and alerts based on learning from their own installations.
 
-### <a id="bosh-metrics"></a> BOSH Metrics
+### <a id="bosh-metrics"></a> BOSH metrics
 
 All BOSH-deployed components generate the following metrics. Monitor them to ensure that they are not consuming excess resources.
 
@@ -84,7 +84,7 @@ All BOSH-deployed components generate the following metrics. Monitor them to ens
    </tr>
 </table>
 
-### <a id="component-metrics"></a> Component Metrics
+### <a id="component-metrics"></a> Component metrics
 
 All applications pushed using Cloud Foundry automatically emit the following application component metrics.
 PCF Metrics is a collection of applications like any other CF applications, and thus can be monitored by PCF Metrics (among other monitoring services).
@@ -144,7 +144,7 @@ The following KPIs can indicate problems with your installation.
    </tr>
 </table>
 
-### <a id="custom-metrics"></a> Custom Metrics
+### <a id="custom-metrics"></a> Custom metrics
 
 Installing the [Metrics Forwarder tile](https://docs.pivotal.io/metrics-forwarder/installing.html) will allow one to
 gather more fine-grained metrics from the PCF Metrics deployment.

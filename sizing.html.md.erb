@@ -7,9 +7,8 @@ list_style_none: true
 
 <strong><%= modified_date %></strong>
 
-You can configure App Metrics depending on your deployment size. Use the information in this topic to optimize App Metrics for high capacity, reduce resource usage for smaller deployment sizes and to scale your overall deployment.
-
-If you are not familiar with App Metrics components, see [App Metrics architecture](https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.1/app-metrics/GUID-architecture.html) before you continue with this topic.
+You can configure PCF Metrics depending on your deployment size. Use the information in this topic to
+optimize PCF Metrics for high capacity, reduce resource usage for smaller deployment sizes and to scale your overall deployment.
 
 If you are not familiar with the PCF Metrics components, review [PCF Metrics Product Architecture](./architecture.html) before reading this topic.
 
@@ -20,7 +19,7 @@ For how to configure resources for a running deployment, see the following proce
 + [Procedure for Scaling the Temporary Datastore](#temp-procedures)
 + [Procedure for Scaling the Ingestor, Logqueues, and Metrics API](#ingestor-procedures)
 
-##<a id='configs-by-size'></a> Suggested Sizing by deployment size
+## <a id='configs-by-size'></a> Sizing by deployment size
 
 Use the following tables as a guide for configuring resources for your deployment.
 
@@ -31,7 +30,7 @@ Currently, you can scale vertically rather than horizontally.
 For more information about limitations, see [Limitations](https://docs.pivotal.io/metric-store/index.html#limitations)
 in the Metric Store documentation.
 
-## <a id='configs-by-size'></a> Suggested sizing by deployment size
+## <a id='configs-by-size'></a> Sizing by deployment size
 
 Use the following tables as a guide to configure your resources for deployment.
 
@@ -49,7 +48,7 @@ more than indicated in the tables below.
 Pivotal recommends you start with the one of the following configurations and scale up as necessary
 by following the steps in <a href="#metrics-datastore">Configuring the Metrics Datastore</a>.
 
-###<a id='small'></a>Deployment Rrsources for a small deployment
+###<a id='small'></a>Deployment resources for a small deployment
 
 Example resource configuration to store approximately 14 days of data for a small deployment, about 100 application instances:
 
@@ -175,11 +174,11 @@ To scale up the MySQL server node, do the following:
 <p class="note warning"><strong>WARNING!</strong> If you are using PCF v1.9.x and earlier,
    there might be issues Ops Manager BOSH Director using persistent disks larger than 2&nbsp;TB.</p>
 
-##<a id='log-datastore'></a> Scaling the Log Datastore
+## <a id='log-datastore'></a> Scaling the Log Datastore
 
 PCF Metrics uses Postgres to store logs.
 
-###<a id='log-considerations'></a> Scaling considerations
+### <a id='log-considerations'></a> Scaling considerations
 
 Pivotal suggests estimating your Logs data storage needs using the equation below before configuring your Postgres instance.
 
@@ -202,7 +201,7 @@ The following calculation attempts to measure Postgres resource requirements mor
 
    As previously stated, the default Elasticsearch configuration sets the number of replicas to 1, which means that every shard has 1 replica and Elasticsearch logs are HA by default.
 
-###<a id='log-procedures'></a> Scaling
+### <a id='log-procedures'></a> Scaling
 
 <p class="note warning">
 <strong>WARNING!</strong> When you vertically scale your Postgres instance, Postgres enters an unhealthy period during which it does not ingest any new logs data until the scaling operation has completed.</p>
@@ -214,21 +213,21 @@ After determining the desired size for the Postgres instance needed for your dep
 1. Locate the **Elasticsearch Data** job and select the drop-down menu under **Instances** to change the number of instances.
 1. Click **Save**.
 
-##<a id='temp-datastore'></a> Scaling the temporary Redis datastore
+## <a id='temp-datastore'></a> Scaling the temporary Redis datastore
 
 PCF Metrics uses Redis to temporarily store ingested data from the Loggregator Firehose
 as well as cache data queried by the Metrics API.
 The former use case is to prevent major metrics and logs loss when the data stores (Postgres and MySQL) are unavailable.
 The latter is to potentially speed up front-end queries. See [PCF Metrics Product Architecture](./architecture.html) for more information.
 
-###<a id='temp-considerations'></a> Scaling considerations
+### <a id='temp-considerations'></a> Scaling considerations
 
 The default Redis configuration specified in [Suggested Sizing by Deployment Size](#configs-by-size) above
 that fits your deployment size should work for most cases.
 Redis stores all data in memory, so if your deployment size requires it,
 you can also consider scaling up the RAM for your Redis instance.
 
-###<a id='temp-procedures'></a> Scaling the size of Redis VM
+### <a id='temp-procedures'></a> Scaling the size of Redis VM
 
 Follow these steps to configure the size of the Redis VM for the temporary datastore based on your calculations.
 
@@ -241,7 +240,7 @@ For more information, see <i>Eviction policies</i> in <a href="https://redis.io/
 1. Locate the **Redis** job and select the dropdown menus under **Persistent Disk Type** and **VM Type** to scale Redis up or down.
 1. Click **Save**.
 
-##<a id='ingestor'></a> Scaling the Ingestor, Logqueues, and Metrics API
+## <a id='ingestor'></a> Scaling the Ingestor, Logqueues, and Metrics API
 
 The procedures for scaling the Metrics Ingestor, Logs Queue, Metrics Queue, and Metrics API instances are similar.
 
@@ -282,12 +281,12 @@ Refer to this table to determine how many instances you need for each component.
 
 Find the number of Doppler servers in the Resource Config pane of the Pivotal Application Service tile.
 
-###<a id='ingestor-considerations'></a> Scaling considerations
+### <a id='ingestor-considerations'></a> Scaling considerations
 
 Pivotal recommends starting with the configuration in [Suggested Sizing by Deployment Size](#configs-by-size), for your deployment size
 and then evaluating performance over a period of time and scaling upwards if performance degrades.
 
-###<a id='ingestor-procedures'></a> Scaling the apps
+### <a id='ingestor-procedures'></a> Scaling the apps
 
 <p class="note warning"><strong>WARNING! </strong> If you decrease the number of instances,
    you might lose data currently being processed on the instances you eliminate.</p>
