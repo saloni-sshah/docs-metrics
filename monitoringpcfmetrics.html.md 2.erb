@@ -5,7 +5,17 @@ owner: PCF Metrics
 
 <strong><%= modified_date %></strong>
 
-This topic explains how to monitor the health of the Pivotal Cloud Foundry (PCF) Metrics service using the logs, metrics, and Key Performance Indicators (KPIs) emitted by Cloud Foundry and the Metrics app itself.
+This topic explains how you can monitor the health of the Pivotal Cloud Foundry (PCF) Metrics service using the logs, metrics, and Key Performance Indicators (KPIs) emitted by Cloud Foundry and the Metrics application itself.
+
+For more information about monitoring PCF, see [Monitoring Pivotal Cloud Foundry](https://docs.pivotal.io/pivotalcf/monitoring/index.html).
+
+## <a id="healthwatch"></a>Healthwatch
+
+The premier way to monitor PCF Metrics is using [Healthwatch](https://docs.pivotal.io/pcf-healthwatch/installing.html).
+Once installed, navigate to the JobHealth dashboard to view the PCF Metrics deployment which is named `apmPostgres`.
+
+Healthwatch also supports [alerting](https://docs.pivotal.io/pcf-healthwatch/api/alerts.html) based on VM persistent
+disk percentage `system.disk.persistent.percent` and VM health `system.healthy`.
 
 ## <a id="kpi"></a>Key Performance Indicators
 
@@ -16,7 +26,7 @@ Pivotal recommends that operators continue to fine-tune the alert measures to th
 Pivotal also recommends that operators expand beyond this guidance and create new, installation-specific monitoring
 metrics, thresholds, and alerts based on learning from their own installations.
 
-#### <a id="bosh-metrics"></a> BOSH Metrics
+### <a id="bosh-metrics"></a> BOSH metrics
 
 All BOSH-deployed components generate the following metrics. Monitor them to ensure that they are not consuming excess resources.
 
@@ -24,10 +34,10 @@ All BOSH-deployed components generate the following metrics. Monitor them to ens
    <tr><th colspan="3" style="text-align: center;"><br> system.mem.percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Percentage used of the VM Memory for MySQL, Redis, ElasticSearch data, and ElasticSearch master.<br><br>
+      <td>Percentage used of the VM Memory for MySQL, Redis, and PostgreSQL.<br><br>
       <strong>Use</strong>: Too much VM Memory usage will likely negatively impact data storage and access performance.
       <br><br>
-      <strong>Origin</strong>: JMX Bridge or BOSH HM<br>
+      <strong>Origin</strong>:bosh-system-metrics-forwarder<br>
       <strong>Type</strong>: percent<br>
       <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
    </tr>
@@ -37,8 +47,8 @@ All BOSH-deployed components generate the following metrics. Monitor them to ens
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: &gt; N/A <br>
-      <strong>Red critical</strong>: &gt; 80%</td>
+      <td><strong>Yellow warning</strong>: &gt; 80% <br>
+      <strong>Red critical</strong>: &gt; 85%</td>
    </tr>
    <tr>
       <th>Recommended response</th>
@@ -51,10 +61,10 @@ All BOSH-deployed components generate the following metrics. Monitor them to ens
    <tr><th colspan="3" style="text-align: center;"><br> disk.persistent.percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Percentage used of the VM persistent disk for MySQL, Redis, ElasticSearch data, and ElasticSearch master.<br><br>
+      <td>Percentage used of the VM persistent disk for MySQL, Redis, and PostgreSQL.<br><br>
       <strong>Use</strong>: It is important to make sure that the system disks of data services do not fill up and cause data loss and performance degradation.
       <br><br>
-      <strong>Origin</strong>: JMX Bridge or BOSH HM<br>
+      <strong>Origin</strong>:bosh-system-metrics-forwarder<br>
       <strong>Type</strong>: percent<br>
       <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
    </tr>
@@ -64,7 +74,7 @@ All BOSH-deployed components generate the following metrics. Monitor them to ens
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: &gt; N/A <br>
+      <td><strong>Yellow warning</strong>: &gt; 70% <br>
       <strong>Red critical</strong>: &gt; 80%</td>
    </tr>
    <tr>
@@ -74,18 +84,20 @@ All BOSH-deployed components generate the following metrics. Monitor them to ens
    </tr>
 </table>
 
-#### <a id="component-metrics"></a> Component Metrics
+### <a id="component-metrics"></a> Component metrics
 
-All apps pushed using Cloud Foundry automatically emit the following app component metrics. PCF Metrics is a collection of apps like any other CF apps, and thus can be monitored by PCF Metrics (among other monitoring services). The following KPIs can indicate problems with your installation.
+All applications pushed using Cloud Foundry automatically emit the following application component metrics.
+PCF Metrics is a collection of applications like any other CF applications, and thus can be monitored by PCF Metrics (among other monitoring services).
+The following KPIs can indicate problems with your installation.
 
 <table>
    <tr><th colspan="3" style="text-align: center;"><br> system.mem.percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Percentage used of the app container memory for PCF Metrics apps (metrics-ingestor, mysql-logqueue, elasticsearch-logqueue, metrics, metrics-ui).<br><br>
-      <strong>Use</strong>: PCF Metrics apps running out of memory will likely negatively impact performance.
+      <td>Percentage used of the application container memory for PCF Metrics applications.<br><br>
+      <strong>Use</strong>: PCF Metrics applications running out of memory will likely negatively impact performance.
       <br><br>
-      <strong>Origin</strong>: Firehose<br>
+      <strong>Origin</strong>: rep<br>
       <strong>Type</strong>: percent<br>
       <strong>Frequency</strong>: Every minute<br>
    </tr>
@@ -95,8 +107,8 @@ All apps pushed using Cloud Foundry automatically emit the following app compone
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
-      <td><strong>Yellow warning</strong>: &gt; N/A <br>
-      <strong>Red critical</strong>: &gt; 80%</td>
+      <td><strong>Yellow warning</strong>: &gt; 80% <br>
+      <strong>Red critical</strong>: &gt; 90%</td>
    </tr>
    <tr>
       <th>Recommended response</th>
@@ -109,8 +121,8 @@ All apps pushed using Cloud Foundry automatically emit the following app compone
    <tr><th colspan="3" style="text-align: center;"><br> disk.persistent.percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Percentage used of the app container persistent disk for PCF Metrics apps (metrics-ingestor, mysql-logqueue, elasticsearch-logqueue, metrics, metrics-ui).<br><br>
-      <strong>Use</strong>: PCF Metrics apps running out of disk will likely negatively impact performance.
+      <td>Percentage used of the application container persistent disk for PCF Metrics applications.<br><br>
+      <strong>Use</strong>: PCF Metrics applications running out of disk will likely negatively impact performance.
       <br><br>
       <strong>Origin</strong>: Firehose<br>
       <strong>Type</strong>: percent<br>
@@ -132,59 +144,63 @@ All apps pushed using Cloud Foundry automatically emit the following app compone
    </tr>
 </table>
 
-#### <a id="custom-metrics"></a> Custom Metrics
+### <a id="custom-metrics"></a> Custom metrics
 
-All PCF Metrics apps are already set up to emit certain custom metrics to indicate app health. As long as you make the appropriate configurations to export these metrics, they can be monitored by PCF Metrics (among other monitoring services). The following KPIs can indicate problems with your installation.
-Please refer to the <a href="https://docs.pivotal.io/metrics-forwarder/index.html">Metrics Forwarder documentation</a> for more information about how to set up custom metrics with the Metrics Forwarder.
+Installing the [Metrics Forwarder tile](https://docs.pivotal.io/metrics-forwarder/installing.html) will allow one to
+gather more fine-grained metrics from the PCF Metrics deployment.
+
+All PCF Metrics applications are already set up to emit certain custom metrics to indicate application health.
+As long as the Metrics Forwarder is installed, custom metrics are viewable in PCF Metrics.
+The following KPIs can indicate problems with your installation.
 
 <table>
-   <tr><th colspan="3" style="text-align: center;"><br> metric_processor.envelopes_stored.rate.1_minute<br><br></th></tr>
+   <tr><th colspan="3" style="text-align: center;"><br> metric-processor.envelopes-stored.rate.1-minute<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>The rate at which metrics processor stores metric envelopes to its persistent data store for mysql-logsqueue.<br><br>
+      <td>The rate at which metrics processor stores metric envelopes to its persistent data store for metrics-queue.<br><br>
       <strong>Use</strong>: Zero-value rate indicates that no metrics have been stored, which is likely caused by some major metrics processing errors or failures.
       <br><br>
-      <strong>Origin</strong>: Firehose<br>
-      <strong>Type</strong>: count per minute<br>
+      <strong>Origin</strong>: metrics-forwarder<br>
+      <strong>Type</strong>: gauge<br>
       <strong>Frequency</strong>: Every minute<br>
    </tr>
    <tr>
       <th>Recommended measurement</th>
-      <td>At all times for the past 30 minutes</td>
+      <td>Every minute for the past 30 minutes</td>
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
-      <td>Below 0 at all times for the past 30 minutes</td>
+      <td>A 0 value at any point in the past 30 minutes</td>
    </tr>
    <tr>
       <th>Recommended response</th>
-      <td>Consult the <a href="http://docs.pivotal.io/pcf-metrics/troubleshooting.html">troubleshooting document</a> for further guidance.</td>
+      <td>Consult the <a href="http://docs.pivotal.io/app-metrics/troubleshooting.html">troubleshooting document</a> for further guidance.</td>
    </tr>
 </table>
 
 <table>
-   <tr><th colspan="3" style="text-align: center;"><br> log_processor.envelopes_stored.rate.1_minute<br><br></th></tr>
+   <tr><th colspan="3" style="text-align: center;"><br> log-processor.logstore.bulk-inserts.rate.1_minute<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>The rate at which log processor stores log envelopes to its persistent data store for PCF Metrics apps (metrics-ingestor, mysql-logqueue, elasticsearch-logqueue, metrics, metrics-ui).<br><br>
+      <td>The rate at which log processor stores log envelopes to its persistent data store for PCF Metrics applications.<br><br>
       <strong>Use</strong>: Zero-value rate indicates that no logs have been stored, which is likely caused by some major logs processing errors or failures.
       <br><br>
-      <strong>Origin</strong>: Firehose<br>
-      <strong>Type</strong>: count per minute<br>
+      <strong>Origin</strong>: metrics-forwarder<br>
+      <strong>Type</strong>: gauge<br>
       <strong>Frequency</strong>: Every minute<br>
    </tr>
    <tr>
       <th>Recommended measurement</th>
-      <td>At all times for the past 30 minutes</td>
+      <td>Every minute for the past 30 minutes</td>
    </tr>
    <tr>
       <th>Recommended alert thresholds</th>
-      <td>Below 0 at all times for the past 30 minutes</td>
+      <td>A 0 value at any point in the past 30 minutes</td>
    </tr>
    <tr>
       <th>Recommended response</th>
-      <td>Consult the <a href="http://docs.pivotal.io/pcf-metrics/troubleshooting.html">troubleshooting document</a> for further guidance.</td>
+      <td>Consult the <a href="http://docs.pivotal.io/app-metrics/troubleshooting.html">troubleshooting document</a> for further guidance.</td>
    </tr>
 </table>
 
-If you have any further questions regarding monitoring PCF Metrics, refer to the <a href="http://docs.pivotal.io/pcf-metrics/troubleshooting.html">PCF Metrics troubleshooting guide.</a>
+If you have any further questions regarding monitoring PCF Metrics, refer to the <a href="http://docs.pivotal.io/app-metrics/troubleshooting.html">PCF Metrics troubleshooting guide.</a>

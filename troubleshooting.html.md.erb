@@ -5,23 +5,22 @@ list_style_none: true
 ---
 
 <strong><%= modified_date %></strong>
-You can use the following techniques to troubleshoot integration issues that arise in App Metrics.
 
 This topic describes how to resolve common issues experienced while operating or using Pivotal Cloud Foundry (PCF) Metrics.
 
-## <a id="deployment"></a> Errors during Deployment
+## <a id="deployment"></a> Errors during deployment
 
 The following sections describe errors that cause failure during a PCF Metrics tile and how to troubleshoot them.
 
-### <a id='smoke-test'></a> Smoke Test Errors
+### <a id='smoke-test'></a> Smoke Test errors
 
 PCF Metrics runs a set of smoke tests during installation to confirm system health.
 If the smoke tests discover any errors, you can find a summary of those errors at the end of the errand log output,
 including detailed logs about where the failure occurred.
 
-The following tables describe common failures and how to resolve them.
+#### Insufficient resources
+The following tables describe common failures and how to resolve them:
 
-#### Insufficient Resources
 
 <table border='1' class='nice'>
 <tr>
@@ -67,7 +66,7 @@ The following tables describe common failures and how to resolve them.
     </tr>
   </table>
 
-   <sup>*</sup>You may have more than one instance of each of the Ingestor and Logqueue apps depending your <a href="./sizing.html">sizing</a> needs.
+   <sup>*</sup>You might have more than one instance of each of the Ingestor and Logqueue apps depending your <a href="./sizing.html">sizing</a> needs.
    You configure these instance counts as part of the <a href="./installing.html#data">Data Store</a> pane of the tile.</p></td></td>
 </tr>
 <tr>
@@ -179,7 +178,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Failed to Start Elasticsearch Client
+#### Failed to start Elasticsearch client
 
 <table border='1' class='nice'>
 <tr>
@@ -210,7 +209,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Never Received App Logs
+#### Never received app logs
 
 <table border='1' class='nice'>
 <tr>
@@ -250,7 +249,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Metrics and Events Not Available
+#### Metrics and events not available
 
 <table border='1' class='nice'>
 <tr>
@@ -280,7 +279,7 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-#### Logs and Histograms Not Available
+#### Logs and histograms not available
 
 <table border='1' class='nice'>
 <tr>
@@ -309,13 +308,13 @@ The following tables describe common failures and how to resolve them.
 </tr>
 </table>
 
-## <a id='ui'></a> No Logs or Metrics in the UI
+## <a id='ui'></a> No logs or metrics in the UI
 
 In some cases, the PCF Metrics UI might not display metrics and logs after successfully deploying.
 
 Follow the steps in this section to help locate the app or component causing the problem.
 
-### <a name="check-lb"></a> Step 1: Check your Load Balancer Configuration
+### <a name="check-lb"></a> Step 1: Check your Load Balancer configuration
 
 If you use a load balancer, the event-stream mechanism used by the Metrics UI might be blocked. See the table below to resolve this error.
 
@@ -337,7 +336,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   </tr>
 </table>
 
-### <a name="check-apps"></a> Step 2: Check the PCF Metrics Apps
+### <a name="check-apps"></a> Step 2: Check the PCF Metrics apps
 
 1. From Ops Manager, click the Elastic Runtime Tile.
 1. Click the **Credentials** tab.
@@ -364,7 +363,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
   <pre class="terminal">$ cf logs APP-NAME --recent</pre>
   If you do not see any output, or if you did not find any errors, proceed to [Step 3: Check the Elasticsearch Cluster](#check-es-cluster).
 
-### <a name="check-es-cluster"></a>Step 3: Check the Elasticsearch Cluster
+### <a name="check-es-cluster"></a>Step 3: Check the Elasticsearch cluster
 
 1. From Ops Manager, select the PCF Metrics tile.
 
@@ -439,7 +438,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
   1. If the `curl` command fails, talk to your system administrator about removing the proxy or green-listing the PCF Metrics apps.
 
-### <a name="check-es-logqueue"></a>Step 4: Check the Elasticsearch Logqueue
+### <a name="check-es-logqueue"></a>Step 4: Check the Elasticsearch logqueue
 
 1. Run <code>cf apps</code> to see if the <code>elasticsearch-logqueue</code> app instances are `started`.
 
@@ -553,7 +552,7 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
   1. If the app is started and you do not find any errors, proceed to [Step 8: Check the Metrics Aggregator](#check-aggregator).
 
-## <a id='mysql'></a> MySQL Node Failure
+## <a id='mysql'></a> MySQL node failure
 
 In some cases, a MySQL server node might fail to restart.
 The following two sections describe the known conditions that cause this failure as well as steps for diagnosing and resolving them.
@@ -613,7 +612,7 @@ Use the following the steps to resolve the issue.
 ### Re-deploy BOSH to Restart the Node
 
 If troubleshooting is based on the causes that were previously mentioned did not resolve the issue with your failing MySQL node,
-you can follow the steps below to recover it.
+you can use the following steps to recover it.
 VMware recommends only using this procedure as a if there are no other potential solutions available.
 
 <p class="note warning">
@@ -638,7 +637,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 1. Stop data flow into the Galera cluster:
     <pre class="terminal">$ cf stop metrics-ingestor</pre>
 
-#### Edit Your Deployment Manifest
+#### Edit your deployment manifest
 
 1. Follow the steps in [Log in to BOSH](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html)
 to target and log in to your BOSH Director.
@@ -654,12 +653,12 @@ to target and log in to your BOSH Director.
 1. Run `bosh deploy` to deploy with your manifest.
 1. Run `bosh disks --orphaned` to see the [persistent disk](https://bosh.io/docs/persistent-disks.html) or disks associated with the failed node.
 1. Record the `CID` of each persistent disk.
-1. Contact [VMware Support](https://www.vmware.com/support/services.html) to walk through re-attaching the orphaned disks to new VMs to preserve their data.
+1. Contact [Pivotal Support](https://www.pivotalsupportcoordination.com.au/services) to walk through reattaching the orphaned disks to new VMs to preserve their data.
 1. Open the manifest and set the number of instances of the failed server node to `1`.
 1. Run `bosh deploy` to deploy with your edited manifest.
 1. Wait for BOSH to rebuild the node.
 
-## <a id='log'></a> Log Errors
+## <a id='log'></a> Log errors
 
 <table border='1' class='nice'>
 <tr>
@@ -717,7 +716,7 @@ to target and log in to your BOSH Director.
   </tr>
 </table>
 
-## <a id="fetch-apps"></a>Failed to Fetch Apps
+## <a id="fetch-apps"></a>Failed to fetch apps
 
 <table>
   <tr>
@@ -726,7 +725,7 @@ to target and log in to your BOSH Director.
   </tr>
   <tr>
       <th>Cause</th>
-      <td>The browser plugins or cookies inject extraneous content in requests to Cloud Controller API, causing it to reject the request.</td>
+      <td>The browser plug-ins or cookies inject extraneous content in requests to Cloud Controller API, causing it to reject the request.</td>
   </tr>
   <tr>
       <th>Solution</th>
