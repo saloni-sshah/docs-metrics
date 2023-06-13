@@ -5,7 +5,6 @@ list_style_none: true
 ---
 
 <strong><%= modified_date %></strong>
-You can use the following techniques to troubleshoot integration issues that arise in App Metrics.
 
 This topic describes how to resolve common issues experienced while operating or using Pivotal Cloud Foundry (PCF) Metrics.
 
@@ -406,7 +405,7 @@ to target and log in to your BOSH Director.
 1. Run `bosh deploy` to deploy with your manifest.
 1. Run `bosh disks --orphaned` to see the [persistent disk](https://bosh.io/docs/persistent-disks.html) or disks associated with the failed node.
 1. Record the `CID` of each persistent disk.
-1. Contact [VMware Support](https://www.vmware.com/support/services.html) to walk through re-attaching the orphaned disks to new VMs to preserve their data.
+1. Contact [VMware Support](https://www.vmware.com/support/services.html) to walk through reattaching the orphaned disks to new VMs to preserve their data.
 1. Open the manifest and set the number of instances of the failed server node to `1`.
 1. Run `bosh deploy` to deploy with your edited manifest.
 1. Wait for BOSH to rebuild the node.
