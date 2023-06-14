@@ -71,7 +71,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
      The sixth column displays the number of documents for the index.</p>
 7. If all indices show `green` status, but the number of documents does not increase,
      there is likely a problem further up in ingestion.
-     Proceed to [Step 4: Check the Elasticsearch Logqueue](#check-es-logqueue).
+     Proceed to [Checking the Elasticsearch Logqueue](#check-es-logqueue).
 1. Check whether cluster-level shard allocation is enabled:
 
   <pre class="terminal">$ curl localhost:9200/_cluster/settings</pre>
@@ -98,7 +98,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
 5. If the `curl` command fails, talk to your system administrator about removing the proxy or green-listing the PCF Metrics apps.
 
-### <a name="check-es-logqueue"></a>Check the Elasticsearch Logqueue
+### <a name="check-es-logqueue"></a>Checking the Elasticsearch Logqueue
 
 1. Run <code>cf apps</code> to see if the <code>elasticsearch-logqueue</code> app instances are `started`.
 
