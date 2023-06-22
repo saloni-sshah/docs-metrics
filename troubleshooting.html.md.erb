@@ -6,7 +6,7 @@ list_style_none: true
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to resolve common issues experienced while operating or using Pivotal Cloud Foundry (PCF) Metrics.
+You can resolve common issues experienced while operating or using Pivotal Cloud Foundry (PCF) Metrics.
 
 ## <a id="deployment"></a> Errors during deployment
 
@@ -416,9 +416,8 @@ If you do not use a load balancer, or this issue does not apply to your deployme
 
   <pre class="terminal">$ curl localhost:9200/_cluster/settings</pre>
 
-    Examine the output:
-    <br><br>
-    * `"all"` means the shard allocation is enabled.
+Examine the output:
+    *`"all"` means the shard allocation is enabled.
     * `"none"` means the shard allocation is disabled.
 
 1. Enable the shard allocation again by running the following command:
@@ -427,8 +426,8 @@ If you do not use a load balancer, or this issue does not apply to your deployme
       "cluster.routing.allocation.enable" : "all"
     }}</pre>
 
-1. Check whether a proxy is present in front of Elasticsearch and whether HTTP traffic is enabled:
-1. Use `cf ssh` to SSH into any app in the metrics space:
+2. Check whether a proxy is present in front of Elasticsearch and whether HTTP traffic is enabled:
+3. Use `cf ssh` to SSH into any app in the metrics space:
 
   <pre class="terminal">$ cf ssh APP-NAME</pre>
 
@@ -548,9 +547,8 @@ If you do not use a load balancer, or this issue does not apply to your deployme
         because a user deleted the application security group (ASG)
         that PCF Metrics creates to allow the Logqueue app to connect to the MySQL VMs.
         You can run `cf security-group metrics-api` to see if the ASG exists.
-        If not, see [Creating Application Security Groups](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/3.0/tas-for-vms/asg.html).
 
-  1. If the app is started and you do not find any errors, proceed to [Step 8: Check the Metrics Aggregator](#check-aggregator).
+  2. If the app is started and you do not find any errors, proceed to [Step 8: Check the Metrics Aggregator](#check-aggregator).
 
 ## <a id='mysql'></a> MySQL node failure
 
@@ -565,10 +563,10 @@ If neither of the causes listed apply, the final section provides instructions f
 Follow these steps to see if a `monit` time-out caused the MySQL node restart to fail:
 
 1. Use `bosh ssh` to access the failing node, using the IP address in the Ops Manager Director tile **Status** tab.
-   For instructions, see [Advanced Troubleshooting with the [BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
-1. Run `monit summary` and check the status of the `mariadb_ctrl` job.
-1. If the status of the `mariadb_ctrl` job is `Execution Failed`, open the following file: `/var/vcap/sys/log/mysql/mariadb_ctrl.combined.log`.
-1. If the last line of the log indicates that MySQL started without issue, such as in the following example,
+
+2. Run `monit summary` and check the status of the `mariadb_ctrl` job.
+3. If the status of the `mariadb_ctrl` job is `Execution Failed`, open the following file: `/var/vcap/sys/log/mysql/mariadb_ctrl.combined.log`.
+4. If the last line of the log indicates that MySQL started without issue, such as in the following example,
      `monit` likely timed out while waiting for the job to report healthy. Use the following the steps to resolve the issue.
 
   <pre class="terminal">
@@ -588,13 +586,13 @@ Run the following commands to return the `mariadb_ctrl` job to a healthy state:
 #### Diagnose
 
 1. Use `bosh ssh` to access the failing node.
-   For instructions, see [Advanced Troubleshooting with the [BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
-1. Open the following log file: `/var/vcap/sys/log/mysql/mysql.err.log`.
-1. If you see log messages that indicate insufficient disk space, the [persistent disk](https://bosh.io/docs/persistent-disks.html) is likely storing too many bin logs.
+
+2. Open the following log file: `/var/vcap/sys/log/mysql/mysql.err.log`.
+3. If you see log messages that indicate insufficient disk space, the [persistent disk](https://bosh.io/docs/persistent-disks.html) is likely storing too many bin logs.
    Confirm insufficient disk space by doing the following:
-1. Run `df -h`.
+4. Run `df -h`.
       1. Ensure that you see the `/var/vcap/store` folder is at or over `90%` usage.
-1. Go to `/var/vcap/store/mysql` and run `ls -al`.
+5. Go to `/var/vcap/store/mysql` and run `ls -al`.
       1. Ensure that you see many files named with the format `mysql-bin.########`.
 
 In MySQL for PCF, the server node does not make use of these logs and you can remove all except the most recent bin log.
@@ -639,8 +637,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 
 #### Edit your deployment manifest
 
-1. Follow the steps in [Log in to BOSH](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html)
-to target and log in to your BOSH Director.
+1. Log in to BOSH to target and log in to your BOSH Director.
    The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
 1. Download the manifest of your PCF deployment:
     <pre class="terminal">
@@ -648,15 +645,15 @@ to target and log in to your BOSH Director.
     </pre>
     <p class="note"><strong>Note</strong>: You must know the name of your PCF deployment to download the manifest. To retrieve it, run <code>bosh deployments</code>
     to list your deployments and locate the name of your PCF deployment.</p>
-1. Open the manifest and set the number of instances of the failed server node to `0`.
-1. Run `bosh deployment YOUR-PCF-MANIFEST.yml` to specify your edited manifest.
-1. Run `bosh deploy` to deploy with your manifest.
-1. Run `bosh disks --orphaned` to see the [persistent disk](https://bosh.io/docs/persistent-disks.html) or disks associated with the failed node.
-1. Record the `CID` of each persistent disk.
-1. Contact [Pivotal Support](https://www.pivotalsupportcoordination.com.au/services) to walk through reattaching the orphaned disks to new VMs to preserve their data.
-1. Open the manifest and set the number of instances of the failed server node to `1`.
-1. Run `bosh deploy` to deploy with your edited manifest.
-1. Wait for BOSH to rebuild the node.
+2. Open the manifest and set the number of instances of the failed server node to `0`.
+3. Run `bosh deployment YOUR-PCF-MANIFEST.yml` to specify your edited manifest.
+4. Run `bosh deploy` to deploy with your manifest.
+5. Run `bosh disks --orphaned` to see the [persistent disk](https://bosh.io/docs/persistent-disks.html) or disks associated with the failed node.
+6. Record the `CID` of each persistent disk.
+7. Contact [VMware Support](https://tanzu.vmware.com/support) to walk through reattaching the orphaned disks to new VMs to preserve their data.
+8. Open the manifest and set the number of instances of the failed server node to `1`.
+9. Run `bosh deploy` to deploy with your edited manifest.
+10. Wait for BOSH to rebuild the node.
 
 ## <a id='log'></a> Log errors
 
@@ -705,7 +702,7 @@ to target and log in to your BOSH Director.
       <ol>
         <li>Retrieve the IP address of your Elasticsearch master node by navigating to the <b>Metrics</b> tile in the Ops Manager Installation Dashboard,
             clicking the <b>Status</b> tab, and recording the IP address next to <b>ElasticSearchMaster</b>.</li>
-        <li> [SSH into the Ops Manager VM](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
+        <li> SSH into the Ops Manager VM.
         </li>
         <li>From the Ops Manager VM, use <code>curl</code> to target the IP address of your Elasticsearch master node.
             Follow the instructions in [Cluster Health](https://www.elastic.co/guide/en/elasticsearch/reference/2.2/_cluster_health.html).
