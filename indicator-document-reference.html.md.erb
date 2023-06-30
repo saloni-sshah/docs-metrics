@@ -7,19 +7,23 @@ list_style_none: true
 
 <strong><%= modified_date %></strong>
 
-This topic tells you about the schema and API for Indicator documents that allow you to customize your dashboards for monitoring apps with App Metrics.
+You can use the schema and API for Indicator documents to customize your dashboards for monitoring apps with App Metrics.
 
 To upload an Indicator document, see [cURLing your Indicator document to App Metrics](#curling-indicator-document).
 
-To upload an indicator and create a custom chart from the UI, see [Add your Indicator to App Metrics and create Custom Metric Chart from the UI](#adding-indicator-from-ui).
+To upload an indicator and create a custom chart from the UI, see [Adding your Indicator to App Metrics and creating Custom Metric Chart from the UI](#adding-indicator-from-ui).
 
 For more information about the schema and API, see [Indicator document API Specification](#indicator-document-api-spec).
+
 This topic also contains an example Indicator document, named `IndicatorDocumentExample.`
 
 For more information about the full schema of Indicator documents,
 see [Indicator Protocol Document Reference](https://github.com/pivotal/monitoring-indicator-protocol/wiki/Indicator-Document-Reference).
 
-<p class="note"><strong>Note</strong>: Only this subset of fields is supported for app indicators: <code>name</code>, <code>promql</code>, <code>documentation</code>, and <code>presentation</code>.
+<p class="note important">
+<span class="note__title">Important</span>
+Important Only the following subset of fields is supported for
+app indicators: <code>name</code>, <code>promql</code>, <code>documentation</code>, and <code>presentation</code>.
 </p>
 
 ## <a id='curling-indicator-document'></a> cURLing your Indicator document to App Metrics
@@ -39,9 +43,9 @@ After you create your Indicator document, you can push it to App Metrics with th
 curl -vvv <https://metrics.sys.DOMAIN/indicator-documents> -H "Authorization: [YOUR-TOKEN]" --data-binary "@[YourDoc.yml]"
 ```
 
-<p class="note"><strong>Note</strong>: You can only push indicators for apps that run in a space you have access to.</p>
-
-After you create your Indicator document, you can also automate the deployment of app indicator documents in your deployment pipeline.
+You can only push indicators for apps that run in a space you have access to.
+After you create your Indicator document, you can also automate the deployment of app indicator documents in your
+deployment pipeline.
 
 ## <a id='indicator-document-api-spec'></a> Indicator document API specification
 
@@ -213,20 +217,20 @@ components:
                 units: "counts"
 ```
 
-## <a id='adding-indicator-from-ui'></a> Adding your Indicator document and create a custom metric chart from the UI
+## <a id='adding-indicator-from-ui'></a> Adding your Indicator document and creating a custom metric chart from the UI
 
-To upload, edit or remove a custom chart for the specific application from the UI:
+To upload, edit or remove a custom chart for the specific application from the UI, use the following steps:
 
 1. Click the plus (+) icon.
 2. Fill in all required fields to create a single or multiple custom chart, then click one of the following:
 
      * Click **Save** to upload and save the newly created custom chart into the Dashboard.
-     * Click **View On Dshboard** to temporarily add the newly created custom chart into Dashboard so that you can review it. Then, click the
+     * Click **View On Dashboard** to temporarily add the newly created custom chart into Dashboard so that you can review it. Then, click the
      **Upload** icon. If you forget to click the **Upload** icon, the chart disappears when you refresh the window.
 
 ![alt-text="Create a custom chart"](./images/create-custom-chart.png)
 
-![alt-text="Create a custom chart"](./images/multiple-custom-chart.png)
+![alt-text="Adding multiple custom chart"](./images/multiple-custom-chart.png)
 
 ## <a id='edit-custom-chart'></a> Editing a custom chart for a specific application
 

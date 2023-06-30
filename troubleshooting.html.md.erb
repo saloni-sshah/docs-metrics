@@ -67,20 +67,23 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
   6. Run the `curl` command several more times and examine the most recent index to see if the number of stored documents periodically increases.
 
-      <p class="note"><strong>Note</strong>: The last row of the output corresponds to the most recent index.
-     The sixth column displays the number of documents for the index.</p>
-  1. If all indices show a `green` status, but the number of documents does not increase,
+     The last row of the output corresponds to the most recent index.
+     The sixth column displays the number of documents for the index
+
+
+  7. If all indices show a `green` status, but the number of documents does not increase,
      there is likely a problem further up in ingestion.
      Proceed to to [Checking the Elasticsearch Logqueue](#check-es-logqueue).
 
-1. Check whether cluster-level shard allocation is enabled:
+4. Check whether cluster-level shard allocation is enabled:
 
     <pre class="terminal">$ curl localhost:9200/_cluster/settings</pre>
 
     Examine the output:
-  `"all"` means the shard allocation is enabled.
 
-  `"none"` means the shard allocation is deactivated.
+   `"all"` means the shard allocation is enabled.
+
+   `"none"` means the shard allocation is deactivated.
 
 1. Enable the shard allocation again by running the following command:
     <pre class="terminal">$ curl -XPUT localhost:9200/_cluster/settings -d
@@ -275,12 +278,11 @@ If troubleshooting is based on the causes that were previously mentioned did not
 you can follow the steps below to recover it.
 VMware recommends only using this procedure as a if there are no other potential solutions available.
 
-<p class="note warning">
-<strong>WARNING! </strong>
+<p class="note important">
+<span class="note__title">Important</span>
 This procedure is extremely costly in terms of time and network resources.
 The cluster takes a significant amount of time to put the data replicated to the rest of the cluster back into the rebuilt node.
 This procedure consumes considerable network bandwidth as potentially hundreds of gigabytes of data needs to transfer.
-</p>
 
 #### Stopping the Ingestor App
 
@@ -341,8 +343,11 @@ to target and log in to your BOSH Director.
     <li>Run the following command to restart the Logqueue app:</li>
     <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
   </ol>
-    <p class="note"><strong>Note</strong>: To avoid having to apply this fix in the future,
-    select the checkbox to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update. </p>
+    <p class="note">
+    <span class="note__title">Note</span>
+   To avoid having to apply this fix in the future,
+    select the check box to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update.
+
   </td>
 </tr>
 </table>

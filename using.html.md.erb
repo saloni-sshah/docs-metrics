@@ -11,7 +11,8 @@ You can monitor and troubleshoot apps using App Metrics.
 
 ## <a id="overview"></a> Understanding the health and performance of your apps
 
-App Metrics helps you to understand and troubleshoot the health and performance of your apps by offering the following indicators, data, and visualizations:
+App Metrics helps you to understand and troubleshoot the health and performance of your apps by offering
+the following indicators, data, and visualizations:
 
 * [Latency](#latency): Response times for your app.
 * [Traffic](#traffic): Number of requests made for your app.
@@ -41,9 +42,9 @@ In addition, from any chart, you can click and drag to zoom in on areas of inter
 
 Auto refresh mode updates the metrics charts and logs on your dashboard for a timed interval as data is received.
 
-To activate auto refresh, click the **Refresh** button by the time selection options on the dashboard. This action activates live updating of metrics and logs data for your currently selected time frame.
-
-<p class="note"><strong>Note</strong>: The default setting for auto refresh interval is set to one minute and cannot be configured.</p>
+To activate auto refresh, click the **Refresh** button by the time selection options on the dashboard.
+This action activates live updating of metrics and logs data for your currently selected time frame. The default setting for auto refresh interval is set to one
+minute and cannot be configured.
 
 ## <a id="app-instance"></a>Viewing metrics at the process and app instance level
 
@@ -71,8 +72,8 @@ The following sections explain how to use each of the charts on the dashboard to
 
 ### <a id='networkMetrics'></a> Network metrics
 
-<p class="note"><strong>Note</strong>: If you do not configure your apps for network traffic, the apps show no data or zeros for the default settings of Latency, Traffic, and Errors metrics.
-</p>
+If you do not configure your apps for network traffic, the apps show no data or
+  zeros for the default settings of Latency, Traffic, and Errors metrics.
 
 * <a id='latency'></a> **Latency**: Average latency of a request in milliseconds. A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and results in faster response times.
 
@@ -101,7 +102,8 @@ The following **Container Metrics** charts are available on the App Metrics dash
 * Start
 * SSH
 
-<p class="note"><strong>Note</strong>: The <b>SSH</b> event corresponds to you successfully using SSH to access a container that runs an instance of the app.</p>
+The <b>SSH</b> event corresponds to you successfully using
+SSH to access a container that runs an instance of the app.
 
 See the following topics for more information about app events:
 
@@ -164,8 +166,10 @@ After you have the metric name, write a PromQL query to see the metric:
 
     2. Test out the queries to see how the graph appears before you place it in the indicator document.
 
-    <p class="note"><strong>Note</strong>: The PromQL query must have the <code>source_id</code> tag for non-admin users.
-    </p>
+    <p class="note">
+    <span class="note__title">Note</span>
+    The PromQL query must have the <code>source_id</code> tag for non admin users.
+
 
 <p>App Metrics supports using a <code>source_id</code> parameter in the PromQL query which refers to the <code>"$source_id"</code> of the current app.
 
@@ -263,7 +267,7 @@ monitors:
        only_every: 15m
 ```
 
-Note that `org,space,app-name` is responsible for defining which app these indicators are applied to.
+The `org,space,app-name` variable is responsible for defining which app these indicators are applied to.
 Replace this with the org, space, and app name of the app you want to monitor.
 
 Also, `webhook_url`: `https://my-slack-webhook.com` must be where alerts are sent when a threshold is surpassed.

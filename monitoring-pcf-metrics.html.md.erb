@@ -23,21 +23,24 @@ disk percentage `system.disk.persistent.percent` and VM health `system.healthy`.
 
 ## <a id="appmetrics"></a>App Metrics dashboard
 
-App Metrics dashboard for the App Metrics application also displays the platform indicators as custom metrics.
+App Metrics dashboard for the App Metrics application displays the platform indicators as custom metrics.
 App Metrics also supports [alerting](https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.1/app-metrics/GUID-using.html) based on dashboard indicators.
 
 ## <a id="kpi"></a>Key performance indicators
 
-Key Performance Indicators (KPIs) for App Metrics are the metrics that you might find most useful for monitoring the App Metrics service. KPIs are high-signal-value metrics that can indicate emerging issues.
+Key Performance Indicators (KPIs) for App Metrics are metrics that you might find most useful for
+monitoring the App Metrics service. KPIs are high signal value metrics that can indicate emerging issues.
 
-VMware provides the following KPIs as general alerting and response guidance for typical App Metrics installations. You can continue to fine tune the alert measures for your installation by observing historical trends.
+VMware provides the following KPIs as general alerting and response guidance for typical App Metrics installations.
+You can continue to fine tune the alert measures for your installation by observing historical trends.
 
-You can expand beyond this guidance and create new, installation-specific monitoring metrics, thresholds, and alerts that are based on learning from your own installations.
+You can expand beyond this guidance and create new, installation specific monitoring metrics, thresholds, and alerts that are based on learning from your own installations.
 
 ### <a id="bosh-metrics"></a> BOSH metrics
 
 All BOSH deployed components generate the following metrics.
 Monitor them to verify that they are not consuming excess resources.
+
 <table>
    <tr><th colspan="3" style="text-align: center;"><br> Log Store VMs (log-store-vms) <br><br></th></tr>
    <tr>
