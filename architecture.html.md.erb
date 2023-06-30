@@ -13,8 +13,8 @@ To understand the architecture diagram, see the following guidelines:
 
 * Cornered rectangles represent Platform tiles that App Metrics depends on.
 * Rounded rectangles represent customer interaction points.
-* Cylinders represent the data storage components of App Metrics
-* Blue colored components are packaged with App Metrics
+* Cylinders represent the data storage components of App Metrics.
+* Blue colored components are packaged with App Metrics.
 
 ![alt-text="App Metrics and platform components interaction architecture"](./images/app-metrics-2-0-architecture.svg)
 
@@ -50,7 +50,8 @@ The Log Store is a time series database for storing and querying application log
 
 Logs are streamed into the Log Store through the Loggregator V2 endpoint and stored through the Influx Storage Engine.
 
-Log Store provides the capability, for distributed configurations, to be scaled out to use multiple nodes. Each node, in a Log Store deployment, manages disk usage to maximize stored logs without exceeding a
+Log Store provides the capability, for distributed configurations, to be scaled out to use multiple nodes.
+Each node, in a Log Store deployment, manages disk usage to maximize stored logs without exceeding a
 configured maximum disk utilization.
 
 App Metrics queries the Log Store for logs, log searches, and density histograms.
@@ -70,7 +71,8 @@ appear in the charts on your App Metrics dashboard.
 
 ### <a id="security"></a> Security
 
-**In Transit**: All communication with the PostgreSQL datastore is through the Transport Layer Security (TLS) protocol, and follows the guidelines in [PostgreSQL documentation](https://www.postgresql.org/docs/11/ssl-tcp.html).
+**In Transit**: All communication with the PostgreSQL datastore is through the Transport Layer Security (TLS) protocol,
+and follows the guidelines in [PostgreSQL documentation](https://www.postgresql.org/docs/11/ssl-tcp.html).
 
 **At Rest**: The PostgreSQL datastore does not contain any sensitive information, and by default it's not encrypted.
 To encrypt it, see [Disk Encryption](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/security-pcf-infrastructure-disk-encrypt.html).
