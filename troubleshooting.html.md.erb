@@ -158,18 +158,18 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
 1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
 
-  <p class="note"><strong>Note</strong>: If you do not know the username and password,
-    you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
+    If you do not know the username and password,
+    you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.
 
 1. Verify that the database was bootstrapped correctly:
-1. Run `show databases` and check for a `metrics` database.
+2. Run `show databases` and check for a `metrics` database.
       1. If there is no `metrics` database, the `migrate_db` errand of the BOSH release might not have run or succeeded.
          Ensure the errand is selected in the tile configuration and update the tile.
 
-1. Run `use metrics` to select the `metrics` database:
+3. Run `use metrics` to select the `metrics` database:
     <pre class="terminal">mysql> use metrics;</pre>
 
-1. Run `show tables` and ensure you see the following tables:
+4. Run `show tables` and ensure you see the following tables:
 
   <pre class="terminal">mysql> show tables;
    +-------------------+
@@ -182,7 +182,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
    +-------------------+
    </pre>
 
-5. Enter the following query several times to verify that the value returned does not decrease over time:
+9. Enter the following query several times to verify that the value returned does not decrease over time:
 
   <pre class="terminal">mysql> select count(*) from metrics.app\_metric\_rollup where timestamp_minute > ((UNIX\_TIMESTAMP() - 60)* POW(10, 3));</pre>
   This command displays the rate metrics flow in over the last minute.
@@ -298,7 +298,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 1. Stop data flow into the Galera cluster:
     <pre class="terminal">$ cf stop metrics-ingestor</pre>
 
-#### Editing Your Deployment Manifest
+#### Editing your deployment manifest
 
 1. Follow the steps in [Log in to BOSH](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html)
 to target and log in to your BOSH Director.
@@ -319,7 +319,7 @@ to target and log in to your BOSH Director.
 1. Run `bosh deploy` to deploy with your edited manifest.
 1. Wait for BOSH to rebuild the node.
 
-## <a id='log'></a> Log Errors
+## <a id='log'></a> Log errors
 
 <table border='1' class='nice'>
 <tr>
@@ -342,10 +342,12 @@ to target and log in to your BOSH Director.
     <li>Run the following command to restart the Logqueue app:</li>
     <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
   </ol>
-    <p class="note">
+
+  <p class="note">
     <span class="note__title">Note</span>
-   To avoid having to apply this fix in the future,
-    select the check box to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update.
+   To avoid having to apply this fix in the future, select the check box to enable the
+   <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next
+   tile update.</p>
 
   </td>
 </tr>
@@ -405,7 +407,7 @@ to target and log in to your BOSH Director.
       <th>Solution</th>
       <td>Confirm the problem and clear the browser, as follows:
       <ol>
-        <li>Try your browser's incognito mode to see if the metrics app is able to get the list of apps.
+        <li>Try your incognito mode of your browser to see if the metrics app is able to get the list of apps.
              If this works, the problem is likely cookies or plug-ins.</li>
         <li>Clear your browser cookies and plug-ins.</li>
        </ol>

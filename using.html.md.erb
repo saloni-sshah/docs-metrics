@@ -122,8 +122,11 @@ For example, to get custom Actuator, or Micrometer metrics into the Metrics Stor
 
 For more information, see [Configuring the Metric Registrar](https://docs.pivotal.io/application-service/4-0/metric-registrar/using.html) and then view these metrics on the App Metrics dashboard.
 
-<p class="note"><strong>Note</strong>: In previous versions, if you encountered an error, in your custom chart creation, the information was not substantial. In this version,
-more detailed information appears about the error, and provides you an easier way to troubleshoot.</p>
+<p class="note important">
+<span class="note__title">Important</span>
+In previous versions, if you encountered an error, in your custom chart creation, the information was not substantial. In this version,
+more detailed information appears about the error, and provides you an easier way to troubleshoot.
+</p>
 
 To view custom metrics, configure your apps to emit those metrics out of the [Loggregator Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html).
 In addition, Spring Boot apps with actuators or Micrometer metrics that are implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to the source code.
@@ -294,7 +297,7 @@ View the following videos to enhance your understanding of metric charts:
 
 The **Logs** view displays app log data ingested from the Loggregator Reverse Log Proxy (RLP):
 
-<p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non-standard UUID app GUIDs are not stored.</p>
+<p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non standard UUID app GUIDs are not stored.</p>
 
 You can interact with the **Logs** view in the following ways:
 
@@ -321,7 +324,7 @@ Make note of the following prerequisites before you query the Log Store:
 * [curl](https://github.com/curl/curl)
 * [CF Auth Token](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
 
-### <a id='authorization-authentication'></a> Authorization and Authentication
+### <a id='authorization-authentication'></a> Authorization and authentication
 
 When you query the API through HTTPS, each request must have the `Authorization`
 header set with a UAA provided token.
