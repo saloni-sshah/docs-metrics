@@ -6,7 +6,7 @@ list_style_none: true
 ---
 
 <strong><%= modified_date %></strong>
-You can use the following techniques to troubleshoot issues that mightn arise in App Metrics.
+You can use the following techniques to troubleshoot issues that might arise in App Metrics.
 
 ## <a id="integration-errors"></a> Integration errors
 
@@ -122,7 +122,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
         You can run `cf security-group metrics-api` to see if the ASG exists.
         If not, see [App Security Groups](https://docs.cloudfoundry.org/concepts/asg.html).
 
-  1. If the app is started and you do not find any errors, proceed to [Checking the Metrics Ingestor](#check-ingestor).
+1. If the app is started and you do not find any errors, proceed to [Checking the Metrics Ingestor](#check-ingestor).
 
 ### <a name="check-ingestor"></a>Checking the Metrics Ingestor
 
@@ -146,7 +146,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
       * **WebSocket Disconnects**: If you see WebSocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances.
           The Firehose might be dropping the Ingestor connection to avoid back pressure.
 
-  1. If the app is started and you do not find any errors, proceed to [Checking MySQL](#check-mysql).
+1. If the app is started and you do not find any errors, proceed to [Checking MySQL](#check-mysql).
 
 ### <a name="check-mysql"></a>Checking MySQL
 
@@ -390,11 +390,11 @@ to target and log in to your BOSH Director.
           </li>
         </ol>
 
-
   </tr>
 </table>
 
 ## <a id="fetch-apps"></a>Failed to fetch apps
+
 <table>
   <tr>
       <th>Error</th>
@@ -417,6 +417,7 @@ to target and log in to your BOSH Director.
 </table>
 
 ## <a id="redis-full"></a>Redis temporary datastore stops accepting metrics
+
 <table>
   <tr>
       <th>Error</th>
@@ -447,29 +448,36 @@ to target and log in to your BOSH Director.
 </table>
 
 ## <a id="fetch-apps"></a>Failed to fetch logs or logs were missing
+
 <table>
   <tr>
       <th>Error</th>
-      <td>In some cases, one or more noisy apps created an enormous load for the log store.</td>
+        <td>In some cases, one or more noisy apps created an enormous load for the log store.
+        </td>
   </tr>
-  <tr>
-      <th>Causes</th>
-      <td> A shortening of the stored data retention period. Most disk space is occupied by one app log.</td>
-      <td> A drop of input log envelopes was made in an early ingestion stage.</td>
-      <td> A Load imbalance caused a non distributable load.</td>
-      <td> A situation occurred when neither vertical or horizontal scaling was helpful.</td>
-      <td> A large log size and amount occurred and the querying became challenging for a particular sourceID.</td>
-      <td> Log Store had an out of memory issue.</td>
-  </tr>
+      <th>Cause</th>
+      <td>
+      <p> Here are some possible causes:</p>
+      <ul>
+      <li> A shortening of the stored data retention period. Most disk space was occupied by one app log.</li>
+      <li> A drop of input log envelopes occurred in the early ingestion stage.</li>
+      <li> A load imbalance caused a non distributable load.</li>
+      <li> A situation occurred when neither vertical or horizontal scaling was helpful.</li>
+      <li> A large log size occurred and the querying became challenging for a particular sourceID.</li>
+      <li> Log Store had an out of memory issue.</li>
+  </li>
+      </ul>
   <tr>
       <th>Solution</th>
       <td>Identify the Application Log Rate Limit definition and noisy log producer identification. Cloud Foundry supports log rate
-      limiting to avoid noisy logging and easy identification of limit exceeding. Here are references about more details how to
-      define log rate limit far app in CF and methods to identify limit exceeding cases:
-      <ol>
+      limiting to avoid noisy logging and easy identification of limit exceeding.
+      <p> See the following links for more details on how to
+      define log rate limits for apps in CF and the methods to identify limit exceeding cases:
+      <ul>
       <li>[App Rate limiting](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/app-log-rate-limits.html)</li>
         <li>[Cloud Foundry manifest attribute](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#log-rate-limit)</li>
-       </ol>
+       </ul>
+       </li>
        </td>
   </tr>
 </table>
