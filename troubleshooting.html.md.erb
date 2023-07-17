@@ -442,3 +442,38 @@ to target and log in to your BOSH Director.
        </td>
   </tr>
 </table>
+
+## <a id="fetch-apps"></a>Failed to fetch logs or logs were missing
+
+<table>
+  <tr>
+      <th>Error</th>
+        <td>In some cases, one or more noisy apps created an enormous amount of logs per second for the log store.
+        </td>
+  </tr>
+      <th>Cause</th>
+      <td>
+      <p> Here are some possible causes:</p>
+      <ul>
+      <li> A shortening of the stored data retention period. Most of the disk space was occupied by one app log.</li>
+      <li> A drop of input log envelopes occurs in the early ingestion stage.</li>
+      <li> A load imbalance causes a non distributable load.</li>
+      <li> A situation occurs when neither vertical or horizontal scaling was helpful.</li>
+      <li> A large log size occurs and the querying became challenging for a particular sourceID.</li>
+      <li> Log Store has an out of memory issue.</li>
+  </li>
+      </ul>
+  <tr>
+      <th>Solution</th>
+      <td>Identify the Application Log Rate Limit definition and noisy log producer identification. Cloud Foundry supports log rate
+      limiting to avoid noisy logging and easy identification of limit exceeding.
+      <p> See the following links for more details on how to
+      define log rate limits for apps in Cloud Foundry and the methods that identify limit exceeding cases:
+      <ul>
+      <li>[App Rate limiting](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/app-log-rate-limits.html)</li>
+        <li>[Cloud Foundry manifest attribute](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#log-rate-limit)</li>
+       </ul>
+       </li>
+       </td>
+  </tr>
+</table>
