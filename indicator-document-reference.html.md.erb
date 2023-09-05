@@ -17,7 +17,7 @@ This also contains an example indicator document, named `IndicatorDocumentExampl
 For more information about the schema and API, see [Indicator document API Specification](#indicator-document-api-spec).
 This topic also contains an example Indicator document, named `IndicatorDocumentExample.`
 
-<p class="note"><strong>Note</strong>: At this time, only the below subset of the <code>name</code>, <code>promql</code>,
+<p> At this time, only the below subset of the <code>name</code>, <code>promql</code>,
    <code>documentation</code>, and <code>presentation</code> fields are supported for app indicators.
 </p>
 
@@ -35,7 +35,7 @@ Windows:
 </ol>
 <pre>curl -vvv https://metrics.sys.DOMAIN/indicator-documents -H "Authorization: [YOUR-TOKEN]" --data-binary "@[YourDoc.yml]"</pre>
 
-<p class="note"><strong>Note</strong>: You can only push indicators for apps that run in a space that you have access to.</p>
+<p> You can only push indicators for apps that run in a space that you have access to.</p>
 
 After you have your indicator document created, you can also automate the deployment of app indicator documents within your deployment pipeline.
 

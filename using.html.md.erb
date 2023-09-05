@@ -41,17 +41,17 @@ Auto-refresh mode allows the metrics charts and logs on your dashboard to be upd
 
 To enable auto-refresh, click the **REFRESH** button next to the time selection options on the top right of the dashboard. This will enable live updating of metrics and logs data for the currently selected timeframe.
 
-<p class="note"><strong>Note</strong>: The default auto-refresh interval is set to one minute and is currently not configurable.</p>
+<p> The default auto-refresh interval is set to one minute and is currently not configurable.</p>
 
 ## <a id="app-instance"></a>Viewing metrics at the process and App instance level
 
 App Metrics relays metric data at the app process level to allow for an in-depth troubleshooting experience, even across rolling deployment. Users are able to view the app metrics related to a specific process and further drill down into specific instances within those processes, which correlates directly with the processes and app instances shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
 
-The dashboard will display metrics aggregated across all processes by default. To view metrics by specific process, select a process type from the dropdown near the upper-left of the dashboard.
+The dashboard displays metrics aggregated across all processes by default. To view metrics by specific process, select a process type from the dropdown near the upper-left of the dashboard.
 
 With a specific process type selected, the metrics charts will display aggregate data from all instances within the selected process type.
 
-To view metrics for the individual instances within the selected process, select the "Instances" radio button at the upper-right of the dashboard.
+To view metrics for the individual instances within the selected process, select the Instances radio button at the upper-right of the dashboard.
 
 To view metrics for a specific app instance (or selection of specific instances), select the desired instance(s) from the legend along the bottom of any chart on the dashboard while the "Instances" radio is selected.
 
@@ -65,7 +65,7 @@ The following sections explain how to use each of the charts on the dashboard to
 
 ### <a id='networkMetrics'></a> Network metrics
 
-<p class="note"><strong>Note</strong>: If apps are not configured for network traffic,
+<p> If apps are not configured for network traffic,
 they show No Data or zeros for the default Latency, Traffic, and Errors metrics.
 </p>
 
@@ -100,8 +100,8 @@ In addition, the **Events** chart helps to correllate these metrics to events fo
 
 See the following topics for more information about app events:
 
-* [Starting, Restarting, and Restaging Apps](https://docs.pivotal.io/platform/application-service/devguide/deploy-apps/start-restart-restage.html)
-* [Troubleshooting App Deployment and Health](https://docs.pivotal.io/platform/application-service/devguide/deploy-apps/troubleshoot-app-health.html)
+* [Starting, Restarting, and Restaging Apps](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-start-restart-restage.html)
+* [Troubleshooting App Deployment and Health](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-troubleshoot-app-health.html)
 
 ##<a id='custom-metrics'></a> Adding Custom Metrics Charts
 
@@ -109,9 +109,11 @@ You can add custom metrics charts to your dashboard, including Spring Boot Actua
 
 In order to get custom, Actuator, or Micrometer metrics into the Metrics Store, you will need to bind Metric Registrar to your app and register your endpoint. For more information, see [Configuring the Metric Registrar](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
 
-If you want to view custom metrics, you can configure your apps to emit those metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the App Metrics dashboard.
+If you want to view custom metrics, you can configure your apps to emit those metrics out of
+the [Loggregator Firehose](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/loggregator-architecture.html) and then view these metrics on the App Metrics dashboard.
 
-In addition, Spring Boot apps with actuators or Micrometer metrics implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code.
+In addition, Spring Boot apps with actuators or Micrometer metrics implemented
+emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code.
 
 ###<a id='metric-registrar-settings'></a> Metric Registrar Configuration for Spring Metrics
 
@@ -157,7 +159,7 @@ After you have the metric name, write a PromQL query for visualizing the metric.
 
     2. Test out queries to see how the graph looks before placing it in an indicator document.
 
-    <p class="note"><strong>Note</strong>: PromQL should always have the <code>source_id</code> tag for non-admin users.
+    <p> PromQL should always have the <code>source_id</code> tag for non-admin users.
   App Metrics supports using a <code>$sourceId</code> parameter in the PromQL which automatically refers to the sourceId of
   the current app. Example: <code>cpu{source_id="$sourceId"}</code>
 </p>
@@ -264,9 +266,9 @@ The **Logs** view displays app log data ingested from the Loggregator Reverse Lo
 
 You can interact with the **Logs** view in the following ways:
 
-* **Keyword**: Perform a keyword search. While filtering on keywords, logs results will be reduced to only display log lines that contain the matching criteria. Matching terms will also be highlighted in blue.
-* **Highlight**: Enter a term to visually highlight within your search. The terms will be highlighted in orange within the current filter results.
-* **Sources**: Choose which sources to display logs from. For more information, see [Log Types and Their Messages](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/streaming-logs.html#format).
+* **Keyword**: Perform a keyword search. While filtering on keywords, logs results are reduced to only display log lines that contain the matching criteria. Matching terms will also be highlighted in blue.
+* **Highlight**: Enter a term to visually highlight within your search. The terms are highlighted in orange within the current filter results.
+* **Sources**: Choose which sources to display logs from. For more information, see [Log Types and Their Messages](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-streaming-logs.html).
 * **Download**: Download a file containing logs for the current search.
 * **Copy**: Click the copy icon to copy the text of the log.
 
@@ -278,7 +280,7 @@ You can query Metric Store and Log Store directly to access the raw data.
 
 ### <a id="metric-store-api"></a> Metric Store API
 
-To query Metric Store, consult the documentation for [Using Metric Store](https://docs.pivotal.io/metric-store/using.html)
+To query Metric Store, consult the documentation for [Using Metric Store](https://docs.vmware.com/en/Metric-Store/index.html)
 
 ### <a id="log-store-api"></a> Log Store API
 
