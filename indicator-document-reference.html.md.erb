@@ -17,13 +17,8 @@ For more information about the schema and API, see [Indicator document API Speci
 
 This topic also contains an example Indicator document, named `IndicatorDocumentExample.`
 
-For more information about the full schema of Indicator documents,
-see [Indicator Protocol Document Reference](https://github.com/pivotal/monitoring-indicator-protocol/wiki/Indicator-Document-Reference).
-
-<p class="note important">
-<span class="note__title">Important</span>
-Only the following subset of fields is supported for
-app indicators: <code>name</code>, <code>promql</code>, <code>documentation</code>, and <code>presentation</code>.
+<p> At this time, only the below subset of the <code>name</code>, <code>promql</code>,
+   <code>documentation</code>, and <code>presentation</code> fields are supported for app indicators.
 </p>
 
 ## <a id='curling-indicator-document'></a> cURLing your Indicator document to App Metrics
@@ -34,7 +29,7 @@ After you create your Indicator document, you can push it to App Metrics with th
 
     curl -vvv <https://metrics.sys.DOMAIN/indicator-documents> -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"
 
-### Windows
+<p> You can only push indicators for apps that run in a space that you have access to.</p>
 
 1. Copy your cf oath token to the clipboard: `cf oauth-token`</li>
 1. Paste your oauth token into the following command:</li>

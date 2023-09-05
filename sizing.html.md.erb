@@ -22,9 +22,12 @@ The Log Store and Postgres datastores are part of the App Metrics tile, and thei
 
 ## <a id='metrics-datastore'></a> Scaling the metrics datastore
 
-App Metrics retrieves metrics from the Metric Store and has its' own configuration for resizing.
+App Metrics retrieves metrics from Metric Store, which has its own configuration for resizing.
+For information, see [Metric Store documentation](https://docs.vmware.com/en/Metric-Store/index.html#-metric-store-for-pcf-resources).
 
-For more information about the Metric Store, see [Metric Store documentation](https://docs.pivotal.io/metric-store/installing.html#-metric-store-for-pcf-resources).
+Currently, VMware recommends that you scale vertically rather than horizontally.
+See [Limitations](https://docs.vmware.com/en/Metric-Store/index.html#limitations)
+in the _Metric Store_ documentation.
 
 Currently, you can scale vertically rather than horizontally.
 
