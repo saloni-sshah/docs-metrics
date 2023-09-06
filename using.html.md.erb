@@ -39,21 +39,23 @@ In addition, from any chart, you can click and drag to zoom in on areas of inter
 
 Auto-refresh mode allows the metrics charts and logs on your dashboard to be updated on a timed interval as data is ingested.
 
-To enable auto-refresh, click the **REFRESH** button next to the time selection options on the top right of the dashboard. This will enable live updating of metrics and logs data for the currently selected timeframe.
+To enable auto-refresh, click the **REFRESH** button next to the time selection options on the top right of the dashboard. This enables live updating of metrics and logs data for the currently selected timeframe.
 
 <p> The default auto-refresh interval is set to one minute and is currently not configurable.</p>
 
 ## <a id="app-instance"></a>Viewing metrics at the process and App instance level
 
-App Metrics relays metric data at the app process level to allow for an in-depth troubleshooting experience, even across rolling deployment. Users are able to view the app metrics related to a specific process and further drill down into specific instances within those processes, which correlates directly with the processes and app instances shown in [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html#manage-app).
+App Metrics relays metric data at the app process level to allow for an indepth troubleshooting experience, even across a rolling deployment. You are able to view the app metrics that are related to a specific process and focus in further to the specific instances within those processes. This action correlates directly
+with the processes and app instances in [Apps Manager](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/dev-console.html).
 
 The dashboard displays metrics aggregated across all processes by default. To view metrics by specific process, select a process type from the dropdown near the upper-left of the dashboard.
 
-With a specific process type selected, the metrics charts will display aggregate data from all instances within the selected process type.
+With a specific process type selected, the metrics charts display aggregate data from all instances within the selected process type.
 
-To view metrics for the individual instances within the selected process, select the Instances radio button at the upper-right of the dashboard.
+To view metrics for the individual instances within the selected process, click the Instances radio button on the dashboard.
 
-To view metrics for a specific app instance (or selection of specific instances), select the desired instance(s) from the legend along the bottom of any chart on the dashboard while the "Instances" radio is selected.
+To view metrics for a specific app instance or selection of specific instances, select your instance or instances from the
+legend of any chart on the dashboard and click the **Instances** radio button.
 
 ##<a id='metrics'></a> Interpreting metrics
 
@@ -96,18 +98,16 @@ The following **Container Metrics** charts are available on the App Metrics dash
 
 In addition, the **Events** chart helps to correllate these metrics to events for your app, including: **Crash**, **Fail** (staging failures), **Update**, **Stop**, **Start**, and **SSH**.
 
-<p class="note"><strong>Note</strong>: The <b>SSH</b> event corresponds to someone successfully using SSH to access a container that runs an instance of the app.</p>
+<p> The <b>SSH</b> event corresponds to someone successfully using SSH to access a container that runs an instance of the app.</p>
 
 See the following topics for more information about app events:
 
-* [Starting, Restarting, and Restaging Apps](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-start-restart-restage.html)
-* [Troubleshooting App Deployment and Health](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-troubleshoot-app-health.html)
-
-##<a id='custom-metrics'></a> Adding Custom Metrics Charts
+* [Starting, restarting, and restaging Apps](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-start-restart-restage.html)
+* [Troubleshooting App deployment and health](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-troubleshoot-app-health.html)
 
 You can add custom metrics charts to your dashboard, including Spring Boot Actuator and Micrometer metrics, by defining the custom metrics you want to monitor and including them in an indicator document for your app.
 
-In order to get custom, Actuator, or Micrometer metrics into the Metrics Store, you will need to bind Metric Registrar to your app and register your endpoint. For more information, see [Configuring the Metric Registrar](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
+In order to get custom, Actuator, or Micrometer metrics into the Metrics Store, you need to bind Metric Registrar to your app and register your endpoint. For more information, see [Configuring the Metric Registrar](https://docs.pivotal.io/pivotalcf/metric-registrar/index.html).
 
 If you want to view custom metrics, you can configure your apps to emit those metrics out of
 the [Loggregator Firehose](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/loggregator-architecture.html) and then view these metrics on the App Metrics dashboard.
@@ -119,18 +119,18 @@ emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/h
 
 In order for Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in the Tanzu Application Service Tile.
 
-The `id` tag will need to be removed from the list of Blocked tags in the Metric Registrar settings withing the Tanzu Application Service Tile.
+The `id` tag needs to be removed from the list of Blocked tags in the Metric Registrar settings withing the Tanzu Application Service Tile.
 
 ###<a id='create-indicator-doc'></a> Creating an Indicator document
 
-An indicator document is a YAML document that specifies which app you want to monitor and the indicators
+An Indicator document is a YAML document that specifies which app you want to monitor and the indicators
 you want to use to monitor it.
 
 There are three steps to creating an indicator document:
 
-1. Find the metric you want to monitor
-2. Write the PromQL query
-3. Add the PromQL to your indicator document
+1. Find the metric you want to monitor.
+2. Write the PromQL query.
+3. Add the PromQL to your Indicator document.
 
 #### Finding the metric name
 
@@ -151,7 +151,7 @@ After you have the metric name, write a PromQL query for visualizing the metric.
 
 1. Find additional example PromQL for any of the default charts on the dashboard
    by clicking **Info** in the upper-right of any chart or visit the
-   [PromQL Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
+   [PromQL Query examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
 
 2. Use the PromQL Explorer to test out PromQL before putting it in an indicator document:
 
@@ -159,12 +159,12 @@ After you have the metric name, write a PromQL query for visualizing the metric.
 
     2. Test out queries to see how the graph looks before placing it in an indicator document.
 
-    <p> PromQL should always have the <code>source_id</code> tag for non-admin users.
+    <p> PromQL must have the <code>source_id</code> tag for non-admin users.
   App Metrics supports using a <code>$sourceId</code> parameter in the PromQL which automatically refers to the sourceId of
   the current app. Example: <code>cpu{source_id="$sourceId"}</code>
 </p>
 
-#### Adding the PromQL to Your Indicator Document
+#### Adding the PromQL to your Indicator document
 
 When the PromQL is ready, put it in an indicator document.
 
@@ -206,24 +206,30 @@ see [Indicator Document Template Reference](./indicator-document-reference.html)
 
 ## <a id='monitoring'></a> Custom monitoring and alerting
 
-You can add custom monitoring to your dashboard's indicators by creating a custom monitor document for your app.
+You can add custom monitoring and alerting to your dashboard indicators by creating a Monitor document for your app.
 
 ### Creating a Monitor document
 
 Monitors are linked to specific indicators, so the first step to adding custom monitoring and alerting to your
 app is to verify the names of the indicators you would like to monitor.
 
-You can view the indicator names of each chart on your app's dashboard by hovering on the desired chart,
-clicking on the kabobs in the right-hand corner and selecting Info.
+You can view the indicator names for each chart on your app's dashboard by pointing to the desired chart,
+clicking the three vertical dots and clicking **Info**.
 
 The indicator name can correspond to one of your custom indicators or to one of the default indicator names:
 RequestCount, HttpLatency, ErrorCount, CPU, MemoryPercentage, and DiskPercentage.
 
-Once you have the indicator names you can create your monitor document that will define threshold for your indicator
+Once you have the indicator names you can create your Monitor document that defines threshold for your indicator
 and the webhook to send alerts to. The following is an example of the YAML for an monitor document:
 
 <pre>
 ---
+After you have the indicator names create your Monitor document that defines the threshold for your indicator
+and the webhook to send alerts to.
+
+The following example is an YAML file for an Monitor document:
+
+```yaml
 product: org,space,app-name
 
 webhook_url: https://my-slack-webhook.com
@@ -243,7 +249,7 @@ monitors:
        only_every: 15m
 </pre>
 
-Please note that `org,space,app-name` above is responsible for defining which app these indicators will be applied to.
+Please note that `org,space,app-name` is responsible for defining which app these indicators apply to.
 Please replace this with the org, space, and app name of the app you wish to monitor.
 
 Please also note that the `https://my-slack-webhook.com` should be where alerts are sent when a threshold is surpassed.
@@ -253,7 +259,7 @@ Slack is the currently the only supported use case, but other webhook platforms 
 
 For more detailed information on the monitor document schema, see the [Monitor Document Template Reference](./monitor-document-reference.html).
 
-## <a id="custom-metric-demos"></a> Custom Metric Demos
+For more detailed information on the monitor document schema, see [Monitor Document template reference](./monitor-document-reference.html).
 
 * [Adding custom application metric charts using Indicator Protocol](https://www.youtube.com/watch?v=KKed-LwJ0BM)
 * [Platform-level metric charts to the dashboard](https://www.youtube.com/watch?v=z7CVbYzjxVU)
@@ -262,17 +268,17 @@ For more detailed information on the monitor document schema, see the [Monitor D
 
 The **Logs** view displays app log data ingested from the Loggregator Reverse Log Proxy (RLP):
 
-<p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non-standard UUID app GUIDs are not stored.</p>
+<p> Logs with non-UTF-8 characters or non standard UUID app GUIDs are not stored.</p>
 
 You can interact with the **Logs** view in the following ways:
 
-* **Keyword**: Perform a keyword search. While filtering on keywords, logs results are reduced to only display log lines that contain the matching criteria. Matching terms will also be highlighted in blue.
+* **Keyword**: Perform a keyword search. While filtering on keywords, logs results are reduced to only display log lines that contain the matching criteria. Matching terms are also highlighted in blue.
 * **Highlight**: Enter a term to visually highlight within your search. The terms are highlighted in orange within the current filter results.
 * **Sources**: Choose which sources to display logs from. For more information, see [Log Types and Their Messages](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-streaming-logs.html).
 * **Download**: Download a file containing logs for the current search.
 * **Copy**: Click the copy icon to copy the text of the log.
 
-By default, the most recent 1,000 log lines will be displayed in the logs drawer. You can click `SHOW 1000 MORE LOGS` to load more.
+By default, the most recent 1,000 log lines are displayed in the logs drawer. You can click `SHOW 1000 MORE LOGS` to load more.
 
 ##<a id="direct-data-access"></a> Direct Data Access
 
@@ -314,7 +320,7 @@ Query Parameters:
 - **endTime** is an optional UNIX timestamp in nanoseconds or RFC3339. Defaults to now. Must be after start time.
 - **limit** is an optional maximum number of logs to return. Defaults to 100.
 - **page** is an optional number of the page of logs to be returned, must be `>= 1`. Defaults to 1.
-- **order** is an optional order in which the logs will be returned, `asc` or `desc`. Defaults to `desc`.
+- **order** is an optional order in which the logs are returned, `asc` or `desc`. Defaults to `desc`.
 
 ```shell
 export SYSTEM_DOMAIN="<YOUR_SYSTEM_DOMAIN>"

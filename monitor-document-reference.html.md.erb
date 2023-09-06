@@ -43,16 +43,17 @@ Windows:
     * `AUTH-TOKEN` is the OAuth token you copied in the previous step.
     * `MONITOR-DOCUMENT` is the name of your monitor document YAML file.
 
-<p class="note"><strong>Note</strong>: You can only push monitors for apps that run in a space that you have access to.</p>
+<p> You can only push monitors for apps that run in a space that you have access to.</p>
 
 After you create your monitor document, you can also automate the deployment of app monitor documents within your deployment pipeline.
 
 ## <a id='monitor-document-api-spec'></a> Monitor document API Spec
 
-In short, there is a `/monitors-documents` path that supports `POST` and an `/monitor-documents/{org,space,app}` that
-supports `GET` a monitor document for a specific `org,space,app`. There is currently no `DELETE` supported for a single
-monitors document. However, a monitors document is deleted when a new indicator file is uploaded for that
-app.
+The `/monitors-documents` path supports `POST`. The `/monitor-documents/{org,space,app}` path supports `GET` a Monitor document for a specific `org,space,app`.
+
+The `DELETE` variable is not supported for a single monitors document. However, a monitors document is deleted when you upload a new indicator file for that app.
+To use demos and
+examples, see [Swagger Editor](https://editor.swagger.io/).
 
 For more details about the monitor document API, consult the following Open API specification. To use demos and
 examples, you can test it out in the [Swagger Editor](https://editor.swagger.io/).
@@ -200,7 +201,7 @@ components:
 
 ## <a id='adding-monitor-document-from-ui'></a> Adding your Monitor document to App Metrics from the UI
 
-You can add, edit, or delete a monitor for a specific application chart from the UI.
+You can add, edit, or delete a Monitor document for a specific application chart from the UI.
 
 ## <a id='add-monitor'></a> Adding a monitor to a specific chart
 
@@ -210,7 +211,7 @@ To add a Monitor document to a specific chart, follow these steps:
 2. Fill in the required fields:
 
    * **Webhook Url** is the URL of webhook to receive JSON payload when alerts are triggered.
-   * **Operator** is one of the comparison operators [lt, lte, ge, gte, eq ,neq].
+   * **Operator** is one of the comparison operators. For example, lt, lte, ge, gte, eq, neq.
    * **Threshold** is the value parameter for **Operator**.
    * **Duration** is how long the value has to be past the threshold before firing an alert.
    * **Only Every** is the minimum duration between alerts. Alerts trigger only every [this duration].
@@ -221,7 +222,7 @@ To add a Monitor document to a specific chart, follow these steps:
 
 To edit or delete a Monitor, follow these steps:
 
-1. Select chart you want to edit and click the **Menu** button and select **Edit Monitor**.
+1. Select chart you want to edit and click the **Menu** button and click **Edit Monitor**.
 2. Edit the fields as necessary.
 3. Click **Edit** to change the monitor.
 4. Click **Delete Monitor** to delete the monitor.

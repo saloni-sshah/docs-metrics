@@ -30,6 +30,68 @@ This release has the following fixes:
 
 * Fixes the known issue <a href="#log-store-out-of-memory">Log Store out of memory issue</a> by adding time-based pruning with a default of 42 days.
 
+* **[Security Fix]** App Metrics uses `HIGH:+3DES:!aNULL` as its default Postgres SSL Cipher to address a critical CVE.
+* **[Security Fix]** The jOOQ library is upgraded to v3.16.6 to address a critical CVE. For more information about this critical CVE, see
+[CVE-2022-23221](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23221) on the CVE website.
+* **[Security Fix]** The PostgreSQL JDBC Driver is upgraded to v42.3.6 to address a critical CVE. For more information about this critical CVE, see
+[CVE-2022-21724](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-21724) on the CVE website.
+* **[Security Fix]** BPM is upgraded to v1.1.16 and Routing is upgraded to v0.235.0 to address critical CVEs.
+* **[Feature]** You can create, update, and delete custom charts.
+* **[Feature]** You can add, edit, and delete monitors for charts.
+* **[Feature]** You can configure App Metrics to send alerts for events or patterns in app logs. For more information about sending alerts for events in app logs, see [cURL Your Log Monitor Document to
+App Metrics](event-alerting-reference.html#curling-log-monitor-document) in _Event Alerting Template Reference_.
+* **[Feature Improvement]** Tanzu Operations Manager includes a configuration field to control the Log Store replication factor.
+* **[Feature Improvement]** App Metrics uses TLS v1.2 version by default. You can change your TLS version using the `TLS_VERSION` environment variable.
+
+### <a id='2-1-3'></a> v2.1.3
+
+**Release Date: February 10, 2022**
+
+App Metrics v2.1.3 requires TAS for VMs v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later, v2.10, v2.11, or v2.12.
+
+* **[Security Fix]** Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE. For more information about this critical CVE, see
+[CVE-2021-44832](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44832) on the CVE website.
+
+### <a id='2-1-2'></a> v2.1.2
+
+**Release Date: December 16, 2021**
+
+App Metrics v2.1.2 requires TAS for VMs v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later, v2.10, v2.11, or v2.12.
+
+* **[Security Fix]** Apache Log4J dependencies are updated to v2.16.0 to address a critical CVE. For more information about this critical CVE, see
+[CVE 2021-44228](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228) on the CVE website.
+
+### <a id='2-1-1'></a> v2.1.1
+
+**Release Date: December 11, 2021**
+
+App Metrics v2.1.1 requires TAS for VMs v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later, v2.10, v2.11, or v2.12.
+
+* **[Security Fix]** Apache Log4J dependencies are updated to v2.15.0 to address a critical CVE. For more information about this critical CVE, see
+[CVE 2021-44228](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228) on the CVE website.
+
+### <a id='2-1-0'></a> v2.1.0
+
+**Release Date: November 18, 2021**
+
+App Metrics v2.1.0 requires TAS for VMs v2.6.21 or later, v2.7.17 or later, v2.8.11 or later, v2.9.5 or later, v2.10, v2.11, or v2.12.
+
+* **[Breaking Change]** BOSH DNS is removed.
+* **[Feature]** The App Metrics UI includes a triggered monitors view.
+* **[Feature]** App Metrics supports TAS for VMs v2.12.
+* **[Feature]** You can filter logs by task.
+* **[Feature]** App Metrics includes a `GET` endpoint that you can use to retrieve indicator documents.
+* **[Feature]** App Metrics includes a `DELETE` endpoint that you can use to delete monitor documents.
+* **[Feature Improvement]** You can change the units of PromQL Explorer.
+* **[Feature Improvement]** App Metrics changes the PromQL Explorer window.
+* **[Feature Improvement]** App Metrics changes the default query of the CPU chart.
+* **[Feature Improvement]** UI error handling for Services is improved.
+* **[Feature Improvement]** Error handling on adding new monitors is improved.
+* **[Bug Fix]** Fixes chart when point goes above 100%.
+* **[Bug Fix]** Fixes chart scrolling issue.
+* **[Bug Fix]** You can use the dot in the **Highlight** field.
+* **[Bug Fix]** Log Store is upgraded to v4.0.152. This fixes a bug in the querying part that negatively affects load balancing.
+
 
 ## <a id='2-0-6'></a> v2.0.6
 
@@ -75,6 +137,13 @@ Log Store has the following fixes:
 * Fixed an issue causing missing application logs when the partition count was not divisible by 3. Note that this only affected a small percentage of applications and was not a widespread issue.
 * Fixed an issue that would cause requests to go to the wrong log store vm which would result in an error response. This issue was caused by the X-Forwarded-Host header being set incorrectly and/or manipulated in some environments. A new header is now being used to resolve this issue.
 * Fix an issue with log-store vm configuration when adding additional availability zones
+* The App Metrics UI includes a triggered monitors view.
+* App Metrics supports TAS for VMs v2.12.
+* You can filter logs by task.
+* You can change units of PromQL Explorer.
+* App Metrics changes the PromQL Explorer window.
+* App Metrics includes a `GET` endpoint that you can use to retrieve Indicator documents.
+* App Metrics includes a `DELETE` endpoint that you can use to delete Monitor documents.
 
 
 ## <a id='2-0-5'></a> v2.0.5
