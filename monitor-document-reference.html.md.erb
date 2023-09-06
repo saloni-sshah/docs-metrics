@@ -19,7 +19,7 @@ This also contains an example Monitor document, named `MonitorDocumentExample`.
 ## <a id='curling-monitor-document'></a> Use cURL command to push Monitor document to App Metrics
 
 After you prepare your Monitor document, you can push it to App Metrics using the cURL command line.
-The flow is the same as the Indicator document but it curls to the `/monitor-documents` endpoint.
+The flow is the same as the Indicator document, but it curls to the `/monitor-documents` endpoint.
 
 ### Linux/Mac
 
@@ -53,7 +53,9 @@ After you create your Monitor document, you can automate the deployment of app m
 
 ## <a id='monitor-document-api-spec'></a> Monitor document API Specifications
 
-The `/monitors-documents` path supports `POST`. The `/monitor-documents/{org,space,app}` path supports `GET` a Monitor document for a specific `org,space,app`. The `DELETE` variable is not supported for a single monitors document. However, a monitors document is deleted when you upload a new indicator file for that app.
+The `/monitors-documents` path supports `POST`. The `/monitor-documents/{org,space,app}` path supports `GET` a Monitor document for a specific `org,space,app`.
+
+The `DELETE` variable is not supported for a single monitors document. However, a monitors document is deleted when you upload a new indicator file for that app.
 To use demos and
 examples, see [Swagger Editor](https://editor.swagger.io/).
 
@@ -202,7 +204,7 @@ components:
 
 ## <a id='adding-monitor-document-from-ui'></a> Adding your Monitor document to App Metrics from the UI
 
-You can add, edit, or delete a monitor for a specific application chart from the UI.
+You can add, edit, or delete a Monitor document for a specific application chart from the UI.
 
 ## <a id='add-monitor'></a> Adding a Monitor to a specific chart
 
@@ -212,7 +214,7 @@ To add a Monitor document to a specific chart, follow these steps:
 2. Fill in the required fields:
 
    * **Webhook Url** is the URL of webhook to receive JSON payload when alerts are triggered.
-   * **Operator** is one of the comparison operators [lt, lte, ge, gte, eq ,neq].
+   * **Operator** is one of the comparison operators. For example, lt, lte, ge, gte, eq, neq.
    * **Threshold** is the value parameter for **Operator**.
    * **Duration** is how long the value has to be past the threshold before firing an alert.
    * **Only Every** is the minimum duration between alerts. Alerts trigger only every [this duration].
@@ -227,7 +229,7 @@ To add a Monitor document to a specific chart, follow these steps:
 
 To edit or delete a Monitor, follow these steps:
 
-1. Select chart you want to edit and click the **Menu** button and select **Edit Monitor**.
+1. Select chart you want to edit and click the **Menu** button and click **Edit Monitor**.
 2. Edit the fields as necessary.
 3. Click **Edit** to change the monitor.
 4. Click **Delete Monitor** to delete the monitor.

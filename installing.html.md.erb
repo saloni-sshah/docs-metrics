@@ -28,9 +28,9 @@ Metrics v1.x is accessible at:
 ## <a id='AddTile'></a>Downloading App Metrics
 
 <ol>
-<li>After you have installed the <a href="https://docs.vmware.com/en/Metric-Store/index.html" target="_blank">Metric Store</a> tile in Ops Manager,
-    download the App Metrics 2.0 product file from <a href="https://network.tanzu.vmware.com/products/apm/releases" target="_blank">VMware Tanzu Network</a>.</li>
-<li>Go to the Ops Manager Installation Dashboard and click Import a Product to upload the product file.</li>
+<li>After you have installed the <a href="https://docs.vmware.com/en/Metric-Store/index.html" target="_blank">Metric Store</a>
+tile in Tanzu Operations Manager, download the App Metrics 2.0 product file from <a href="https://network.tanzu.vmware.com/products/apm/releases" target="_blank">VMware Tanzu Network</a>.</li>
+<li>Go to the Tanzu Operations Manager Installation Dashboard and click Import a Product to upload the product file.</li>
 <li>Under the Import a Product button, click + next to the version number of App Metrics. This adds the tile to your staging area.</li>
 </ol>
 
@@ -38,7 +38,7 @@ Metrics v1.x is accessible at:
 
 To start using App Metrics, you must configure the App Metrics tile:
 <ol>
-<li>Click <strong>App Metrics</strong> tile on the Ops Manager Installation Dashboard.</li>
+<li>Click <strong>App Metrics</strong> tile on the Tanzu Operations Manager Installation Dashboard.</li>
 <li>Go to <strong>Assign AZs and Networks</strong> and do the following:</li>
 <ul>
 <li>Select an Availability Zone (AZ) for placing singleton jobs.</li>
@@ -92,9 +92,9 @@ Configure a HTTP or HTTPS Proxy Server through the cf CLI:
 
 ### <a id='EnableSOCKS'></a>Starting a SOCKS proxy server
 
-To start a HTTP or HTTPS proxy server, use the cf CLI, then switch to a SOCKS protocol in the Ops Manager UI and follow these steps:
+To start a HTTP or HTTPS proxy server, use the cf CLI, then switch to a SOCKS protocol in the Tanzu Operations Manager UI and follow these steps:
 
-  1. Click **App Metrics** tile on the Ops Manager Installation Dashboard.
+  1. Click **App Metrics** tile on the Tanzu Operations Manager Installation Dashboard.
   1. Go to **App Metrics Components Config** pane.
   1. Click **Enable Socks Proxy**. This check box sets the `USE_SOCKS_PROXY`
   environment variable and overrides the protocol for the proxy to use SOCKS instead of HTTP or HTTPS.
@@ -138,20 +138,22 @@ For more information
 
 To configure the settings for App Metrics components, including Log Store, follow these steps:
 <ol>
-<li>Click <strong>App Metrics</strong> tile on the Ops Manager Installation Dashboard.</li>
+<li>Click <strong>App Metrics</strong> tile on the Tanzu Operations Manager Installation Dashboard.</li>
 <li>Go to <strong>App Metrics Components Config</strong> pane.</li>
 <li>Deactivate <strong>Logs Drawer</strong> on the App Metrics dashboard,and deselect the <strong>App Metrics Enable Logs</strong> check box (the default setting is activated).</li>
 <li>Set App Metrics Logs Prune Threshold disk capacity percentage (the default setting is 80%). This is the disk percentage that Log Store starts to prune starting with the oldest logs.</li>
-<li>Set the <strong>App Metrics Logs Prune Interval</strong>. The default setting is two minutes). This is the frequency the Log Store checks the disk capacity to make your pruning decision.</li>
+<li>Set the <strong>App Metrics Logs Prune Interval</strong>. By default, the setting is two minutes).
+This is the frequency the Log Store checks the disk capacity to make your pruning decision.</li>
 </ol>
 
 ## <a id='ConfigureSyslog'> </a> Configuring syslog forwarding (Optional)
 
-App Metrics supports forwarding syslog to an external log management service. For example Papertrail, Inc., Splunk Technology, or another custom enterprise log sink. You might find the VM logs useful for debugging problems in the system.
+App Metrics supports forwarding syslog to an external log management service. For example Papertrail, Inc., Splunk Technology, or another custom enterprise log sink.
+You might find the VM logs useful for debugging problems in the system.
 
 To enable remote syslog forwarding for Healthwatch:
 
-1. Click **App Metrics** tile on the Ops Manager Installation Dashboard.
+1. Click **App Metrics** tile on the Tanzu Operations Manager Installation Dashboard.
 
 2. Go to the **Syslog** pane.
 
@@ -170,7 +172,7 @@ For Metric Registrar to accurately report Spring Metrics, the configuration for 
 To update the Metric Registrar configuration:
 
 <ol>
-<li>Click <strong>TAS for VMs</strong> tile on the Ops Manager Installation Dashboard.</li>
+<li>Click <strong>TAS for VMs</strong> tile on the Tanzu Operations Manager Installation Dashboard.</li>
 <li>Go to <strong>Metric Registrar</strong> pane.</li>
 <li>Update the <strong>Blocked</strong> tags list and remove the `id` tag.</li>
 </ol>

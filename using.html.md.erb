@@ -48,15 +48,17 @@ Auto refresh mode updates the metrics charts and logs on your dashboard for a ti
 
 ## <a id="app-instance"></a>Viewing metrics at the process and app instance level
 
-App Metrics relays metric data at the app process level to allow for an indepth troubleshooting experience, even across a rolling deployment. You are able to view the app metrics that are related to a specific process and focus in further to the specific instances within those processes. This action correlates directly with the processes and app instances in [Apps Manager](https://docs.pivotal.io/application-service/4-0/console/dev-console.html).
+App Metrics relays metric data at the app process level to allow for an indepth troubleshooting experience, even across a rolling deployment. You are able to view the app metrics that are related to a specific process and focus in further to the specific instances within those processes. This action correlates directly
+with the processes and app instances in [Apps Manager](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/dev-console.html).
 
 The dashboard displays metrics aggregated across all processes by default. To view metrics by specific process, select a process type from the dropdown near the upper-left of the dashboard.
 
 When you select a specific process type, the metrics charts display aggregate data from all instances for the selected process type.
 
-To view metrics for the individual instances within the selected process, select the Instances radio button at the upper-right of the dashboard.
+To view metrics for the individual instances within the selected process, click the Instances radio button on the dashboard.
 
-To view metrics for a specific app instance or selection of specific instances, select your instance or instances from the legend of any chart on the dashboard and select the **Instances** radio button.
+To view metrics for a specific app instance or selection of specific instances, select your instance or instances from the
+legend of any chart on the dashboard and click the **Instances** radio button.
 
 ## <a id='metrics'></a> Interpreting metrics
 
@@ -109,10 +111,8 @@ SSH to access a container that runs an instance of the app.
 
 See the following topics for more information about app events:
 
-* [Starting, Restarting, and Restaging Apps](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-start-restart-restage.html)
-* [Troubleshooting App Deployment and Health](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-troubleshoot-app-health.html)
-
-* [Troubleshooting app deployment and health](https://docs.pivotal.io/platform/application-service/devguide/deploy-apps/troubleshoot-app-health.html)
+* [Starting, restarting, and restaging Apps](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-start-restart-restage.html)
+* [Troubleshooting App deployment and health](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-troubleshoot-app-health.html)
 
 ## <a id='custom-metrics'></a> Adding custom metric charts
 
@@ -234,7 +234,7 @@ App Metrics uses a derivative version of the Indicator Protocol.
 
 ## <a id='monitoring'></a> Custom monitoring and alerting
 
-You can add custom monitoring and alerting to your dashboard indicators by creating a monitor document for your app.
+You can add custom monitoring and alerting to your dashboard indicators by creating a Monitor document for your app.
 
 ### Creating a Monitor document
 
@@ -242,7 +242,7 @@ Monitors are linked to specific indicators, so the first step to adding custom m
 app is to verify the names of the indicators you want to monitor.
 
 You can view the indicator names for each chart on your app's dashboard by pointing to the desired chart,
-clicking the three vertical dots and selecting **Info**.
+clicking the three vertical dots and clicking **Info**.
 
 The indicator corresponds to one of your custom indicators or to one of the following default indicator names:
 
@@ -253,7 +253,7 @@ The indicator corresponds to one of your custom indicators or to one of the foll
 * MemoryPercentage
 * DiskPercentage
 
-After you have the indicator names you can create your monitor document that defines the threshold for your indicator
+After you have the indicator names create your monitor document that defines the threshold for your indicator
 and the webhook to send alerts to.
 
 The following example is an YAML file for an monitor document:
@@ -287,7 +287,7 @@ The Slack application is currently the only supported use case, but other webhoo
 
 ### <a id="monitor-document-schema"></a> Monitor document schema
 
-For more detailed information on the monitor document schema, see [Monitor Document Template Reference](./monitor-document-reference.html).
+For more detailed information on the monitor document schema, see [Monitor Document template reference](./monitor-document-reference.html).
 
 ## <a id="custom-metric-demos"></a> Custom metric demos
 
@@ -300,7 +300,7 @@ View the following videos to enhance your understanding of metric charts:
 
 The **Logs** view displays app log data ingested from the Loggregator Reverse Log Proxy (RLP):
 
-<p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non standard UUID app GUIDs are not stored.</p>
+<p> Logs with non-UTF-8 characters or non standard UUID app GUIDs are not stored.</p>
 
 You can interact with the **Logs** view in the following ways:
 

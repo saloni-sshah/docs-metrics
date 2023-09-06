@@ -150,7 +150,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
 ### <a name="check-mysql"></a>Checking MySQL
 
-1. From Ops Manager, select the PCF Metrics tile.
+1. From Tanzu Operations Manager, select the PCF Metrics tile.
 
 1. Under the **Status** tab, record the IP of a **MySQL Server** node.
 
@@ -224,7 +224,7 @@ If neither of the causes listed apply, the final section provides instructions f
 
 Follow these steps to see if a `monit` time-out caused the MySQL node restart to fail:
 
-1. Use `bosh ssh` to access the failing node, using the IP address in the Ops Manager Director tile **Status** tab.
+1. Use `bosh ssh` to access the failing node, using the IP address in the Tanzu Operations Manager Director tile **Status** tab.
    For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 1. Run `monit summary` and check the status of the `mariadb_ctrl` job.
 1. If the status of the `mariadb_ctrl` job is `Execution Failed`, open the following file: `/var/vcap/sys/log/mysql/mariadb_ctrl.combined.log`.
@@ -286,7 +286,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 
 #### Stopping the Ingestor App
 
-1. From Ops Manager, click the Elastic Runtime Tile.
+1. From Tanzu Operations Manager, click the Elastic Runtime Tile.
 1. Click the **Credentials** tab.
 1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**.
 1. Record the username and password for use in the next step.
