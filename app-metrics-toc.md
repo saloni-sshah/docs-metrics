@@ -10,3 +10,4 @@
 * [Indicator Document reference for App Metrics](/docs-metrics/indicator-document-reference.html)
 * [Monitor Document reference for App Metrics](/docs-metrics/monitor-document-reference.html)
 * [Event alerts in App Metrics](/docs-metrics/event-alerting-reference.html)
+* [Enable Envelope Selector In App Metrics](/docs-metrics/enable-envelope-selector.html)
