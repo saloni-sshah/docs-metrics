@@ -213,11 +213,13 @@ To add a Monitor document to a specific chart, follow these steps:
 1. Select the chart for the application, click the **Menu** button and select **Add Monitor**.
 2. Fill in the required fields:
 
+   * **Monitor name** is the URL of webhook to receive JSON payload when alerts are triggered.
    * **Webhook Url** is the URL of webhook to receive JSON payload when alerts are triggered.
-   * **Operator** is one of the comparison operators. For example, lt, lte, ge, gte, eq, neq.
-   * **Threshold** is the value parameter for **Operator**.
-   * **Duration** is how long the value has to be past the threshold before firing an alert.
-   * **Only Every** is the minimum duration between alerts. Alerts trigger only every [this duration].
+   * **Severity level** Choose at least one severity level, either “Warning” or “Critical”.
+       * **Operator** is one of the comparison operators. For example, <, <=, >, >=, =, !=.
+       * **Threshold** is the value parameter for **Operator**.
+       * **Duration** is how long the value has to be past the threshold before firing an alert.
+       * **Only Every** is the minimum duration between alerts. Alerts trigger only every [this duration].
 
 3. Click **Add**.
 
