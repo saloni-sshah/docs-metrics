@@ -18,19 +18,19 @@ App Metrics v2.2.1 requires VMware Tanzu Application Service for VMs (TAS for VM
 
 * **[Future]** Bumped Postgres to v15.3.
 * **[Feature Improvement]** Add restriction for using under TLS v1.2
-* **[Security Fix]** Uses the latest cflinuxfs while pushing the App Metrics https://pivotal-io.atlassian.net/browse/APPMETRICS-124.
+* **[Security Fix]** Uses the latest cflinuxfs while pushing the App Metrics.
 * **[Bug Fix]** Fixed Triggered-Monitors Table Pagination Issue. Fixed a bug in the UI in which the pagination left arrow button was incorrectly active when initially opening the Triggered-Monitors table.
-* **[Bug Fix]** Fixed Adding monitor from UI with non-admin user.  https://pivotal-io.atlassian.net/browse/APPMETRICS-125
+* **[Bug Fix]** Fixed Adding monitor from UI with non-admin user.
 * **[UI Improvement]** Redesigned Monitor Document:
-     Added check boxes for “Warning” and “Critical” severity levels.
+     Added check boxes for `Warning` and `Critical` severity levels.
      The User can select the severity types that matter most to them and input their corresponding values.
      Only the selected severity types will be included in the monitor data, streamlining your monitoring process.
 
 ## <a id='log-store-fix'></a> Log Store fixes
-* **[Future]** Added the new configuration setting Enable Envelope Selector:
-    If enabled, only envelopes with application metric tags, such as app_id and applicationGuid, are kept.
-    This release adds the corresponding nozzle_skipped_envelopes_by_tag_total metric. For more information, see Nozzle Job Metrics.
-    You can configure Enable Envelope Selector in Ops Manager.
+- **Added the new configuration setting Enable Envelope Selector:**
+  - If enabled, only envelopes with application metric tags, such as `app_id` and `applicationGuid`, are kept.
+  - This release adds the corresponding `nozzle_skipped_envelopes_by_tag_total` metric. For more information, see Nozzle Job Metrics.
+  - You can configure Enable Envelope Selector in Ops Manager.
 
 ### <a id='2-2-0'></a> v2.2.0
 **Release Date: June 15, 2023**
