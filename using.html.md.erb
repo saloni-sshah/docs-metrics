@@ -348,8 +348,8 @@ A request to one of your apps initiates a workflow within the app or system of a
 PCF Metrics constructs the Trace Explorer view using trace IDs shared across app logs. Before you [use the Trace Explorer](#trace-explorer), examine the following list to ensure PCF metrics can extract the necessary data from your app logs for your specific app type.
 
 * **Spring**: Follow the steps below.
-	1. Ensure you are using Spring Boot v1.4.3 or later.
-	1. Ensure you are using Spring Cloud Sleuth v1.0.12 or later.
+	1. Ensure that you are using Spring Boot v1.4.3 or later.
+	1. Ensure that you are using Spring Cloud Sleuth v1.0.12 or later.
 	1. Add the following to your app dependency file:
 	<pre>dependencies { (2)
 	compile "org.springframework.cloud:spring-cloud-starter-sleuth"
