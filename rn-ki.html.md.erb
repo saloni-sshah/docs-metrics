@@ -23,14 +23,14 @@ App Metrics v2.2.1 requires VMware Tanzu Application Service for VMs (TAS for VM
 * **[Bug Fix]** Fixed Adding monitor from UI with non-admin user.
 * **[UI Improvement]** Redesigned Monitor Document:
      Added check boxes for `Warning` and `Critical` severity levels.
-     The User can select the severity types that matter most to them and input their corresponding values.
-     Only the selected severity types will be included in the monitor data, streamlining your monitoring process.
+     You can select the severity types that matter most to you and input your corresponding values.
+     Only the selected severity types are included in the monitor data, streamlining your monitoring process.
 
 ## <a id='log-store-fix'></a> Log Store fixes
 - **Added the new configuration setting Enable Envelope Selector:**
   - If enabled, only envelopes with application metric tags, such as `app_id` and `applicationGuid`, are kept.
-  - This release adds the corresponding `nozzle_skipped_envelopes_by_tag_total` metric. For more information, see Nozzle Job Metrics.
-  - You can configure Enable Envelope Selector in Ops Manager.
+  - This release adds the corresponding `nozzle_skipped_envelopes_by_tag_total` metric. For more information, see [Nozzle Job Metrics](https://docs.vmware.com/en/Metric-Store/1.6/metric-store/GUID-monitoring.html).
+  - You can configure Enable Envelope Selector in Tanzu Operations Manager.
 
 ### <a id='2-2-0'></a> v2.2.0
 **Release Date: June 15, 2023**
