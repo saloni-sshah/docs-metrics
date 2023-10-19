@@ -6,14 +6,14 @@ list_style_none: true
 ---
 
 <strong><%= modified_date %></strong>
- Before you begin your installation of App Metrics there are certain prerequisites you need to know.
+Before you begin your installation of App Metrics there are certain prerequisites you need to know.
 
 Here are your prerequisites to install App Metrics:
 
-<p> App Metrics v2.0 requires <a href="https://docs.vmware.com/en/Metric-Store/index.html" target="_blank">Metric Store</a> as its metrics datastore. You will need to install this tile before installing App Metrics.</p>
+<p> App Metrics v2.0 and higher requires <a href="https://docs.vmware.com/en/Metric-Store/index.html" target="_blank">Metric Store</a> as its metrics datastore. You will need to install this tile before installing App Metrics.</p>
 
 + **If upgrading from the Metrics v1.x line:**
-The App Metrics tile will install as a seperate tile and will not install over the v1.x version of the Metrics tile.
+The App Metrics tile installs as a seperate tile and will not install over the v1.x version of the Metrics tile.
 There is no data migration from the v1.x line to the v2.x line of the product.
 To maintain historical data please install both tiles  side-by-side for two weeks before uninstalling the Metrics v1.x line.
     <p> App Metrics takes over the `metrics.YOUR-SYSTEM-DOMAIN`.
@@ -24,7 +24,7 @@ To maintain historical data please install both tiles  side-by-side for two week
 ## <a id='AddTile'></a>Downloading App Metrics
 
 <ol>
-<li>After you have installed the <a href="https://docs.vmware.com/en/Metric-Store/index.html" target="_blank">Metric Store</a>
+<li>After you install the <a href="https://docs.vmware.com/en/Metric-Store/index.html" target="_blank">Metric Store</a>
 tile in Tanzu Operations Manager, download the App Metrics 2.0 product file from <a href="https://network.tanzu.vmware.com/products/apm/releases" target="_blank">VMware Tanzu Network</a>.</li>
 <li>Go to the Tanzu Operations Manager Installation Dashboard and click Import a Product to upload the product file.</li>
 <li>Under the Import a Product button, click + next to the version number of App Metrics. This adds the tile to your staging area.</li>
