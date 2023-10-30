@@ -55,7 +55,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
     <pre class="terminal">curl -X DELETE ELASTICSEARCH-HOST-IP:9200/INDEX</pre>
 
-3. Restart the `elasticsearch-logqueue` app:
+3. Start the `elasticsearch-logqueue` app again:
 
     <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
 
@@ -153,7 +153,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
 ### <a name="check-mysql"></a>Checking MySQL
 
-1. From Ops Manager, select the PCF Metrics tile.
+1. From Tanzu Operations Manager, select the **PCF Metrics tile**.
 
 1. Under the **Status** tab, record the IP of a **MySQL Server** node.
 
@@ -161,7 +161,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
 2. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
 
-  <p class="note"><strong>Note</strong>: If you do not know the username and password,
+  <p> If you do not know the username and password,
     you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
 
 1. Verify that the database was bootstrapped correctly:
@@ -256,7 +256,7 @@ Run the following commands to return the `mariadb_ctrl` job to a healthy state:
    Confirm insufficient disk space by doing the following:
 1. Run `df -h`.
       1. Ensure that you see the `/var/vcap/store` folder is at or over `90%` usage.
-1. Navigate to `/var/vcap/store/mysql` and run `ls -al`.
+1. Go to `/var/vcap/store/mysql` and run `ls -al`.
       1. Ensure that you see many files named with the format `mysql-bin.########`.
 
 In MySQL for PCF, the server node does not make use of these logs and you can remove all except the most recent bin log.
@@ -266,7 +266,7 @@ Follow the steps below to resolve the issue.
 
 1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
 
-  <p class="note"><strong>Note</strong>: If you do not know the username and password, you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
+  <p> If you do not know the username and password, you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
 
 1. Run `use metrics;`.
 2. Run the following command:
@@ -286,7 +286,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 
 #### Stopping the Ingestor App
 
-1. From Ops Manager, click the Elastic Runtime Tile.
+1. From Tanzu Operations Manager, click the **Elastic Runtime Tile**.
 1. Click the **Credentials** tab.
 1. Under the **UAA** job, next to **Admin Credentials**, click **Link to Credential**.
 1. Record the username and password for use in the next step.
@@ -322,13 +322,15 @@ to target and log in to your BOSH Director.
 
 ## <a id='log'></a> Log Errors
 
-<table border='1' class='nice'>
+<table class=“table”>
+<thead>
 <tr>
   <th width="22%">Error</th>
   <td>
     The PCF Metrics UI does not show any new logs from Elasticsearch.
   </td>
 </tr>
+</thead>
 <tr>
   <th>Cause</th>
   <td>The tile deployed with the <code>Push PCF Metrics Data Components</code> errand deselected</td>
@@ -354,11 +356,13 @@ to target and log in to your BOSH Director.
 
 ## <a id="503"></a>503 Errors
 
-<table>
+<table class=“table”>
+<thead>
   <tr>
       <th>Error</th>
       <td>You encounter <code>sorry, too many clients already</code> errors when accessing the PCF Metrics UI in your browser.</td>
   </tr>
+  </thead>
   <tr>
       <th>Cause</th>
       <td>Your PostgreSQL is running out of disk space, causing reduced performance and a spike of open connections.
@@ -392,14 +396,16 @@ to target and log in to your BOSH Director.
 </table>
 
 ## <a id="fetch-apps"></a>Failed to fetch apps
-<table>
+<table class=“table”>
+<thead>
   <tr>
       <th>Error</th>
       <td>Even though you entered the correct UAA credentials, the metrics app fails to fetch the list of apps.</td>
   </tr>
+  </thead>
   <tr>
       <th>Cause</th>
-      <td>The browser plugins or cookies inject extraneous content in requests to Cloud Controller API, causing it to reject the request.</td>
+      <td>The browser plug-ins or cookies inject extraneous content in requests to Cloud Controller API, causing it to reject the request.</td>
   </tr>
   <tr>
       <th>Solution</th>
@@ -414,8 +420,11 @@ to target and log in to your BOSH Director.
 </table>
 
 ## <a id="redis-full"></a>Redis temporary datastore stops accepting metrics
-<table>
+
+<table class=“table”>
+<thead>
   <tr>
+  </thead>
       <th>Error</th>
       <td>
             You see both these problems:<ul>
@@ -445,12 +454,14 @@ to target and log in to your BOSH Director.
 
 ## <a id="fetch-apps"></a>Failed to fetch logs or logs were missing
 
-<table>
+<table class=“table”>
+<thead>
   <tr>
       <th>Error</th>
         <td>In some cases, one or more noisy apps created an enormous amount of logs per second for the log store.
         </td>
   </tr>
+  </thead>
       <th>Cause</th>
       <td>
       <p> Here are some possible causes:</p>

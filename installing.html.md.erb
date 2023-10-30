@@ -6,7 +6,7 @@ list_style_none: true
 ---
 
 <strong><%= modified_date %></strong>
-Before you begin your installation of App Metrics there are certain prerequisites you need to know.
+Before you begin your installation of App Metrics there are certain prerequisites you need to know about.
 
 Here are your prerequisites to install App Metrics:
 
@@ -28,10 +28,10 @@ Metrics v1.x is accessible at:
 ## <a id='AddTile'></a>Downloading App Metrics
 
 <ol>
-<li>After you installed the <a href="https://docs.vmware.com/en/Metric-Store/index.html" target="_blank">Metric Store</a>
+<li>After you install the <a href="https://docs.vmware.com/en/Metric-Store/index.html" target="_blank">Metric Store</a>
 tile in Tanzu Operations Manager, download the App Metrics 2.0 product file from <a href="https://network.tanzu.vmware.com/products/apm/releases" target="_blank">VMware Tanzu Network</a>.</li>
-<li>Go to the Tanzu Operations Manager Installation Dashboard and click Import a Product to upload the product file.</li>
-<li>Under the Import a Product button, click + next to the version number of App Metrics. This adds the tile to your staging area.</li>
+<li>Go to the Tanzu Operations Manager Installation Dashboard and click <strong>Import a Product</strong> to upload the product file.</li>
+<li>Under the Import a Product button, click <strong>+</strong> next to the version number of App Metrics. This adds the tile to your staging area.</li>
 </ol>
 
 ## <a id='ConfigureAzs'></a>Configuring availability zones and networks
@@ -138,9 +138,9 @@ For more information
 
 To configure the settings for App Metrics components, including Log Store, follow these steps:
 <ol>
-<li>Click <strong>App Metrics</strong> tile on the Ops Manager Installation Dashboard.</li>
-<li>Go to App Metrics Components Config pane.</li>
-<li>Deactivate Logs Drawer on the App Metrics dashboard,and deselect the App Metrics Enable Logs check box (the default setting is activated).</li>
+<li>Click <strong>App Metrics</strong> tile on the Tanzu Operations Manager Installation Dashboard.</li>
+<li>Go to the <strong>App Metrics Components Config</strong> pane.</li>
+<li>Deactivate <strong>Logs Drawer</strong> on the App Metrics dashboard,and deselect the <strong>App Metrics Enable Logs</strong> check box (the default setting is activated).</li>
 <li>Set App Metrics Logs Prune Threshold disk capacity percentage (the default setting is 80%). This is the disk percentage that Log Store starts to prune starting with the oldest logs.</li>
 <li>Set the App Metrics Logs Prune Interval (the default setting is two minutes). This is the frequency the Log Store checks the disk capacity to make your pruning decision.</li>
 </ol>
@@ -177,9 +177,11 @@ To update the Metric Registrar configuration:
 
 ## <a id='AppManagerLinkConfig'></a> Activating the App Metrics link in Apps Manager (Optional)
 
-Use this topic if **View in App Metrics** does not appear in Apps Manager and if App Metrics is deployed with one the following versions of TAS for VM:
+Use this topic if **View in App Metrics** does not appear in Apps Manager, and, if App Metrics is deployed with one the following versions of TAS for VM:
 
-* Tas for VMs v3.0
+* TAS for VMs v5.0
+* TAS for VMs v4.0
+* TAS for VMs v3.0
 * TAS for VMs v2.13
 * TAS for VMs v2.12
 * TAS for VMs v2.11
