@@ -40,8 +40,11 @@ Use the following tables as a guide to configure your resources for deployment.
 
 Estimate the size of your deployment according to how many apps you expect to deploy.
 
-<table style='nice'>
-   <tr><th>Size</th><th>Purpose</th><th>Approximate number of app instances</th></tr>
+<table class=“table”>
+<thead>
+   <tr><th>Size</th><th>Purpose</th><th>Approximate number of app instances</th>
+   </tr>
+   </thead>
    <tr><td><a href="#small">Small</a></td><td>Test use</td><td>100</td></tr>
    <tr><td><a href="#medium">Medium</a></td><td>Production use</td><td>5,000</td></tr>
    <tr><td><a href="#large">Large</a></td><td>Production use</td><td>15,000</td></tr>
@@ -54,13 +57,15 @@ Scale the `appmetrics` app to one instance.
 
 Use the following example resource configuration to store approximately six weeks of data for a small deployment and about 100 application instances:
 
-<table>
+<table class=“table”>
+<thead>
   <tr>
     <th>Job</th>
     <th>Instances</th>
     <th>Persistent Disk Type</th>
     <th width=40%>VM Type</th>
   </tr>
+  </thead>
   <tr>
     <td>PostgreSQL</td>
     <td>1 (not configurable)</td>
@@ -79,13 +84,15 @@ Use the following example resource configuration to store approximately six week
 
 Use the following example resource configuration to store approximately six weeks of data for a medium deployment and about 5000 application instances:
 
-<table>
+<table class=“table”>
+<thead>
   <tr>
     <th>Job</th>
     <th>Instances</th>
     <th>Persistent Disk Type</th>
     <th width=40%>VM Type</th>
   </tr>
+  </thead>
   <tr>
     <td>PostgreSQL</td>
     <td>1 (not configurable)</td>
@@ -104,13 +111,15 @@ Use the following example resource configuration to store approximately six week
 
 Use the following example resource configuration to store approximately six weeks of data for a large deployment and about 15,000 application instances:
 
-<table>
+<table class=“table”>
+<thead>
   <tr>
     <th>Job</th>
     <th>Instances</th>
     <th>Persistent Disk Type</th>
     <th width=40%>VM Type</th>
   </tr>
+  </thead>
   <tr>
     <td>PostgreSQL</td>
     <td>1 (not configurable)</td>
@@ -143,7 +152,6 @@ The scaling of an individual log-store deployment is subject to many variables, 
 Horizontally scaling in Log Store currently results in data loss. To ensure the
 best possible results, practice vertical scaling.
 </p>
-
 
 ### <a id='log-considerations'></a> Scaling considerations
 
