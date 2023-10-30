@@ -6,14 +6,14 @@ list_style_none: true
 ---
 
 <strong><%= modified_date %></strong>
-Before you begin your installation of App Metrics there are certain prerequisites you need to know.
+Before you begin your installation of App Metrics there are certain prerequisites you need to know about.
 
 Here are your prerequisites to install App Metrics:
 
-<p> App Metrics v2.0 and higher requires <a href="https://docs.vmware.com/en/Metric-Store/index.html" target="_blank">Metric Store</a> as its metrics datastore. You will need to install this tile before installing App Metrics.</p>
+<p> App Metrics v2.0 and later requires <a href="https://docs.vmware.com/en/Metric-Store/index.html" target="_blank">Metric Store</a> as its metrics datastore. You will need to install this tile before installing App Metrics.</p>
 
 + **If upgrading from the Metrics v1.x line:**
-The App Metrics tile installs as a seperate tile and will not install over the v1.x version of the Metrics tile.
+The App Metrics tile installs as a seperate tile and does not install over the v1.x version of the Metrics tile.
 There is no data migration from the v1.x line to the v2.x line of the product.
 To maintain historical data please install both tiles  side-by-side for two weeks before uninstalling the Metrics v1.x line.
     <p> App Metrics takes over the `metrics.YOUR-SYSTEM-DOMAIN`.
@@ -26,8 +26,8 @@ To maintain historical data please install both tiles  side-by-side for two week
 <ol>
 <li>After you install the <a href="https://docs.vmware.com/en/Metric-Store/index.html" target="_blank">Metric Store</a>
 tile in Tanzu Operations Manager, download the App Metrics 2.0 product file from <a href="https://network.tanzu.vmware.com/products/apm/releases" target="_blank">VMware Tanzu Network</a>.</li>
-<li>Go to the Tanzu Operations Manager Installation Dashboard and click Import a Product to upload the product file.</li>
-<li>Under the Import a Product button, click + next to the version number of App Metrics. This adds the tile to your staging area.</li>
+<li>Go to the Tanzu Operations Manager Installation Dashboard and click <strong>Import a Product</strong> to upload the product file.</li>
+<li>Under the <stong>Import a Product</strong> button, click <strong>+</strong> next to the version number of App Metrics. This adds the tile to your staging area.</li>
 </ol>
 
 ## <a id='ConfigureAzs'></a>Configuring availability zones and networks
@@ -126,7 +126,7 @@ To start a HTTP or HTTPS proxy server, use the cf CLI, then switch to a SOCKS pr
 Here you can configure the settings for App Metrics components, including Log Store.
 <ol>
 <li>Click <strong>App Metrics</strong> tile on the Tanzu Operations Manager Installation Dashboard.</li>
-<li>Go to <strong>App Metrics Components Config</strong> pane.</li>
+<li>Go to the <strong>App Metrics Components Config</strong> pane.</li>
 <li>Deactivate <strong>Logs Drawer</strong> on the App Metrics dashboard,and deselect the <strong>App Metrics Enable Logs</strong> check box (the default setting is activated).</li>
 <li>Set App Metrics Logs Prune Threshold disk capacity percentage (the default setting is 80%). This is the disk percentage that Log Store starts to prune starting with the oldest logs.</li>
 <li>Set the <strong>App Metrics Logs Prune Interval</strong>. By default, the setting is two minutes).
@@ -171,8 +171,8 @@ In order for Metric Registrar to accurately report Spring Metrics, the configura
 
 To update the Metric Registrar configuration, do the following:
 <ol>
-<li>Click the TAS for VMs or PAS tile on the Ops Manager Installation Dashboard.</li>
-<li>Navigate to the Metric Registrar pane.</li>
+<li>Click the TAS for VMs or PAS tile on the Tanzu Operations Manager Installation Dashboard.</li>
+<li>Navigate to the <strong>Metric Registrar</strong> pane.</li>
 <li>Update the Blocked tags list and remove the `id` tag from the list of Blocked tags.</li>
 </ol>
 

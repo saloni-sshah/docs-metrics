@@ -69,7 +69,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
   1. Run the `curl` command several more times and examine the most recent index to see if the number of stored documents periodically increases.
 
-  <p class="note"><strong>Note</strong>: The last row of the output corresponds to the most recent index.
+  <p> The last row of the output corresponds to the most recent index.
      The sixth column displays the number of documents for the index.</p>
   1. If all indices show a `green` status, but the number of documents does not increase,
      there is likely a problem further up in ingestion.
@@ -152,7 +152,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
 ### <a name="check-mysql"></a>Step 6: Check MySQL
 
-1. From Tanzu Operations Manager, select the PCF Metrics tile.
+1. From Tanzu Operations Manager, select the **PCF Metrics** tile.
 
 1. Under the **Status** tab, record the IP of a **MySQL Server** node.
 
@@ -267,7 +267,7 @@ Follow the steps below to resolve the issue.
 
 1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
 
-  <p class="note"><strong>Note</strong>: If you do not know the username and password, you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
+  <p> If you do not know the username and password, you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
 1. Run `use metrics;`.
 1. Run the following command:
 <pre class="terminal">mysql> PURGE BINARY LOGS BEFORE 'YYYY-MM-DD HH:MM:SS'; </pre>
@@ -278,8 +278,8 @@ If troubleshooting is based on the causes that were previously mentioned did not
 you can follow the steps below to recover it.
 VMware recommends only using this procedure as a if there are no other potential solutions available.
 
-<p class="note warning">
-<strong>WARNING! </strong>
+<p class="note caution">
+<span class="note__title">Caution</span>
 This procedure is extremely costly in terms of time and network resources.
 The cluster takes a significant amount of time to put the data replicated to the rest of the cluster back into the rebuilt node.
 This procedure consumes considerable network bandwidth as potentially hundreds of gigabytes of data needs to transfer.
@@ -323,13 +323,15 @@ to target and log in to your BOSH Director.
 
 ## <a id='log'></a> Log Errors
 
-<table border='1' class='nice'>
+<table class=“table”>
+<thead>
 <tr>
   <th width="22%">Error</th>
   <td>
     The PCF Metrics UI does not show any new logs from Elasticsearch.
   </td>
 </tr>
+</thead>
 <tr>
   <th>Cause</th>
   <td>The tile deployed with the <code>Push PCF Metrics Data Components</code> errand deselected</td>
@@ -352,11 +354,13 @@ to target and log in to your BOSH Director.
 
 ## <a id="503"></a>503 Errors
 
-<table>
+<table class=“table”>
+<thead>
   <tr>
       <th>Error</th>
       <td>You encounter <code>sorry, too many clients already</code> errors when accessing the PCF Metrics UI in your browser.</td>
   </tr>
+  </thead>
   <tr>
       <th>Cause</th>
       <td>Your PostgreSQL is running out of disk space, causing reduced performance and a spike of open connections.
@@ -403,11 +407,13 @@ to target and log in to your BOSH Director.
 
 ## <a id="fetch-apps"></a>Failed to Fetch Apps
 
-<table>
+<table class=“table”>
+<thead>
   <tr>
       <th>Error</th>
       <td>Even though you entered the correct UAA credentials, the metrics app fails to fetch the list of apps.</td>
   </tr>
+  </thead>
   <tr>
       <th>Cause</th>
       <td>The browser plugins or cookies inject extraneous content in requests to Cloud Controller API, causing it to reject the request.</td>
@@ -426,8 +432,10 @@ to target and log in to your BOSH Director.
 
 ## <a id="redis-full"></a>Redis temporary datastore stops accepting metrics
 
-<table>
+<table class=“table”>
+<thead>
   <tr>
+  </thead>
       <th>Error</th>
       <td>
             You see both these problems:<ul>
@@ -451,6 +459,43 @@ to target and log in to your BOSH Director.
         <li>Scale up the Redis component. For more information, see <a href=".//sizing.html#temp-datastore">
             Scale the Temporary Datastore (Redis)</a>.</li>
        </ol>
+       </td>
+  </tr>
+</table>
+
+## <a id="fetch-apps"></a>Failed to fetch logs or logs were missing
+
+<table class=“table”>
+<thead>
+  <tr>
+      <th>Error</th>
+        <td>In some cases, one or more noisy apps created an enormous amount of logs per second for the log store.
+        </td>
+  </tr>
+  </thead>
+      <th>Cause</th>
+      <td>
+      <p> Here are some possible causes:</p>
+      <ul>
+      <li> A shortening of the stored data retention period. Most of the disk space was occupied by one app log.</li>
+      <li> A drop of input log envelopes occurs in the early ingestion stage.</li>
+      <li> A load imbalance causes a non distributable load.</li>
+      <li> A situation occurs when neither vertical or horizontal scaling was helpful.</li>
+      <li> A large log size occurs and the querying became challenging for a particular sourceID.</li>
+      <li> Log Store has an out of memory issue.</li>
+  </li>
+      </ul>
+  <tr>
+      <th>Solution</th>
+      <td>Identify the Application Log Rate Limit definition and noisy log producer identification. Cloud Foundry supports log rate
+      limiting to avoid noisy logging and easy identification of limit exceeding.
+      <p> See the following links for more details on how to
+      define log rate limits for apps in Cloud Foundry and the methods that identify limit exceeding cases:
+      <ul>
+      <li>[App Rate limiting](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/app-log-rate-limits.html)</li>
+        <li>[Cloud Foundry manifest attribute](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#log-rate-limit)</li>
+       </ul>
+       </li>
        </td>
   </tr>
 </table>
