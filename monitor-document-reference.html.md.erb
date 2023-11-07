@@ -31,11 +31,11 @@ Where `MONITOR-DOCUMENT` is the name of your Monitor document YAML file.
 
 1. Copy your OAuth token to the clipboard. Run:
 
-```python
+```
 cf oauth-token
 ````
 
-1. Paste your OAuth token into the following command:
+2. Paste your OAuth token into the following command:
 
 ````
 curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: [AUTH-TOKEN]" --data-binary "@[MONITOR-DOCUMENT.yml]"
