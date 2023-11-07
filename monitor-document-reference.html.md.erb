@@ -29,11 +29,15 @@ Windows:
 
 1. Copy your OAuth token to the clipboard by running:
 
-    ```
-    cf oauth-token
-    ```
+### Windows
 
-1. Paste your OAuth token into the following command:
+1. Copy your OAuth token to the clipboard. Run:
+
+```
+cf oauth-token
+````
+
+2. Paste your OAuth token into the following command:
 
     ```
     curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: [AUTH-TOKEN]" --data-binary "@[MONITOR-DOCUMENT.yml]"
