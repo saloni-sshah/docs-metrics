@@ -18,6 +18,6 @@ https://docs.pivotal.io/app-metrics/architecture.html
 
 | Branch | Status         | URL |
 |--------|----------------|-----|
-| master | in progress    |     |
+| master | NOT USED       |     |
 | 2.2    | published      | https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.2/app-metrics/GUID-index.html |
 | 2.1    | published      | https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.1/app-metrics/GUID-index.html |
