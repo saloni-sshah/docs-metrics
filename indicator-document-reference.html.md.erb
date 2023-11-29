@@ -1,6 +1,6 @@
 ---
 breadcrumb: App Metrics Documentation
-title: Indicator document reference for App Metrics
+title: Indicator Document reference for App Metrics
 owner: App Metrics
 list_style_none: true
 ---
@@ -9,21 +9,21 @@ list_style_none: true
 
 You can use the schema and API for Indicator documents to customize your dashboards for monitoring apps with App Metrics.
 
-To upload an Indicator document, see [cURLing your Indicator document to App Metrics](#curling-indicator-document).
+To upload an Indicator Document, see [cURLing your Indicator Document to App Metrics](#curling-indicator-document).
 
 To upload an indicator and create a custom chart from the UI, see [Adding your Indicator to App Metrics and creating Custom Metric Chart from the UI](#adding-indicator-from-ui).
 
-For more information about the schema and API, see [Indicator document API Specification](#indicator-document-api-spec).
+For more information about the schema and API, see [Indicator Document API Specification](#indicator-document-api-spec).
 
-This topic also contains an example Indicator document, named `IndicatorDocumentExample.`
+This topic also contains an example Indicator Document, named `IndicatorDocumentExample.`
 
 <p> At this time, only the below subset of the <code>name</code>, <code>promql</code>,
    <code>documentation</code>, and <code>presentation</code> fields are supported for app indicators.
 </p>
 
-## <a id='curling-indicator-document'></a> cURLing your Indicator document to App Metrics
+## <a id='curling-indicator-document'></a> cURLing your Indicator Document to App Metrics
 
-After you create your Indicator document, you can push it to App Metrics with the cURL command.
+After you create your Indicator Document, you can push it to App Metrics with the cURL command.
 
 ### Linux/Mac
 
@@ -39,18 +39,18 @@ curl -vvv <https://metrics.sys.DOMAIN/indicator-documents> -H "Authorization: [Y
 ```
 
 You can only push indicators for apps that run in a space you have access to.
-After you create your Indicator document, you can also automate the deployment of app indicator documents in your
+After you create your Indicator Document, you can also automate the deployment of app indicator documents in your
 deployment pipeline.
 
-## <a id='indicator-document-api-spec'></a> Indicator document API specification
+## <a id='indicator-document-api-spec'></a> Indicator Document API specification
 
-The `/indicator-documents` path supports `POST` and the `/indicator-documents/{org,space,app}` path supports the deletion of an indicator document for a specific `org,space,app`.
+The `/indicator-documents` path supports `POST` and the `/indicator-documents/{org,space,app}` path supports the deletion of an indicator Document for a specific `org,space,app`.
 
-When you delete or upload an indicator document, it clears all associated monitors and recorded alerts associated with that app.
+When you delete or upload an Indicator Document, it clears all associated monitors and recorded alerts associated with that app.
 
 You can use demos and examples in the [Swagger Editor](https://editor.swagger.io/).
 
-For more details about the indicator document API, see the following Open API specification:
+For more details about the Indicator Document API, see the following Open API specification:
 
 
 ```yaml
@@ -212,7 +212,7 @@ components:
                 units: "counts"
 ```
 
-## <a id='adding-indicator-from-ui'></a> Adding your Indicator document and creating a custom metric chart from the UI
+## <a id='adding-indicator-from-ui'></a> Adding your Indicator Document and creating a custom metric chart from the UI
 
 To upload, edit or remove a custom chart for the specific application from the UI, use the following steps:
 

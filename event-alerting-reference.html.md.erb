@@ -9,16 +9,16 @@ list_style_none: true
 
 To monitor events from apps using App Metrics, select **Enable Event Alerting**
 in Tanzu Operations Manager on the App Metrics tile. Go to **Settings** and select **App Metrics Components Config** to use the Event Alerting feature.
-This optional feature contains detailed information about the schema and API for log monitor documents.
+This optional feature contains detailed information about the schema and API for Log Monitor documents.
 
-To upload a log monitor document, see [cURLing your Log Monitor document to App Metrics](#curling-log-monitor-document).
+To upload a Log Monitor Document, see [cURLing your Log Monitor Document to App Metrics](#curling-log-monitor-document).
 
-For more information about the schema and API, see [Log Monitor document API Specification](#log-monitor-document-api-spec). It also contains an example for log monitor document, named `LogMonitorDocumentExample`.
+For more information about the schema and API, see [Log Monitor Document API specification](#log-monitor-document-api-spec). It also contains an example for log monitor document, named `LogMonitorDocumentExample`.
 
-## <a id='curling-log-monitor-document'></a> cURLing your Log Monitor document to App Metrics
+## <a id='curling-log-monitor-document'></a> cURLing your Log Monitor Document to App Metrics
 
-After you prepare your log monitor document, push it to App Metrics using the cURL command line.
-The endpoint is the same as the monitor document.
+After you prepare your Log Monitor Document, push it to App Metrics using the cURL command line.
+The endpoint is the same as the Monitor Document.
 
 ### Linux/Mac:
 
@@ -26,7 +26,7 @@ The endpoint is the same as the monitor document.
 curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[LOG-MONITOR-DOCUMENT.yml]"
 ````
 
-Where `LOG-MONITOR-DOCUMENT` is the name of your log monitor document YAML file.
+Where `LOG-MONITOR-DOCUMENT` is the name of your Log Monitor Document YAML file.
 
 ### Windows:
 
@@ -39,15 +39,15 @@ curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: [AUTH-
 
 Where:
   * `AUTH-TOKEN` is the OAuth token you copied in the previous step.
-  * `LOG-MONITOR-DOCUMENT` is the name of your log monitor document YAML file.
+  * `LOG-MONITOR-DOCUMENT` is the name of your Log Monitor Document YAML file.
 
 <p> You can only push log monitors for apps that run in a space that you have access to.</p>
 
-## <a id='log-monitor-document-api-spec'></a> Log Monitor document API specification
+## <a id='log-monitor-document-api-spec'></a> Log Monitor Document API specification
 
 The `/monitors-documents` path supports `POST` and the `/monitor-documents/{org,space,app}` supports `GET` monitor document for a specific `org,space,app`. The `DELETE` variable is not supported for a single log monitor document.
 
-For more details about the log monitor document API, see the following Open API specification.
+For more details about the Log Monitor Document API, see the following Open API specification.
 
 To use demos and examples, see [Swagger Editor](https://editor.swagger.io/).
 

@@ -140,15 +140,15 @@ In order for Metric Registrar to accurately report Spring Metrics, the configura
 
 You must remove the  `id` tag from the list of Blocked tags in the Metric Registrar settings for the Tanzu Application Service Tile.
 
-### <a id='create-indicator-doc'></a> Creating an Indicator document
+### <a id='create-indicator-doc'></a> Creating an Indicator Document
 
-An Indicator document is a YAML document that specifies which app you want to monitor and the indicators you want to use to monitor it.
+An Indicator Document is a YAML file that specifies which app you want to monitor and the indicators you want to use to monitor it.
 
-These are the steps to create an Indicator document:
+These are the steps to create an Indicator Document:
 
 1. Find the metric you want to monitor.
 2. Write the PromQL query.
-3. Add the PromQL to your Indicator document.
+3. Add the PromQL to your Indicator Document.
 
 ### Finding the metric name
 
@@ -171,11 +171,11 @@ After you have the metric name, write a PromQL query to see the metric:
    Click **Info** on any chart or visit the
    [PromQL Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) documentation.
 
-2. Use the PromQL Explorer to test out PromQL before you insert it in the Indicator document:
+2. Use the PromQL Explorer to test out PromQL before you insert it in the Indicator Document:
 
     1. Click the **+** button on the dashboard.
 
-    2. Test out the queries to see how the graph appears before you place it in the Indicator document.
+    2. Test out the queries to see how the graph appears before you place it in the Indicator Document.
 
     <p> PromQL must have the <code>source_id</code> tag for non-admin users.
   App Metrics supports using a <code>$sourceId</code> parameter in the PromQL which automatically refers to the sourceId of
@@ -191,9 +191,9 @@ For example:
 cpu{source_id=“$sourceId”}
 ```
 
-### Adding PromQL query to your Indicator document
+### Adding PromQL query to your Indicator Document
 
-After you have the PromQL query ready, insert it in the Indicator document.
+After you have the PromQL query ready, insert it in the Indicator Document.
 
 For example, if you have a custom metric `customMetricName500` and want to graph the amount of errors over a one minute
 time period, then your PromQL query is:
@@ -202,7 +202,7 @@ time period, then your PromQL query is:
 `sum(avg_over_time(customMetricName500{source_id=\"$sourceId\"}[1m]))`
 ```
 
-This is an example of the YAML file for an Indicator document:
+This is an example of the YAML file for an Indicator Document:
 
 ```console
 apiVersion: indicatorprotocol.io/v1
@@ -229,15 +229,15 @@ spec:
 The  `org,space,app-name` in the example determines which app these indicators are applied to.
 Replace `org,space,app-name` with the org, space, and app name of the app dashboard that you want to customize.
 
-### <a id="indicator-document-schema"></a> Indicator document schema
+### <a id="indicator-document-schema"></a> Indicator Document schema
 
 App Metrics uses a derivative version of the Indicator Protocol.
 
 ## <a id='monitoring'></a> Custom monitoring and alerting
 
-You can add custom monitoring and alerting to your dashboard indicators by creating a Monitor document for your app.
+You can add custom monitoring and alerting to your dashboard indicators by creating a Monitor Document for your app.
 
-### Creating a Monitor document
+### Creating a Monitor Document
 
 Monitors are linked to specific indicators, so the first step to adding custom monitoring and alerting to your
 app is to verify the names of the indicators you want to monitor.
@@ -254,10 +254,10 @@ The indicator corresponds to one of your custom indicators or to one of the foll
 * MemoryPercentage
 * DiskPercentage
 
-After you have the indicator names create your monitor document that defines the threshold for your indicator
+After you have the indicator names create your Monitor Document that defines the threshold for your indicator
 and the webhook to send alerts to.
 
-The following example is an YAML file for an monitor document:
+The following example is an YAML file for an Monitor Document:
 
 ```yaml
 product: org,space,app-name
@@ -286,9 +286,9 @@ Also, `webhook_url`: `https://my-slack-webhook.com` must be where alerts are sen
 
 The Slack application is currently the only supported use case, but other webhook platforms might work, if they accept a text payload.
 
-### <a id="monitor-document-schema"></a> Monitor document schema
+### <a id="monitor-document-schema"></a> Monitor Document schema
 
-For more detailed information on the monitor document schema, see [Monitor Document template reference](./monitor-document-reference.html).
+For more detailed information on the Monitor Document schema, see [Monitor Document template reference](./monitor-document-reference.html).
 
 ## <a id="custom-metric-demos"></a> Custom metric demos
 
