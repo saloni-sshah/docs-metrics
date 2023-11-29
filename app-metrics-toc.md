@@ -1,8 +1,9 @@
-* [App Metrics](/docs-metrics/index.html)
+* [App Metrics for VMware Tanzu
+](/docs-metrics/index.html)
 * [Release Notes and known issues](/docs-metrics/rn-ki.html)
 * [Install App Metrics](/docs-metrics/installing.html)
-* [Size App Metrics for Your System](/docs-metrics/sizing.html)
-* [Monitor and Troubleshoot Apps with App Metrics](/docs-metrics/using.html)
+* [Size App Metrics for your system](/docs-metrics/sizing.html)
+* [Monitor and troubleshoot Apps with App Metrics](/docs-metrics/using.html)
 * [Monitor App Metrics](/docs-metrics/monitoring-pcf-metrics.html)
 * [Troubleshoot App Metrics](/docs-metrics/troubleshooting.html)
 * [Monitor log store](/docs-metrics/monitoring-log-store.html)
