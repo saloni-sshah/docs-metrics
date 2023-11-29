@@ -107,10 +107,8 @@ SSH to access a container that runs an instance of the app.
 
 See the following topics for more information about app events:
 
-* [Starting, Restarting, and Restaging Apps](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-start-restart-restage.html)
-* [Troubleshooting App Deployment and Health](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-troubleshoot-app-health.html)
-
-* [Troubleshooting app deployment and health](https://docs.pivotal.io/platform/application-service/devguide/deploy-apps/troubleshoot-app-health.html)
+* [Starting, restarting, and restaging apps](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-start-restart-restage.html)
+* [Troubleshooting app deployment and health](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/deploy-apps-troubleshoot-app-health.html)
 
 ## <a id='custom-metrics'></a> Adding custom metric charts
 
@@ -122,10 +120,6 @@ the [Loggregator Firehose](https://docs.vmware.com/en/VMware-Tanzu-Application-S
 In addition, Spring Boot apps with actuators or Micrometer metrics implemented
 emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to source code.
 
-To view custom metrics, configure your apps to emit those metrics out of the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) and then view these metrics on the App Metrics dashboard.
-
-In addition, Spring Boot apps with actuators or Micrometer metrics that are implemented emit [these metrics](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html) out of the box, without any changes to the source code.
-
 ### <a id='metric-registrar-settings'></a> Configuring Metric Registrar for Spring Metrics
 
 In order for Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated in Tanzu Application Service Tile.
@@ -134,7 +128,7 @@ You must remove the  `id` tag from the list of Blocked tags in the Metric Regist
 
 ### <a id='create-indicator-doc'></a> Creating an Indicator document
 
-An indicator document is a YAML document that specifies which app you want to monitor and the indicators you want to use to monitor it.
+An Indicator document is a YAML document that specifies which app you want to monitor and the indicators you want to use to monitor it.
 
 These are the steps to create an indicator document:
 
@@ -293,7 +287,7 @@ View the following videos to enhance your understanding of metric charts:
 
 The **Logs** view displays app log data ingested from the Loggregator Reverse Log Proxy (RLP):
 
-<p class="note"><strong>Note</strong>: Logs with non-UTF-8 characters or non-standard UUID app GUIDs are not stored.</p>
+<p> Logs with non-UTF-8 characters or non-standard UUID app GUIDs are not stored.</p>
 
 You can interact with the **Logs** view in the following ways:
 

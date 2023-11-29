@@ -214,7 +214,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
         You can run `cf security-group metrics-api` to see if the ASG exists.
         If not, see [Creating Application Security Groups](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/asg.html).
 
-## <a id='mysql'></a> MySQL Node Failure
+## <a id='mysql'></a> MySQL Node failure
 
 In some cases, a MySQL server node might fail to restart.
 The following two sections describe the known conditions that cause this failure as well as steps for diagnosing and resolving them.
@@ -299,7 +299,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 1. Stop data flow into the Galera cluster:
     <pre class="terminal">$ cf stop metrics-ingestor</pre>
 
-#### Editing Your Deployment Manifest
+#### Editing your Deployment Manifest
 
 1. Follow the steps in [Log in to BOSH](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html)
 to target and log in to your BOSH Director.
@@ -308,7 +308,7 @@ to target and log in to your BOSH Director.
     <pre class="terminal">
     $ bosh download manifest YOUR-PCF-DEPLOYMENT YOUR-PCF-MANIFEST.yml
     </pre>
-    <p class="note"><strong>Note</strong>: You must know the name of your PCF deployment to download the manifest. To retrieve it, run <code>bosh deployments</code>
+    <p> You must know the name of your PCF deployment to download the manifest. To retrieve it, run <code>bosh deployments</code>
     to list your deployments and locate the name of your PCF deployment.</p>
 1. Open the manifest and set the number of instances of the failed server node to `0`.
 1. Run `bosh deployment YOUR-PCF-MANIFEST.yml` to specify your edited manifest.
@@ -320,7 +320,7 @@ to target and log in to your BOSH Director.
 1. Run `bosh deploy` to deploy with your edited manifest.
 1. Wait for BOSH to rebuild the node.
 
-## <a id='log'></a> Log Errors
+## <a id='log'></a> Log errors
 
 <table class=“table”>
 <thead>
@@ -354,7 +354,7 @@ to target and log in to your BOSH Director.
 </tr>
 </table>
 
-## <a id="503"></a>503 Errors
+## <a id="503"></a>503 errors
 
 <table class=“table”>
 <thead>
