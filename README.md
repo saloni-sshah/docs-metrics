@@ -1,15 +1,20 @@
 # Documentation for App Metrics
 
 This is the source repo for documentation for App Metrics. Our team can be
-found in the `pivotal-app-metrics` channel on slack.
+found in the `op-apps-assist-tas-app-metrics` channel on slack.
 
-The source documents are located in the docs-content folder. 
+The source documents are located in the docs-content folder.
 
 UPDATE ALL OF THE FOLLOWING
 
-If you want to know how to view a local version of these docs as they will appear on docs.pivotal.io, see https://github.com/pivotal-cf/docs-partners-template/blob/master/README.md. 
+| Branch | Status    | URL |
+|--------|-----------|-----|
+| 2.2    | Published | https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.2/app-metrics/GUID-index.html |
+| 2.1    | Published | https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.1/app-metrics/GUID-index.html |
+| 2.0    | EOGS      | https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.0/app-metrics/GUID-index.html |
+
 
 If you would like to provide feedback on the architecture diagrams included in this documentation, see the following link:
 
-* General architecture diagram: 
-https://docs.pivotal.io/app-metrics/architecture.html
+* General architecture diagram:
+https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.2/app-metrics/GUID-architecture.html
