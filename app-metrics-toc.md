@@ -5,7 +5,7 @@
 * [App Metrics architecture](/docs-metrics/architecture.html)
 * [Install App Metrics](/docs-metrics/installing.html)
 * [Size App Metrics](/docs-metrics/sizing.html)
-* [Monitor and Troubleshoot apps with App Metrics](/docs-metrics/using.html)
+* [Monitor and troubleshoot apps with App Metrics](/docs-metrics/using.html)
 * [Monitor App Metrics](/docs-metrics/monitoring-pcf-metrics.html)
 * [Troubleshoot App Metrics](/docs-metrics/troubleshooting.html)
 * [Monitor log store](/docs-metrics/monitoring-log-store.html)
