@@ -6,7 +6,7 @@ found in the `pivotal-app-metrics` channel on slack.
 <strong>Note:</strong> The MASTER branch is not in use. Please use the version-specific branches.
 
 The book repo for this content is `docs-book-metrics`.
-The pipeline repo for this content is [https://runway-ci.eng.vmware.com/teams/mapbu-docs/pipelines/cf-services?group=metrics](https://runway-ci.eng.vmware.com/teams/mapbu-docs/pipelines/cf-services?group=metrics).
+This documentation is built in DocWorks and published using DocsDash.
 
 Before v2.0, the product name was PCF Metrics.
 
