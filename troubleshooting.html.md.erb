@@ -264,10 +264,8 @@ Follow the steps below to resolve the issue.
 
 #### Resolve
 
-1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`
-
-  <p> If you do not know the username and password, you can run `cf env mysql-logqueue` with the <code>system</code> org and the <code>metrics-v1-4</code> space targeted.</p>
-
+1. Log in to mysql by running `mysql -u USERNAME -p PASSWORD`. If you do not know the username and password, you can run `cf env mysql-logqueue` with the <code>system</code> org
+and the <code>metrics-v1-4</code> space targeted.
 1. Run `use metrics;`.
 2. Run the following command:
 <pre class="terminal">mysql> PURGE BINARY LOGS BEFORE 'YYYY-MM-DD HH:MM:SS'; </pre>
@@ -308,8 +306,8 @@ to target and log in to your BOSH Director.
     <pre class="terminal">
     $ bosh download manifest YOUR-PCF-DEPLOYMENT YOUR-PCF-MANIFEST.yml
     </pre>
-    <p> You must know the name of your PCF deployment to download the manifest. To retrieve it, run <code>bosh deployments</code>
-    to list your deployments and locate the name of your PCF deployment.</p>
+    You must know the name of your TAS for VMs deployment to download the manifest. To retrieve it, run <code>bosh deployments</code>
+    to list your deployments and locate the name of your TAS for VMs deployment.
 1. Open the manifest and set the number of instances of the failed server node to `0`.
 1. Run `bosh deployment YOUR-PCF-MANIFEST.yml` to specify your edited manifest.
 1. Run `bosh deploy` to deploy with your manifest.
@@ -464,7 +462,7 @@ to target and log in to your BOSH Director.
   </thead>
       <th>Cause</th>
       <td>
-      <p> Here are some possible causes:</p>
+      Here are some possible causes:
       <ul>
       <li> A shortening of the stored data retention period. Most of the disk space was occupied by one app log.</li>
       <li> A drop of input log envelopes occurs in the early ingestion stage.</li>
@@ -478,13 +476,14 @@ to target and log in to your BOSH Director.
       <th>Solution</th>
       <td>Identify the Application Log Rate Limit definition and noisy log producer identification. Cloud Foundry supports log rate
       limiting to avoid noisy logging and easy identification of limit exceeding.
-      <p> See the following links for more details on how to
+      See the following links for more details on how to
       define log rate limits for apps in Cloud Foundry and the methods that identify limit exceeding cases:
       <ul>
-      <li>[App Rate limiting](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/app-log-rate-limits.html)</li>
-        <li>[Cloud Foundry manifest attribute](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#log-rate-limit)</li>
-       </ul>
-       </li>
-       </td>
+      <li><a href="https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/app-log-rate-limits.html">App Rate limiting</a></li>
+      <li>
+     <a href="https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#log-rate-limit">Cloud Foundry manifest attribute</a></li>
+      </ul>
+      </li>
+      </td>
   </tr>
 </table>

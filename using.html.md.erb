@@ -42,7 +42,7 @@ In addition, from any chart, you can click and drag to zoom in on areas of inter
 
 Auto-refresh mode updates the metrics charts and logs on your dashboard for a timed interval as data is received.
 
-<p> The default auto-refresh interval is set to one minute and is currently not configurable.</p>
+The default auto-refresh interval is set to one minute and is currently not configurable.
 
 ## <a id="app-instance"></a>Viewing metrics at the process and app instance level
 
@@ -70,9 +70,8 @@ The following sections explain how to use each of the charts on the dashboard to
 
 ### <a id='networkMetrics'></a> Network metrics
 
-<p> If apps are not configured for network traffic,
+If apps are not configured for network traffic,
 they show No Data or zeros for the default Latency, Traffic, and Errors metrics.
-</p>
 
 * <a id='latency'></a> **Latency**: Average latency of a request in milliseconds. A spike in response time means your users are waiting longer. Scaling app instances can spread that workload over more resources and results in faster response times.
 
@@ -163,13 +162,11 @@ After you have the metric name, write a PromQL query to see the metric:
 
     2. Test out the queries to see how the graph appears before you place it in the indicator document.
 
-    <p> PromQL must have the <code>source_id</code> tag for non-admin users.
-  App Metrics supports using a <code>$sourceId</code> parameter in the PromQL which automatically refers to the sourceId of
-  the current app. Example: <code>cpu{source_id="$sourceId"}</code>
-</p>
+        PromQL must have the <code>source_id</code> tag for non-admin users.
+        App Metrics supports using a <code>$sourceId</code> parameter in the PromQL which automatically refers to the sourceId of
+        the current app. Example: <code>cpu{source_id="$sourceId"}</code>.
 
-
-<p>App Metrics supports using a <code>source_id</code> parameter in the PromQL query which refers to the <code>"$source_id"</code> of the current app.
+App Metrics supports using a <code>source_id</code> parameter in the PromQL query which refers to the <code>"$source_id"</code> of the current app.
 
 For example:
 
@@ -287,7 +284,7 @@ View the following videos to enhance your understanding of metric charts:
 
 The **Logs** view displays app log data ingested from the Loggregator Reverse Log Proxy (RLP):
 
-<p> Logs with non-UTF-8 characters or non-standard UUID app GUIDs are not stored.</p>
+Logs with non-UTF-8 characters or non-standard UUID app GUIDs are not stored.
 
 You can interact with the **Logs** view in the following ways:
 
