@@ -17,9 +17,8 @@ For more information about the schema and API, see [Indicator Document API Speci
 
 This topic also contains an example Indicator Document, named `IndicatorDocumentExample.`
 
-<p> At this time, only the below subset of the <code>name</code>, <code>promql</code>,
-   <code>documentation</code>, and <code>presentation</code> fields are supported for app indicators.
-</p>
+At this time, only the below subset of the <code>name</code>, <code>promql</code>,
+<code>documentation</code>, and <code>presentation</code> fields are supported for app indicators.
 
 ## <a id='curling-indicator-document'></a> cURLing your Indicator Document to App Metrics
 
@@ -29,7 +28,7 @@ After you create your Indicator Document, you can push it to App Metrics with th
 
     curl -vvv <https://metrics.sys.DOMAIN/indicator-documents> -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"
 
-<p> You can only push indicators for apps that run in a space that you have access to.</p>
+You can only push indicators for apps that run in a space that you have access to.
 
 1. Copy your cf oath token to the clipboard: `cf oauth-token`</li>
 1. Paste your oauth token into the following command:</li>
