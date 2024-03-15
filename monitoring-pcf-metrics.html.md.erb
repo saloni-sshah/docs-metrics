@@ -42,7 +42,10 @@ All BOSH deployed components generate the following metrics. You can monitor the
 
 
 <table>
-   <tr><th colspan="3" style="text-align: center;"><br> Log Store VMs (log-store-vms) <br><br></th></tr>
+<thead>
+   <tr><th colspan="3" style="text-align: center;"><br> Log Store VMs (log-store-vms) <br><br></th>
+   </tr>
+</thead>
    <tr>
      <th>Metric</th>
      <td>disk_persistent_percent</td>
@@ -67,8 +70,10 @@ All BOSH deployed components generate the following metrics. You can monitor the
    </tr>
 </table>
 <table>
+<thead>
    <tr><th colspan="3" style="text-align: center;"><br> PostgreSQL VM (db-and-errand-runner) <br><br></th></tr>
     <tr>
+</thead>
         <th>Metric</th>
         <td>disk_persistent_percent</td>
       </tr>
@@ -101,8 +106,10 @@ The following KPIs can indicate problems with App Metrics and are useful for mon
 Non-routed applications return no data or all zeros for Latency, Errors and Traffic metrics.
 
 <table>
+<thead>
    <tr><th colspan="3" style="text-align: center;"><br>Latency<br><br></th></tr>
    <tr>
+</thead>
       <th width="25%">Description</th>
       <td>The Amount of time to service a request.<br><br>
       <strong>Use</strong>: Slow feedback is a symptom of degraded performance.
@@ -117,7 +124,10 @@ Non-routed applications return no data or all zeros for Latency, Errors and Traf
    </tr>
 </table>
 <table>
-   <tr><th colspan="3" style="text-align: center;"><br>Traffic<br><br></th></tr>
+<thead>
+   <tr><th colspan="3" style="text-align: center;"><br>Traffic<br><br></th>
+   </tr>
+</thead>
    <tr>
       <th width="25%">Description</th>
       <td>The Amount of time to service a request.<br><br>
@@ -133,7 +143,10 @@ Non-routed applications return no data or all zeros for Latency, Errors and Traf
    </tr>
 </table>
 <table>
-   <tr><th colspan="3" style="text-align: center;"><br>Errors<br><br></th></tr>
+<thead>
+   <tr><th colspan="3" style="text-align: center;"><br>Errors<br><br></th>
+   </tr>
+</thead>
    <tr>
       <th width="25%">Description</th>
       <td>The rate of failed requests. For example, number of 500 status responses.<br><br>
@@ -148,7 +161,10 @@ Non-routed applications return no data or all zeros for Latency, Errors and Traf
    </tr>
 </table>
 <table>
-   <tr><th colspan="3" style="text-align: center;"><br>Saturation<br><br></th></tr>
+<thead>
+   <tr><th colspan="3" style="text-align: center;"><br>Saturation<br><br></th>
+   </tr>
+</thead>
    <tr>
       <th width="25%">Description</th>
       <td>The amount of resources being utilized by the application.<br><br>
