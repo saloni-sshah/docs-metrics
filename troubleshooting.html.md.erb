@@ -257,7 +257,7 @@ Run the following commands to return the `mariadb_ctrl` job to a healthy state:
 1. Go to `/var/vcap/store/mysql` and run `ls -al`.
       1. Ensure that you see many files named with the format `mysql-bin.########`.
 
-In MySQL for PCF, the server node does not make use of these logs and you can remove all except the most recent bin log.
+In MySQL for Tanzu Application Service, the server node does not make use of these logs and you can remove all except the most recent bin log.
 
 Use the following steps to resolve the issue.
 
@@ -294,7 +294,7 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 
   <pre class="terminal">$ cf login -a http<span>s</span>://api.YOUR-SYSTEM-DOMAIN -u admin -p PASSWORD</pre>
 
-1. Target the <code>system</code> org and <code>metrics-v1-4</code> space of your PCF deployment:
+1. Target the <code>system</code> org and <code>metrics-v1-4</code> space of your TAS for VMs deployment:
     <pre class="terminal">$ cf target -o system -s metrics-v1-4</pre>
 1. Stop data flow into the Galera cluster:
     <pre class="terminal">$ cf stop metrics-ingestor</pre>
@@ -303,15 +303,15 @@ This procedure consumes considerable network bandwidth as potentially hundreds o
 
 1. Follow the steps in [Log in to BOSH](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html)
 to target and log in to your BOSH Director.
-   The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
-1. Download the manifest of your PCF deployment:
+   The steps vary slightly depending on whether your TAS for VMs deployment uses internal authentication or an external user store.
+1. Download the manifest of your TAS for VMs deployment:
     <pre class="terminal">
-    $ bosh download manifest YOUR-PCF-DEPLOYMENT YOUR-PCF-MANIFEST.yml
+    $ bosh download manifest YOUR-TAS-DEPLOYMENT YOUR-TAS-MANIFEST.yml
     </pre>
-    <p> You must know the name of your PCF deployment to download the manifest. To retrieve it, run <code>bosh deployments</code>
-    to list your deployments and locate the name of your PCF deployment.</p>
+    <p> You must know the name of your TAS for VMs deployment to download the manifest. To retrieve it, run <code>bosh deployments</code>
+    to list your deployments and locate the name of your TAS for VMs deployment.</p>
 1. Open the manifest and set the number of instances of the failed server node to `0`.
-1. Run `bosh deployment YOUR-PCF-MANIFEST.yml` to specify your edited manifest.
+1. Run `bosh deployment YOUR-TAS-MANIFEST.yml` to specify your edited manifest.
 1. Run `bosh deploy` to deploy with your manifest.
 1. Run `bosh disks --orphaned` to see the [persistent disk](https://bosh.io/docs/persistent-disks.html) or disks associated with the failed node.
 1. Record the `CID` of each persistent disk.
@@ -326,7 +326,7 @@ to target and log in to your BOSH Director.
 <tr>
   <th width="22%">Error</th>
   <td>
-    The PCF Metrics UI does not show any new logs from Elasticsearch.
+    The Metrics UI does not show any new logs from Elasticsearch.
   </td>
 </tr>
 <tr>
@@ -338,7 +338,7 @@ to target and log in to your BOSH Director.
   <td>
   Restart the Elasticsearch Logqueue using the cf CLI as follows:
   <ol>
-    <li>Target the <code>system</code> org and <code>metrics-v1-4</code> space of your PCF deployment:</li>
+    <li>Target the <code>system</code> org and <code>metrics-v1-4</code> space of your TAS for VMs deployment:</li>
     <pre class="terminal">$ cf target -o system -s metrics-v1-4</pre>
     <li>Run the following command to restart the Logqueue app:</li>
     <pre class="terminal">$ cf restart elasticsearch-logqueue</pre>
