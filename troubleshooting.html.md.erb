@@ -100,7 +100,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
       <pre class="terminal">$ curl ELASTICSEARCH-MASTER-IP-ADDRESS</pre>
 
-  1. If the `curl` command fails, talk to your system administrator about removing the proxy or green-listing the PCF Metrics apps.
+  1. If the `curl` command fails, talk to your system administrator about removing the proxy or green-listing the App Metrics apps.
 
 ### <a name="check-es-logqueue"></a>Checking the Elasticsearch Logqueue
 
@@ -121,7 +121,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
   1. Watch the logs emitted by the `elasticsearch-logqueue` app for errors.
       * A common error is that the app cannot connect to Elasticsearch
         because a user deleted the application security group (ASG)
-        that PCF Metrics creates to allow the Logqueue app to connect to the Elasticsearch VMs.
+        that App Metrics creates to allow the Logqueue app to connect to the Elasticsearch VMs.
         You can run `cf security-group metrics-api` to see if the ASG exists.
         If not, see [App Security Groups](https://docs.cloudfoundry.org/concepts/asg.html).
 
@@ -143,7 +143,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
       <pre class="terminal">$ cf restage metrics-ingestor</pre>
 
   1. Watch the logs emitted by the `metrics-ingestor` app for errors. See the following list for common errors:
-      * **Cannot connect to the firehose**: PCF Metrics creates a UAA user to authenticate the connection to the Firehose.
+      * **Cannot connect to the firehose**: App Metrics creates a UAA user to authenticate the connection to the Firehose.
           This user must have the `doppler.firehose` authority.
       * **Cannot connect to the logqueues**: There might be a problem with the UAA, or it could be throttling traffic.
       * **WebSocket Disconnects**: If you see WebSocket disconnects logs in the Ingestor app, consider adding additional Ingestor instances.
@@ -153,7 +153,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
 
 ### <a name="check-mysql"></a>Checking MySQL
 
-1. From Tanzu Operations Manager, select the **PCF Metrics tile**.
+1. From Tanzu Operations Manager, select the App Metrics tile.
 
 1. Under the **Status** tab, record the IP of a **MySQL Server** node.
 
@@ -210,7 +210,7 @@ For instructions, see [Advanced Troubleshooting with the BOSH CLI](https://docs.
   1. Watch the logs emitted by the `mysql-logqueue` app for errors.
       * A common error is that the app cannot connect to MySQL
         because a user deleted the application security group (ASG)
-        that PCF Metrics creates to allow the Logqueue app to connect to the MySQL VMs.
+        that App Metrics creates to allow the Logqueue app to connect to the MySQL VMs.
         You can run `cf security-group metrics-api` to see if the ASG exists.
         If not, see [Creating Application Security Groups](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/asg.html).
 
@@ -331,7 +331,7 @@ to target and log in to your BOSH Director.
 </thead>
 <tr>
   <th>Cause</th>
-  <td>The tile deployed with the <code>Push PCF Metrics Data Components</code> errand deselected</td>
+  <td>The tile deployed with the <code>Push App Metrics Data Components</code> errand deselected</td>
 </tr>
 <tr>
   <th>Solution</th>
@@ -346,7 +346,7 @@ to target and log in to your BOSH Director.
     <p class="note">
     <span class="note__title">Note</span>
    To avoid having to apply this fix in the future,
-    select the check box to enable the <code>Push PCF Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update.
+    select the check box to enable the <code>Push App Metrics Data Components</code> <a href="./installing.html#errands">errand</a> before your next tile update.
 
   </td>
 </tr>
@@ -358,7 +358,7 @@ to target and log in to your BOSH Director.
 <thead>
   <tr>
       <th>Error</th>
-      <td>You encounter <code>sorry, too many clients already</code> errors when accessing the PCF Metrics UI in your browser.</td>
+      <td>You encounter <code>sorry, too many clients already</code> errors when accessing the App Metrics UI in your browser.</td>
   </tr>
   </thead>
   <tr>
@@ -382,9 +382,9 @@ to target and log in to your BOSH Director.
             Decrease the Logs Retention Window and increase the PostgreSQL Persistent Disk
             <br><br>
             <ol>
-              <li>Go to the <b>Metrics Components Config</b> section of the PCF Metrics Tile.</li>
+              <li>Go to the <b>Metrics Components Config</b> section of the App Metrics Tile.</li>
               <li>Decrease the Logs Retention Window to a smaller number to free up space in PostgreSQL.</li>
-              <li>Go to the <b>Resource Config</b> section of the PCF Metrics Tile.</li>
+              <li>Go to the <b>Resource Config</b> section of the App Metrics Tile.</li>
               <li>Increase the Persistent Disk size of PostgreSQL Server to at least twice the current size.</li>
             </ol>
           </li>
