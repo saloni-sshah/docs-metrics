@@ -5,20 +5,19 @@ owner: App Metrics
 list_style_none: true
 ---
 
-<strong><%= modified_date %></strong>
 
 You can use the schema and API for Indicator documents to customize your dashboards for monitoring apps with App Metrics.
 
-To upload an Indicator Document, see [cURLing your Indicator Document to App Metrics](#curling-indicator-document).
+* To upload an Indicator Document, see [cURLing your Indicator Document to App Metrics](#curling-indicator-document).
 
-To upload an indicator and create a custom chart from the UI, see [Adding your Indicator to App Metrics and creating Custom Metric Chart from the UI](#adding-indicator-from-ui).
+* To upload an indicator and create a custom chart from the UI, see [Adding your Indicator to App Metrics and creating Custom Metric Chart from the UI](#adding-indicator-from-ui).
 
 For more information about the schema and API, see [Indicator Document API Specification](#indicator-document-api-spec).
 
 This topic also contains an example Indicator Document, named `IndicatorDocumentExample.`
 
-At this time, only the below subset of the <code>name</code>, <code>promql</code>,
-<code>documentation</code>, and <code>presentation</code> fields are supported for app indicators.
+At this time, only the subset of the `name`, `promql`,
+`documentation`, and `presentation` fields shown in the following sections are supported for app indicators.
 
 ## <a id='curling-indicator-document'></a> cURLing your Indicator Document to App Metrics
 
@@ -26,18 +25,19 @@ After you create your Indicator Document, you can push it to App Metrics with th
 
 ### Linux/Mac
 
-    curl -vvv <https://metrics.sys.DOMAIN/indicator-documents> -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"
-
-You can only push indicators for apps that run in a space that you have access to.
-
-1. Copy your cf oath token to the clipboard: `cf oauth-token`</li>
-1. Paste your oauth token into the following command:</li>
-
 ```python
-curl -vvv <https://metrics.sys.DOMAIN/indicator-documents> -H "Authorization: [YOUR-TOKEN]" --data-binary "@[YourDoc.yml]"
+curl -vvv <https://metrics.sys.DOMAIN/indicator-documents> -H "Authorization: $(cf oauth-token)" --data-binary "@[YourDoc.yml]"
 ```
 
-You can only push indicators for apps that run in a space you have access to.
+You can push indicators only for apps that run in a space that you have access to.
+
+1. Copy your cf oath token to the clipboard: `cf oauth-token`
+1. Paste your oauth token into the following command:
+
+    ```python
+    curl -vvv <https://metrics.sys.DOMAIN/indicator-documents> -H "Authorization: [YOUR-TOKEN]" --data-binary "@[YourDoc.yml]"
+    ```
+
 After you create your Indicator Document, you can also automate the deployment of app indicator documents in your
 deployment pipeline.
 
@@ -50,7 +50,6 @@ When you delete or upload an Indicator Document, it clears all associated monito
 You can use demos and examples in the [Swagger Editor](https://editor.swagger.io/).
 
 For more details about the Indicator Document API, see the following Open API specification:
-
 
 ```yaml
 openapi: 3.0.2
@@ -222,15 +221,15 @@ To upload, edit or remove a custom chart for the specific application from the U
      * Click **View On Dashboard** to temporarily add the newly created custom chart into Dashboard so that you can review it. Then, click the
      **Upload** icon. If you forget to click the **Upload** icon, the chart disappears when you refresh the window.
 
-![Create a custom chart](./images/create-custom-chart.png)
+    ![Create a custom chart](./images/create-custom-chart.png)
 
-![Adding multiple custom chart](./images/multiple-custom-chart.png)
+    ![Adding multiple custom chart](./images/multiple-custom-chart.png)
 
 ## <a id='edit-custom-chart'></a> Editing a custom chart for a specific application
 
 To edit a custom chart for an application:
 
-1. Click **Edit** chart.
+1. Click **Edit chart**.
 1. Edit all necessary fields.
 3. Click **Execute Query** to review the changes.
 4. Click **Save** to save the changes and return to dashboard.
@@ -243,7 +242,7 @@ To discard the changes and return to the dashboard, close the window.
 
 To remove a custom chart for an application:
 
-1. Click the **Menu** icon on the chart and click **Remove**.
+1. Click the menu icon on the chart (3 dots in the upper right corner) and click **Remove**.
 2. To confirm, click **Ok**.
 
 ![Create a custom chart](./images/remove-custom-chart.png)
