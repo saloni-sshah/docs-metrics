@@ -7,15 +7,15 @@ list_style_none: true
 
 
 You can configure App Metrics depending on your deployment size. Use the information in this topic to
-optimize App Metrics for high capacity, reduce resource usage for smaller deployment sizes, and to scale your overall deployment.
+optimize App Metrics for high capacity, to reduce resource usage for smaller deployment sizes, and to scale your overall deployment.
 
 If you are not familiar with App Metrics components, see [App Metrics architecture](./architecture.html) before you continue with this topic.
 
 App Metrics depends on these datastores:
 
-* Metric Store.
-* Log Store.
-* Postgres database.
+* Metric Store
+* Log Store
+* Postgres database
 
 The Log Store and Postgres datastores are part of the App Metrics tile, and their scaling is discussed in more detail later in this topic. Metric Store datastore is separate.
 
@@ -28,10 +28,6 @@ Currently, VMware recommends that you scale vertically rather than horizontally.
 See [Limitations](https://docs.vmware.com/en/Metric-Store/index.html#limitations)
 in the Metric Store documentation.
 
-Currently, you can scale vertically rather than horizontally.
-
-For more information about limitations, see [Limitations](https://docs.vmware.com/en/Metric-Store/index.html#limitations)
-in the Metric Store documentation.
 
 ## <a id='configs-by-size'></a> Suggested sizing by deployment size
 
@@ -49,7 +45,7 @@ Estimate the size of your deployment according to how many apps you expect to de
    <tr><td><a href="#large">Large</a></td><td>Production use</td><td>15,000</td></tr>
 </table>
 
-**Metrics App** — App Metrics deploys the app, `appmetrics`. This app is responsible for serving the UI, proxy requests from the browser to metric and log store, and creating notifications for the user-created monitors.<br><br>
+**Metrics App** — App Metrics deploys the app, `appmetrics`. This app is responsible for serving the UI, relaying proxy requests from the browser to Metric Store and Log Store, and creating notifications for the user-created monitors.<br>
 Scale the `appmetrics` app to one instance.
 
 ### <a id='small'></a>Deployment resources for a small deployment
@@ -68,14 +64,14 @@ Use the following example resource configuration to store approximately six week
   <tr>
     <td>PostgreSQL</td>
     <td>1 (not configurable)</td>
-    <td>10GB</td>
-    <td>CPU Optimized with greater than or equal to 4 CPUs and greater than or equal to 8GB of memory</td>
+    <td>10 GB</td>
+    <td>CPU Optimized with 4 or more CPUs and 8 GB or more memory.</td>
   </tr>
   <tr>
     <td>Log Store</td>
     <td>3</td>
-    <td>200GB</td>
-    <td>Memory Optimized with greater than or equal to 2 CPUs and greater than or equal to 16GB of memory</td>
+    <td>200 GB</td>
+    <td>Memory Optimized with 2 or more CPUs and 16 GB or more memory.</td>
   </tr>
 </table>
 
@@ -95,14 +91,14 @@ Use the following example resource configuration to store approximately six week
   <tr>
     <td>PostgreSQL</td>
     <td>1 (not configurable)</td>
-    <td>10GB</td>
-    <td>CPU Optimized with greater than or equal to 8 CPUs and greater than or equal to 16GB of memory</td>
+    <td>10 GB</td>
+    <td>CPU Optimized with 8 or more CPUs and 16 GB or more memory.</td>
   </tr>
   <tr>
     <td>Log Store</td>
     <td>3</td>
-    <td>500GB</td>
-    <td>Memory Optimized with greater than or equal to 4 CPUs and greater than or equal to 32GB of memory</td>
+    <td>500 GB</td>
+    <td>Memory Optimized with 4 or more CPUs and 32 GB or more memory.</td>
   </tr>
 </table>
 
@@ -122,14 +118,14 @@ Use the following example resource configuration to store approximately six week
   <tr>
     <td>PostgreSQL</td>
     <td>1 (not configurable)</td>
-    <td>10GB</td>
-    <td>CPU Optimized with greater than or equal to 8 CPUs and greater than or equal to 16GB of memory</td>
+    <td>10 GB</td>
+    <td>CPU Optimized with 8 or more CPUs and 16 GB or more memory.</td>
   </tr>
   <tr>
     <td>Log Store</td>
     <td>6</td>
-    <td>500GB</td>
-    <td>Memory Optimized with greater than or equal to 8 CPUs and greater than or equal to 64GB of memory</td>
+    <td>500 GB</td>
+    <td>Memory Optimized with 8 or more CPUs and 64 GB or more memory.</td>
   </tr>
 </table>
 
@@ -137,14 +133,14 @@ Use the following example resource configuration to store approximately six week
 
 App Metrics retrieves logs from the Log Store.
 
-By default, App Metrics ships with three xlarge VMs with 500&nbsp;GB of persistent disk. You configure them in App Metrics tile Resource Config.
+By default, App Metrics ships with three extra large VMs with 500&nbsp;GB of persistent disk. You configure them in App Metrics tile Resource Config.
 
 The scaling of an individual log-store deployment is subject to many variables, including:
 
-* Required retention time.
-* Replication factor.
-* Log ingress volume.
-* The average size of log messages.
+* Required retention time
+* Replication factor
+* Log ingress volume
+* The average size of log messages
 
 <p class="note caution">
 <span class="note__title">Caution</span>
@@ -162,8 +158,8 @@ of log retention for an environment emitting 40,000 logs per second.
 **Scale recommendations**
 
 Maximum ingress throughput is primarily dependent on the number of VMs,
-with secondary consideration to CPU and Memory resources.
+with secondary consideration of CPU and Memory resources.
 Retention and Replication Factor primarily depends on the size of persistent disks attached to the VMs.
-Abnormally high cardinality of indexed information, for example, source_id and instance_id can place pressure
+Abnormally high cardinality of indexed information, for example, `source_id` and `instance_id` can place pressure
 on VM Memory.
 This is possible even in the absence of high log volume.
