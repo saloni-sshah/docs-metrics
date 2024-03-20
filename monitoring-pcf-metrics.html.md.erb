@@ -7,7 +7,7 @@ list_style_none: true
 
 
 You can monitor the health of the App Metrics service using the logs, metrics,
-and Key Performance Indicators (KPIs) emitted by Tanzu Application Service and the App Metrics application itself.
+and Key Performance Indicators (KPIs) emitted by Tanzu Application Service and the App Metrics application.
 
 For more information about monitoring TAS for VMs,
 see [Monitoring TAS for VMs](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/5.0/tas-for-vms/monitoring-index.html) in the Tanzu Application Service documentation.
@@ -15,7 +15,7 @@ see [Monitoring TAS for VMs](https://docs.vmware.com/en/VMware-Tanzu-Application
 ## <a id="healthwatch"></a>HealthWatch
 
 The premier way to monitor App Metrics is using [HealthWatch](https://docs.vmware.com/en/Healthwatch-for-VMware-Tanzu/2.2/healthwatch/configuring-index.html).
-Once installed, navigate to the JobHealth dashboard to view the App Metrics deployment which is named `appMetrics`.
+After HealthWatch is installed, navigate to the JobHealth dashboard to view the App Metrics deployment, which is named `appMetrics`.
 
 HealthWatch also supports [alerting](https://docs.vmware.com/en/HealthWatch-for-VMware-Tanzu/2.2/healthwatch/index.html) based on VM persistent
 disk percentage `system.disk.persistent.percent` and VM health `system.healthy`.
@@ -30,8 +30,8 @@ App Metrics also supports [alerting](https://docs.vmware.com/en/App-Metrics-for-
 Key Performance Indicators (KPIs) for App Metrics are metrics that you might find most useful for
 monitoring the App Metrics service. KPIs are high signal value metrics that can indicate emerging issues.
 
-VMware provides the following KPIs as general alerting and response guidance for typical App Metrics installations.
-You can continue to fine tune the alert measures for your installation by observing historical trends.
+App Metrics for VMware Tanzu provides the following KPIs as general alerting and response guidance for typical App Metrics installations.
+You can continue to fine-tune the alert measures for your installation by observing historical trends.
 
 You can expand beyond this guidance and create new, installation specific monitoring metrics, thresholds, and alerts that are based on learning from your own installations.
 
@@ -102,7 +102,7 @@ All BOSH deployed components generate the following metrics. You can monitor the
 All applications pushed using Cloud Foundry automatically emit the following application metrics.
 App Metrics is a single application and can be monitored by App Metrics or another application monitoring services.
 The following KPIs can indicate problems with App Metrics and are useful for monitoring any application.
-Non-routed applications return no data or all zeros for Latency, Errors and Traffic metrics.
+Non-routed applications return no data or all zeros for Latency, Errors, and Traffic metrics.
 
 <table>
 <thead>
@@ -166,9 +166,9 @@ Non-routed applications return no data or all zeros for Latency, Errors and Traf
 </thead>
    <tr>
       <th width="25%">Description</th>
-      <td>The amount of resources being utilized by the application.<br><br>
-      <strong>Use</strong>: This is made up of CPU, Memory and Disk.
-      Performance might degrade as the amount of resource used approach the Saturation
+      <td>The amount of resources being used by the application.<br><br>
+      <strong>Use</strong>: This is made up of CPU, Memory, and Disk.
+      Performance might degrade as the amount of resource used approaches the Saturation point.
       <br><br>
       <strong>CPU PromQl Used</strong>: avg(avg_over_time(cpu{source_id="sourceId"}[60s])) by (process_type, source_id)<br>
       <strong>CPU Type</strong>: percent <br>
