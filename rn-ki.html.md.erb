@@ -50,7 +50,7 @@ App Metrics v2.2.1 requires VMware Tanzu Application Service for VMs (TAS for VM
 ## <a id='log-store-fix'></a> Log Store fixes
 - **Added the new configuration setting Enable Envelope Selector:**
   - If enabled, only envelopes with application metric tags, such as `app_id` and `applicationGuid`, are kept.
-  - This release adds the corresponding `nozzle_skipped_envelopes_by_tag_total` metric. For more information, see [Nozzle Job Metrics](https://docs.vmware.com/en/Metric-Store/1.6/metric-store/GUID-monitoring.html).
+  - This release adds the corresponding `nozzle_skipped_envelopes_by_tag_total` metric. For more information, see [Nozzle Job Metrics](https://docs.vmware.com/en/Metric-Store/1.6/metric-store/GUID-monitoring.html) in the Metric Store documentation.
   - You can configure Enable Envelope Selector in Tanzu Operations Manager.
 
 ### <a id='2-2-0'></a> v2.2.0
@@ -76,6 +76,7 @@ National Vulnerability Database.
 to the first position on the list.
 
 ## <a id='log-store-fix'></a> Log Store fixes
+
 * **[Security Fix]** ] The Prometheus dependency is updated to avoid a security vulnerability in earlier versions of App Metrics.
 * **[Bug Fix]** Fixes the issue with the log store VM failing
 due to the log store process that was related to the startup process using corrupted TSM files. For more information, see [Log store VM keeps failing](https://pivotal-io.atlassian.net/browse/APPMETRICS-100).
