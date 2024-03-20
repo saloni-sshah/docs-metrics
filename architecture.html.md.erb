@@ -5,18 +5,27 @@ owner: App Metrics
 list_style_none: true
 ---
 
-<strong><%= modified_date %></strong>
-
 The following diagram shows you the components of App Metrics and the Platform components that App Metrics interacts with.
 
 To understand the architecture diagram, see the following guidelines:
 
-* Cornered rectangles represent Platform tiles that App Metrics depends on.
-* Rounded rectangles represent customer interaction points.
-* Cylinders represent the data storage components of App Metrics.
-* Blue colored components are packaged with App Metrics.
+* Cornered rectangles represent Platform tiles that App Metrics depends on (Cloud Controller, UAA, Metric Store tile). The Cloud Controller and UAA blocks make up the Tanzu Application Service (TAS for VMs) tile.
+* Rounded rectangles represent customer interaction points (web browser, HTTP client).
+* Cylinders represent the data storage components of App Metrics (log-store, Postgres).
+* Blue colored components are packaged with App Metrics (App Metrics, log-store, and Postgres).
 
 ![App Metrics and platform components interaction architecture](./images/app-metrics-2-0-architecture.svg)
+
+Inputs to App Metrics:
+* Cloud Controller
+* UAA
+* log-store
+* HTTP client
+
+Outputs from App Metrics go to:
+* Metric Store tile
+* Postgres
+* web browser
 
 ## <a id="data-flow"></a>Data flow
 
