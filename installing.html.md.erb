@@ -5,49 +5,38 @@ owner: App Metrics
 list_style_none: true
 ---
 
-<strong><%= modified_date %></strong>
-Before you begin your installation of App Metrics there are certain prerequisites you need to know about.
 
-Here are your prerequisites to install App Metrics:
+Before you begin your installation of App Metrics, there are some prerequisites you need to know about.
+
+Here are the prerequisites to installing App Metrics:
 
 <p class="note">
 <span class="note__title">Note</span>
 App Metrics v2.0 and higher requires <a href="https://docs.vmware.com/en/Metric-Store/index.html" target="_blank">Metric Store</a> as its metrics datastore. You must install this tile before installing App Metrics.</p>
 
-To avoid installation errors, for the Metrics v1.x tile, turn off:
+* To avoid installation errors, for the Metrics v1.x tile, turn off: `Push App Metrics Components Errand`.
 
- `Push App Metrics Components Errand`.
+* Allow App Metrics to take possession of the metrics from the Metric Store: `Your-SYSTEM-DOMAIN`.
 
-Allow App Metrics to take possession of the metrics from the Metric Store:
-
- `Your-SYSTEM-DOMAIN`.
-
-Metrics v1.x is accessible at:
-
- `metrics-previous.YOUR-SYSTEM-DOMAIN`.
+* Metrics v1.x is accessible at: `metrics-previous.YOUR-SYSTEM-DOMAIN`.
 
 ## <a id='AddTile'></a>Downloading App Metrics
 
-<ol>
-<li>After you install the <a href="https://docs.vmware.com/en/Metric-Store/index.html" target="_blank">Metric Store</a>
-tile in Tanzu Operations Manager, download the App Metrics 2.0 product file from <a href="https://network.tanzu.vmware.com/products/apm/releases" target="_blank">VMware Tanzu Network</a>.</li>
-<li>Go to the Tanzu Operations Manager Installation Dashboard and click <strong>Import a Product</strong> to upload the product file.</li>
-<li>Under the Import a Product button, click <strong>+</strong> next to the version number of App Metrics. This adds the tile to your staging area.</li>
-</ol>
+1. After you install the <a href="https://docs.vmware.com/en/Metric-Store/index.html" target="_blank">Metric Store</a>
+tile in Tanzu Operations Manager, download the App Metrics 2.0 product file from <a href="https://network.tanzu.vmware.com/products/apm/releases" target="_blank">VMware Tanzu Network</a>.
+1. Go to the Tanzu Operations Manager Installation Dashboard and click **Import a Product** to upload the product file.
+2. Under the **Import a Product** button, click **+** next to the version number of App Metrics. This adds the tile to your staging area.
 
 ## <a id='ConfigureAzs'></a>Configuring availability zones and networks
 
 To start using App Metrics, you must configure the App Metrics tile:
-<ol>
-<li>Click <strong>App Metrics</strong> tile on the Tanzu Operations Manager Installation Dashboard.</li>
-<li>Go to <strong>Assign AZs and Networks</strong> and do the following:</li>
-<ul>
-<li>Select an Availability Zone (AZ) for placing singleton jobs.</li>
-<li>Select one or more AZs for balancing other jobs.
 
-To create a highly available environment, select multiple AZs and select Network for the App Metrics installation.
-</ul>
-</ol>
+1. Click the App Metrics tile on the Tanzu Operations Manager Installation Dashboard.
+1. Click **Assign AZs and Networks** and do the following:
+    * Select an Availability Zone (AZ) for placing singleton jobs.
+    * Select one or more AZs for balancing other jobs.
+
+To create a highly available environment, select multiple AZs and select **Network** for the App Metrics installation.
 
 ## <a id='ConfigureProxy'></a>Configuring App Metrics to use HTTP or SOCKS proxy server (Optional)
 
@@ -65,7 +54,7 @@ Configure a HTTP or HTTPS Proxy Server through the cf CLI:
     Where:
 
     * `API-URL` is your API endpoint.
-    * `USERNAME` is your username.
+    * `USERNAME` is your user name.
     * `PASSWORD` is your password.
 
 2. Update the `HTTP_PROXY` or `HTTPS_PROXY` environment variable and run:
@@ -95,12 +84,12 @@ Configure a HTTP or HTTPS Proxy Server through the cf CLI:
 
 To start a HTTP or HTTPS proxy server, use the cf CLI, then switch to a SOCKS protocol in the Tanzu Operations Manager UI and follow these steps:
 
-  1. Click **App Metrics** tile on the Tanzu Operations Manager Installation Dashboard.
-  1. Go to **App Metrics Components Config** pane.
-  1. Click **Enable Socks Proxy**. This check box sets the `USE_SOCKS_PROXY`
-  environment variable and overrides the protocol for the proxy to use SOCKS instead of HTTP or HTTPS.
+1. Click the App Metrics tile on the Tanzu Operations Manager Installation Dashboard.
+2. Go to the **App Metrics Components Config** pane.
+3. Click **Enable Socks Proxy**. This check box sets the `USE_SOCKS_PROXY`
+environment variable and overrides the protocol for the proxy to use SOCKS instead of HTTP or HTTPS.
 
-  1. Even though the HTTP or HTTPS proxy was overridden, you must begin by setting it. To set it, log in to the cf CLI and run:
+1. Even though the HTTP or HTTPS proxy was overridden, you must begin by setting it. To set it, log in to the cf CLI and run:
 
       ```console
       cf login -a API-URL -u USERNAME -p PASSWORD -o system -s app-metrics-v2
@@ -109,7 +98,7 @@ To start a HTTP or HTTPS proxy server, use the cf CLI, then switch to a SOCKS pr
       Where:
 
       * `API-URL` is your API endpoint.
-      * `USERNAME` is your username.
+      * `USERNAME` is your user name.
       * `PASSWORD` is your password.
 
   1. Update the `HTTP_PROXY` or `HTTPS_PROXY` environment variable:
@@ -132,51 +121,48 @@ To start a HTTP or HTTPS proxy server, use the cf CLI, then switch to a SOCKS pr
 The HTTP proxy environment variables must be uppercase.
 
 For more information
-    about setting system-wide environment variables, see [Environment Variable Groups](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#evgroups)
-    in the Cloud Foundry Documentation.
+about setting system-wide environment variables, see [Environment Variable Groups](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#evgroups)
+in the Cloud Foundry Documentation.
 
 ## <a id='ConfigureFeatures'></a>Configuring App Metrics components (Optional)
 
 To configure the settings for App Metrics components, including Log Store, follow these steps:
-<ol>
-<li>Click <strong>App Metrics</strong> tile on the Tanzu Operations Manager Installation Dashboard.</li>
-<li>Go to the <strong>App Metrics Components Config</strong> pane.</li>
-<li>Deactivate <strong>Logs Drawer</strong> on the App Metrics dashboard,and deselect the <strong>App Metrics Enable Logs</strong> check box (the default setting is activated).</li>
-<li>Set App Metrics Logs Prune Threshold disk capacity percentage (the default setting is 80%). This is the disk percentage that Log Store starts to prune starting with the oldest logs.</li>
-<li>Set the <strong>App Metrics Logs Prune Interval</strong>. By default, the setting is two minutes).
-This is the frequency the Log Store checks the disk capacity to make your pruning decision.</li>
-</ol>
+
+1. Click the App Metrics tile on the Tanzu Operations Manager Installation Dashboard.
+1. Go to the **App Metrics Components Config** pane.
+1. Deactivate **Logs Drawer** on the App Metrics dashboard,and deselect the **App Metrics Enable Logs** check box (the default setting is selected).
+1. Set the **App Metrics Logs Prune Threshold** disk capacity percentage (the default setting is 80%). This is the disk percentage at which Log Store starts to prune, starting with the oldest logs.
+1. Set the **App Metrics Logs Prune Interval**. By default, the setting is two minutes.
+This is the frequency at which the Log Store checks the disk capacity to make your pruning decision.
 
 ## <a id='ConfigureSyslog'> </a> Configuring syslog forwarding (Optional)
 
-App Metrics supports forwarding syslog to an external log management service. For example Papertrail, Inc., Splunk Technology, or another custom enterprise log sink.
+App Metrics supports forwarding syslog to an external log management service. Some supported log management services are Papertrail, Splunk, or you can use another custom enterprise log sink.
 You might find the VM logs useful for debugging problems in the system.
 
-To enable remote syslog forwarding for Healthwatch:
+To enable remote syslog forwarding for HealthWatch:
 
-1. Click **App Metrics** tile on the Tanzu Operations Manager Installation Dashboard.
+1. Click the App Metrics tile on the Tanzu Operations Manager Installation Dashboard.
 
 2. Go to the **Syslog** pane.
 
-3. Select **Yes without encryption** or **Yes with TLS encryption** to activate syslog forwarding.
+3. Select **Yes without encryption** or **Yes with TLS encryption** to enable syslog forwarding.
 
-   * **External Syslog Host**: address of syslog server where you want logs sent. For example, [logs.example.com].
-   * **External Syslog Port**: port of your syslog server. For example, [29279].
-   * **External Syslog Protocol**: protocol for sending the logs.
-   * **External Syslog Permitted Peer**: enter the fingerprint or name of the remote peer. For example, [*.example.com]. (TLS only).
-   * **External Syslog TLS CA Certificate**: enter the CA certificate of the syslog destination.(TLS only).
+   * **External Syslog Host**: the address of syslog server where you want logs sent. For example, [logs.example.com].
+   * **External Syslog Port**: the port of your syslog server. For example, [29279].
+   * **External Syslog Protocol**: the protocol for sending the logs.
+   * **External Syslog Permitted Peer**: the fingerprint or name of the remote peer. For example, [*.example.com]. (TLS only).
+   * **External Syslog TLS CA Certificate**: the CA certificate of the syslog destination.(TLS only).
 
 ## <a id='ConfigureMetricRegistrar'></a>Configuring Metric Registrar for Spring Boot Metrics (Optional)
 
-For Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated with the VMware Tanzu Application Service for VMs (TAS for VMs) tile.
+For Metric Registrar to accurately report Spring Metrics, the configuration for Metric Registrar must be updated with the VMware Tanzu Application Service (TAS for VMs) tile.
 
 To update the Metric Registrar configuration:
 
-<ol>
-<li>Click <strong>TAS for VMs</strong> tile on the Tanzu Operations Manager Installation Dashboard.</li>
-<li>Go to <strong>Metric Registrar</strong> pane.</li>
-<li>Update the <strong>Blocked</strong> tags list and remove the `id` tag.</li>
-</ol>
+1. Click the TAS for VMs tile on the Tanzu Operations Manager Installation Dashboard.
+1. Go to the **Metric Registrar** pane.
+1. Update the **Blocked** tags list and remove the `id` tag.
 
 ## <a id='AppManagerLinkConfig'></a> Activating the App Metrics link in Apps Manager (Optional)
 
@@ -190,7 +176,7 @@ Use this topic if **View in App Metrics** does not appear in Apps Manager, and, 
 
 If your deployment has restrictive networking policies around your request proxy, the **View in App Metrics** link might not appear in Apps Manager.
 
-To resolve this issue and activate the App Metrics link in Apps Manager:
+To resolve this issue and enable the App Metrics link in Apps Manager:
 
 1. Log in to cf CLI and run:
 
@@ -201,7 +187,7 @@ To resolve this issue and activate the App Metrics link in Apps Manager:
     Where:
 
     * `API-URL` is your API endpoint.
-    * `USERNAME` is your username.
+    * `USERNAME` is your user name.
     * `PASSWORD` is your password.
 
 2. Update the `no_proxy` environment variable for the `search-server` app to include your system domain:
@@ -210,7 +196,7 @@ To resolve this issue and activate the App Metrics link in Apps Manager:
     cf set-env search-server no_proxy '*.SYSTEM-DOMAIN'
     ```
 
-    where `SYSTEM-DOMAIN` is the system domain configured for your deployment.
+    Where `SYSTEM-DOMAIN` is the system domain configured for your deployment.
 
     For example:
     <pre class="terminal">

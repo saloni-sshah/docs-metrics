@@ -5,7 +5,6 @@ owner: App Metrics
 list_style_none: true
 ---
 
-<strong><%= modified_date %></strong>
 
 You can monitor the health of the App Metrics service using the logs, metrics,
 and Key Performance Indicators (KPIs) emitted by Tanzu Application Service and the App Metrics application itself.
@@ -13,12 +12,12 @@ and Key Performance Indicators (KPIs) emitted by Tanzu Application Service and t
 For more information about monitoring TAS for VMs,
 see [Monitoring TAS for VMs](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/5.0/tas-for-vms/monitoring-index.html) in the Tanzu Application Service documentation.
 
-## <a id="healthwatch"></a>Healthwatch
+## <a id="healthwatch"></a>HealthWatch
 
-The premier way to monitor App Metrics is using [Healthwatch](https://docs.vmware.com/en/Healthwatch-for-VMware-Tanzu/2.2/healthwatch/configuring-index.html).
+The premier way to monitor App Metrics is using [HealthWatch](https://docs.vmware.com/en/Healthwatch-for-VMware-Tanzu/2.2/healthwatch/configuring-index.html).
 Once installed, navigate to the JobHealth dashboard to view the App Metrics deployment which is named `appMetrics`.
 
-Healthwatch also supports [alerting](https://docs.vmware.com/en/Healthwatch-for-VMware-Tanzu/2.2/healthwatch/index.html) based on VM persistent
+HealthWatch also supports [alerting](https://docs.vmware.com/en/HealthWatch-for-VMware-Tanzu/2.2/healthwatch/index.html) based on VM persistent
 disk percentage `system.disk.persistent.percent` and VM health `system.healthy`.
 
 ## <a id="appmetrics"></a>App Metrics dashboard
