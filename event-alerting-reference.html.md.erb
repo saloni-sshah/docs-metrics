@@ -5,7 +5,6 @@ owner: App Metrics
 list_style_none: true
 ---
 
-<strong><%= modified_date %></strong>
 
 To monitor events from apps using App Metrics, select **Enable Event Alerting**
 in Tanzu Operations Manager on the App Metrics tile. Go to **Settings** and select **App Metrics Components Config** to use the Event Alerting feature.
@@ -13,29 +12,29 @@ This optional feature contains detailed information about the schema and API for
 
 To upload a Log Monitor Document, see [cURLing your Log Monitor Document to App Metrics](#curling-log-monitor-document).
 
-For more information about the schema and API, see [Log Monitor Document API specification](#log-monitor-document-api-spec). It also contains an example for log monitor document, named `LogMonitorDocumentExample`.
+For more information about the schema and API, see [Log Monitor Document API specification](#log-monitor-document-api-spec). It also contains an example log monitor document, named `LogMonitorDocumentExample`.
 
 ## <a id='curling-log-monitor-document'></a> cURLing your Log Monitor Document to App Metrics
 
 After you prepare your Log Monitor Document, push it to App Metrics using the cURL command line.
-The endpoint is the same as the Monitor Document.
+The endpoint is the same as for the Monitor Document.
 
-### Linux/Mac:
+### Linux/Mac
 
-````python
+```python
 curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: $(cf oauth-token)" --data-binary "@[LOG-MONITOR-DOCUMENT.yml]"
-````
+```
 
 Where `LOG-MONITOR-DOCUMENT` is the name of your Log Monitor Document YAML file.
 
-### Windows:
+### Windows
 
 1. Copy your OAuth token to the clipboard: `cf oauth-token`
 2. Paste your OAuth token into the following command:
 
-````python
+```python
 curl -vvv https://metrics.sys.DOMAIN/monitor-documents -H "Authorization: [AUTH-TOKEN]" --data-binary "@[LOG-MONITOR-DOCUMENT.yml]"
-````
+```
 
 Where:
   * `AUTH-TOKEN` is the OAuth token you copied in the previous step.
