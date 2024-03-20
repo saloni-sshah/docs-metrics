@@ -35,10 +35,10 @@ The following sections describe the components and how they contribute to the da
 
 Metrics are ingested and stored by the Metric Store tile.
 
-App Metrics uses the Metric Store tile for:
+App Metrics uses the Metric Store tile to:
 
-* Querying for metrics.
-* Registering monitors to receive alerts when metrics surpass the thresholds.
+* Query for metrics
+* Register monitors to receive alerts when metrics surpass the thresholds
 
 For more information about the Metric Store tile,
 see the [Metric Store documentation](https://docs.vmware.com/en/Metric-Store/index.html).
@@ -47,12 +47,12 @@ see the [Metric Store documentation](https://docs.vmware.com/en/Metric-Store/ind
 
 Metrics Registrar collects custom application metrics. Metrics Registrar is bundled with VMware Tanzu Application Service for VMs (TAS for VMs), which is a dependency of App Metrics.
 
-To see custom application metrics for App Metrics, you must configure Metrics Registrar to scrape Prometheus style metrics from your applications. These custom metrics are available in the Metrics Store and appear in the App Metrics UI to digest the data.
+To see custom application metrics for App Metrics, you must configure Metrics Registrar to scrape Prometheus-style metrics from your applications. These custom metrics are available in the Metrics Store and appear in the App Metrics UI to digest the data.
 
 For more information about Metrics Registrar, see:
 
-* [Metric Registrar and Custom App Metrics](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/metric-registrar-index.html)
-* [Using Metric Registrar](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/metric-registrar-using.html)
+* [Metric Registrar and Custom App Metrics](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/5.0/tas-for-vms/metric-registrar-index.html)
+* [Using Metric Registrar](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/5.0/tas-for-vms/metric-registrar-using.html)
 
 ### <a id="logs"></a> Logs
 
@@ -61,7 +61,7 @@ The Log Store is a time series database for storing and querying application log
 Logs are streamed into the Log Store through the Loggregator V2 endpoint and stored through the Influx Storage Engine.
 
 Log Store provides the capability, for distributed configurations, to be scaled out to use multiple nodes.
-Each node, in a Log Store deployment, manages disk usage to maximize stored logs without exceeding a
+Each node in a Log Store deployment, manages disk usage to maximize stored logs without exceeding the
 configured maximum disk utilization.
 
 App Metrics queries the Log Store for logs, log searches, and density histograms.
@@ -81,8 +81,8 @@ appear in the charts on your App Metrics dashboard.
 
 ### <a id="security"></a> Security
 
-**In Transit**: All communication with the PostgreSQL datastore is through the Transport Layer Security (TLS) protocol,
-and follows the guidelines in [PostgreSQL documentation](https://www.postgresql.org/docs/11/ssl-tcp.html).
+**In Transit**: All communication with the PostgreSQL datastore is done through the Transport Layer Security (TLS) protocol,
+and follows the guidelines in the [PostgreSQL documentation](https://www.postgresql.org/docs/11/ssl-tcp.html).
 
 **At Rest**: The PostgreSQL datastore does not store any sensitive information,
 so by default it is not encrypted.
