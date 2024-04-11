@@ -9,6 +9,7 @@
 * [Monitor App Metrics](/docs-metrics/monitoring-pcf-metrics.html)
 * [Troubleshoot App Metrics](/docs-metrics/troubleshooting.html)
 * [Monitor log store](/docs-metrics/monitoring-log-store.html)
+* [Configure logs with OTel collector support](./configure-otel-collector.html.md.erb)
 * [Indicator Document reference for App Metrics](/docs-metrics/indicator-document-reference.html)
 * [Monitor Document reference for App Metrics](/docs-metrics/monitor-document-reference.html)
 * [Event alerts in App Metrics](/docs-metrics/event-alerting-reference.html)

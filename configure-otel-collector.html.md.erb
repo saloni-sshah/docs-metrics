@@ -1,0 +1,28 @@
+---
+breadcrumb: App Metrics Documentation
+title: Configure logs with OTel collector support
+owner: App Metrics
+list_style_none: true
+---
+
+This topic describes how you can enable logging using the OpenTelemetry (OTel) collector.
+
+To enable logging using the OTel collector, follow these steps to configure the syslog drain URL in Tanzu Application Service:  
+
+1. Go to the Tanzu Ops Manager and navigate to the **Small Footprint VMware Tanzu Application Service** tile.
+1. In the **Settings** tab, go to the **System Logging** section.
+1. Ensure that the following check boxes are unselected to support the OTel collector:
+   * **Enable V1 Firehose**
+   * **Enable V2 Firehose**
+
+1. Configure the syslog drain URL by clicking the **Add** button next to **Aggregate syslog drain destinations**.
+    1. Set the Syslog Drain URL to `syslog-tls://log-store.service.internal:50015`.
+    1. See the document to obtain value of Certificate Authority for the Client Certificate.
+    1. For the Client Certificate:
+       1. Go to the **App Metrics** tile on the Tanzu Operations Manager.
+       2. Click the provided link for Syslog Provider Mtls Credential to obtain the `cert_pem`.
+    1. For the RSA Private Key:
+        1. Navigate to the "App Metrics" tile on the Tanzu Ops Manager.
+        2. Click the provided link for Syslog Provider Mtls Credential to obtain the `private_key_pem`.
+1. Click **Save** to persist the configuration.
+1. Restart the Tanzu Operations Manager to apply the changes.
