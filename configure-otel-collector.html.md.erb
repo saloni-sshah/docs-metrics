@@ -17,12 +17,12 @@ To enable logging using the OTel Collector, follow these steps to configure the 
 
 1. Configure the syslog drain URL by clicking the **Add** button next to **Aggregate syslog drain destinations**.
     1. Set the Syslog Drain URL to `syslog-tls://log-store.service.internal:50015`.
-    1. See the document to obtain value of Certificate Authority for the Client Certificate.
-    1. For the Client Certificate:
+    2. See [Managing certificates with the Tanzu Operations Manager API](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/security-pcf-infrastructure-managing-certificates.html) to obtain value of Certificate Authority for the Client Certificate.
+    3. For the Client Certificate:
        1. Go to the **App Metrics** tile on the Tanzu Operations Manager.
        2. Click the provided link for Syslog Provider Mtls Credential to obtain the `cert_pem`.
-    1. For the RSA Private Key:
+    4. For the RSA Private Key:
         1. Navigate to the "App Metrics" tile on the Tanzu Ops Manager.
         2. Click the provided link for Syslog Provider Mtls Credential to obtain the `private_key_pem`.
-1. Click **Save** to persist the configuration.
-1. Restart the Tanzu Operations Manager to apply the changes.
+2. Click **Save** to persist the configuration.
+3. Restart the Tanzu Operations Manager to apply the changes.
