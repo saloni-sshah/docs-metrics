@@ -13,6 +13,7 @@ This topic describes how you can use configure [System Logging](https://docs.vmw
 For logging, follow these steps to configure an aggregate syslog drain destination in VMware Tanzu Application Service for VMs (TAS for VMs):
 1. Configure the aggregate syslog drain URL by clicking the **Add** button next to **Aggregate syslog drain destinations**.
     1. Set the Syslog Drain URL to `syslog-tls://log-store.service.internal:50015`.
+
     1. For the Certificate Authority:
       1. Enter the [Root CA from Tanzu Operations Manger](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/security-pcf-infrastructure-managing-certificates.html#retrieve-the-tanzu-operations-manager-root-ca-2)
     1. For the Client Certificate:
@@ -52,3 +53,12 @@ otlp:
     1. Paste the `private_key_pem` for the Certificate PEM
 1. Click **Save** to persist the configuration.
 1. Changes to the TAS for VMs tile must be applied before App Metrics and Metric Store can be used without the firehose.
+    2. See [Managing certificates with the Tanzu Operations Manager API](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/security-pcf-infrastructure-managing-certificates.html) to obtain value of Certificate Authority for the Client Certificate.
+    3. For the Client Certificate:
+       1. Go to the **App Metrics** tile on the Tanzu Operations Manager.
+       2. Click the provided link for Syslog Provider Mtls Credential to obtain the `cert_pem`.
+    4. For the RSA Private Key:
+        1. Navigate to the "App Metrics" tile on the Tanzu Ops Manager.
+        2. Click the provided link for Syslog Provider Mtls Credential to obtain the `private_key_pem`.
+2. Click **Save** to persist the configuration.
+3. Restart the Tanzu Operations Manager to apply the changes.
