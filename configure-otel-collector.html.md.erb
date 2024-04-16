@@ -1,22 +1,58 @@
 ---
 breadcrumb: App Metrics Documentation
-title: Configure logs with OTel Collector support
+title: Configure syslog and OTel Collector support
 owner: App Metrics
 list_style_none: true
 ---
 
-This topic describes how you can enable logging using the OpenTelemetry (OTel) Collector.
+This topic describes how you can use configure [System Logging](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/6.0/tas-for-vms/config-sys-logs.html) and the [OpenTelemetry (OTel) Collector](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/6.0/tas-for-vms/opentelemetry.html) for App Metrics
 
-To enable logging using the OTel Collector, follow these steps to configure the syslog drain URL in Tanzu Application Service:  
+1. In Tanzu Ops Manager, and navigate to the TAS for VMs tile.
+1. In the **Settings** tab, go to the **System Logging** pane.
 
-1. Go to the Tanzu Ops Manager and navigate to the **Small Footprint VMware Tanzu Application Service** tile.
-1. In the **Settings** tab, go to the **System Logging** section.
-1. Ensure that the following check boxes are unselected to support the OTel Collector:
-   * **Enable V1 Firehose**
-   * **Enable V2 Firehose**
-
-1. Configure the syslog drain URL by clicking the **Add** button next to **Aggregate syslog drain destinations**.
+For logging, follow these steps to configure an aggregate syslog drain destination in VMware Tanzu Application Service for VMs (TAS for VMs):
+1. Configure the aggregate syslog drain URL by clicking the **Add** button next to **Aggregate syslog drain destinations**.
     1. Set the Syslog Drain URL to `syslog-tls://log-store.service.internal:50015`.
+
+    1. For the Certificate Authority:
+      1. Enter the [Root CA from Tanzu Operations Manger](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/security-pcf-infrastructure-managing-certificates.html#retrieve-the-tanzu-operations-manager-root-ca-2)
+    1. For the Client Certificate:
+       1. The Certificate PEM can be obtained from the App Metrics tile
+          1. Go to the App Metrics tile on the Tanzu Operations Manager.
+          1. Select the **Credentials** Tab
+          1. Select the Link to Credential for Syslog Provider Mtls `cert_pem`.
+          1. Paste the `cert_pem` for the Certificate PEM
+       1. The Private Key PEM can be obtained from the App Metrics tile
+          1. Go to the App Metrics tile on the Tanzu Operations Manager.
+          1. Select the **Credentials** Tab
+          1. Select the Link to Credential for Syslog Provider Mtls `cert_pem`.
+          1. Paste the `private_key_pem` for the Certificate PEM
+          1. Navigate to the "App Metrics" tile on the Tanzu Ops Manager.
+
+For metrics, follow these steps Otel metrics collection in VMware Tanzu Application Service for VMs (TAS for VMs):
+1. Configure Otel by entering the following into **OpenTelemetry Collector Metric Exporters (beta)**.
+```
+otlp:
+  endpoint: dns:metric-store.service.internal:6062
+  tls:
+    ca_pem: < Ops Manager Root CA >
+    cert_pem: < Otel Provider Mtls cert_pem >
+    key_pem: < Otel Provider Mtls private_key_pem>
+```
+  1. For the Certificate Authority:
+  1. Enter the [Root CA from Tanzu Operations Manger](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/security-pcf-infrastructure-managing-certificates.html#retrieve-the-tanzu-operations-manager-root-ca-2)
+  1. The Certificate PEM can be obtained from the Metric Store tile
+    1. Go to the Metric Store tile on the Tanzu Operations Manager.
+    1. Select the **Credentials** Tab
+    1. Select the Link to Credential for Otel Provider Mtls `cert_pem`.
+    1. Paste the `cert_pem` for the Certificate PEM
+  1. The Key PEM can be obtained from the Metric Store tile
+    1. Go to the Metric Store tile on the Tanzu Operations Manager.
+    1. Select the **Credentials** Tab
+    1. Select the Link to Credential for Otel Provider Mtls `cert_pem`.
+    1. Paste the `private_key_pem` for the Certificate PEM
+1. Click **Save** to persist the configuration.
+1. Changes to the TAS for VMs tile must be applied before App Metrics and Metric Store can be used without the firehose.
     2. See [Managing certificates with the Tanzu Operations Manager API](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/security-pcf-infrastructure-managing-certificates.html) to obtain value of Certificate Authority for the Client Certificate.
     3. For the Client Certificate:
        1. Go to the **App Metrics** tile on the Tanzu Operations Manager.
