@@ -21,13 +21,17 @@ For logging, follow these steps to configure an aggregate syslog drain destinati
           1. Go to the App Metrics tile on Tanzu Operations Manager.
           2. Select the **Credentials** Tab.
           3. Select the Link to Credential for Syslog Provider Mtls `cert_pem`.
-          4. Paste the `cert_pem` for the Certificate PEM.
+          4. Copy the `cert_pem` certificate to your local system and save it as `certificate.pem`.
+          5. Remove any newline characters from `certificate.pem` using the command `awk '{gsub(/\\n/,"\n")}1' certificate.pem > certificate_single_line.pem`.
+          6. Paste the contents of the converted `certificate_single_line.pem` file for the Certificate PEM.
        2. The Private Key PEM can be obtained from the App Metrics tile.
           1. Go to the App Metrics tile on Tanzu Operations Manager.
           2. Select the **Credentials** tab.
           3. Select the Link to Credential for Syslog Provider Mtls `cert_pem`.
-          4. Paste the `private_key_pem` for the Certificate PEM.
-          5. Navigate to the "App Metrics" tile on Tanzu Operations Manager.
+          4. Copy the `private_key_pem` certificate to your local system and save it as `private_key.pem`.
+          5. Remove any newline characters from `private_key.pem` using the command `awk '{gsub(/\\n/,"\n")}1' private_key.pem > private_key_single_line.pem`.
+          4. Paste the contents of the converted `private_key_single_line.pem` file for the Private Key PEM.
+          5. Navigate to the App Metrics tile on Tanzu Operations Manager.
 
 For metrics, follow these steps for Otel metrics collection in VMware Tanzu Application Service for VMs (TAS for VMs):
 
@@ -42,7 +46,7 @@ For metrics, follow these steps for Otel metrics collection in VMware Tanzu Appl
         key_pem: < Otel Provider Mtls private_key_pem>
     ```
 1. For the Certificate Authority:
-  1. Enter the [Root CA from Tanzu Operations Manger](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/security-pcf-infrastructure-managing-certificates.html#retrieve-the-tanzu-operations-manager-root-ca-2)
+  1. You can get the [Root CA from Tanzu Operations Manger](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/security-pcf-infrastructure-managing-certificates.html#retrieve-the-tanzu-operations-manager-root-ca-2) and convert it to the [single line format](https://docs.vmware.com/en/Unified-Access-Gateway/3.10/com.vmware.uag-310-deploy-config.doc/GUID-870AF51F-AB37-4D6C-B9F5-4BFEB18F11E9.html) for `ca_pem`
   2. You can get the Certificate PEM from the Metric Store tile.
     1. Go to the Metric Store tile on Tanzu Operations Manager.
     2. Select the **Credentials** tab.
@@ -60,7 +64,7 @@ For metrics, follow these steps for Otel metrics collection in VMware Tanzu Appl
        1. Go to the **App Metrics** tile on Tanzu Operations Manager.
        2. Click the provided link for Syslog Provider Mtls Credential to obtain the `cert_pem`.
     3. For the RSA Private Key:
-        1. Navigate to the "App Metrics" tile on Tanzu Operations Manager.
+        1. Navigate to the App Metrics tile on Tanzu Operations Manager.
         2. Click the provided link for Syslog Provider Mtls Credential to obtain the `private_key_pem`.
 4. Click **Save** to persist the configuration.
 5. Restart Tanzu Operations Manager to apply the changes.
