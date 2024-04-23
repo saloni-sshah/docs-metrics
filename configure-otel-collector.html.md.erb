@@ -21,17 +21,15 @@ For logging, follow these steps to configure an aggregate syslog drain destinati
           1. Go to the App Metrics tile on Tanzu Operations Manager.
           2. Select the **Credentials** Tab.
           3. Select the Link to Credential for Syslog Provider Mtls `cert_pem`.
-          4. Copy the `cert_pem` certificate to your local system and save it as `certificate.pem`.
-          5. Remove any newline characters from `certificate.pem` using the command `awk '{gsub(/\\n/,"\n")}1' certificate.pem > certificate_single_line.pem`.
-          6. Paste the contents of the converted `certificate_single_line.pem` file for the Certificate PEM.
+          4. Save the `cert_pem certificate` locally as `certificate.pem`.
+          5. Utilize the command `awk '{printf "%s\\n", $0}' certificate.pem` to extract the Certificate PEM.
        2. The Private Key PEM can be obtained from the App Metrics tile.
           1. Go to the App Metrics tile on Tanzu Operations Manager.
           2. Select the **Credentials** tab.
           3. Select the Link to Credential for Syslog Provider Mtls `cert_pem`.
           4. Copy the `private_key_pem` certificate to your local system and save it as `private_key.pem`.
-          5. Remove any newline characters from `private_key.pem` using the command `awk '{gsub(/\\n/,"\n")}1' private_key.pem > private_key_single_line.pem`.
-          4. Paste the contents of the converted `private_key_single_line.pem` file for the Private Key PEM.
-          5. Navigate to the App Metrics tile on Tanzu Operations Manager.
+          4. Save the `private_key_pem` certificate locally as `private_key.pem`.
+          5. Utilize the command `awk '{printf "%s\\n", $0}' private_key_pem` to extract the Private Key PEM.
 
 For metrics, follow these steps for Otel metrics collection in VMware Tanzu Application Service for VMs (TAS for VMs):
 
