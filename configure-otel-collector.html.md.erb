@@ -9,6 +9,14 @@ This topic describes how you can use configure [System Logging](https://docs.vmw
 
 1. In Tanzu Operations Manager, navigate to the Tanzu Application Service for VMs tile.
 2. In the **Settings** tab, go to the **System Logging** pane.
+3. Perform one of the following actions based on your preference:
+    1. To switch from Firehose to OTel Collector, uncheck the following checkboxes :
+        1. Enable V1 Firehose
+        2. Enable V2 Firehose
+    2. To enable both Firehose and OTel Collector simultaneously:
+        1. In Tanzu Operations Manager, navigate to the App Metrics tile.
+        2. In the **Settings** tab, go to the **App Metrics Components Config**.
+        3. Check the option for Enable Syslog Receiver
 
 For logging, follow these steps to configure an aggregate syslog drain destination in VMware Tanzu Application Service for VMs (TAS for VMs):
 
@@ -37,6 +45,7 @@ For metrics, follow these steps for Otel metrics collection in VMware Tanzu Appl
     ```
     otlp:
       endpoint: dns:metric-store.service.internal:6062
+      balancer_name: round_robin
       tls:
         ca_pem: < Ops Manager Root CA >
         cert_pem: < Otel Provider Mtls cert_pem >
